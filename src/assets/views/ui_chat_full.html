@@ -1,0 +1,211 @@
+<!-- Page Content -->
+<!-- Chat layout and demo functionality is initialized in js/controllers.js -> UiChatCtrl Controller -->
+<div class="js-chat-container content content-full" data-chat-mode="full">
+    <!-- Full Chat -->
+    <div class="block remove-margin-b">
+        <ul class="js-chat-head nav nav-tabs" data-js-tabs>
+            <li class="active">
+                <a href="#chat-window1">
+                    <img class="img-avatar img-avatar16" src="assets/img/avatars/avatar6.jpg" alt="">
+                    <span class="push-5-l">Evelyn</span>
+                </a>
+            </li>
+            <li>
+                <a href="#chat-window2">
+                    <img class="img-avatar img-avatar16" src="assets/img/avatars/avatar11.jpg" alt="">
+                    <span class="push-5-l">John</span>
+                </a>
+            </li>
+            <li class="pull-right">
+                <a href="#chat-people">
+                    <i class="si si-users"></i>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content overflow-hidden">
+            <!-- Chat Window 1 -->
+            <div class="tab-pane fade in active" id="chat-window1">
+                <div class="js-chat-talk overflow-y-auto block-content block-content-full" data-chat-id="1">
+                    <!-- Messages -->
+                    <div class="font-s12 text-muted text-center push-20-t push-15"><em>Yesterday</em></div>
+                    <div class="block block-rounded block-transparent push-15 push-50-l">
+                        <div class="block-content block-content-full block-content-mini bg-gray-lighter">Hi there!</div>
+                    </div>
+                    <div class="block block-rounded block-transparent push-15 push-50-l">
+                        <div class="block-content block-content-full block-content-mini bg-gray-lighter">How are you?</div>
+                    </div>
+                    <div class="font-s12 text-muted text-center push-20-t push-10"><em>Today</em></div>
+                    <div class="block block-rounded block-transparent push-15 push-50-r">
+                        <div class="block-content block-content-full block-content-mini bg-gray-light">I'm fine, thanks! I hope you are doing great, too!</div>
+                    </div>
+                    <!-- END Messages -->
+                </div>
+                <div class="js-chat-form block-content block-content-full block-content-mini">
+                    <form action="index.html" method="post">
+                        <input class="js-chat-input form-control" type="text" data-target-chat-id="1" placeholder="Type a message and hit enter..">
+                    </form>
+                </div>
+            </div>
+            <!-- END Chat Window 1 -->
+
+            <!-- Chat Window 2 -->
+            <div class="tab-pane fade" id="chat-window2">
+                <div class="js-chat-talk overflow-y-auto block-content block-content-full" data-chat-id="2">
+                    <!-- Messages -->
+                    <div class="font-s12 text-muted text-center push-20-t push-15"><em>3 hours ago</em></div>
+                    <div class="block block-rounded block-transparent push-15 push-50-l">
+                        <div class="block-content block-content-full block-content-mini bg-gray-lighter">Hi Admin!</div>
+                    </div>
+                    <div class="block block-rounded block-transparent push-15 push-50-l">
+                        <div class="block-content block-content-full block-content-mini bg-gray-lighter">Can you help me out?</div>
+                    </div>
+                    <div class="block block-rounded block-transparent push-15 push-50-l">
+                        <div class="block-content block-content-full block-content-mini bg-gray-lighter">I'm building a new app and I would like your opinion!</div>
+                    </div>
+                    <div class="font-s12 text-muted text-center push-20-t push-10"><em>1 hour ago</em></div>
+                    <div class="block block-rounded block-transparent push-15 push-50-r">
+                        <div class="block-content block-content-full block-content-mini bg-gray-light">Hey John, sure thing, feel free to let me know!</div>
+                    </div>
+                    <!-- END Messages -->
+                </div>
+                <div class="js-chat-form block-content block-content-full block-content-mini">
+                    <form action="index.html" method="post">
+                        <input class="js-chat-input form-control" type="text" data-target-chat-id="2" placeholder="Type a message and hit enter..">
+                    </form>
+                </div>
+            </div>
+            <!-- END Chat Window 2 -->
+
+            <!-- People -->
+            <div class="tab-pane fade fade-up" id="chat-people">
+                <div class="js-chat-people overflow-y-auto block-content block-content-full">
+                    <div class="row remove-margin">
+                        <div class="col-sm-4">
+                            <h3 class="text-success push-20-t push">Online</h3>
+                            <ul class="nav-users push-10-t push">
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar4.jpg" alt="">
+                                        <i class="fa fa-circle text-success"></i> Megan Dean
+                                        <div class="font-w400 text-muted"><small>Web Designer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar15.jpg" alt="">
+                                        <i class="fa fa-circle text-success"></i> Jeremy Fuller
+                                        <div class="font-w400 text-muted"><small>Graphic Designer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar6.jpg" alt="">
+                                        <i class="fa fa-circle text-success"></i> Judy Alvarez
+                                        <div class="font-w400 text-muted"><small>Photographer</small></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <h3 class="text-warning push-20-t push">Away</h3>
+                            <ul class="nav-users push-10-t push">
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar5.jpg" alt="">
+                                        <i class="fa fa-circle text-warning"></i> Lisa Gordon
+                                        <div class="font-w400 text-muted"><small>Web Designer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar9.jpg" alt="">
+                                        <i class="fa fa-circle text-warning"></i> Keith Simpson
+                                        <div class="font-w400 text-muted"><small>Graphic Designer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar4.jpg" alt="">
+                                        <i class="fa fa-circle text-warning"></i> Julia Cole
+                                        <div class="font-w400 text-muted"><small>Photographer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar14.jpg" alt="">
+                                        <i class="fa fa-circle text-warning"></i> Roger Hart
+                                        <div class="font-w400 text-muted"><small>Web Developer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar1.jpg" alt="">
+                                        <i class="fa fa-circle text-warning"></i> Laura Bell
+                                        <div class="font-w400 text-muted"><small>Photographer</small></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <h3 class="text-muted push-20-t push">Offline</h3>
+                            <ul class="nav-users push-10-t push">
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar2.jpg" alt="">
+                                        <i class="fa fa-circle text-muted"></i> Denise Watson
+                                        <div class="font-w400 text-muted"><small>Web Designer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar16.jpg" alt="">
+                                        <i class="fa fa-circle text-muted"></i> Ronald George
+                                        <div class="font-w400 text-muted"><small>Web Developer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar5.jpg" alt="">
+                                        <i class="fa fa-circle text-muted"></i> Emma Cooper
+                                        <div class="font-w400 text-muted"><small>Photographer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar16.jpg" alt="">
+                                        <i class="fa fa-circle text-muted"></i> Roger Hart
+                                        <div class="font-w400 text-muted"><small>Graphic Designer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar4.jpg" alt="">
+                                        <i class="fa fa-circle text-muted"></i> Ann Parker
+                                        <div class="font-w400 text-muted"><small>Web Designer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar11.jpg" alt="">
+                                        <i class="fa fa-circle text-muted"></i> Ethan Howard
+                                        <div class="font-w400 text-muted"><small>Graphic Designer</small></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img class="img-avatar" src="assets/img/avatars/avatar1.jpg" alt="">
+                                        <i class="fa fa-circle text-muted"></i> Rebecca Gray
+                                        <div class="font-w400 text-muted"><small>Web Developer</small></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END People -->
+        </div>
+    </div>
+    <!-- END Full Chat -->
+</div>
+<!-- END Page Content -->

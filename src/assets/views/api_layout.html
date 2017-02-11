@@ -1,0 +1,251 @@
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <h1 class="page-heading push">
+        Layout API <small>Powerful layout that you can manipulate any way you want.</small>
+    </h1>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Layout API  Block -->
+    <div class="block">
+        <div class="block-content">
+            <!-- Layout API, just by updating oneui.settings -->
+            <p>You can just update main application’s variables to update the layout.</p>
+            <div class="table-responsive push">
+                <table class="table table-bordered remove-margin-b">
+                    <thead>
+                        <tr>
+                            <th>Live</th>
+                            <th>ng-click</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="active">
+                            <th colspan="2">Sidebar Visibility <span class="font-s13 text-muted">Screen width greater than 991px</span></th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                <button class="btn btn-sm btn-primary" type="button" ng-click="oneui.settings.sidebarOpen = ! oneui.settings.sidebarOpen" data-js-blur>Toggle Sidebar</button>
+                            </td>
+                            <td style="width: 75%;">
+                                <code>oneui.settings.sidebarOpen = ! oneui.settings.sidebarOpen</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-primary" type="button" ng-click="oneui.settings.sidebarOpen = true" data-js-blur>Open Sidebar</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sidebarOpen = true</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-primary" type="button" ng-click="oneui.settings.sidebarOpen = false" data-js-blur>Close Sidebar</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sidebarOpen = false</code>
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <th colspan="2">Sidebar Visibility <span class="font-s13 text-muted">Screen width lower than 992px</span></th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                <button class="btn btn-sm btn-primary" type="button" ng-click="oneui.settings.sidebarOpenXs = ! oneui.settings.sidebarOpenXs" data-js-blur>Toggle Sidebar</button>
+                            </td>
+                            <td style="width: 75%;">
+                                <code>oneui.settings.sidebarOpenXs = ! oneui.settings.sidebarOpenXs</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-primary" type="button" ng-click="oneui.settings.sidebarOpenXs = true" data-js-blur>Open Sidebar</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sidebarOpenXs = true</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-primary" type="button" ng-click="oneui.settings.sidebarOpenXs = false" data-js-blur>Close Sidebar</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sidebarOpenXs = false</code>
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <th colspan="2">Mini Sidebar Mode <span class="font-s13 text-muted">Screen width greater than 991px</span></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-warning" type="button" ng-click="oneui.settings.sidebarMini = ! oneui.settings.sidebarMini" data-js-blur>Toggle Mini Sidebar Mode</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sidebarMini = ! oneui.settings.sidebarMini</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-warning" type="button" ng-click="oneui.settings.sidebarMini = true" data-js-blur>Enable Mini Sidebar</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sidebarMini = true</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-warning" type="button" ng-click="oneui.settings.sidebarMini = false" data-js-blur>Disable Mini Sidebar</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sidebarMini = false</code>
+                            </td>
+                        </tr>
+
+                        <tr class="active">
+                            <th colspan="2">Sidebar Position</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-danger" type="button" ng-click="oneui.settings.sidebarLeft = ! oneui.settings.sidebarLeft" data-js-blur>Toggle Sidebar Position</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sidebarLeft = ! oneui.settings.sidebarLeft</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-danger" type="button" ng-click="oneui.settings.sidebarLeft = true" data-js-blur>Left Sidebar Position</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sidebarLeft = true</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-danger" type="button" ng-click="oneui.settings.sidebarLeft = false" data-js-blur>Right Sidebar Position</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sidebarLeft = false</code>
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <th colspan="2">Side Overlay Visibility</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-info" type="button" ng-click="oneui.settings.sideOverlayOpen = ! oneui.settings.sideOverlayOpen" data-js-blur>Toggle Side Overlay</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sideOverlayOpen = ! oneui.settings.sideOverlayOpen</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-info" type="button" ng-click="oneui.settings.sideOverlayOpen = true" data-js-blur>Open Side Overlay</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sideOverlayOpen = true</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-info" type="button" ng-click="oneui.settings.sideOverlayOpen = false" data-js-blur>Close Side Overlay</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sideOverlayOpen = false</code>
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <th colspan="2">Side Overlay Hover Mode <span class="font-s13 text-muted">Screen width greater than 991px</span></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-success" type="button" ng-click="oneui.settings.sideOverlayHover = ! oneui.settings.sideOverlayHover" data-js-blur>Toggle Side Overlay Hover Mode</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sideOverlayHover = ! oneui.settings.sideOverlayHover</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-success" type="button" ng-click="oneui.settings.sideOverlayHover = true" data-js-blur>Enable Side Overlay Hover Mode</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sideOverlayHover = true</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-success" type="button" ng-click="oneui.settings.sideOverlayHover = false" data-js-blur>Disabled Side Overlay Hover Mode</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sideOverlayHover = false</code>
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <th colspan="2">Header Fixed Mode</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-warning" type="button" ng-click="oneui.settings.headerFixed = ! oneui.settings.headerFixed" data-js-blur>Toggle Header Fixed Mode</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.headerFixed = ! oneui.settings.headerFixed</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-warning" type="button" ng-click="oneui.settings.headerFixed = true" data-js-blur>Enable Header Fixed Mode</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.headerFixed = true</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-warning" type="button" ng-click="oneui.settings.headerFixed = false" data-js-blur>Disable Header Fixed Mode</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.headerFixed = false</code>
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <th colspan="2">Custom Side Scrolling Mode <span class="font-s13 text-muted">Screen width greater than 991px</span></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-primary" type="button" ng-click="oneui.settings.sideScroll = ! oneui.settings.sideScroll" data-js-blur>Toggle Custom Side Scroll</button>
+
+                            </td>
+                            <td>
+                                <code>oneui.settings.sideScroll = ! oneui.settings.sideScroll</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-primary" type="button" ng-click="oneui.settings.sideScroll = true" data-js-blur>Enable Custom Side Scroll</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sideScroll = true</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-primary" type="button" ng-click="oneui.settings.sideScroll = false" data-js-blur>Disable Custom Side Scroll</button>
+                            </td>
+                            <td>
+                                <code>oneui.settings.sideScroll = false</code>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END Layout API -->
+        </div>
+    </div>
+    <!-- END Layout API Block -->
+</div>
+<!-- END Page Content -->

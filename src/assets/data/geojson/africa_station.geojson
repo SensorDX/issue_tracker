@@ -1,0 +1,2443 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [
+                    4.39261,
+                    50.823204,
+                    87.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "Belgium",
+                "Date of installation": "2/11/2016",
+                "Mount height (meters)": "87",
+                "Site name": "VUB Campus",
+                "Station ID": "TA00001",
+                "Station site type": "University",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    1.2816,
+                    12.2358,
+                    320.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "Burkina Faso",
+                "Date of installation": "12/19/2015",
+                "Mount height (meters)": "10",
+                "Site name": "R\u00e9seau MARP",
+                "Station ID": "TA00002",
+                "Station site type": "Multi-story building",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    15.0455833,
+                    12.1385,
+                    290.2
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "CHAD",
+                "Date of installation": "3/4/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Hassan Djamous Airport Ndjamena",
+                "Station ID": "TA00003",
+                "Station site type": "Airport",
+                "Station status": "Closed",
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    15.209333,
+                    11.568833,
+                    314.2
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "CHAD",
+                "Date of installation": "3/4/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Kin Kin",
+                "Station ID": "TA00004",
+                "Station site type": "Village",
+                "Station status": "Closed",
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    15.112333,
+                    12.017333,
+                    308.1
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "CHAD",
+                "Date of installation": "3/4/2015",
+                "Mount height (meters)": "2",
+                "Site name": "University of Ndjamena, Toukra Campus",
+                "Station ID": "TA00005",
+                "Station site type": "University",
+                "Station status": "Closed",
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    14.6928056,
+                    13.5028611,
+                    285.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "CHAD",
+                "Date of installation": "4/2/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Bol Matafo1",
+                "Station ID": "TA00006",
+                "Station site type": "Government office",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    14.6928056,
+                    13.5028611,
+                    285.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "CHAD",
+                "Date of installation": "4/2/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Bol Matafo2",
+                "Station ID": "TA00007",
+                "Station site type": "Government office",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    15.0457028,
+                    12.1385972,
+                    297.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "CHAD",
+                "Date of installation": "4/5/2016",
+                "Mount height (meters)": "2",
+                "Site name": "N'Djamena Airport",
+                "Station ID": "TA00008",
+                "Station site type": "Government office",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    15.0457972,
+                    12.1386222,
+                    297.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "CHAD",
+                "Date of installation": "4/5/2016",
+                "Mount height (meters)": "2",
+                "Site name": "N'Djamena Airport",
+                "Station ID": "TA00009",
+                "Station site type": "Government office",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    15.2092889,
+                    11.5688389,
+                    307.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "CHAD",
+                "Date of installation": "4/6/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Kin Kin Village",
+                "Station ID": "TA00010",
+                "Station site type": "Village",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    15.2093111,
+                    11.5688056,
+                    307.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "CHAD",
+                "Date of installation": "4/6/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Kin Kin Village",
+                "Station ID": "TA00011",
+                "Station site type": "Village",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.8815226,
+                    5.1525726,
+                    113.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/17/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Benso SHS",
+                "Station ID": "TA00012",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.1339285,
+                    5.4468564,
+                    63.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/18/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Prestea SHTS",
+                "Station ID": "TA00013",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.2668173,
+                    5.643022,
+                    147.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/18/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Manso Amenfi NVTI",
+                "Station ID": "TA00014",
+                "Station site type": "National vocational training institute",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.426433,
+                    5.8076924,
+                    146.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/19/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Asankragwa SHS",
+                "Station ID": "TA00015",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.8256169,
+                    5.8112918,
+                    139.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/19/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Nana Brentu SHTS Enchi",
+                "Station ID": "TA00016",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.097519,
+                    7.1882572,
+                    366.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/24/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Nana Yaa Kesse SHS Duayaw Nkwanta",
+                "Station ID": "TA00017",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.4760686,
+                    7.4130054,
+                    359.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/25/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Sacred Heart SHS Nsoatre",
+                "Station ID": "TA00018",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.7822522,
+                    7.224886,
+                    319.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/25/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Adehyeman SHS Amasu",
+                "Station ID": "TA00019",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.1859949,
+                    7.3896776,
+                    362.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/25/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Chiraa SHS",
+                "Station ID": "TA00020",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.3961548,
+                    6.9857812,
+                    273.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/26/2015",
+                "Mount height (meters)": "2",
+                "Site name": "OLA Girls SS Kenyasi",
+                "Station ID": "TA00021",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.3538655,
+                    6.9368923,
+                    235.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/26/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Hwidiem SHS",
+                "Station ID": "TA00022",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.9084677,
+                    5.4694703,
+                    155.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/18/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Huni Valley SHS",
+                "Station ID": "TA00023",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -2.82625,
+                    6.345183,
+                    172.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/28/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Juaboso SHS",
+                "Station ID": "TA00024",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -3.097246,
+                    6.664616,
+                    228.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "8/28/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Bia SHTS Debiso",
+                "Station ID": "TA00025",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -0.24447074,
+                    5.5730222,
+                    57.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "9/1/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Accra Academy School, Accra",
+                "Station ID": "TA00026",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.568333333,
+                    6.684166667,
+                    302.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "11/25/2014",
+                "Mount height (meters)": "2",
+                "Site name": "KNUST JHS Kumasi",
+                "Station ID": "TA00027",
+                "Station site type": "Junior High School",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.090277778,
+                    10.88472222,
+                    200.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "11/22/2014",
+                "Mount height (meters)": "2",
+                "Site name": "University for Development Studies, Navrongo Campus",
+                "Station ID": "TA00028",
+                "Station site type": "University",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.052630556,
+                    6.1871,
+                    204.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "4/17/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Obuasi TSHS, Obuasi",
+                "Station ID": "TA00029",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.359444444,
+                    6.22,
+                    239.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "4/13/2015",
+                "Mount height (meters)": "2",
+                "Site name": "CRIG, Tafo",
+                "Station ID": "TA00030",
+                "Station site type": "JHS and Research Centre",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -0.669077778,
+                    6.654452778,
+                    503.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "4/14/2015",
+                "Mount height (meters)": "2",
+                "Site name": "St. Joseph Technical School, Kwahu Tafo",
+                "Station ID": "TA00031",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.515,
+                    6.851388889,
+                    350.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "4/16/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Mountain High School, Kona, Ashanti Region",
+                "Station ID": "TA00032",
+                "Station site type": "JHS",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -0.146602778,
+                    6.406175,
+                    393.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "4/14/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Asesewaa Senior High School, Asesewaa",
+                "Station ID": "TA00033",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.520297222,
+                    6.302466667,
+                    250.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "4/17/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Dompoase Senior High School, Dompoase",
+                "Station ID": "TA00034",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.417355556,
+                    6.283841667,
+                    232.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "4/17/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Bodwesango Senior High School, Bodwesango",
+                "Station ID": "TA00035",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.166888889,
+                    6.653675,
+                    278.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "4/18/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Asante Akyem Technology Institute",
+                "Station ID": "TA00036",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.282597222,
+                    6.396666667,
+                    218.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "4/19/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Ofoase Senior HTS",
+                "Station ID": "TA00037",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -1.052630556,
+                    6.619158333,
+                    204.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "4/17/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Bompata Presby SHS, Bompata",
+                "Station ID": "TA00038",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -0.1645213,
+                    5.6511025,
+                    19.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "GHANA",
+                "Date of installation": "5/20/2016",
+                "Mount height (meters)": "2",
+                "Site name": "GMet HQ",
+                "Station ID": "TA00039",
+                "Station site type": "Government office",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.3979917,
+                    -1.1232833,
+                    1393.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "8/1/2012",
+                "Mount height (meters)": "5",
+                "Site name": "Lela Primary School",
+                "Station ID": "TA00040",
+                "Station site type": "Primary school",
+                "Station status": "Closed",
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.3979917,
+                    -1.1232833,
+                    1393.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "3/26/2014",
+                "Mount height (meters)": "5",
+                "Site name": "Lela Primary School",
+                "Station ID": "TA00041",
+                "Station site type": "Primary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.6072611,
+                    -0.5820111,
+                    1407.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "6/18/2014",
+                "Mount height (meters)": "2",
+                "Site name": "Koyoo Secondary School",
+                "Station ID": "TA00042",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.2556472,
+                    -0.5241139,
+                    1281.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "3/27/2015",
+                "Mount height (meters)": "2.5",
+                "Site name": "Osodo Secondary School",
+                "Station ID": "TA00043",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.8623972,
+                    -1.6533556,
+                    1643.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "5/28/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Woodlands 2000 Trust",
+                "Station ID": "TA00044",
+                "Station site type": "Woodlands plot",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    35.1737111,
+                    0.7579861,
+                    1946.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "6/9/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Kipsomba Secondary School",
+                "Station ID": "TA00045",
+                "Station site type": "Primary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.9201361,
+                    0.9141056,
+                    1757.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "6/9/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Bubayi-Saboti Farm",
+                "Station ID": "TA00046",
+                "Station site type": "Commercial farm",
+                "Station status": "Closed",
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    38.0407667,
+                    -2.38855,
+                    791.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "6/17/2015",
+                "Mount height (meters)": "2.5",
+                "Site name": "Dwa Estate",
+                "Station ID": "TA00047",
+                "Station site type": "Commercial farm",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    37.0455778,
+                    -1.0717306,
+                    1520.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "8/4/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Mang'u High School",
+                "Station ID": "TA00048",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.7602,
+                    -1.3018389,
+                    1798.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "8/17/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Kenya Meteorological Department",
+                "Station ID": "TA00049",
+                "Station site type": "Government office",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.1699806,
+                    -0.2871222,
+                    1936.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "8/28/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Moi Forces Academy",
+                "Station ID": "TA00050",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    37.6563028,
+                    0.0630611,
+                    1607.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "8/31/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Kaaga Boys High School",
+                "Station ID": "TA00051",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    37.1428194,
+                    0.0459861,
+                    2016.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "8/31/2015",
+                "Mount height (meters)": "7",
+                "Site name": "Equinox Horticulture",
+                "Station ID": "TA00052",
+                "Station site type": "Commercial farm",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.5874972,
+                    -0.5008389,
+                    2523.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "9/2/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Karima Girls High School",
+                "Station ID": "TA00053",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    35.8923361,
+                    -1.0946806,
+                    1922.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "9/9/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Ole Tipis Girls Secondary School",
+                "Station ID": "TA00054",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.4601444,
+                    -0.5376778,
+                    1221.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "3/23/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Homa Bay High School",
+                "Station ID": "TA00055",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    35.728897,
+                    -0.2393417,
+                    2508.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "9/23/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Molo Academy",
+                "Station ID": "TA00056",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    37.1455851,
+                    -0.7216559,
+                    1376.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "10/3/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Murang'a High School",
+                "Station ID": "TA00057",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.8564253,
+                    -1.2530375,
+                    1636.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "10/8/2015",
+                "Mount height (meters)": "2",
+                "Site name": "St. Scholastica Catholic School",
+                "Station ID": "TA00058",
+                "Station site type": "Primary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    35.2507188,
+                    -0.3793746,
+                    1968.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "10/16/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Kipsigis Girls High School",
+                "Station ID": "TA00059",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    35.0853626,
+                    1.2734194,
+                    2063.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "10/21/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Nasokol Girls High School",
+                "Station ID": "TA00060",
+                "Station site type": "Secondary school",
+                "Station status": "Closed",
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    35.1166889,
+                    0.2030556,
+                    2015.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/4/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Kapsabet Boys High School",
+                "Station ID": "TA00061",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.7053857,
+                    0.7939077,
+                    1721.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/4/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Kamusinga Friends Boys Secondary School",
+                "Station ID": "TA00062",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.7684636,
+                    0.2180637,
+                    1566.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/5/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Mukumu Girls High School",
+                "Station ID": "TA00063",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.6623375,
+                    -1.2654376,
+                    1996.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/5/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Alliance Girls High School",
+                "Station ID": "TA00064",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    37.6211448,
+                    -1.7935253,
+                    1184.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/12/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Makueni Boys School",
+                "Station ID": "TA00065",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    39.4409797,
+                    -4.373456,
+                    132.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/19/2015",
+                "Mount height (meters)": "2.5",
+                "Site name": "Base Titanium Mine",
+                "Station ID": "TA00066",
+                "Station site type": "Mine",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    39.4305637,
+                    -4.4062421,
+                    55.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/19/2015",
+                "Mount height (meters)": "2.5",
+                "Site name": "Base Titanium Dam",
+                "Station ID": "TA00067",
+                "Station site type": "Mine",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    39.3718988,
+                    -4.3117683,
+                    243.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/20/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Shimba Hills Kidongo Gate",
+                "Station ID": "TA00068",
+                "Station site type": "National park",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    39.4828099,
+                    -4.4607798,
+                    23.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/20/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Msambweni SCAO",
+                "Station ID": "TA00069",
+                "Station site type": "Government office",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    39.6568773,
+                    -4.0789825,
+                    14.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/20/2015",
+                "Mount height (meters)": "3",
+                "Site name": "Likoni School for the Blind",
+                "Station ID": "TA00070",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.9338194,
+                    -0.0717111,
+                    1840.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/19/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Thome Boys Secondary School",
+                "Station ID": "TA00071",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    37.0744122,
+                    -0.5660801,
+                    1722.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "11/19/2015",
+                "Mount height (meters)": "2",
+                "Site name": "South Tetu Girls High School",
+                "Station ID": "TA00072",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.9546417,
+                    -0.2843613,
+                    1170.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "12/3/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Urudi Mixed Secondary School",
+                "Station ID": "TA00073",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    35.0684057,
+                    -0.3830663,
+                    1765.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "12/3/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Musaria Secondary School",
+                "Station ID": "TA00074",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.3769356,
+                    -0.2001778,
+                    2421.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "1/11/2016",
+                "Mount height (meters)": "2.5",
+                "Site name": "Nyandarua High School",
+                "Station ID": "TA00075",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.8184056,
+                    -1.0876139,
+                    1767.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "1/28/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Waruhiu ATC(Agriculture Training Centre)",
+                "Station ID": "TA00076",
+                "Station site type": "Farmers training centre",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    35.0853626,
+                    1.2734194,
+                    2063.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "5/11/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Nasokol Girls High School",
+                "Station ID": "TA00077",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.9201361,
+                    0.9141056,
+                    1757.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "KENYA",
+                "Date of installation": "4/8/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Bubayi-Saboti Farm",
+                "Station ID": "TA00078",
+                "Station site type": "Commercial farm",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -7.969808,
+                    12.592952,
+                    8.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "MALI",
+                "Date of installation": "10/11/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Amadou TANGARA",
+                "Station ID": "TA00079",
+                "Station site type": "Chez moi",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -4.7839194,
+                    13.2418111,
+                    282.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "MALI",
+                "Date of installation": "4/13/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Somo",
+                "Station ID": "TA00080",
+                "Station site type": "Primary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -4.7338333,
+                    13.3297778,
+                    287.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "MALI",
+                "Date of installation": "4/13/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Boutenisso",
+                "Station ID": "TA00081",
+                "Station site type": "Primary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -4.4264472,
+                    12.9966222,
+                    328.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "MALI",
+                "Date of installation": "4/13/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Boumboro",
+                "Station ID": "TA00082",
+                "Station site type": "Primary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -4.5952139,
+                    13.2819806,
+                    2.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "MALI",
+                "Date of installation": "4/14/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Bolimasso",
+                "Station ID": "TA00083",
+                "Station site type": "Small-scale farm",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -5.4766694,
+                    12.2975389,
+                    409.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "MALI",
+                "Date of installation": "4/20/2016",
+                "Mount height (meters)": "2",
+                "Site name": "N'goutjina",
+                "Station ID": "TA00084",
+                "Station site type": "Health center",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -5.4927806,
+                    12.2622194,
+                    404.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "MALI",
+                "Date of installation": "4/16/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Finkoloni",
+                "Station ID": "TA00085",
+                "Station site type": "Farmers Training Center ",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -5.3690889,
+                    12.3215694,
+                    359.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "MALI",
+                "Date of installation": "4/16/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Kaniko",
+                "Station ID": "TA00086",
+                "Station site type": "Small-scale farm",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -5.7841194,
+                    11.6318306,
+                    373.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "MALI",
+                "Date of installation": "10/6/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Siramana",
+                "Station ID": "TA00087",
+                "Station site type": "Village",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    4.27085,
+                    52.080697,
+                    12.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "NETHERLANDS",
+                "Date of installation": "6/11/2015",
+                "Mount height (meters)": "1.5",
+                "Site name": "Populier",
+                "Station ID": "TA00088",
+                "Station site type": "Primary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    4.30801384,
+                    52.0853006,
+                    30.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "NETHERLANDS",
+                "Date of installation": "5/12/2015",
+                "Mount height (meters)": "2.5",
+                "Site name": "Haagsche Schoolvereeniging",
+                "Station ID": "TA00089",
+                "Station site type": "Primary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    13.2122,
+                    11.809969,
+                    336.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "NIGERIA",
+                "Date of installation": "4/2/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Maiduguri",
+                "Station ID": "TA00090",
+                "Station site type": "University",
+                "Station status": "Closed",
+                "marker-color": "#ff0000",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    13.20978,
+                    11.81004,
+                    321.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "NIGERIA",
+                "Date of installation": "6/8/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Unimaid WS2",
+                "Station ID": "TA00091",
+                "Station site type": "University",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    13.20971,
+                    11.80998,
+                    324.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "NIGERIA",
+                "Date of installation": "6/8/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Unimaid WS1",
+                "Station ID": "TA00092",
+                "Station site type": "University",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    30.2378422,
+                    -2.2230288,
+                    1352.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "RWANDA",
+                "Date of installation": "11/26/2015",
+                "Mount height (meters)": "3.5",
+                "Site name": "Gashora Girls Academy",
+                "Station ID": "TA00093",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -16.946375,
+                    14.763758,
+                    60.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "SENEGAL",
+                "Date of installation": "6/28/2012",
+                "Mount height (meters)": "2",
+                "Site name": "Thies Town Station",
+                "Station ID": "TA00095",
+                "Station site type": "Engineering school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    30.402861,
+                    -29.6277778,
+                    673.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "SOUTH AFRICA",
+                "Date of installation": "1/11/2015",
+                "Mount height (meters)": "2",
+                "Site name": "AIM UKZN",
+                "Station ID": "TA00096",
+                "Station site type": "University",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.77194,
+                    -3.312222,
+                    1938.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "Tanzania",
+                "Date of installation": "5/11/2016",
+                "Mount height (meters)": "2.5",
+                "Site name": "Ndoombo",
+                "Station ID": "TA00097",
+                "Station site type": "Single-story building",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    36.79572,
+                    -3.401667,
+                    1199.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "Tanzania",
+                "Date of installation": "4/7/2016",
+                "Mount height (meters)": "1.8",
+                "Site name": "NM-AIST",
+                "Station ID": "TA00098",
+                "Station site type": "University",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    32.4752694,
+                    0.6106,
+                    1223.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "UGANDA",
+                "Date of installation": "7/2/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Ndejje Senior Secondary School",
+                "Station ID": "TA00099",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    32.4725,
+                    0.0486111,
+                    1149.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "UGANDA",
+                "Date of installation": "7/10/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Entebbe WME",
+                "Station ID": "TA00100",
+                "Station site type": "Government office",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    33.2437194,
+                    0.4834972,
+                    1346.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "UGANDA",
+                "Date of installation": "7/4/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Wanyange Girls School",
+                "Station ID": "TA00101",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    34.0461694,
+                    0.7569194,
+                    1119.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "UGANDA",
+                "Date of installation": "8/3/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Busitema University",
+                "Station ID": "TA00102",
+                "Station site type": "University",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    32.4622806,
+                    1.2102444,
+                    1074.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "UGANDA",
+                "Date of installation": "7/8/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Kazwama Health Center",
+                "Station ID": "TA00103",
+                "Station site type": "Health center",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    32.0373083,
+                    0.4007722,
+                    1224.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "UGANDA",
+                "Date of installation": "7/5/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Mityana Secondary School",
+                "Station ID": "TA00104",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    31.706169,
+                    1.685136,
+                    1149.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "UGANDA",
+                "Date of installation": "7/23/2013",
+                "Mount height (meters)": "6",
+                "Site name": "Masindi Water Trust Station",
+                "Station ID": "TA00105",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -123.289175,
+                    44.550053,
+                    71.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "USA",
+                "Date of installation": "9/18/2015",
+                "Mount height (meters)": "2",
+                "Site name": "Adams Elementary School",
+                "Station ID": "TA00106",
+                "Station site type": "Primary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    -116.814314,
+                    43.543203,
+                    701.0
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "Country": "USA",
+                "Date of installation": "11/4/2016",
+                "Mount height (meters)": "2",
+                "Site name": "Marsing School Idaho",
+                "Station ID": "TA00107",
+                "Station site type": "Secondary school",
+                "Station status": "Active",
+                "marker-color": "#00ff00",
+                "marker-size": "medium",
+                "marker-symbol": "circle"
+            },
+            "type": "Feature"
+        }
+    ],
+    "type": "FeatureCollection"
+}
