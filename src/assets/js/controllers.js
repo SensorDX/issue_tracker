@@ -6,6 +6,185 @@
  */
 
 // Dashboard Content Controller
+App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function ($scope, $window, $http, $location) {
+		$scope.issue = {
+			title: null,
+			description: null,
+			assignee: null,
+			labels: [],
+			ids: [],
+			priority: null,
+			station: null
+		};
+		$scope.updateLabels = function(label) {
+			console.log(label);
+			$scope.issue.labels = label;
+		};
+		$scope.tabs = {
+			openCount: '0',
+			closeCount: '0',
+			allCount: '0'
+		}
+		$scope.selected = [];
+		$scope.isCheckbox = function() {
+			return $scope.selected.length > 0;
+		}
+		$scope.toggle = function (item, list) {
+			var idx = list.indexOf(item);
+			if (idx > -1) {
+				list.splice(idx, 1);
+			}
+			else {
+				list.push(item);
+			}
+			$scope.issue.ids = $scope.selected;
+			console.log($scope.issue.ids);
+		};
+		$scope.exists = function (item, list) {
+			return list.indexOf(item) > -1;
+		};
+
+		$scope.isIndeterminate = function() {
+			return ($scope.selected.length !== 0 &&
+					$scope.selected.length !== $scope.items.length);
+		};
+
+		$scope.isChecked = function() {
+			return $scope.selected.length === $scope.items.length;
+		};
+
+		$scope.toggleAll = function() {
+			if ($scope.selected.length === $scope.items.length) {
+				$scope.selected = [];
+			} else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
+				$scope.selected = $scope.items.slice(0);
+			}
+		};
+
+		/**
+		 * Fields to be updated
+		 */
+		$scope.loadLabels = function() {
+			$http.get('/api/labels?type=array').then(function(response) {
+				$scope.labels = response.data;
+			}, function(response) {
+				console.log(response);
+			});
+		};
+		$scope.loadAssignees = function() {
+			$http.get('/api/users?type=array').then(function(response) {
+				$scope.assignees = response.data;
+			}, function(response) {
+				console.log(response);
+			});
+		};
+		$scope.priorities =  [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		$scope.stations = [
+			{ name: 'Station 1'},
+			{ name: 'Station 2'},
+			{ name: 'Station 3'},
+			{ name: 'Station 4'},
+			{ name: 'Station 5'},
+			{ name: 'Station 6'},
+			{ name: 'Station 7'},
+			{ name: 'Station 8'},
+			{ name: 'Station 9'}
+		];
+
+		/**
+		 * GET issues info
+		 */
+		$http.get('/api/issues?status=open&type=modified').then(function(response) {
+			$scope.openIssues = response.data['data'];
+			$scope.tabs.openCount = response.data['count'];
+		}, function(response) {
+			console.log(response);
+		});
+		$http.get('/api/issues?status=close&type=modified').then(function(response) {
+			$scope.closeIssues = response.data['data'];
+			$scope.tabs.closeCount = response.data['count'];
+		}, function(response) {
+			console.log(response);
+		});
+		$http.get('/api/issues?status=all&type=modified').then(function(response) {
+			$scope.allIssues = response.data['data'];
+			$scope.tabs.allCount = response.data['count'];
+		}, function(response) {
+			console.log(response);
+		});
+
+		/**
+		 * UPDATE issue
+		 */
+		$scope.updateIssue = function(issue, selected) {
+						$window.console.log('updating ...');
+				$http.put('/api/issues', issue)
+					.then(function(response) {
+						$window.console.log(response);
+					},
+					function(response) {
+						$window.console.log(response);
+					});
+				$location.path('newissues');
+		};
+
+}]);
+
+App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', function ($scope, $http, $window, $location) {
+		$scope.issue = {
+			title: '',
+			description: '',
+			assignee: '',
+			labels: [],
+			priority: '',
+			station: '',
+			due_date: ''
+		};
+		$scope.updateLabels = function(label) {
+			console.log(label);
+			$scope.issue.labels = label;
+		};
+		$scope.loadAssignees = function() {
+			$http.get('/api/users?type=array').then(function(response) {
+				$scope.assignees = response.data;
+			}, function(response) {
+				console.log(response);
+			});
+		};
+		$scope.loadLabels = function() {
+			$http.get('/api/labels?type=array').then(function(response) {
+				$scope.labels = response.data;
+			}, function(response) {
+				console.log(response);
+			});
+				console.log($scope.labels);
+		};
+
+		$scope.stations = [
+			{ name: 'Station 1'},
+			{ name: 'Station 2'},
+			{ name: 'Station 3'},
+			{ name: 'Station 4'},
+			{ name: 'Station 5'},
+			{ name: 'Station 6'},
+			{ name: 'Station 7'},
+			{ name: 'Station 8'},
+			{ name: 'Station 9'}
+		];
+		$scope.priorities =  [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		$scope.submitIssue = function(issue) {
+			$http.post('/api/issues/new', issue)
+				.then(function(response) {
+					$window.console.log('success');
+					$location.path('issues');
+				},
+				function(response) {
+					$window.console.log('error');
+				})
+		};
+		$scope.console = $window.console;
+}]);
+
 App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', function ($scope, $localStorage, $http, $window) {
 				/*
 				 * Init Lealeft.js

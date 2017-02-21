@@ -5,6 +5,7 @@ var router = express.Router();							// use express router for our routes
 var morgan = require('morgan');             // log requests to the console
 var bodyParser = require('body-parser');    // pull information from HTML POST
 var port = process.env.PORT || 3000;
+var db = "mongodb://localhost/issue_tracker";
 
 // configuration ===============================================================
 app.use(express.static(__dirname + '/src'));                 		// set the static files location /public/img will be /img for users

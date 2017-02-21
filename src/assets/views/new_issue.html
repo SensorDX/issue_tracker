@@ -1,0 +1,112 @@
+<style>
+.leaflet-container {                                                                                                                                 
+	  height: 480px;
+}
+.bootstrap-select {
+	float: left !important;
+}
+.popover-title {
+	text-align: center !important;
+}
+.bootstrap-select button {
+	background: white !important;
+	border: #a29e9e !important;
+	color: #646464 !important;
+	font-weight: 500 !important;
+}
+.description-height {
+	max-height: 135px !important;
+}
+</style>
+<!-- Page Content -->
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Main Dashboard Chart -->
+<div layout="column" ng-cloak class="md-inline-form">
+
+  <md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      <span>New Issue</span>
+    </h2>
+  </md-toolbar>
+  <md-content layout-padding style="background: white">
+    <div>
+      <form name="issueForm">
+
+        <md-input-container class="md-block">
+          <label>Title</label>
+          <input ng-model="issue.title">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea ng-model="issue.description" style="description-height" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+				<div layout-gt-sm="row">
+					<md-input-container>
+						<label>Assignee</label>
+						<md-select style="min-width: 200px;" ng-model="issue.assignee" md-on-open="loadAssignees()" flex-gt-sm>
+							<md-option ng-value="none"><em>None</em></md-option>
+							<md-option ng-repeat="assignee in assignees" ng-value="assignee.name">
+								{{assignee.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+					<md-input-container>
+						<label>Label</label>
+						<md-select style="min-width: 200px;" ng-model="issue.labels" md-on-open="loadLabels()" ng-change="updateLabels(issue.labels)" flex-gt-sm multiple>
+								<md-optgroup label="Label Type">
+									<md-option ng-repeat="label in labels" ng-value="label.name">
+										{{label.name}}
+									</md-option>
+								</md-optgroup>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div layout-gt-sm="row">
+					<md-input-container>
+						<label>Priority</label>
+						<md-select style="min-width: 200px;" ng-model="issue.priority" flex-gt-sm>
+							<md-option ng-value="none"><em>None</em></md-option>
+							<md-option ng-repeat="priority in priorities" ng-value="priority">
+								{{priority}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+					<md-input-container>
+						<label>Station</label>
+						<md-select style="min-width: 200px;" ng-model="issue.station" flex-gt-sm>
+							<md-option ng-value="none"><em>None</em></md-option>
+							<md-option ng-repeat="station in stations" ng-value="station.name">
+								{{station.name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<md-input-container>
+					<md-datepicker ng-model="issue.due_date" md-placeholder="Due Date"></md-datepicker>
+				</md-input-container>
+      </form>
+    </div>
+  </md-content>
+  <md-toolbar style="background-color: white;">
+    <section layout="row" layout-sm="column" layout-wrap layout-margin>
+      <md-button class="md-raised md-primary" ng-click="submitIssue(issue)">Submit Issue</md-button>
+      <md-button class="md-raised md-primary" data-ui-sref="issues">Cancel</md-button>
+    </section>
+  </md-toolbar>
+
+</div>
+				</div>
+    </div>
+</div>
+<!-- END Page Content -->
+<script>
+$(document).ready(function() {
+  $('.selectpicker').selectpicker({
+    style: 'btn-info',
+    size: 4
+  });
+});
+</script>

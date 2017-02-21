@@ -1,0 +1,150 @@
+<style>
+.bg-white {
+	background: white !important;
+}
+</style>
+<!-- Page Content -->
+<div ng-if="isCheckbox()" class="content">
+    <div class="row">
+        <div class="col-lg-12">
+					<md-card>
+						<md-card-content>
+							<div layout-gt-sm="row">
+								<md-input-container>
+									<label>Status</label>
+									<md-select style="width: 200px;" ng-model="issue.status" flex-gt-sm>
+										<md-option ng-value="open">Open</md-option>
+										<md-option ng-value="close">Close</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container>
+									<label>Assignee</label>
+									<md-select style="width: 200px;" ng-model="issue.assignee" md-on-open="loadAssignees()" flex-gt-sm>
+										<md-option ng-value="none"><em>None</em></md-option>
+										<md-option ng-repeat="assignee in assignees" ng-value="assignee.name">
+											{{assignee.name}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container>
+									<label>Label</label>
+									<md-select style="width: 200px;" ng-model="issue.labels" md-on-open="loadLabels()" ng-change="updateLabels(issue.labels)" flex-gt-sm multiple>
+											<md-optgroup label="Label Type">
+												<md-option ng-repeat="label in labels" ng-value="label.name">
+													{{label.name}}
+												</md-option>
+											</md-optgroup>
+									</md-select>
+								</md-input-container>
+								<md-input-container>
+									<label>Priority</label>
+									<md-select style="width: 200px;" ng-model="issue.priority" flex-gt-sm>
+										<md-option ng-value="none"><em>None</em></md-option>
+										<md-option ng-repeat="priority in priorities" ng-value="priority">
+											{{priority}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container>
+									<label>Station</label>
+									<md-select style="width: 200px;" ng-model="issue.station" flex-gt-sm>
+										<md-option ng-value="none"><em>None</em></md-option>
+										<md-option ng-repeat="station in stations" ng-value="station.name">
+											{{station.name}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container>
+									<md-button ng-click="updateIssue(issue, selected)" class="md-raised md-primary">Update Issues</md-button>
+								</md-input-container>
+							</div>
+						</md-card-content>
+					</md-card>
+		</div>
+	</div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+						<div ng-cloak id="popupContainer">
+							<md-content class="bg-white">
+								<md-button data-ui-sref="newissues" class="md-raised md-primary new-issue">New Issue</md-button>
+								<md-tabs md-dynamic-height md-border-bottom>
+									<md-tab label="Open ({{tabs.openCount}})">
+										<md-content class="bg-white md-padding">
+											<table class="table table-striped">
+													<tbody>
+														<tr ng-repeat="(key, openIssue) in openIssues | orderBy: title">
+															<td>
+																<md-checkbox ng-checked="exists(openIssue._id, selected)" ng-click="toggle(openIssue._id, selected)">
+																</md-checkbox>
+															</td>
+															<td>
+																<div><strong>{{openIssue.title}}</strong></div>
+																<div style="margin-top: 10px;">#{{key + 1}} - opened {{openIssue.date_opened}} ago by {{openIssue.assignee}}
+																	<span ng-repeat="(key, value) in openIssue.labels" class="label {{openIssue.labels_class[key]}}">{{value}}</span>
+																</div>
+															</td>
+															<td>
+																<br>
+																<div style="margin-top: 10px; float: right">updated {{openIssue.date_updated}} ago</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+										</md-content>
+									</md-tab>
+									<md-tab label="Closed ({{tabs.closeCount}})">
+										<md-content class="bg-white md-padding">
+											<table class="table table-striped">
+													<tbody>
+														<tr ng-repeat="(key, closeIssue) in closeIssues | orderBy: title">
+															<td>
+																<md-checkbox>
+																</md-checkbox>
+															</td>
+															<td>
+																<div><strong>{{closeIssue.title}}</strong></div>
+																<div style="margin-top: 10px;">#{{key + 1}} - opened {{closeIssue.date_opened}} ago by {{closeIssue.assignee}}
+																	<span ng-repeat="(key, value) in closeIssue.labels" class="label {{closeIssue.labels_class[key]}}">{{value}}</span>
+																</div>
+															</td>
+															<td>
+																<br>
+																<div style="margin-top: 10px; float: right">updated {{closeIssue.date_updated}} ago</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+										</md-content>
+									</md-tab>
+									<md-tab label="All ({{tabs.allCount}})">
+										<md-content class="bg-white md-padding">
+											<table class="table table-striped">
+													<tbody>
+														<tr ng-repeat="(key, allIssue) in allIssues | orderBy: title">
+															<td>
+																<md-checkbox>
+																</md-checkbox>
+															</td>
+															<td>
+																<div><strong>{{allIssue.title}}</strong></div>
+																<div style="margin-top: 10px;">#{{key + 1}} - opened {{allIssue.date_opened}} ago by {{allIssue.assignee}}
+																	<span ng-repeat="(key, value) in allIssue.labels" class="label {{allIssue.labels_class[key]}}">{{value}}</span>
+																</div>
+															</td>
+															<td>
+																<br>
+																<div style="margin-top: 10px; float: right">updated {{allIssue.date_updated}} ago</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+										</md-content>
+									</md-tab>
+								</md-tabs>
+							</md-content>
+						</div>
+				</div>
+    </div>
+</div>
