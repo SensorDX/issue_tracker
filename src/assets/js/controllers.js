@@ -5,7 +5,6 @@
  *
  */
 
-// Dashboard Content Controller
 App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function ($scope, $window, $http, $location) {
 		$scope.issue = {
 			title: null,
@@ -116,8 +115,9 @@ App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function
 		/**
 		 * UPDATE issue
 		 */
-		$scope.updateIssue = function(issue, selected) {
-						$window.console.log('updating ...');
+		$scope.updateIssue = function() {
+				$window.console.log('updating ...');
+				$window.location.reload();
 				$http.put('/api/issues', issue)
 					.then(function(response) {
 						$window.console.log(response);
@@ -125,7 +125,6 @@ App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function
 					function(response) {
 						$window.console.log(response);
 					});
-				$location.path('newissues');
 		};
 
 }]);
