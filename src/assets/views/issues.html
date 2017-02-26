@@ -68,7 +68,7 @@
 							<md-content class="bg-white">
 								<md-button data-ui-sref="newissues" class="md-raised md-primary new-issue">New Issue</md-button>
 								<md-tabs md-dynamic-height md-border-bottom>
-									<md-tab label="Open ({{tabs.openCount}})">
+									<md-tab label="Open ({{tabs.openCount}})" md-on-select="clearSelected()">
 										<md-content class="bg-white md-padding">
 											<table class="table table-striped">
 													<tbody>
@@ -92,13 +92,13 @@
 												</table>
 										</md-content>
 									</md-tab>
-									<md-tab label="Closed ({{tabs.closeCount}})">
+									<md-tab label="Closed ({{tabs.closeCount}})" md-on-select="clearSelected()">
 										<md-content class="bg-white md-padding">
 											<table class="table table-striped">
 													<tbody>
 														<tr ng-repeat="(key, closeIssue) in closeIssues | orderBy: title">
 															<td>
-																<md-checkbox>
+																<md-checkbox ng-checked="exists(closeIssue._id, selected)" ng-click="toggle(closeIssue._id, selected)">
 																</md-checkbox>
 															</td>
 															<td>
@@ -116,13 +116,13 @@
 												</table>
 										</md-content>
 									</md-tab>
-									<md-tab label="All ({{tabs.allCount}})">
+									<md-tab label="All ({{tabs.allCount}})" md-on-select="clearSelected()">
 										<md-content class="bg-white md-padding">
 											<table class="table table-striped">
 													<tbody>
 														<tr ng-repeat="(key, allIssue) in allIssues | orderBy: title">
 															<td>
-																<md-checkbox>
+																<md-checkbox ng-checked="exists(allIssue._id, selected)" ng-click="toggle(allIssue._id, selected)">
 																</md-checkbox>
 															</td>
 															<td>

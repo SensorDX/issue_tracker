@@ -59,6 +59,10 @@ App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function
 			}
 		};
 
+		$scope.clearSelected = function() {
+			$scope.selected = [];
+		};
+
 		/**
 		 * Fields to be updated
 		 */
@@ -111,6 +115,7 @@ App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function
 			console.log(response);
 		});
 		$scope.console = $window.console;
+
 		/**
 		 * UPDATE issue
 		 */
