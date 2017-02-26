@@ -23,6 +23,12 @@ node server.js
 This issue tracker is still in the making. While we're cooking good stuff for our beloved community, 
 give our issue tracker a try and let us know how we can improve it as we're building it.
 
+## Video Walkthrough
+
+Here's a walkthrough of our wonderful Issue Tracker:
+
+<img src='http://i.imgur.com/skQNh5J.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 ## License
 
     Copyright 2017 Sensor DX
