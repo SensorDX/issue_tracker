@@ -1,7 +1,7 @@
 # Sensor DX - Issue Tracker
 Loading ...
 
-Good stuff coming your way [========>           ] 40 %
+Good stuff coming your way [========>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;] 40 %
 
 Awesome support            [==>                 ] 10 %
 
