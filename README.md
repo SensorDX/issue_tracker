@@ -25,7 +25,7 @@ give our issue tracker a try and let us know how we can improve it as we're buil
 
 ## Video Walkthrough
 
-Here's a walkthrough of our wonderful Issue Tracker:
+Here's a walkthrough of our wonderful Issue Tracker - more stuff will be added as we move forward :-)
 
 <img src='http://i.imgur.com/skQNh5J.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
