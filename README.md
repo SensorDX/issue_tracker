@@ -1,7 +1,10 @@
 # Sensor DX - Issue Tracker
 Loading ...
+
 Good stuff coming your way [========>           ] 40 %
+
 Awesome support            [==>                 ] 10 %
+
 Standard coding            [================>   ] 80 %
 
 
