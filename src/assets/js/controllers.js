@@ -7,13 +7,12 @@
 
 App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function ($scope, $window, $http, $location) {
 		$scope.issue = {
-			title: null,
-			description: null,
 			assignee: null,
 			labels: [],
 			ids: [],
 			priority: null,
-			station: null
+			station: null,
+			status: null
 		};
 		$scope.updateLabels = function(label) {
 			console.log(label);
@@ -64,14 +63,14 @@ App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function
 		 * Fields to be updated
 		 */
 		$scope.loadLabels = function() {
-			$http.get('/api/labels?type=array').then(function(response) {
+			$http.get('/api/labels?type=name').then(function(response) {
 				$scope.labels = response.data;
 			}, function(response) {
 				console.log(response);
 			});
 		};
 		$scope.loadAssignees = function() {
-			$http.get('/api/users?type=array').then(function(response) {
+			$http.get('/api/users?type=fullname').then(function(response) {
 				$scope.assignees = response.data;
 			}, function(response) {
 				console.log(response);
@@ -111,19 +110,20 @@ App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function
 		}, function(response) {
 			console.log(response);
 		});
-
+		$scope.console = $window.console;
 		/**
 		 * UPDATE issue
 		 */
-		$scope.updateIssue = function() {
+		$scope.updateIssue = function(issue) {
 				$window.console.log('updating ...');
-				$window.location.reload();
 				$http.put('/api/issues', issue)
 					.then(function(response) {
 						$window.console.log(response);
+						$window.location.reload();
 					},
 					function(response) {
 						$window.console.log(response);
+						$window.location.reload();
 					});
 		};
 
@@ -144,14 +144,14 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', funct
 			$scope.issue.labels = label;
 		};
 		$scope.loadAssignees = function() {
-			$http.get('/api/users?type=array').then(function(response) {
+			$http.get('/api/users?type=fullname').then(function(response) {
 				$scope.assignees = response.data;
 			}, function(response) {
 				console.log(response);
 			});
 		};
 		$scope.loadLabels = function() {
-			$http.get('/api/labels?type=array').then(function(response) {
+			$http.get('/api/labels?type=name').then(function(response) {
 				$scope.labels = response.data;
 			}, function(response) {
 				console.log(response);

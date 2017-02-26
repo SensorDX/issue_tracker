@@ -25,7 +25,12 @@ var tools = require('./tools');
  */
 module.exports = function(router) {
 	/**
-	 * All labels related stuff
+	 * POST labels
+	 * Usage:
+	 *	 - /api/labels/new -d {
+	 * 													user: String,
+	 * 													name: String
+	 * 												}
 	 */
 	router.post('/api/labels/new', function(request, response) {
 		var label = new Label({
@@ -40,6 +45,14 @@ module.exports = function(router) {
 			}
 		});
 	});
+
+	/**
+	 * GET labels
+	 * Usage:
+	 *	 - /api/labels						[all labels info]
+	 *	 - /api/labels?type=name 	[all labels name]
+	 *	 - /api/labels?user=name 	[all labels from that specific user (including custom labels)]
+	 */
 	router.get('/api/labels', function(request, response) {
 		var type = request.query.type;
 		var data = [];
@@ -48,7 +61,7 @@ module.exports = function(router) {
 				response.status(404).send(err);
 			} else {
 				switch(type) {
-					case 'array':
+					case 'name':
 						data = tools.label(labels);
 						break;
 					default:
@@ -61,7 +74,10 @@ module.exports = function(router) {
 	});
 
 	/**
-	 * All user related stuff
+	 * GET users
+	 * Usage:
+	 *	 - /api/users									[all users info]
+	 *	 - /api/users?type=fullname 	[all users first name and last name]
 	 */
 	router.get('/api/users', function(request, response) {
 		var category = request.query.category;
@@ -72,7 +88,7 @@ module.exports = function(router) {
 				response.status(404).send(err);
 			} else {
 				switch(type) {
-					case 'array':
+					case 'fullname':
 						data = tools.assignee(users);
 						break;
 					default:
@@ -83,6 +99,20 @@ module.exports = function(router) {
 			}
 		});
 	});
+
+	/**
+	 * POST users
+	 * Usage:
+	 *	 - /api/users/new -d {
+	 * 													username: String,
+	 * 													first_name: String,
+	 * 													last_name: String,
+	 * 													email: String,
+	 * 													password: Number,
+	 * 													projects: [],
+	 * 													created_at: Default = New Date()
+	 * 												}
+	 */
 	router.post('/api/users', function(request, response) {
 		var data = {
 			username: request.body.username,
@@ -104,7 +134,11 @@ module.exports = function(router) {
 	});
 
 	/**
-	 * All issues related stuff
+	 * GET issues
+	 * Usage:
+	 *	 - /api/issues?status=all		[all tickets]
+	 *	 - /api/issues?status=open	[open tickets]
+	 *	 - /api/issues?status=close [close tickets]
 	 */
 	router.get('/api/issues', function(request, response) {
 		var type = request.query.type;
@@ -134,6 +168,23 @@ module.exports = function(router) {
 			}
 		});
 	});
+
+	/**
+	 * POST issues
+	 * Usage:
+	 *	 - /api/issues/new -d {
+	 * 													title: String,
+	 * 													description: String,
+	 * 													assignee: String,
+	 * 													labels: [],
+	 * 													priority: Number,
+	 * 													station: String,
+	 * 													status: close|open,
+	 * 													updated_at: Default = New Date(),
+	 * 													due_date: Date,
+	 * 													created_at: Default = New Date()
+	 * 												}
+	 */
 	router.post('/api/issues/new', function(request, response) {
 		var data = {
 			title: request.body.title,
@@ -156,7 +207,65 @@ module.exports = function(router) {
 			}
 		});
 	});
-	router.get('/api/issues/test', function(request, response) {
-		Issue.update({_id: '58aa2a3fafe70cc2a47d9400'}, { '$set': {assignee: 'El Roy'}}, false, true);
+
+	/**
+	 * PUT issues
+	 * Usage:
+	 *	 - /api/issues/new -d {
+	 * 													assignee: String,
+	 * 													labels: [],
+	 * 													priority: Number,
+	 * 													station: String,
+	 * 													status: close|open,
+	 * 													updated_at: Default = New Date(),
+	 * 												}
+	 *	 
+	 */
+	router.put('/api/issues', function(req, res) {
+		if(req.body.ids.length > 0) {
+			var ids = req.body.ids;
+			var update = {};
+			var isUpdate = false;
+
+			if (req.body.assignee) {
+				update.assignee = req.body.assignee;
+				isUpdate = true;
+			}
+
+			if (req.body.labels.length > 0) {
+				update.labels = req.body.labels;
+				isUpdate = true;
+			}
+
+			if (req.body.priority) {
+				update.priority = req.body.priority;
+				isUpdate = true;
+			}
+
+			if (req.body.station) {
+				update.station = req.body.station;
+				isUpdate = true;
+			}
+
+			if (req.body.status) {
+				update.status = req.body.status;
+				isUpdate = true;
+			}
+
+			if (isUpdate) {
+				update.updated_at = new Date();
+			}
+
+			console.log(update);
+			Issue.update({_id: {$in: ids.map(function(e){return mongoose.Types.ObjectId(e);}) }}, 
+									 {$set: update}, 
+									 { multi: true }, 
+									 function(elm) {
+											res.send({updated: true})
+									 }
+									);
+		} else {
+			res.status(404).send({updated: false});
+		}
 	});
 };

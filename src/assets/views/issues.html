@@ -13,8 +13,8 @@
 								<md-input-container>
 									<label>Status</label>
 									<md-select style="width: 200px;" ng-model="issue.status" flex-gt-sm>
-										<md-option ng-value="open">Open</md-option>
-										<md-option ng-value="close">Close</md-option>
+										<md-option value="open">Open</md-option>
+										<md-option value="close">Close</md-option>
 									</md-select>
 								</md-input-container>
 								<md-input-container>
@@ -29,11 +29,9 @@
 								<md-input-container>
 									<label>Label</label>
 									<md-select style="width: 200px;" ng-model="issue.labels" md-on-open="loadLabels()" ng-change="updateLabels(issue.labels)" flex-gt-sm multiple>
-											<md-optgroup label="Label Type">
-												<md-option ng-repeat="label in labels" ng-value="label.name">
-													{{label.name}}
-												</md-option>
-											</md-optgroup>
+										<md-option ng-repeat="label in labels" ng-value="label.name">
+											{{label.name}}
+										</md-option>
 									</md-select>
 								</md-input-container>
 								<md-input-container>
@@ -55,7 +53,7 @@
 									</md-select>
 								</md-input-container>
 								<md-input-container>
-									<md-button ng-click="updateIssue()" class="md-raised md-primary">Update Issues</md-button>
+									<md-button ng-click="updateIssue(issue)" class="md-raised md-primary">Update Issues</md-button>
 								</md-input-container>
 							</div>
 						</md-card-content>
