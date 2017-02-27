@@ -2,6 +2,13 @@
 .bg-white {
 	background: white !important;
 }
+.issue-title {
+	color: rgba(0,0,0,0.87) !important;
+	cursor: pointer !important;
+}
+.issue-title :hover {
+	text-decoration: underline !important;
+}
 </style>
 <!-- Page Content -->
 <div ng-if="isCheckbox()" class="content">
@@ -78,7 +85,7 @@
 																</md-checkbox>
 															</td>
 															<td>
-																<div><strong>{{openIssue.title}}</strong></div>
+																<div><a class="issue-title" data-ui-sref="viewissues({id: openIssue._id})"><strong>{{openIssue.title}}</strong></a></div>
 																<div style="margin-top: 10px;">#{{key + 1}} - opened {{openIssue.date_opened}} ago by {{openIssue.assignee}}
 																	<span ng-repeat="(key, value) in openIssue.labels" class="label {{openIssue.labels_class[key]}}">{{value}}</span>
 																</div>
@@ -102,7 +109,7 @@
 																</md-checkbox>
 															</td>
 															<td>
-																<div><strong>{{closeIssue.title}}</strong></div>
+																<div><a class="issue-title" data-ui-sref="viewissues({id: closeIssue._id})"><strong>{{closeIssue.title}}</strong></a></div>
 																<div style="margin-top: 10px;">#{{key + 1}} - opened {{closeIssue.date_opened}} ago by {{closeIssue.assignee}}
 																	<span ng-repeat="(key, value) in closeIssue.labels" class="label {{closeIssue.labels_class[key]}}">{{value}}</span>
 																</div>
@@ -126,7 +133,7 @@
 																</md-checkbox>
 															</td>
 															<td>
-																<div><strong>{{allIssue.title}}</strong></div>
+																<div><a class="issue-title" data-ui-sref="viewissues({id: allIssue._id})"><strong>{{allIssue.title}}</strong></a></div>
 																<div style="margin-top: 10px;">#{{key + 1}} - opened {{allIssue.date_opened}} ago by {{allIssue.assignee}}
 																	<span ng-repeat="(key, value) in allIssue.labels" class="label {{allIssue.labels_class[key]}}">{{value}}</span>
 																</div>

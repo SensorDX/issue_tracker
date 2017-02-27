@@ -27,64 +27,17 @@ App.config(['$stateProvider', '$urlRouterProvider',
             .state('issues', {
                 url: '/issues',
                 templateUrl: 'assets/views/issues.html',
-                controller: 'IssueCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/slick/slick.min.css',
-																'assets/js/plugins/bootstrap-select/bootstrap-select.min.css',
-                                'assets/js/plugins/slick/slick-theme.min.css',
-                                'assets/js/plugins/font-awesome/font-awesome.min.css',
-                                'assets/js/plugins/leaflet/leaflet.css',
-                                'assets/js/plugins/leaflet-awesome-markers/leaflet.awesome-markers.css',
-                                'assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css',
-                                'assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css',
-                                'assets/js/plugins/slick/slick.min.js',
-                                'assets/js/plugins/chartjs/Chart.min.js',
-																'assets/js/plugins/bootstrap-select/dist/js/bootstrap-select.min.js',
-                                'assets/js/plugins/leaflet/leaflet.js',
-                                'assets/js/plugins/leaflet-awesome-markers/leaflet.awesome-markers.min.js',
-                                'assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js',
-                                'assets/js/plugins/bootstrap-datetimepicker/moment.min.js',
-                                'assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js',
-                            ]
-                        });
-                    }]
-                }
+                controller: 'IssueCtrl'
+            })
+            .state('viewissues', {
+                url: '/issues/view/:id',
+                templateUrl: 'assets/views/view_issues.html',
+                controller: 'ViewIssueCtrl'
             })
             .state('newissues', {
                 url: '/issues/new',
                 templateUrl: 'assets/views/new_issue.html',
                 controller: 'NewIssueCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/slick/slick.min.css',
-																'assets/js/plugins/bootstrap-select/bootstrap-select.min.css',
-                                'assets/js/plugins/slick/slick-theme.min.css',
-                                'assets/js/plugins/font-awesome/font-awesome.min.css',
-                                'assets/js/plugins/leaflet/leaflet.css',
-                                'assets/js/plugins/leaflet-awesome-markers/leaflet.awesome-markers.css',
-                                'assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css',
-                                'assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css',
-                                'assets/js/plugins/slick/slick.min.js',
-                                'assets/js/plugins/chartjs/Chart.min.js',
-																'assets/js/plugins/bootstrap-select/dist/js/bootstrap-select.min.js',
-                                'assets/js/plugins/leaflet/leaflet.js',
-                                'assets/js/plugins/leaflet-awesome-markers/leaflet.awesome-markers.min.js',
-                                'assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js',
-                                'assets/js/plugins/bootstrap-datetimepicker/moment.min.js',
-                                'assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js',
-                            ]
-                        });
-                    }]
-                }
             })
             .state('dashboard', {
                 url: '/dashboard',

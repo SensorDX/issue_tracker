@@ -134,6 +134,142 @@ App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function
 
 }]);
 
+App.controller('ViewIssueCtrl', ['$scope', '$window', '$http', '$location', '$state', '$stateParams', function ($scope, $window, $http, $location, $state, $stateParams) {
+		var _id = $stateParams.id;
+		$window.console.log('id is: '+ _id);
+		$scope.state = $state.current;
+		$scope.params = $stateParams;
+		/*
+		$scope.issue = {
+			assignee: null,
+			labels: [],
+			ids: [],
+			priority: null,
+			station: null,
+			status: null
+		};
+		$scope.updateLabels = function(label) {
+			console.log(label);
+			$scope.issue.labels = label;
+		};
+		$scope.tabs = {
+			openCount: '0',
+			closeCount: '0',
+			allCount: '0'
+		}
+		$scope.selected = [];
+		$scope.isCheckbox = function() {
+			return $scope.selected.length > 0;
+		}
+		$scope.toggle = function (item, list) {
+			var idx = list.indexOf(item);
+			if (idx > -1) {
+				list.splice(idx, 1);
+			}
+			else {
+				list.push(item);
+			}
+			$scope.issue.ids = $scope.selected;
+			console.log($scope.issue.ids);
+		};
+		$scope.exists = function (item, list) {
+			return list.indexOf(item) > -1;
+		};
+
+		$scope.isIndeterminate = function() {
+			return ($scope.selected.length !== 0 &&
+					$scope.selected.length !== $scope.items.length);
+		};
+
+		$scope.isChecked = function() {
+			return $scope.selected.length === $scope.items.length;
+		};
+
+		$scope.toggleAll = function() {
+			if ($scope.selected.length === $scope.items.length) {
+				$scope.selected = [];
+			} else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
+				$scope.selected = $scope.items.slice(0);
+			}
+		};
+
+		$scope.clearSelected = function() {
+			$scope.selected = [];
+		};
+		*/
+		/**
+		 * Fields to be updated
+		 */
+		/*
+		$scope.loadLabels = function() {
+			$http.get('/api/labels?type=name').then(function(response) {
+				$scope.labels = response.data;
+			}, function(response) {
+				console.log(response);
+			});
+		};
+		$scope.loadAssignees = function() {
+			$http.get('/api/users?type=fullname').then(function(response) {
+				$scope.assignees = response.data;
+			}, function(response) {
+				console.log(response);
+			});
+		};
+		$scope.priorities =  [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		$scope.stations = [
+			{ name: 'Station 1'},
+			{ name: 'Station 2'},
+			{ name: 'Station 3'},
+			{ name: 'Station 4'},
+			{ name: 'Station 5'},
+			{ name: 'Station 6'},
+			{ name: 'Station 7'},
+			{ name: 'Station 8'},
+			{ name: 'Station 9'}
+		];
+		*/
+		/**
+		 * GET issues info
+		 */
+		/*
+		$http.get('/api/issues?status=open&type=modified').then(function(response) {
+			$scope.openIssues = response.data['data'];
+			$scope.tabs.openCount = response.data['count'];
+		}, function(response) {
+			console.log(response);
+		});
+		$http.get('/api/issues?status=close&type=modified').then(function(response) {
+			$scope.closeIssues = response.data['data'];
+			$scope.tabs.closeCount = response.data['count'];
+		}, function(response) {
+			console.log(response);
+		});
+		$http.get('/api/issues?status=all&type=modified').then(function(response) {
+			$scope.allIssues = response.data['data'];
+			$scope.tabs.allCount = response.data['count'];
+		}, function(response) {
+			console.log(response);
+		});
+		$scope.console = $window.console;
+		*/
+		/**
+		 * UPDATE issue
+		 */
+		$scope.updateIssue = function(issue) {
+				$window.console.log('updating ...');
+				$http.put('/api/issues', issue)
+					.then(function(response) {
+						$window.console.log(response);
+						$window.location.reload();
+					},
+					function(response) {
+						$window.console.log(response);
+						$window.location.reload();
+					});
+		};
+
+}]);
+
 App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', function ($scope, $http, $window, $location) {
 		$scope.issue = {
 			title: '',
