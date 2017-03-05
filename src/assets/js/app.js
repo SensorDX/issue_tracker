@@ -39,6 +39,11 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'assets/views/new_issue.html',
                 controller: 'NewIssueCtrl',
             })
+            .state('editissues', {
+                url: '/issues/edit/:id',
+                templateUrl: 'assets/views/edit_issue.html',
+                controller: 'EditIssueCtrl',
+            })
             .state('dashboard', {
                 url: '/dashboard',
                 templateUrl: 'assets/views/ready_dashboard.html',

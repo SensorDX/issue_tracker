@@ -6,7 +6,7 @@ var date_diff = function(first, second) {
 	var hr = (day - Math.floor(day)) * 24;
 	var min = (hr - Math.floor(hr)) * 60;
 	var sec = (min - Math.floor(min)) * 60;
-	day = (day < 1) ? '' : Math.floor(day) + ' day ';
+	day = (day < 1) ? '' : Math.floor(day) + ' days ';
 	hr = (hr < 1) ? '' : Math.floor(hr) + ' hr ';
 	min = (min < 0) ? '' : Math.floor(min) + ' min ';
 	sec = (sec < 1) ? '' : Math.ceil(sec) + ' sec';
@@ -37,6 +37,10 @@ module.exports = {
 			var items = {
 				_id: item._id,
 				title: item.title,
+				description: item.description,
+				priority: item.priority,
+				station: item.station,
+				due_date: item.due_date,
 				date_updated: date_diff(item.updated_at, current),
 				date_opened: date_diff(item.created_at, current),
 				assignee: item.assignee,

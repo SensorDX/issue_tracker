@@ -27,7 +27,7 @@
 
   <md-toolbar class="md-theme-light">
     <h2 class="md-toolbar-tools">
-      <span>New Issue</span>
+      <span>Edit Issue</span>
     </h2>
   </md-toolbar>
   <md-content layout-padding style="background: white">
@@ -46,7 +46,7 @@
 				<div layout-gt-sm="row">
 					<md-input-container>
 						<label>Assignee</label>
-						<md-select style="min-width: 200px;" ng-model="issue.assignee" md-on-open="loadAssignees()" flex-gt-sm>
+						<md-select style="min-width: 200px;" ng-model="issue.assignee" flex-gt-sm>
 							<md-option ng-value="none"><em>None</em></md-option>
 							<md-option ng-repeat="assignee in assignees" ng-value="assignee.name">
 								{{assignee.name}}
@@ -92,8 +92,11 @@
   </md-content>
   <md-toolbar style="background-color: white;">
     <section layout="row" layout-sm="column" layout-wrap layout-margin>
-      <md-button class="md-raised md-primary" ng-click="submitIssue(issue)">Submit Issue</md-button>
-      <md-button class="md-raised md-primary" data-ui-sref="issues">Cancel</md-button>
+		<div class="col-xs-12">
+      <md-button style="float: left;" class="md-raised md-primary" ng-click="updateIssue(issue)">Save Changes</md-button>
+			<md-button style="float: right;" data-ui-sref="viewissues({id: id})" class="right md-raised md-primary">Cancel</md-button>
+			<md-button style="float: right;" class="right md-raised md-warn">Delete</md-button>
+		</div>
     </section>
   </md-toolbar>
 

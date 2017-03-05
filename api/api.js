@@ -136,16 +136,22 @@ module.exports = function(router) {
 	/**
 	 * GET issues
 	 * Usage:
-	 *	 - /api/issues?status=all		[all tickets]
-	 *	 - /api/issues?status=open	[open tickets]
-	 *	 - /api/issues?status=close [close tickets]
+	 *	 - /api/issues?status={all,open,,close}&type=modified		[modify json output]
+	 *	 - /api/issues?status=all																[all tickets]
+	 *	 - /api/issues?status=open															[open tickets]
+	 *	 - /api/issues?status=close															[close tickets]
+	 *	 - /api/issues?status=id&id=:id													[get issue by _id]
 	 */
 	router.get('/api/issues', function(request, response) {
 		var type = request.query.type;
+		var id = request.query.id;
 		var status = {};
 		switch(request.query.status) {
 			case 'all':
 				status = {};
+				break;
+			case 'id':
+				status = {_id: request.query.id};
 				break;
 			default:
 				status = {status: request.query.status};
@@ -227,6 +233,14 @@ module.exports = function(router) {
 			var update = {};
 			var isUpdate = false;
 
+			if (req.body.title) {
+				update.title = req.body.title;
+				isUpdate = true;
+			}
+			if (req.body.description) {
+				update.description = req.body.description;
+				isUpdate = true;
+			}
 			if (req.body.assignee) {
 				update.assignee = req.body.assignee;
 				isUpdate = true;
@@ -244,6 +258,11 @@ module.exports = function(router) {
 
 			if (req.body.station) {
 				update.station = req.body.station;
+				isUpdate = true;
+			}
+
+			if (req.body.due_date) {
+				update.due_date = req.body.due_date;
 				isUpdate = true;
 			}
 

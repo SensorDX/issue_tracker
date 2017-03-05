@@ -12,16 +12,25 @@
         <div class="col-lg-12">
 					<md-card>
 						<md-card-content>
-							<div style="float: left;" class="col-xs-6">
+							<div style="float: left;" class="col-md-6 col-xs-12">
 									<span style="border-radius: 5px; background-color: #3cbd70; padding: 0 10px; line-height: 40px;">OPEN</span>
 									<span><strong>Issue #1</strong></span>
-									<span> opened 2 weeks ago by </span>
-									<span><strong>renay007</strong></span> 
+									<span> opened <strong>{{issue.date_opened}}</strong> ago by </span>
+									<span><strong>{{issue.assignee}}</strong></span> 
 							</div>
-							<div style="float: right;" class="col-xs-6">
-									<md-button class="right md-raised md-primary">New Issue</md-button>
-									<md-button class="right md-raised md-primary">Reopen Issue</md-button>
-									<md-button class="right md-raised md-primary">Edit</md-button>
+							<div style="float: right;" class="col-md-6 col-xs-12">
+									<md-button data-ui-sref="newissues" class="right md-raised md-primary">New Issue</md-button>
+									<md-button class="right md-raised md-primary">Close Issue</md-button>
+									<md-button data-ui-sref="editissues({id: issue._id})" class="right md-raised md-primary">Edit</md-button>
+							</div>
+							<div style="margin: 25px 0" class="col-xs-12">
+							 <md-divider></md-divider>
+							</div>
+							<div class="col-xs-12">
+								<h2 style="margin-bottom: 25px;">{{issue.title}}</h2>
+								<p style="line-height: 35px;">
+								{{issue.description}}
+								</p>
 							</div>
 						</md-card-content>
 					</md-card>
