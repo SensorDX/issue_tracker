@@ -218,7 +218,7 @@ module.exports = function(router) {
 	/**
 	 * PUT issues
 	 * Usage:
-	 *	 - /api/issues/new -d {
+	 *	 - /api/issues -d {
 	 * 													assignee: String,
 	 * 													labels: [],
 	 * 													priority: Number,

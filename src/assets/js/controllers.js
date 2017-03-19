@@ -147,7 +147,7 @@ App.controller('ViewIssueCtrl', ['$scope', '$window', '$http', '$location', '$st
 
 }]);
 
-App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$log', function ($scope, $http, $window, $location, $state, $log) {
+App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$log', '$q', function ($scope, $http, $window, $location, $state, $log, $q) {
 		$scope.issue = {
 			title: '',
 			description: '',
@@ -176,11 +176,10 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
 			});
 				console.log($scope.labels);
 		};
+		$scope.priorities =  [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     $scope.simulateQuery = false;
     $scope.isDisabled    = false;
-
-    $scope.repos         = loadAll();
     $scope.querySearch   = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange   = searchTextChange;
@@ -211,73 +210,42 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
 
     function selectedItemChange(item) {
       $log.info('Item changed to ' + JSON.stringify(item));
+			if (item !== undefined) {
+				$scope.issue.station = item.SiteCode;
+				$log.info('stations');
+				$log.info($scope.issue.station);
+				$scope.station = item.SiteCode;
+			}
     }
     /**
      * Build `components` list of key/value pairs
      */
 		function loadAll() {
-      var repos = [
-        {
-          'name'      : 'Angular 1',
-          'url'       : 'https://github.com/angular/angular.js',
-          'watchers'  : '3,623',
-          'forks'     : '16,175',
-        },
-        {
-          'name'      : 'Angular 2',
-          'url'       : 'https://github.com/angular/angular',
-          'watchers'  : '469',
-          'forks'     : '760',
-        },
-        {
-          'name'      : 'Angular Material',
-          'url'       : 'https://github.com/angular/material',
-          'watchers'  : '727',
-          'forks'     : '1,241',
-        },
-        {
-          'name'      : 'Bower Material',
-          'url'       : 'https://github.com/angular/bower-material',
-          'watchers'  : '42',
-          'forks'     : '84',
-        },
-        {
-          'name'      : 'Material Start',
-          'url'       : 'https://github.com/angular/material-start',
-          'watchers'  : '81',
-          'forks'     : '303',
-        }
-      ];
-      return repos.map( function (repo) {
-        repo.value = repo.name.toLowerCase();
-        return repo;
-      });
+			$http.get('/api/sites').then(function(response) {
+    		$scope.repos         = [];
+				$scope.repos = response.data;
+				if ($scope.repos.length) {
+					return $scope.repos.map( function (repo) {
+						repo.value = repo.SiteCode.toLowerCase();
+						return repo;
+					});
+				} else {}
+
+			}, function(response) {
+				console.log(response);
+			});
     }
+		loadAll();	
 
     /**
      * Create filter function for a query string
      */
     function createFilterFor(query) {
       var lowercaseQuery = angular.lowercase(query);
-
       return function filterFn(item) {
         return (item.value.indexOf(lowercaseQuery) === 0);
       };
-
     }
-
-		$scope.stations = [
-			{ name: 'Station 1'},
-			{ name: 'Station 2'},
-			{ name: 'Station 3'},
-			{ name: 'Station 4'},
-			{ name: 'Station 5'},
-			{ name: 'Station 6'},
-			{ name: 'Station 7'},
-			{ name: 'Station 8'},
-			{ name: 'Station 9'}
-		];
-		$scope.priorities =  [1, 2, 3, 4, 5, 6, 7, 8, 9];
 		$scope.submitIssue = function(issue) {
 			$http.post('/api/issues/new', issue)
 				.then(function(response) {
@@ -291,7 +259,7 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
 		$scope.console = $window.console;
 }]);
 
-App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$stateParams', function ($scope, $http, $window, $location, $state, $stateParams) {
+App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', function ($scope, $http, $window, $location, $state, $stateParams, $log, $q) {
 		var _id = $stateParams.id;
 		$scope.id = _id;
 		$http.get('api/issues?id='+_id+'&status=id&type=modified').then(function(response) {
@@ -314,18 +282,75 @@ App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$st
 		}, function(response) {
 			console.log(response);
 		});
-		$scope.stations = [
-			{ name: 'Station 1'},
-			{ name: 'Station 2'},
-			{ name: 'Station 3'},
-			{ name: 'Station 4'},
-			{ name: 'Station 5'},
-			{ name: 'Station 6'},
-			{ name: 'Station 7'},
-			{ name: 'Station 8'},
-			{ name: 'Station 9'}
-		];
 		$scope.priorities =  [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    $scope.simulateQuery = false;
+    $scope.isDisabled    = false;
+    $scope.querySearch   = querySearch;
+    $scope.selectedItemChange = selectedItemChange;
+    $scope.searchTextChange   = searchTextChange;
+
+    // ******************************
+    // Internal methods
+    // ******************************
+
+    /**
+     * Search for repos... use $timeout to simulate
+     * remote dataservice call.
+     */
+    function querySearch (query) {
+      var results = query ? $scope.repos.filter( createFilterFor(query) ) : $scope.repos,
+          deferred;
+      if ($scope.simulateQuery) {
+        deferred = $q.defer();
+        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+        return deferred.promise;
+      } else {
+        return results;
+      }
+    }
+
+    function searchTextChange(text) {
+      $log.info('Text changed to ' + text);
+    }
+
+    function selectedItemChange(item) {
+      $log.info('Item changed to ' + JSON.stringify(item));
+			if (item !== undefined) {
+				$scope.issue.station = item.SiteCode;
+				$log.info('stations');
+				$log.info($scope.issue.station);
+				$scope.station = item.SiteCode;
+			}
+    }
+    /**
+     * Build `components` list of key/value pairs
+     */
+		function loadAll() {
+			$http.get('/api/sites').then(function(response) {
+    		$scope.repos         = [];
+				$scope.repos = response.data;
+				if ($scope.repos.length) {
+					return $scope.repos.map( function (repo) {
+						repo.value = repo.SiteCode.toLowerCase();
+						return repo;
+					});
+				} else {}
+
+			}, function(response) {
+				console.log(response);
+			});
+    }
+		loadAll();	
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(item) {
+        return (item.value.indexOf(lowercaseQuery) === 0);
+      };
+    }
 		/**
 		 * UPDATE issue
 		 */
