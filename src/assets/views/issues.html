@@ -85,8 +85,11 @@
 																</md-checkbox>
 															</td>
 															<td>
-																<div><a class="issue-title" data-ui-sref="viewissues({id: openIssue._id})"><strong>{{openIssue.title}}</strong></a></div>
+																<div>
+																	<a class="issue-title" data-ui-sref="viewissues({id: openIssue._id})"><strong>{{openIssue.title}}</strong></a>
+																</div>
 																<div style="margin-top: 10px;">#{{key + 1}} - opened {{openIssue.date_opened}} ago by {{openIssue.assignee}}
+																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{openIssue.due_date}}</span></span>
 																	<span ng-repeat="(key, value) in openIssue.labels" class="label {{openIssue.labels_class[key]}}">{{value}}</span>
 																</div>
 															</td>
@@ -111,6 +114,7 @@
 															<td>
 																<div><a class="issue-title" data-ui-sref="viewissues({id: closeIssue._id})"><strong>{{closeIssue.title}}</strong></a></div>
 																<div style="margin-top: 10px;">#{{key + 1}} - opened {{closeIssue.date_opened}} ago by {{closeIssue.assignee}}
+																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{closeIssue.due_date}}</span></span>
 																	<span ng-repeat="(key, value) in closeIssue.labels" class="label {{closeIssue.labels_class[key]}}">{{value}}</span>
 																</div>
 															</td>
@@ -135,6 +139,7 @@
 															<td>
 																<div><a class="issue-title" data-ui-sref="viewissues({id: allIssue._id})"><strong>{{allIssue.title}}</strong></a></div>
 																<div style="margin-top: 10px;">#{{key + 1}} - opened {{allIssue.date_opened}} ago by {{allIssue.assignee}}
+																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{allIssue.due_date}}</span></span>
 																	<span ng-repeat="(key, value) in allIssue.labels" class="label {{allIssue.labels_class[key]}}">{{value}}</span>
 																</div>
 															</td>

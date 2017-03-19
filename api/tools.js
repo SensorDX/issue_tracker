@@ -1,5 +1,11 @@
 // tools.js
 // ========
+var format_date = function(date) {
+	var date = new Date(date);
+	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+	var formatted_date = months[date.getMonth()]+ " " + date.getDate() + ", " + date.getFullYear();
+	return formatted_date;
+}
 var date_diff = function(first, second) {
 	var ms = second.getTime() - first.getTime();	
 	var day = (ms/ (1000 * 3600 * 24));
@@ -40,7 +46,7 @@ module.exports = {
 				description: item.description,
 				priority: item.priority,
 				station: item.station,
-				due_date: item.due_date,
+				due_date: format_date(item.due_date),
 				date_updated: date_diff(item.updated_at, current),
 				date_opened: date_diff(item.created_at, current),
 				assignee: item.assignee,

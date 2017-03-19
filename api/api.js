@@ -18,6 +18,7 @@ mongoose.connect(db, function(err, response) {
 var Issue = require('./models/issues');
 var Label = require('./models/labels');
 var User = require('./models/users');
+var Stations = require('./models/stations');
 var tools = require('./tools');
 
 /**
@@ -286,5 +287,21 @@ module.exports = function(router) {
 		} else {
 			res.status(404).send({updated: false});
 		}
+	});
+	/**
+	 * GET sites info
+	 * Usage:
+	 *	 - /api/sites										[get all sites lat, long, elevation]
+	 */
+	router.get('/api/sites', function(request, response) {
+		Stations.all("SELECT * FROM Sites", function(err, row) {
+			if(err) {
+				response.status(404).send(err);
+				console.log(err);
+			} else {
+				response.status(200).send(row);
+				console.log(row);
+			}
+		});
 	});
 };
