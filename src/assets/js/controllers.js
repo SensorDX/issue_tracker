@@ -5,6 +5,25 @@
  *
  */
 
+App.controller('LoginCtrl', ['$scope', '$window', '$http', '$state', '$location', '$cookies', function ($scope, $window, $http, $state, $location, $cookies) {
+		$scope.login = {
+			username: "",
+			password: "",
+			remember_me: false
+		};
+		if ($cookies.session) {
+			$state.go('dashboard');
+		}
+		$scope.onLoginSubmit = function() {
+			if ($scope.login.username == "" || $scope.login.password == "") {
+				console.log('form not submitted');
+			} else {
+				$state.go('dashboard');
+				console.log('form submitted');
+			}
+		}
+}]);
+
 App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function ($scope, $window, $http, $location) {
 		$scope.issue = {
 			assignee: null,
@@ -404,45 +423,58 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', 
 								return '#d43e2a'; 
 					}
 				}
-				/*
-        $scope.centerJSON = function() {
-					leafletData.getMap().then(function(map) {
-						var latlngs = [];
-						$scope.properties = [];
-						for (var i in $scope.geojson.data.features) {
-							var points = $scope.geojson.data.features[i].geometry.coordinates;
-							$scope.properties.push($scope.geojson.data.features[i].properties);
-							latlngs.push(L.GeoJSON.coordsToLatLng(points));
-						}
-						map.fitBounds(latlngs);
-					});
-        };
-				*/
 
 				$http.get("assets/data/geojson/africa_station.geojson").success(function(data, status) {
 						angular.extend($scope, {
 								geojson: {
 										data: data,
-										style:
-											function (feature) {return {};},
-											pointToLayer: function(feature, latlng) {
-													return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
-											},
-											onEachFeature: function (feature, layer) {
-													layer.bindPopup("Hello World!");
-											}
+										style: function (feature) {
+											return {};
+										},
+										pointToLayer: function(feature, latlng) {
+												return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
+										},
+										onEachFeature: function (feature, layer) {
+												layer.bindPopup("Hello World!");
+										}
 								},
 								defaults: {
 										scrollWheelZoom: false
 								}
 						});
-						$scope.properties = [];
+						$scope.features = [];
+						$scope.sensorcount = {
+							active: 0,
+							delay: 0,
+							closed: 0,
+						}
 						for (var i in $scope.geojson.data.features) {
+							if ($scope.geojson.data.features[i].properties['Station status'] == 'Active')
+								$scope.sensorcount.active++;
+							if ($scope.geojson.data.features[i].properties['Station status'] == 'Delay')
+								$scope.sensorcount.delay++;
+							if ($scope.geojson.data.features[i].properties['Station status'] == 'Closed')
+								$scope.sensorcount.closed++;
+
 							var points = $scope.geojson.data.features[i].geometry.coordinates;
-							$scope.properties.push($scope.geojson.data.features[i].properties);
+							$scope.features.push($scope.geojson.data.features[i]);
 						}
 				});
-			
+				$scope.details = function(type) {
+					$scope.features = [];
+					$scope.geometry = [];
+						for (var i in $scope.geojson.data.features) {
+							if ($scope.geojson.data.features[i].properties['Station status'] == type) {
+								$scope.features.push($scope.geojson.data.features[i]);
+							}
+						}
+						console.log('details');
+						console.log($scope.features);
+						$scope.$broadcast('center', type);
+				};
+				$scope.focus = function(geometry) {
+						$scope.$broadcast('center-single', geometry);
+				};
     }
 ]);
 
@@ -480,6 +512,7 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $ui
 					}
 				}
     $scope.openModal = function (event) {
+			console.log('open modal');
       $uibModal.open({
         'template': '<div highchart></div>',
         'controller': 'highchart',
@@ -503,39 +536,74 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $ui
 					angular.extend($scope, {
 							geojson: {
 									data: data,
-									style:
-										function (feature) {return {};},
-										pointToLayer: function(feature, latlng) {
-												return new L.marker(latlng, {icon: icons[feature.properties['Station status']]}).addTo(leaflet);
-										},
-										onEachFeature: function (feature, layer) {
-												layer.bindPopup("Hello World!");
-												layer.on('click', $scope.openModal).addTo(leaflet);
-										}
 							},
 							defaults: {
 									scrollWheelZoom: false
 							}
 					});
-					$scope.properties = [];
+					$scope.features = [];
 					var gg = $scope.geojson.data;
-					mylayer = L.geoJSON(gg, { 
+					mylayer = L.geoJSON(gg, {
 						pointToLayer: function(feature, latlng) {
 								return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
 						},
 						onEachFeature: function (feature, layer) {
-								layer.on('click', $scope.openModal).addTo(leaflet);
+								//layer.on('click', $scope.openModal).addTo(leaflet);
 						}
 					})
 					mylayer.addTo(leaflet);
-					//leaflet.setView([34.798,-96.66], 6)
-					mylayer.on('click', $scope.openModal)
-					for (var i in $scope.geojson.data.features) {
-						var points = $scope.geojson.data.features[i].geometry.coordinates;
-						$scope.properties.push($scope.geojson.data.features[i].properties);
+					mylayer.on('click', $scope.openModal);
+					$scope.centerJSON = function (type="all") {
+						mylayer.removeFrom(leaflet);
+						mylayer = L.geoJSON(gg, {
+							pointToLayer: function(feature, latlng) {
+								var mymarker = null;
+								if (feature.properties['Station status'] == type) {
+									mymarker = new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
+								} else if (type == "all") {
+									mymarker = new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
+								} else {
+									mymarker = null;
+								}
+								return mymarker;
+							},
+							onEachFeature: function (feature, layer) {
+									//layer.on('click', $scope.openModal).addTo(leaflet);
+							}
+						})
+						mylayer.addTo(leaflet);
+						mylayer.on('click', $scope.openModal);
+						var latlngs = [];
+						for (var i in $scope.geojson.data.features) {
+								if ($scope.geojson.data.features[i].properties['Station status'] == type) {
+									var points = $scope.geojson.data.features[i].geometry.coordinates;
+									$scope.features.push($scope.geojson.data.features[i]);
+									latlngs.push(L.GeoJSON.coordsToLatLng(points));
+								}
+						}
+						if (latlngs.length > 0) {
+							leaflet.fitBounds(latlngs);
+						}
+					}
+					$scope.centerSingleJSON = function (coordinates) {
+						var latlngs = [];
+						latlngs.push(L.GeoJSON.coordsToLatLng(coordinates));
+						if (latlngs.length > 0) {
+							console.log("latlngs is:");
+							console.log(latlngs);
+							leaflet.fitBounds(latlngs, {maxZoom: 10});
+						}
 					}
 			});
     })
+		$scope.$on('center', function(event, type) {
+			console.log('this is the type');
+			console.log(type);
+			$scope.centerJSON(type);
+		});
+		$scope.$on('center-single', function(event, geometry) {
+			$scope.centerSingleJSON(geometry.coordinates);
+		});
   }
 ])
 

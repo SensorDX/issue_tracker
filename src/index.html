@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>SensorDX - Issue Tracker</title>
+        <title>SensorDX</title>
 
         <meta name="description" content="SensorDX - Dashboard">
         <meta name="author" content="pixelcave">
@@ -41,7 +41,8 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
 
         <!-- Bootstrap and CSS framework -->
-        <link rel="stylesheet" id="css-bootstrap" href="assets/css/bootstrap.min.css">
+        <!-- ~~ <link rel="stylesheet" id="css-bootstrap" href="assets/css/bootstrap.min.css"> -->
+    		<link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
 				<!-- Leaflet CSS -->
 				<link type="text/css" rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
@@ -67,7 +68,7 @@
 
         <!-- Page Container -->
         <!-- You can update template settings or enable local storage feature in js/app.js -> 'AppCtrl' controller () -->
-        <div id="page-container" data-ng-class="{
+        <div ng-if="!oneui.settings.isLogin" id="page-container" data-ng-class="{
             'sidebar-l': oneui.settings.sidebarLeft,
             'sidebar-r': ! oneui.settings.sidebarLeft,
             'sidebar-o': oneui.settings.sidebarOpen,
@@ -95,6 +96,10 @@
         </div>
         <!-- END Page Container -->
 
+				<!-- Login -->
+            <main ng-if="oneui.settings.isLogin" id="main-container" data-autoscroll="true" data-ui-view></main>
+				<!-- Eng Login -->
+
         <!-- JS Code -->
         <!-- build:js assets/js/oneui.min.js -->
         <!-- SensorDX Core JS: jQuery & Bootstrap Related -->
@@ -107,18 +112,24 @@
         <script src="assets/js/core/jquery.placeholder.min.js"></script>
 
         <!-- SensorDX Core JS: AngularJS Related -->
-        <script src="assets/js/core/angular.3.15.min.js"></script>
+    <script type="text/javascript" src="//cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+    <!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js"></script> -->
+        <!-- <script src="assets/js/core/angular.3.15.min.js"></script> -->
+        <script src="assets/js/core/angular-1.4.7/angular.min.js"></script>
+    <!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script> -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+
         <script src="assets/js/core/angular-ui-router.min.js"></script>
-        <script src="assets/js/core/angular-ui-bootstrap-tpls.min.js"></script>
+        <!-- <script src="assets/js/core/angular-ui-bootstrap-tpls.min.js"></script> -->
         <script src="assets/js/core/select.min.js"></script>
         <script src="assets/js/core/ocLazyLoad.min.js"></script>
         <script src="assets/js/core/ngStorage.min.js"></script>
         <script src="assets/js/core/angular-simple-logger.min.js"></script>
-        <script src="assets/js/core/angular-animate.min.js"></script>
-        <script src="assets/js/core/angular-aria.min.js"></script>
+        <script src="assets/js/core/angular-1.4.7/angular-animate.min.js"></script>
+        <script src="assets/js/core/angular-1.4.7/angular-aria.min.js"></script>
         <script src="assets/js/core/angular-material.min.js"></script>
-
-				<script type="text/javascript" src="//cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+        <script src="assets/js/core/angular-1.4.7/angular-cookies.min.js"></script>
+				<!-- <script type="text/javascript" src="//cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script> -->
 				<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.9/highcharts.js"></script>
 				<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.9/themes/dark-unica.js"></script>
 
@@ -126,6 +137,8 @@
         <script src="assets/js/app.js"></script>
         <script src="assets/js/directives.js"></script>
         <script src="assets/js/controllers.js"></script>
+
+			 	<script src="assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
         <!-- /build -->
     </body>
 </html>

@@ -1,5 +1,5 @@
 <!-- Header Navigation Right -->
-<ul class="hidden nav-header pull-right">
+<ul class="nav-header pull-right">
     <li>
         <div class="btn-group" data-on-toggle="toggled(open)" data-uib-dropdown>
             <button class="btn btn-default btn-image" type="button" data-uib-dropdown-toggle>
@@ -33,14 +33,14 @@
                     </a>
                 </li>
                 <li>
-                    <a tabindex="-1" href="javascript:void(0)">
+                    <a tabindex="-1" data-ui-sref="login">
                         <i class="si si-logout pull-right"></i>Log out
                     </a>
                 </li>
             </ul>
         </div>
     </li>
-    <li>
+    <li class="hidden">
         <button class="btn btn-default" type="button" data-ng-click="oneui.settings.sideOverlayOpen = ! oneui.settings.sideOverlayOpen" data-js-blur>
             <i class="fa fa-tasks"></i>
         </button>

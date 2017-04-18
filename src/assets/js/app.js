@@ -13,13 +13,19 @@ var App = angular.module('app', [
     'oc.lazyLoad',
 		'nemLogging',
 		'ngMaterial',
+		'ngCookies',
 ]);
 
 // Router configuration
 App.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/issues');
+        $urlRouterProvider.otherwise('/login');
         $stateProvider
+            .state('login', {
+                url: '/login',
+                templateUrl: 'assets/views/base_pages_login.html',
+								controller: 'LoginCtrl'
+            })
             .state('angularjs', {
                 url: '/angularjs',
                 templateUrl: 'assets/views/ready_angularjs.html'
@@ -488,6 +494,68 @@ App.config(['$uibTooltipProvider',
 App.factory('uiHelpers', function () {
     return {
         // Handles active color theme
+        uiHelperAppearCountTo: function () {
+        	// Init counter functionality
+					jQuery('[data-toggle="countTo"]').each(function(){
+							var $this       = jQuery(this);
+							var $after      = $this.data('after');
+							var $before     = $this.data('before');
+							var $speed      = $this.data('speed') ? $this.data('speed') : 1500;
+							var $interval   = $this.data('interval') ? $this.data('interval') : 15;
+
+							$this.appear(function() {
+									$this.countTo({
+											speed: $speed,
+											refreshInterval: $interval,
+											onComplete: function() {
+													if($after) {
+															$this.html($this.html() + $after);
+													} else if ($before) {
+															$this.html($before + $this.html());
+													}
+											}
+									});
+							});
+					});
+        },
+        uiValidateLogin: function () {
+					console.log('function was initialized');
+					jQuery('.js-validation-login').validate({
+							errorClass: 'help-block text-right animated fadeInDown',
+							errorElement: 'div',
+							errorPlacement: function(error, e) {
+									jQuery(e).parents('.form-group > div').append(error);
+							},
+							highlight: function(e) {
+									jQuery(e).closest('.form-group').removeClass('has-error').addClass('has-error');
+									jQuery(e).closest('.help-block').remove();
+							},
+							success: function(e) {
+									jQuery(e).closest('.form-group').removeClass('has-error');
+									jQuery(e).closest('.help-block').remove();
+							},
+							rules: {
+									'login-username': {
+											required: true,
+											minlength: 3
+									},
+									'login-password': {
+											required: true,
+											minlength: 4
+									}
+							},
+							messages: {
+									'login-username': {
+											required: 'Please enter a username',
+											minlength: 'Your username must consist of at least 3 characters'
+									},
+									'login-password': {
+											required: 'Please provide a password',
+											minlength: 'Your password must be at least 5 characters long'
+									}
+							}
+					});
+        },
         uiHandleColorTheme: function (themeName) {
             var colorTheme = jQuery('#css-theme');
 
@@ -810,24 +878,27 @@ App.run(function($rootScope, uiHelpers) {
 });
 
 // Application Main Controller
-App.controller('AppCtrl', ['$scope', '$localStorage', '$window',
-    function ($scope, $localStorage, $window) {
+App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$log',
+    function ($scope, $localStorage, $window, $location, $log) {
         // Template Settings
+				console.log($location.path());
         $scope.oneui = {
             version: '1.0', // Template version
             localStorage: false, // Enable/Disable local storage
             settings: {
+								isLogin: ($location.path() == '/login' || $location.path() == '/' || $location.path() == ''),
                 activeColorTheme: false, // Set a color theme of your choice, available: 'amethyst', 'city, 'flat', 'modern' and 'smooth'
                 sidebarLeft: true, // true: Left Sidebar and right Side Overlay, false: Right Sidebar and left Side Overlay
                 sidebarOpen: true, // Visible Sidebar by default (> 991px)
                 sidebarOpenXs: false, // Visible Sidebar by default (< 992px)
-                sidebarMini: true, // Mini hoverable Sidebar (> 991px)
+                sidebarMini: false, // Mini hoverable Sidebar (> 991px)
                 sideOverlayOpen: false, // Visible Side Overlay by default (> 991px)
                 sideOverlayHover: false, // Hoverable Side Overlay (> 991px)
                 sideScroll: true, // Enables custom scrolling on Sidebar and Side Overlay instead of native scrolling (> 991px)
                 headerFixed: true // Enables fixed header
             }
         };
+				console.log($scope.oneui.settings.isLogin);
 
         // If local storage setting is enabled
         if ($scope.oneui.localStorage) {
@@ -865,6 +936,15 @@ App.controller('AppCtrl', ['$scope', '$localStorage', '$window',
         $scope.$on('$viewContentLoaded', function () {
             // Hide page loader
             $scope.helpers.uiLoader('hide');
+
+						$scope.oneui.settings.isLogin = $location.path() == '/login' || $location.path() == '/' || $location.path() == '';
+
+						// Run validation code
+            $scope.helpers.uiValidateLogin();
+			
+						setTimeout(function() {
+							$scope.helpers.uiHelperAppearCountTo();
+						}, 0);
 
             // Resize #main-container
             $scope.helpers.uiHandleMain();
