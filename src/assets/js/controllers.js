@@ -419,23 +419,18 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', 
 						case 'Delay':
 								return '#f0932f'; 
 						case 'Closed':
+								return '#d43e2a'; 
 						default:
 								return '#d43e2a'; 
 					}
 				}
 
-				$http.get("assets/data/geojson/africa_station.geojson").success(function(data, status) {
+				$http.get("/api/sites?type=geojson").success(function(data, status) {
 						angular.extend($scope, {
 								geojson: {
 										data: data,
-										style: function (feature) {
-											return {};
-										},
 										pointToLayer: function(feature, latlng) {
 												return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
-										},
-										onEachFeature: function (feature, layer) {
-												layer.bindPopup("Hello World!");
 										}
 								},
 								defaults: {
@@ -456,7 +451,6 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', 
 							if ($scope.geojson.data.features[i].properties['Station status'] == 'Closed')
 								$scope.sensorcount.closed++;
 
-							var points = $scope.geojson.data.features[i].geometry.coordinates;
 							$scope.features.push($scope.geojson.data.features[i]);
 						}
 				});
@@ -478,61 +472,99 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', 
     }
 ]);
 
-App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $uibModal, $http) {
-				var working = L.AwesomeMarkers.icon({ 
-						icon: 'circle',
-						markerColor: 'green',
-						prefix: 'fa'
-				});
-				var delay = L.AwesomeMarkers.icon({ 
-						icon: 'circle',
-						markerColor: 'orange',
-						prefix: 'fa'
-				});
-				var broken = L.AwesomeMarkers.icon({ 
-						icon: 'circle',
-						markerColor: 'red',
-						prefix: 'fa'
-				});
-				var icons = {
-					'Active': working,
-					'Delay': delay,
-					'Closed': broken
-				};
-
-				$scope.sensorstate = function(state) {
-					switch(state) {
-						case 'Active':
-								return '#71ae26';
-						case 'Delay':
-								return '#f0932f'; 
-						case 'Closed':
-						default:
-								return '#d43e2a'; 
-					}
-				}
-    $scope.openModal = function (event) {
-			console.log('open modal');
-      $uibModal.open({
-        'template': '<div highchart></div>',
-        'controller': 'highchart',
-        'resolve': {
-          'data': function () {
-            return { 
-              series: [{
-                name: "Hestavollane",
-                data: [0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6]
-              }, {
-                name: "Vik",
-                data: [0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, 0.7, 0.8, 0.6, 0.2, 0, 0.1, 0.3, 0.3, 0, 0.1, 0, 0, 0, 0.2, 0.1, 0, 0.3, 0, 0.1, 0.2, 0.1, 0.3, 0.3, 0, 3.1, 3.1, 2.5, 1.5, 1.9, 2.1, 1, 2.3, 1.9, 1.2, 0.7, 1.3, 0.4, 0.3]
-              }]
+App.controller('PopupCtrl', ['$scope', '$uibModalInstance', 'feature', '$http', '$window', '$timeout', 'chart', function ($scope,   $uibModalInstance, feature, $http, $window, $timeout, chart) {
+    $scope.$uibModalInstance = $uibModalInstance
+		$scope.resize = function() {
+			setTimeout(function(){$(window).resize();}, 0);
+		}
+    $scope.feature = feature;
+		$scope.site_name = feature.properties['Station ID'];
+		var sitecode = feature.properties['Station ID'];
+		var query = "/api/stationdata/"+sitecode+"?limit=1&type=sensorify";
+		$scope.sensors = ["temperature.svg", "relative_humidity.svg", "pressure.svg", "precipitation.svg", "radiation.svg", "wind.svg"];
+		$scope.sensor_name = ["Temperature", "Relative Humidity", "Pressure", "Precipitation", "Radiation", "Wind"];
+		$scope.hasData = false;
+		console.log(query);
+		$http.get(query).success(function(result, status) {
+			$scope.sensor_data = result.data;
+			$scope.hasData = result.data.length > 0;
+			console.log(result);
+		});
+		//$http.get('assets/data/json/data.json').success(function (data) {
+		$http.get('api/stationdata/ADAX?type=graph&sensor=TAIR&limit=10000').success(function (data) {
+				console.log("fake data");
+				console.log(data);	
+				var myChart = ChartObj.highcharts();
+				var mydata = {
+						name: $scope.sensor_name[0],
+						data: data,
+						tooltip: {
+                valueDecimals: 2
             }
+				};
+				console.log('chart object after rendering');
+				myChart.setTitle({text: $scope.sensor_name[0]});
+				console.log(chart);
+				console.log('chart object after changing');
+				console.log("here's my chart again");
+				console.log(ChartObj);
+				myChart.addSeries(mydata);
+				console.log(chart);
+				myChart.reflow();
+				setTimeout(function(){myChart.reflow();}, 0);
+		});
+  }
+])
+
+App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $uibModal, $http) {
+		var working = L.AwesomeMarkers.icon({ 
+				icon: 'circle',
+				markerColor: 'green',
+				prefix: 'fa'
+		});
+		var delay = L.AwesomeMarkers.icon({ 
+				icon: 'circle',
+				markerColor: 'orange',
+				prefix: 'fa'
+		});
+		var broken = L.AwesomeMarkers.icon({ 
+				icon: 'circle',
+				markerColor: 'red',
+				prefix: 'fa'
+		});
+		var icons = {
+			'Active': working,
+			'Delay': delay,
+			'Closed': broken
+		};
+
+		$scope.sensorstate = function(state) {
+			switch(state) {
+				case 'Active':
+						return '#71ae26';
+				case 'Delay':
+						return '#f0932f'; 
+				case 'Closed':
+						return '#d43e2a'; 
+				default:
+						return '#d43e2a'; 
+			}
+		}
+    $scope.openModal = function (event) {
+			var feature = event.layer.feature;
+      $uibModal.open({
+        'templateUrl': 'assets/views/map_popup.html',
+        'controller': 'PopupCtrl',
+				'size': 'lg',
+        'resolve': {
+          'feature': function () {
+            return feature; 
           }
         }
       })
     }
     $scope.$on('leaflet', function (event, leaflet) {
-			$http.get("assets/data/geojson/africa_station.geojson").success(function(data, status) {
+			$http.get("/api/sites?type=geojson").success(function(data, status) {
 					angular.extend($scope, {
 							geojson: {
 									data: data,
@@ -546,9 +578,6 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $ui
 					mylayer = L.geoJSON(gg, {
 						pointToLayer: function(feature, latlng) {
 								return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
-						},
-						onEachFeature: function (feature, layer) {
-								//layer.on('click', $scope.openModal).addTo(leaflet);
 						}
 					})
 					mylayer.addTo(leaflet);
@@ -566,9 +595,6 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $ui
 									mymarker = null;
 								}
 								return mymarker;
-							},
-							onEachFeature: function (feature, layer) {
-									//layer.on('click', $scope.openModal).addTo(leaflet);
 							}
 						})
 						mylayer.addTo(leaflet);
@@ -576,6 +602,11 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $ui
 						var latlngs = [];
 						for (var i in $scope.geojson.data.features) {
 								if ($scope.geojson.data.features[i].properties['Station status'] == type) {
+									var points = $scope.geojson.data.features[i].geometry.coordinates;
+									$scope.features.push($scope.geojson.data.features[i]);
+									latlngs.push(L.GeoJSON.coordsToLatLng(points));
+								}
+								if (type=="all") {
 									var points = $scope.geojson.data.features[i].geometry.coordinates;
 									$scope.features.push($scope.geojson.data.features[i]);
 									latlngs.push(L.GeoJSON.coordsToLatLng(points));
@@ -591,9 +622,10 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $ui
 						if (latlngs.length > 0) {
 							console.log("latlngs is:");
 							console.log(latlngs);
-							leaflet.fitBounds(latlngs, {maxZoom: 10});
+							leaflet.fitBounds(latlngs);
 						}
 					}
+					$scope.centerJSON();
 			});
     })
 		$scope.$on('center', function(event, type) {
@@ -607,11 +639,9 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $ui
   }
 ])
 
-App.controller('highchart', [
-           '$scope', '$uibModalInstance', 'data',
-  function ($scope,   $uibModalInstance,   data) {
-    $scope.$uibModalInstance = $uibModalInstance
-    $scope.data = data
+App.controller('highchart', ['$scope', '$http', function ($scope, $http) {
+	console.log('my data');
+	console.log($scope.data);
   }
 ])
 
@@ -638,8 +668,13 @@ App.directive('highchart', [
   function (chart) {
     return {
       'link': function (scope, element, attributes) {
-        var data = angular.extend(scope.data, chart)
-        $(element[0]).highcharts(data)
+        //var data = angular.extend(scope.data, chart)
+				console.log("my element");
+				var data = chart;
+				setTimeout(function() {
+					ChartObj = $(element[0]).highcharts(data);
+					console.log(ChartObj);
+				}, 0);
       }
     }
   }
@@ -647,124 +682,29 @@ App.directive('highchart', [
 
 App.value('chart', {
   chart: {
-      type: "spline"
-  },
-  title: {
-      text: "Wind speed during two days"
-  },
-  subtitle: {
-      text: "May 31 and and June 1, 2015 at two locations in Vik i Sogn, Norway"
+      type: "line",
+			renderTo: "div.ng-scope",
+			events: {
+				load: function() {
+					console.log("my chart was loaded");
+					console.log(this);
+					this.reflow();
+				},
+				redraw: function() {
+					console.log("my chart was redrawn");
+					this.reflow();
+				},
+				render: function() {
+					console.log("my chart was rendered");
+					this.reflow();
+				}
+			}
   },
   xAxis: {
+			crosshair: true,
       type: "datetime",
-      labels: {
-          overflow: "justify"
-      }
   },
-  yAxis: {
-      title: {
-          text: "Wind speed (m/s)"
-      },
-      minorGridLineWidth: 0,
-      gridLineWidth: 0,
-      alternateGridColor: null,
-      plotBands: [{
-          from: 0.3,
-          to: 1.5,
-          color: "rgba(68, 170, 213, 0.1)",
-          label: {
-              text: "Light air",
-              style: {
-                  color: "#606060"
-              }
-          }
-      }, {
-          from: 1.5,
-          to: 3.3,
-          color: "rgba(0, 0, 0, 0)",
-          label: {
-              text: "Light breeze",
-              style: {
-                  color: "#606060"
-              }
-          }
-      }, {
-          from: 3.3,
-          to: 5.5,
-          color: "rgba(68, 170, 213, 0.1)",
-          label: {
-              text: "Gentle breeze",
-              style: {
-                  color: "#606060"
-              }
-          }
-      }, {
-          from: 5.5,
-          to: 8,
-          color: "rgba(0, 0, 0, 0)",
-          label: {
-              text: "Moderate breeze",
-              style: {
-                  color: "#606060"
-              }
-          }
-      }, {
-          from: 8,
-          to: 11,
-          color: "rgba(68, 170, 213, 0.1)",
-          label: {
-              text: "Fresh breeze",
-              style: {
-                  color: "#606060"
-              }
-          }
-      }, {
-          from: 11,
-          to: 14,
-          color: "rgba(0, 0, 0, 0)",
-          label: {
-              text: "Strong breeze",
-              style: {
-                  color: "#606060"
-              }
-          }
-      }, {
-          from: 14,
-          to: 15,
-          color: "rgba(68, 170, 213, 0.1)",
-          label: {
-              text: "High wind",
-              style: {
-                  color: "#606060"
-              }
-          }
-      }]
-  },
-  tooltip: {
-      valueSuffix: " m/s"
-  },
-  plotOptions: {
-      spline: {
-          lineWidth: 4,
-          states: {
-              hover: {
-                  lineWidth: 5
-              }
-          },
-          marker: {
-              enabled: false
-          },
-          pointInterval: 3600000, 
-          pointStart: Date.UTC(2015, 4, 31, 0, 0, 0)
-      }
-  },
-  navigation: {
-      menuItemStyle: {
-          fontSize: "10px"
-      }
-  }
 })
-
 
 // UI Elements Activity Controller
 App.controller('UiActivityCtrl', ['$scope', '$localStorage', '$window',

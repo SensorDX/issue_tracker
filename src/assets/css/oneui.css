@@ -11608,3 +11608,9 @@ div.tagsinput span.tag a:hover {
 .due-date-label {
 	padding-left: 5px !important;
 }
+.padding-30 {
+	padding: 30px !important;
+}
+.padding-15 {
+	padding: 15px !important;
+}

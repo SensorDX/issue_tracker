@@ -1,0 +1,90 @@
+<style>
+	.highcharts-loading {
+		width: 100% !important
+	}
+	.highcharts-container {
+		width: 100% !important
+	}
+</style>
+<!-- Page Content -->
+<!-- Bootstrap tabs (data-js-tabs attribute is initialized in js/directives.js) -->
+<h4 style="padding-top: 15px;" class="text-center font-w300">{{site_name}}</h4>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Block Tabs Justified Alternative Style -->
+            <div class="block">
+                <ul class="nav nav-tabs nav-tabs-alt nav-justified" data-js-tabs>
+                    <li class="active">
+                        <a href="#btabs-alt-static-justified-home"><i class="fa fa-home"></i> Sensor Types</a>
+                    </li>
+                    <li ng-click="resize()" >
+                        <a href="#btabs-alt-static-justified-profile"><i class="fa fa-line-chart"></i> Time Series</a>
+                    </li>
+                    <li>
+                        <a href="#btabs-alt-static-justified-settings"><i class="fa fa-cog"></i> Settings</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="btabs-alt-static-justified-home">
+												<div class="row">
+													<div ng-repeat="sensor in sensors" class="text-center padding-15  col-md-4 col-sm-4 col-xs-12">
+														<div class="bg-gray-lighter padding-30">
+														<img ng-if="sensor == 'temperature.svg'" ng-src="/assets/img/sensors/{{sensor}}" height="30" width="20" alt="Temperature">
+														<img ng-if="sensor != 'temperature.svg'" ng-src="/assets/img/sensors/{{sensor}}" height="30" width="30" alt="Temperature">
+														<table class="sensor-types table">
+																<thead>
+																	<th class="text-center" colspan="2">{{sensor_name[$index]}}</th>
+																</thead>
+																<tbody>
+																		<tr class="text-left">
+																				<td class="middle">
+																						<div class="h5 font-w300 text-muted">Time</div>
+																				</td>
+																				<td class="middle">
+																						<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].time_stamp}}</div>
+																						<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
+																				</td>
+																		</tr>
+																		<tr class="text-left">
+																				<td class="middle">
+																						<div class="h5 font-w300 text-muted">Reading</div>
+																				</td>
+																				<td class="middle">
+																						<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].reading}}
+																							<span ng-if="sensor_data[$index].name == 'Temperature'">&#8451;</span>
+																							<span ng-if="sensor_data[$index].name != 'Temperature'">{{sensor_data[$index].unit}}</span>
+																						</div>
+																						<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
+																				</td>
+																		</tr>
+																		<tr class="text-left">
+																				<td class="middle">
+																						<div class="h5 font-w300 text-muted">Q Flag</div>
+																				</td>
+																				<td class="middle">
+																						<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].QFlag}} ({{sensor_data[$index].QFlagText}}) </div>
+																						<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
+																				</td>
+																		</tr>
+																</tbody>
+														</table>
+														</div>
+													</div>
+												</div>
+                    </div>
+                    <div class="tab-pane" id="btabs-alt-static-justified-profile">
+                        <h4 class="font-w300 push-15"></h4>
+												<div ng-controller="highchart" highchart></div>
+                    </div>
+                    <div class="tab-pane" id="btabs-alt-static-justified-settings">
+                        <h4 class="font-w300 push-15">Settings Tab</h4>
+                        <p>...</p>
+                    </div>
+                </div>
+            </div>
+            <!-- END Block Tabs Justified Default Style -->
+        </div>
+    </div>
+</div>
+<!-- END Page Content -->

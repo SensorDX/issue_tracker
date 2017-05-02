@@ -292,15 +292,67 @@ module.exports = function(router) {
 	 * GET sites info
 	 * Usage:
 	 *	 - /api/sites										[get all sites lat, long, elevation]
+	 *	 - /api/sites?type=geojson			[get all sites lat, long, elevation, sitename, sitecode in geojson format]
 	 */
 	router.get('/api/sites', function(request, response) {
+		var type = request.query.type;
 		Stations.all("SELECT * FROM Sites", function(err, row) {
 			if(err) {
 				response.status(404).send(err);
 				console.log(err);
 			} else {
-				response.status(200).send(row);
-				console.log(row);
+				switch(type) {
+					case 'geojson':
+						data = tools.geojson(row);
+						break;
+					default:
+						data = row;
+						break;
+				}
+				response.status(200).send(data);
+				console.log(data);
+			}
+		});
+	});
+	/**
+	 * GET sites station data
+	 * Usage:
+	 *	 - /api/stationdata/:sitecode													[get all sensor data values of that station]
+	 *	 - /api/stationdata/:sitecode?limit=1									[get all lATEST sensor data values of that station]
+	 *	 - /api/stationdata/:sitecode?type=sensorify					[get all sensor data broken down by sensor types]
+	 *	 - /api/stationdata/:sitecode?type=graph							[get all sensor data formatted as data points]
+	 *	 - /api/stationdata/:sitecode?type=graph&sensor=TAIR	[get all sensor data formatted as data points and filtered by type of sensor]
+	 */
+	router.get('/api/stationdata/:sitecode', function(request, response) {
+		var sitecode = request.params.sitecode;
+		var limit = request.query.limit ? "LIMIT "+request.query.limit : "";
+		var order = request.query.order == "desc" ? "DESC " : "ASC ";
+		var type = request.query.type;
+		var sensor = request.query.sensor;
+		if (sensor) {
+			var query = "SELECT DateTimeUTC, "+sensor+", Q"+sensor+" FROM DataValues WHERE SiteCode = '"+sitecode+"' ORDER BY DateTimeUTC "+order+limit;
+		} else {
+			var query = "SELECT * FROM DataValues WHERE SiteCode = '"+sitecode+"' ORDER BY DateTimeUTC DESC "+limit;
+		}
+		console.log(query);
+		Stations.all(query, function(err, row) {
+			if(err) {
+				response.status(404).send(err);
+				console.log(err);
+			} else {
+				switch(type) {
+					case 'sensorify':
+						data = tools.sensorify(row);
+						break;
+					case 'graph':
+						data = tools.prepareGraphData(row, sensor);
+						break;
+					default:
+						data = row;
+						break;
+				}
+				response.status(200).send(data);
+				//console.log(data);
 			}
 		});
 	});

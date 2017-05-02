@@ -103,6 +103,10 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 url: '/ui/tabs',
                 templateUrl: 'assets/views/ui_tabs.html'
             })
+            .state('mapPopUp', {
+                url: '/ui/popup',
+                templateUrl: 'assets/views/map_popup.html'
+            })
             .state('uiModalsTooltips', {
                 url: '/ui/modals-tooltips',
                 templateUrl: 'assets/views/ui_modals_tooltips.html'
@@ -891,7 +895,7 @@ App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$
                 sidebarLeft: true, // true: Left Sidebar and right Side Overlay, false: Right Sidebar and left Side Overlay
                 sidebarOpen: true, // Visible Sidebar by default (> 991px)
                 sidebarOpenXs: false, // Visible Sidebar by default (< 992px)
-                sidebarMini: false, // Mini hoverable Sidebar (> 991px)
+                sidebarMini: true, // Mini hoverable Sidebar (> 991px)
                 sideOverlayOpen: false, // Visible Side Overlay by default (> 991px)
                 sideOverlayHover: false, // Hoverable Side Overlay (> 991px)
                 sideScroll: true, // Enables custom scrolling on Sidebar and Side Overlay instead of native scrolling (> 991px)
