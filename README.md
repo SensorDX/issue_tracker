@@ -27,7 +27,7 @@ give our issue tracker a try and let us know how we can improve it as we're buil
 
 Here's a walkthrough of our wonderful SensorDX-SMS - more stuff will be added as we move forward :-)
 
-<img src='https://i.imgur.com/9yKDDC5.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/9yKDDC5.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## License
 
