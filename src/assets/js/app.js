@@ -41,7 +41,7 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 controller: 'ViewIssueCtrl'
             })
             .state('newissues', {
-                url: '/issues/new',
+                url: '/issues/new/?from',
                 templateUrl: 'assets/views/new_issue.html',
                 controller: 'NewIssueCtrl',
             })
@@ -51,7 +51,7 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 controller: 'EditIssueCtrl',
             })
             .state('dashboard', {
-                url: '/dashboard',
+                url: '/dashboard/?from',
                 templateUrl: 'assets/views/ready_dashboard.html',
                 controller: 'DashboardCtrl',
                 resolve: {

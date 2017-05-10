@@ -166,7 +166,9 @@ App.controller('ViewIssueCtrl', ['$scope', '$window', '$http', '$location', '$st
 
 }]);
 
-App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$log', '$q', function ($scope, $http, $window, $location, $state, $log, $q) {
+App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', 'ModalService', 
+	function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, ModalService) {
+		console.log('this is the modal service data');
 		$scope.issue = {
 			title: '',
 			description: '',
@@ -176,6 +178,11 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
 			station: '',
 			due_date: ''
 		};
+		var from = $stateParams.from;
+		if (from == "modal") {
+			$scope.issue = ModalService.getIssue();
+			ModalService.reset();
+		}
 		$scope.updateLabels = function(label) {
 			console.log(label);
 			$scope.issue.labels = label;
@@ -265,11 +272,23 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
         return (item.value.indexOf(lowercaseQuery) === 0);
       };
     }
+
+		$scope.cancel = function() {
+			if (from == "modal") {
+				$state.go('dashboard', {from: "issues"});
+			} else {
+				$state.go('issues');
+			}
+		}
 		$scope.submitIssue = function(issue) {
 			$http.post('/api/issues/new', issue)
 				.then(function(response) {
 					$window.console.log('success');
-					$state.go('issues');
+					if (from == "modal") {
+						$state.go('dashboard', {from: "issues"});
+					} else {
+						$state.go('issues');
+					}
 				},
 				function(response) {
 					$window.console.log('error');
@@ -387,7 +406,23 @@ App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$st
 		$scope.console = $window.console;
 }]);
 
-App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', function ($scope, $localStorage, $http, $window) {
+App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', '$uibModal', '$state', '$stateParams', 'ModalService',
+	function ($scope, $localStorage, $http, $window, $uibModal, $state, $stateParams, ModalService) {
+				var from = $stateParams.from;
+				var feature = ModalService.getModalInstance();
+				if (from == "issues" && feature) {
+					console.log('reopen modal');
+					$uibModal.open({
+						'templateUrl': 'assets/views/map_popup.html',
+						'controller': 'PopupCtrl',
+						'size': 'lg',
+						'resolve': {
+							'feature': function () {
+								return feature; 
+							}
+						}
+					})
+				}
 				/*
 				 * Init Lealeft.js
 				 */
@@ -472,17 +507,93 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', 
     }
 ]);
 
-App.controller('PopupCtrl', ['$scope', '$uibModalInstance', 'feature', '$http', '$window', '$timeout', 'chart', function ($scope,   $uibModalInstance, feature, $http, $window, $timeout, chart) {
-    $scope.$uibModalInstance = $uibModalInstance
+App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state', 'feature', '$http', '$window', '$timeout', 'chart', 'ModalService',
+	function ($scope,   $uibModalInstance, $location, $state, feature, $http, $window, $timeout, chart, ModalService) {
+		//Default Value in Settings Tab
+		$scope.data_point_limit = "10000";
+
+    $scope.$uibModalInstance = $uibModalInstance;
 		$scope.resize = function() {
+			setTimeout(function(){ChartObj.reflow();}, 0);
 			setTimeout(function(){$(window).resize();}, 0);
+		}
+    $scope.items = ["Display Graph", "Create Issue", "Issues Created"];
+		$scope.checkbox_selected = [0, 1, 2];
+
+		$scope.toggle = function (item, list) {
+			var idx = list.indexOf(item);
+			if (idx > -1) {
+				list.splice(idx, 1);
+			}
+			else {
+				list.push(item);
+			}
+		};
+		$scope.exists = function (item, list) {
+			return list.indexOf(item) > -1;
+		};
+		$scope.createIssue = function(index) {
+			var issue = {
+				title: $scope.sensor_name[index]+' Sensor - Failure Detected',
+				description: 'QFlag: '+$scope.sensor_data[index].QFlag+' ('+$scope.sensor_data[index].QFlagText+')',
+				assignee: '',
+				labels: ["bug"],
+				priority: 1,
+				station: $scope.site_name,
+				due_date: ''
+			};
+			ModalService.addIssue(issue);
+			console.log(issue);
+			$scope.$uibModalInstance.close();
+			$state.go('newissues', {from: "modal"});
+		}
+		$scope.selected = function(index) {
+			$scope.isSelected.map(function(item, key) {
+				$scope.isSelected[key] = false;
+			});
+			$scope.isSelected[index] = true;
+			console.log($scope.isSelected);
+			console.log(index);
+			while( ChartObj.series.length > 0 ) {
+    		ChartObj.series[0].remove( false );
+			}
+			$http.get('api/stationdata/ADAX?type=graph&sensor='+$scope.sensor_id[index]+'&limit=10000').success(function (data) {
+					console.log("fake data");
+					console.log(data);	
+					var myChart = ChartObj;
+					var mydata = {
+							name: $scope.sensor_name[index],
+							data: data,
+							zones: [{
+								value: 0,
+								color: '#d43e2a'
+							}],
+							tooltip: {
+									valueDecimals: 2,
+									valueSuffix: $scope.sensor_unit[index]
+							}
+					};
+					console.log('chart object after rendering');
+					myChart.setTitle({text: $scope.sensor_name[index]});
+					console.log(chart);
+					console.log('chart object after changing');
+					console.log("here's my chart again");
+					console.log(ChartObj);
+					myChart.addSeries(mydata);
+					console.log(chart);
+					myChart.reflow();
+			});
 		}
     $scope.feature = feature;
 		$scope.site_name = feature.properties['Station ID'];
 		var sitecode = feature.properties['Station ID'];
 		var query = "/api/stationdata/"+sitecode+"?limit=1&type=sensorify";
-		$scope.sensors = ["temperature.svg", "relative_humidity.svg", "pressure.svg", "precipitation.svg", "radiation.svg", "wind.svg"];
+		var initial = 0;
+		$scope.sensors = ["temperature", "relative_humidity", "pressure", "precipitation", "radiation", "wind"];
+		$scope.isSelected = [true, false, false, false, false, false];
 		$scope.sensor_name = ["Temperature", "Relative Humidity", "Pressure", "Precipitation", "Radiation", "Wind"];
+		$scope.sensor_id = ["TAIR", "RELH", "PRES", "RAIN", "SRAD", "WSPD"];
+		$scope.sensor_unit = ["°C", "%", "mbar", "mm", "W/m^2", "mph"];
 		$scope.hasData = false;
 		console.log(query);
 		$http.get(query).success(function(result, status) {
@@ -491,19 +602,24 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', 'feature', '$http', 
 			console.log(result);
 		});
 		//$http.get('assets/data/json/data.json').success(function (data) {
-		$http.get('api/stationdata/ADAX?type=graph&sensor=TAIR&limit=10000').success(function (data) {
+		$http.get('api/stationdata/ADAX?type=graph&sensor='+$scope.sensor_id[initial]+'&limit=10000').success(function (data) {
 				console.log("fake data");
 				console.log(data);	
-				var myChart = ChartObj.highcharts();
+				var myChart = ChartObj;
 				var mydata = {
-						name: $scope.sensor_name[0],
+						name: $scope.sensor_name[initial],
 						data: data,
+						zones: [{
+							value: 0,
+							color: '#d43e2a'
+						}],
 						tooltip: {
-                valueDecimals: 2
+                valueDecimals: 2,
+								valueSuffix: $scope.sensor_unit[initial]
             }
 				};
 				console.log('chart object after rendering');
-				myChart.setTitle({text: $scope.sensor_name[0]});
+				myChart.setTitle({text: $scope.sensor_name[initial]});
 				console.log(chart);
 				console.log('chart object after changing');
 				console.log("here's my chart again");
@@ -511,12 +627,11 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', 'feature', '$http', 
 				myChart.addSeries(mydata);
 				console.log(chart);
 				myChart.reflow();
-				setTimeout(function(){myChart.reflow();}, 0);
 		});
   }
 ])
 
-App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $uibModal, $http) {
+App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', function ($scope, $uibModal, $http, ModalService) {
 		var working = L.AwesomeMarkers.icon({ 
 				icon: 'circle',
 				markerColor: 'green',
@@ -551,8 +666,10 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $ui
 			}
 		}
     $scope.openModal = function (event) {
+			console.log('this is the event');
+			console.log(event);
 			var feature = event.layer.feature;
-      $uibModal.open({
+			$uibModal.open({
         'templateUrl': 'assets/views/map_popup.html',
         'controller': 'PopupCtrl',
 				'size': 'lg',
@@ -562,6 +679,7 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $ui
           }
         }
       })
+			ModalService.setModalInstance(feature);
     }
     $scope.$on('leaflet', function (event, leaflet) {
 			$http.get("/api/sites?type=geojson").success(function(data, status) {
@@ -636,6 +754,7 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', function ($scope, $ui
 		$scope.$on('center-single', function(event, geometry) {
 			$scope.centerSingleJSON(geometry.coordinates);
 		});
+
   }
 ])
 
@@ -672,7 +791,8 @@ App.directive('highchart', [
 				console.log("my element");
 				var data = chart;
 				setTimeout(function() {
-					ChartObj = $(element[0]).highcharts(data);
+					//ChartObj = $(element[0]).stockChart(data);
+					ChartObj = new Highcharts.stockChart("chart-container", data);
 					console.log(ChartObj);
 				}, 0);
       }
@@ -682,24 +802,47 @@ App.directive('highchart', [
 
 App.value('chart', {
   chart: {
-      type: "line",
-			renderTo: "div.ng-scope",
+      type: "spline",
 			events: {
 				load: function() {
 					console.log("my chart was loaded");
-					console.log(this);
-					this.reflow();
 				},
 				redraw: function() {
 					console.log("my chart was redrawn");
-					this.reflow();
 				},
 				render: function() {
 					console.log("my chart was rendered");
-					this.reflow();
 				}
 			}
   },
+	rangeSelector: {
+
+			buttons: [{
+					type: 'day',
+					count: 3,
+					text: '3d'
+			}, {
+					type: 'week',
+					count: 1,
+					text: '1w'
+			}, {
+					type: 'month',
+					count: 1,
+					text: '1m'
+			}, {
+					type: 'month',
+					count: 6,
+					text: '6m'
+			}, {
+					type: 'year',
+					count: 1,
+					text: '1y'
+			}, {
+					type: 'all',
+					text: 'All'
+			}],
+			selected: 3
+	},
   xAxis: {
 			crosshair: true,
       type: "datetime",
@@ -2909,3 +3052,61 @@ App.controller('CompMapsVectorCtrl', ['$scope', '$localStorage', '$window',
         });
     }
 ]);
+
+
+// ALL MY SERVICES
+App.service('ModalService', function() {
+	var issue = {
+		title: '',
+		description: '',
+		assignee: '',
+		labels: [],
+		priority: '',
+		station: '',
+		due_date: ''
+	};
+
+	var modalInstance = null;
+
+	var setModalInstance = function(newModal) {
+		modalInstance = newModal;
+	}
+
+	var getModalInstance = function(newModal) {
+		return modalInstance;
+	}
+
+  var addIssue = function(newObj) {
+      issue.title = newObj.title;
+      issue.description = newObj.description;
+			issue.assignee = newObj.assignee;
+			issue.labels = newObj.labels;
+			issue.station = newObj.station;
+			issue.due_date = newObj.due_date;
+  };
+
+  var getIssue = function(){
+      return issue;
+  };
+
+	var reset = function() {
+		issue = {
+			title: '',
+			description: '',
+			assignee: '',
+			labels: [],
+			priority: '',
+			station: '',
+			due_date: ''
+		};
+	}
+
+  return {
+    addIssue: addIssue,
+    getIssue: getIssue,
+		reset: reset,
+		setModalInstance: setModalInstance,
+		getModalInstance: getModalInstance
+  };
+
+});

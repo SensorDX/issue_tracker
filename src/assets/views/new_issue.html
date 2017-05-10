@@ -66,7 +66,7 @@
 					style="margin-bottom: 20px;" 
           ng-disabled="isDisabled"
           md-no-cache="noCache"
-          md-selected-item="selectedItem"
+          md-selected-item="issue.station"
           md-search-text-change="searchTextChange(searchText)"
           md-search-text="searchText"
           md-selected-item-change="selectedItemChange(item)"
@@ -146,7 +146,7 @@
   <md-toolbar style="background-color: white;">
     <section layout="row" layout-sm="column" layout-wrap layout-margin>
       <md-button class="md-raised md-primary" ng-click="submitIssue(issue)">Submit Issue</md-button>
-      <md-button class="md-raised md-primary" data-ui-sref="issues">Cancel</md-button>
+      <md-button class="md-raised md-primary" ng-click="cancel()">Cancel</md-button>
     </section>
   </md-toolbar>
 

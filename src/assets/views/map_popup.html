@@ -1,9 +1,41 @@
 <style>
+md-backdrop.md-select-backdrop {
+    z-index:103;
+}
+
+.md-select-menu-container {
+    z-index:2000;
+}
 	.highcharts-loading {
 		width: 100% !important
 	}
 	.highcharts-container {
 		width: 100% !important
+	}
+	.cursor {
+		cursor: pointer;
+	}
+	.margin-top {
+		margin-top: 20px;
+	}
+	.no-margin-top {
+		margin-top: 0;
+	}
+	.no-bullets {
+		list-style: none;
+	}
+	.no-bullets > li {
+		float: right;
+	}
+	.no-bullets > li > a > i {
+		color: #ffffff;
+		font-size: 1.1em;
+	}
+	.no-bullets > li > a:hover > i {
+		color: #646464 !important;
+	}
+	.bg-grey {
+		background-color: #aaaaaa;
 	}
 </style>
 <!-- Page Content -->
@@ -27,60 +59,137 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="btabs-alt-static-justified-home">
-												<div class="row">
+												<div class="row margin-top">
 													<div ng-repeat="sensor in sensors" class="text-center padding-15  col-md-4 col-sm-4 col-xs-12">
+															<ul class="nav no-bullets bg-grey" data-js-tabs>
+																<li class="active">
+																	<a ng-click="createIssue($index)" href="#"><i class="fa fa-pencil-square-o"></i></a>
+																</li>
+																<li>
+																	<a href="#btabs-alt-static-justified-profile"><i class="fa fa-line-chart"></i></a>
+																</li>
+															</ul>
 														<div class="bg-gray-lighter padding-30">
-														<img ng-if="sensor == 'temperature.svg'" ng-src="/assets/img/sensors/{{sensor}}" height="30" width="20" alt="Temperature">
-														<img ng-if="sensor != 'temperature.svg'" ng-src="/assets/img/sensors/{{sensor}}" height="30" width="30" alt="Temperature">
-														<table class="sensor-types table">
-																<thead>
-																	<th class="text-center" colspan="2">{{sensor_name[$index]}}</th>
-																</thead>
-																<tbody>
-																		<tr class="text-left">
-																				<td class="middle">
-																						<div class="h5 font-w300 text-muted">Time</div>
-																				</td>
-																				<td class="middle">
-																						<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].time_stamp}}</div>
-																						<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
-																				</td>
-																		</tr>
-																		<tr class="text-left">
-																				<td class="middle">
-																						<div class="h5 font-w300 text-muted">Reading</div>
-																				</td>
-																				<td class="middle">
-																						<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].reading}}
-																							<span ng-if="sensor_data[$index].name == 'Temperature'">&#8451;</span>
-																							<span ng-if="sensor_data[$index].name != 'Temperature'">{{sensor_data[$index].unit}}</span>
-																						</div>
-																						<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
-																				</td>
-																		</tr>
-																		<tr class="text-left">
-																				<td class="middle">
-																						<div class="h5 font-w300 text-muted">Q Flag</div>
-																				</td>
-																				<td class="middle">
-																						<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].QFlag}} ({{sensor_data[$index].QFlagText}}) </div>
-																						<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
-																				</td>
-																		</tr>
-																</tbody>
-														</table>
+															<img ng-if="sensor == 'temperature'" ng-src="/assets/img/sensors/{{sensor}}.svg" height="30" width="20" alt="Temperature">
+															<img ng-if="sensor != 'temperature'" ng-src="/assets/img/sensors/{{sensor}}.svg" height="30" width="30" alt="Temperature">
+															<table class="sensor-types table">
+																	<thead>
+																		<th class="text-center" colspan="2">{{sensor_name[$index]}}</th>
+																	</thead>
+																	<tbody>
+																			<tr class="text-left">
+																					<td class="middle">
+																							<div class="h5 font-w300 text-muted">Time</div>
+																					</td>
+																					<td class="middle">
+																							<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].time_stamp}}</div>
+																							<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
+																					</td>
+																			</tr>
+																			<tr class="text-left">
+																					<td class="middle">
+																							<div class="h5 font-w300 text-muted">Reading</div>
+																					</td>
+																					<td class="middle">
+																							<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].reading}}
+																								<span ng-if="sensor_data[$index].name == 'Temperature'">&#8451;</span>
+																								<span ng-if="sensor_data[$index].name != 'Temperature'">{{sensor_data[$index].unit}}</span>
+																							</div>
+																							<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
+																					</td>
+																			</tr>
+																			<tr class="text-left">
+																					<td class="middle">
+																							<div class="h5 font-w300 text-muted">Q Flag</div>
+																					</td>
+																					<td class="middle">
+																							<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].QFlag}} ({{sensor_data[$index].QFlagText}}) </div>
+																							<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
+																					</td>
+																			</tr>
+																	</tbody>
+															</table>
 														</div>
 													</div>
 												</div>
                     </div>
                     <div class="tab-pane" id="btabs-alt-static-justified-profile">
-                        <h4 class="font-w300 push-15"></h4>
-												<div ng-controller="highchart" highchart></div>
+											<div class="margin-top" id="chart-container" ng-controller="highchart" highchart></div>
+											<div class="row">
+												<div class="col-xs-12">
+													<div ng-click="selected($index)" ng-repeat="sensor in sensors" class="cursor text-center padding-15  col-md-2 col-sm-2 col-xs-2">
+														<img ng-if="sensor == 'temperature' && isSelected[$index]" ng-src="/assets/img/sensors/{{sensor}}-blue.svg" height="30" width="20" alt="Temperature">
+														<img ng-if="sensor == 'temperature' && !isSelected[$index]" ng-src="/assets/img/sensors/{{sensor}}.svg" height="30" width="20" alt="Temperature">
+														<img ng-if="sensor != 'temperature' && isSelected[$index]" ng-src="/assets/img/sensors/{{sensor}}-blue.svg" height="30" width="30" alt="Temperature">
+														<img ng-if="sensor != 'temperature' && !isSelected[$index]" ng-src="/assets/img/sensors/{{sensor}}.svg" height="30" width="30" alt="Temperature">
+													</div>
+												</div>
+											</div>
                     </div>
                     <div class="tab-pane" id="btabs-alt-static-justified-settings">
-                        <h4 class="font-w300 push-15">Settings Tab</h4>
-                        <p>...</p>
-                    </div>
+											<div class="margin-top">
+                        <h4 class="font-w300">Automatic Emails</h4>
+												<hr class="no-margin-top">
+												<fieldset class="standard" >
+													<div class="col-xs-6" layout="row" layout-align="space-between center">
+														<span>Erroneous values ratio</span>
+														<md-select ng-model="weapon" placeholder="------" class="md-no-underline">
+															<md-option value="10"> 1 : 10</md-option>
+															<md-option value="20"> 2 : 10</md-option>
+															<md-option value="30"> 3 : 10</md-option>
+															<md-option value="40"> 4 : 10</md-option>
+															<md-option value="50"> &gt; 50 %</md-option>
+														</md-select>
+													</div>
+													<div class="col-xs-6" layout="row" layout-align="space-between center">
+														<span>SensorDX Score</span>
+														<md-select ng-model="weapon" placeholder="------" class="md-no-underline">
+															<md-option value="1"> 10 %</md-option>
+															<md-option value="2"> 20 %</md-option>
+															<md-option value="3"> 30 %</md-option>
+															<md-option value="4"> 40 %</md-option>
+															<md-option value="5"> &gt; 50 %</md-option>
+														</md-select>
+													</div>
+												</fieldset>
+											</div>
+											<div class="margin-top">
+                        <h4 class="font-w300">View</h4>
+												<hr class="no-margin-top">
+												<fieldset class="standard" >
+													<div layout="row" layout-wrap flex>
+														<div class="col-xs-12 col-sm-4" ng-repeat="(key, item) in items">
+															<md-checkbox ng-checked="exists(key, checkbox_selected)" ng-click="toggle(key, checkbox_selected)">
+																{{ item }}
+															</md-checkbox>
+														</div>
+													</div>
+												</fieldset>
+											</div>
+											<div class="margin-top">
+                        <h4 class="font-w300">Time Series Settings</h4>
+												<hr class="no-margin-top">
+												<fieldset class="standard" >
+													<div class="col-xs-6" layout="row" layout-align="space-between center">
+														<span>Data Points Limit</span>
+														<md-select ng-model="data_point_limit" placeholder="<=1000" class="md-no-underline">
+															<md-option value="10"> &le; 1000  </md-option>
+															<md-option value="20"> &le; 5000  </md-option>
+															<md-option value="30"> &le; 10000 </md-option>
+															<md-option value="40"> &le; 50000 </md-option>
+															<md-option value="50"> &gt; 50000 </md-option>
+														</md-select>
+													</div>
+													<div class="col-xs-6" layout="row" layout-align="space-between center">
+														<span>Graph Type</span>
+														<md-select ng-model="graph_type" placeholder="------" class="md-no-underline">
+															<md-option value="1"> Spline </md-option>
+															<md-option value="2"> Area </md-option>
+															<md-option value="3"> Scatter</md-option>
+														</md-select>
+													</div>
+												</fieldset>
+											</div>
                 </div>
             </div>
             <!-- END Block Tabs Justified Default Style -->

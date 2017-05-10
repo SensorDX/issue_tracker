@@ -132,7 +132,7 @@ module.exports = {
 				icon: "wind.svg",
 				time_stamp: item.DateTimeUTC,
 				reading: item.WSPD,
-				unit: "W/m^2",
+				unit: "m/s",
 				QFlag: item.QWSPD,
 				QFlagText: QFlagInfo(item.QWSPD)
 			};
