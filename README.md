@@ -1,4 +1,4 @@
-# Sensor DX - Issue Tracker
+# Sensor DX - Sensor Management System (SMS)
 Loading ...
 
 Good stuff coming your way&nbsp;&nbsp;&nbsp;
@@ -25,9 +25,9 @@ give our issue tracker a try and let us know how we can improve it as we're buil
 
 ## Video Walkthrough
 
-Here's a walkthrough of our wonderful Issue Tracker - more stuff will be added as we move forward :-)
+Here's a walkthrough of our wonderful SensorDX-SMS - more stuff will be added as we move forward :-)
 
-<img src='http://i.imgur.com/skQNh5J.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/9yKDDC5.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## License
 

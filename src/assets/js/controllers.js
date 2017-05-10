@@ -99,7 +99,7 @@ App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function
 				console.log(response);
 			});
 		};
-		$scope.priorities =  [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		$scope.priorities =  ["HIGH", "NORMAL", "LOW"];
 		$scope.stations = [
 			{ name: 'Station 1'},
 			{ name: 'Station 2'},
@@ -202,7 +202,7 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
 			});
 				console.log($scope.labels);
 		};
-		$scope.priorities =  [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		$scope.priorities =  ["HIGH", "NORMAL", "LOW"];
 
     $scope.simulateQuery = false;
     $scope.isDisabled    = false;
@@ -320,7 +320,7 @@ App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$st
 		}, function(response) {
 			console.log(response);
 		});
-		$scope.priorities =  [1, 2, 3, 4, 5, 6, 7, 8, 9];
+		$scope.priorities =  ["HIGH", "NORMAL", "LOW"];
     $scope.simulateQuery = false;
     $scope.isDisabled    = false;
     $scope.querySearch   = querySearch;
@@ -538,7 +538,7 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state
 				description: 'QFlag: '+$scope.sensor_data[index].QFlag+' ('+$scope.sensor_data[index].QFlagText+')',
 				assignee: '',
 				labels: ["bug"],
-				priority: 1,
+				priority: LOW,
 				station: $scope.site_name,
 				due_date: ''
 			};
