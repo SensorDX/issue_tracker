@@ -538,7 +538,7 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state
 				description: 'QFlag: '+$scope.sensor_data[index].QFlag+' ('+$scope.sensor_data[index].QFlagText+')',
 				assignee: '',
 				labels: ["bug"],
-				priority: LOW,
+				priority: "LOW",
 				station: $scope.site_name,
 				due_date: ''
 			};
