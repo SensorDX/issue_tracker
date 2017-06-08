@@ -2,6 +2,16 @@
  * DB Configuration
  */
 var mongoose = require('mongoose');
+var nodemailer = require('nodemailer');
+var credentials = require('./../../credentials');
+var mailTransport = nodemailer.createTransport({ 
+	service: 'Gmail',
+	host: "smtp.gmail.com",
+	auth: {
+		user: credentials.gmail.user,
+		pass: credentials.gmail.password,
+	} 
+});
 //var db = "mongodb://localhost/issue_tracker";
 var db = "mongodb://sensordx:helloworld@ds161049.mlab.com:61049/issue_tracker";
 
@@ -355,5 +365,37 @@ module.exports = function(router) {
 				//console.log(data);
 			}
 		});
+	});
+	/**
+	 * POST sendmail
+	 * Usage:
+	 *	 - /api/sendmail -d {
+	 * 													from: String,
+	 * 													to: String,
+	 * 													subject: String,
+	 * 													text: String
+	 * 												}
+	 *	 
+	 */
+	router.post('/api/sendmail', function(req, res) {
+			var sender = req.body.from;
+			var receiver = req.body.to;
+			var subject = req.body.subject;
+			var text = req.body.text;
+
+			mailTransport.sendMail({
+				from: sender + ' <renemidouin@gmail.com>',
+				to: receiver,
+				subject: subject,
+				text: text
+			}, function(err){
+					 if(err) {
+						 console.error( 'Unable to send email: ' + err );
+						 res.status(200).send({'message': 'Unable to send email: ' + err});
+					 } else {
+						 console.log('Mail sent');
+						 res.status(200).send({'message': 'Email was sent'});
+					 }
+			});
 	});
 };

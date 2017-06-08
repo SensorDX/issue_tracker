@@ -1,11 +1,33 @@
 // set up ======================================================================
 var express  = require('express');
-var app = express();                        // create our app w/express
-var router = express.Router();							// use express router for our routes
-var morgan = require('morgan');             // log requests to the console
-var bodyParser = require('body-parser');    // pull information from HTML POST
+var app = express();                        	// create our app w/express
+var router = express.Router();								// use express router for our routes
+var morgan = require('morgan');             	// log requests to the console
+var bodyParser = require('body-parser');    	// pull information from HTML POST
+var nodemailer = require('nodemailer');
+var credentials = require('./../credentials');
 var port = process.env.PORT || 3000;
-var db = "mongodb://localhost/issue_tracker";
+
+var mailTransport = nodemailer.createTransport(
+				{ 	service: 'Gmail',
+						host: "smtp.gmail.com",
+            auth: {
+							user: credentials.gmail.user,
+							pass: credentials.gmail.password,
+						} 
+				});
+/*
+mailTransport.sendMail({
+            from: '"Rene Midouin" <renemidouin@gmail.com>',
+            to: 'renemidouin@gmail.com',
+            subject: 'Your Meadowlark Travel Tour',
+						         text: 'Thank you for booking your trip with Meadowlark Travel.  ' +
+                    'We look forward to your visit!',
+				}, function(err){
+					 if(err) console.error( 'Unable to send email: ' + err );
+				});
+*/
+
 
 // configuration ===============================================================
 app.use(express.static(__dirname + '/src'));                 		// set the static files location /public/img will be /img for users

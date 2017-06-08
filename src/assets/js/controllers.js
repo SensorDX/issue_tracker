@@ -692,13 +692,16 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', funct
 							}
 					});
 					$scope.features = [];
+					var markers = L.markerClusterGroup({ chunkedLoading: true });
 					var gg = $scope.geojson.data;
 					mylayer = L.geoJSON(gg, {
 						pointToLayer: function(feature, latlng) {
 								return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
 						}
 					})
-					mylayer.addTo(leaflet);
+					//mylayer.addTo(leaflet);
+					mylayer.addTo(markers);
+					markers.addTo(leaflet);
 					mylayer.on('click', $scope.openModal);
 					$scope.centerJSON = function (type="all") {
 						mylayer.removeFrom(leaflet);
@@ -715,7 +718,9 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', funct
 								return mymarker;
 							}
 						})
-						mylayer.addTo(leaflet);
+						//mylayer.addTo(leaflet);
+						mylayer.addTo(markers);
+						markers.addTo(leaflet);
 						mylayer.on('click', $scope.openModal);
 						var latlngs = [];
 						for (var i in $scope.geojson.data.features) {
