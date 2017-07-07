@@ -158,7 +158,7 @@ App.controller('ViewIssueCtrl', ['$scope', '$window', '$http', '$location', '$st
 		/**
 		 * Fields to be updated
 		 */
-			$http.get('api/issues?id='+_id+'&status=id&type=modified').then(function(response) {
+			$http.get('api/issues/'+_id+'?type=modified').then(function(response) {
 				$scope.issue = response.data.data[0];
 			}, function(response) {
 				console.log(response);
@@ -232,6 +232,7 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
 
     function searchTextChange(text) {
       $log.info('Text changed to ' + text);
+			$scope.issue.station = text;
     }
 
     function selectedItemChange(item) {
@@ -281,7 +282,7 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
 			}
 		}
 		$scope.submitIssue = function(issue) {
-			$http.post('/api/issues/new', issue)
+			$http.post('/api/issues', issue)
 				.then(function(response) {
 					$window.console.log('success');
 					if (from == "modal") {
@@ -300,10 +301,13 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
 App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', function ($scope, $http, $window, $location, $state, $stateParams, $log, $q) {
 		var _id = $stateParams.id;
 		$scope.id = _id;
-		$http.get('api/issues?id='+_id+'&status=id&type=modified').then(function(response) {
+		$scope.item = {"SiteID":null,"SiteCode":null,"SiteName":null,"Latitude":null,"Longitude":null,"Elevation_m":null,"value":"altu"};
+		$http.get('api/issues/'+_id+'?type=modified').then(function(response) {
 			$scope.issue = response.data.data[0];
 			$scope.issue.due_date = new Date($scope.issue.due_date);
 			$scope.issue.ids = [_id];
+			$scope.item.SiteCode = $scope.issue.station;
+			selectedItemChange($scope.item);
 		}, function(response) {
 			console.log(response);
 		});
@@ -349,6 +353,7 @@ App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$st
 
     function searchTextChange(text) {
       $log.info('Text changed to ' + text);
+				$scope.issue.station = text;
     }
 
     function selectedItemChange(item) {

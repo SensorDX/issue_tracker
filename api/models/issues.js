@@ -5,7 +5,7 @@ var IssuesSchema = new Schema({
 	description: String,
 	assignee: String,
 	labels: [],
-	priority: Number,
+	priority: String,
 	station: String,
 	status: String,
 	due_date: Date,

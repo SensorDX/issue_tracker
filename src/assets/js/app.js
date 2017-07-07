@@ -41,7 +41,7 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 controller: 'ViewIssueCtrl'
             })
             .state('newissues', {
-                url: '/issues/new/?from',
+                url: '/issues/new?from',
                 templateUrl: 'assets/views/new_issue.html',
                 controller: 'NewIssueCtrl',
             })

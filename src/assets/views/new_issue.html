@@ -66,7 +66,6 @@
 					style="margin-bottom: 20px;" 
           ng-disabled="isDisabled"
           md-no-cache="noCache"
-          md-selected-item="issue.station"
           md-search-text-change="searchTextChange(searchText)"
           md-search-text="searchText"
           md-selected-item-change="selectedItemChange(item)"
@@ -124,15 +123,6 @@
 							<md-option ng-value="none"><em>None</em></md-option>
 							<md-option ng-repeat="priority in priorities" ng-value="priority">
 								{{priority}}
-							</md-option>
-						</md-select>
-					</md-input-container>
-					<md-input-container>
-						<label>Station</label>
-						<md-select style="min-width: 200px;" ng-model="issue.station" flex-gt-sm>
-							<md-option ng-value="none"><em>None</em></md-option>
-							<md-option ng-repeat="station in stations" ng-value="station.name">
-								{{station.name}}
 							</md-option>
 						</md-select>
 					</md-input-container>
