@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
-var credentials = require('./../../credentials');
+var credentials =require('../config/settings.js');// require('./../../credentials');
 var mailTransport = nodemailer.createTransport({ 
  service: 'Gmail',
  host: "smtp.gmail.com",

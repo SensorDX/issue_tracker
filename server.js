@@ -5,12 +5,13 @@ var router = express.Router();								// use express router for our routes
 var morgan = require('morgan');             	// log requests to the console
 var bodyParser = require('body-parser');    	// pull information from HTML POST
 var nodemailer = require('nodemailer');
-var credentials = require('./../credentials');
-var port = process.env.PORT || 3000;
+var credentials = require('./config/settings.js');//require('./../credentials');
+var port = process.env.PORT || 5000;
 
 var mailTransport = nodemailer.createTransport(
 				{ 	service: 'Gmail',
 						host: "smtp.gmail.com",
+
             auth: {
 							user: credentials.gmail.user,
 							pass: credentials.gmail.password,
