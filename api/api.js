@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
-var credentials =require('../config/settings.js');// require('./../../credentials');
+var credentials =require('../config/settings.js');
 var mailTransport = nodemailer.createTransport({ 
  service: 'Gmail',
  host: "smtp.gmail.com",
@@ -12,7 +12,8 @@ var mailTransport = nodemailer.createTransport({
   pass: credentials.gmail.password,
  } 
 });
-//var db = "mongodb://localhost/issue_tracker";
+
+// Replace by user's info during configuration
 var db = "mongodb://sensordx:helloworld@ds161049.mlab.com:61049/issue_tracker";
 
 mongoose.connect(db, function(err, response) {
@@ -28,6 +29,7 @@ mongoose.connect(db, function(err, response) {
 var Issue = require('./models/issues');
 var Label = require('./models/labels');
 var User = require('./models/users');
+var CustomStations = require('./models/custom_stations');
 var Stations = require('./models/stations');
 var tools = require('./tools');
 
@@ -543,11 +545,12 @@ module.exports = function(router) {
  });
 
  /**
-  * @api {put} /api/issues Modify an issue
+  * @api {put} /api/issues Modify issue(s)
   * @apiVersion 1.0.0
   * @apiName PutIssues
   * @apiGroup Issue
   *
+  * @apiParam  {String[]}  ids         	 Array of ids to update
   * @apiParam  {String}    title         Issue Title
   * @apiParam  {String}    description   Detailed Descrition of Issue
   * @apiParam  {String}    assignee      Who the Issue Was Assigned To
@@ -596,6 +599,11 @@ module.exports = function(router) {
     isUpdated = true;
    }
 
+   if (req.body.status) {
+    update.status = req.body.status;
+    isUpdated = true;
+   }
+
    if (req.body.due_date) {
     update.due_date = req.body.due_date;
     isUpdated = true;
@@ -621,6 +629,28 @@ module.exports = function(router) {
   } else {
    res.status(404).send({updated: false});
   }
+ });
+
+ /**
+  * @api {delete} /api/issues/:id Delete an issue
+  * @apiVersion 1.0.0
+  * @apiName DeleteIssue
+  * @apiGroup Issue
+  *
+  * @apiParam  {String}  id         	 Id of issue to remove
+  *
+  * @apiSuccessExample Success-Response:
+  * HTTP/1.1 200 OK
+  * {
+  *   deleted: true
+  * }
+  */
+ router.delete('/api/issues/:id', function(req, res) {
+   var id = req.params.id;
+	 Issue.remove({_id: id}, function(err, issue) {
+			if (err) res.send({ deleted: false});
+			else res.send({ deleted: true});
+	});
  });
 
  /**

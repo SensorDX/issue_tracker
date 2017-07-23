@@ -84,6 +84,23 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
+            .state('manageStations', {
+                url: '/stations/manage',
+                templateUrl: 'assets/views/manage_stations.html',
+                controller: 'ManageStationsCtrl',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            insertBefore: '#css-bootstrap',
+                            serie: true,
+                            files: [
+                                'assets/js/plugins/datatables/jquery.dataTables.min.css',
+                                'assets/js/plugins/datatables/jquery.dataTables.min.js'
+                            ]
+                        });
+                    }]
+                }
+            })
             .state('uiActivity', {
                 url: '/ui/activity',
                 templateUrl: 'assets/views/ui_activity.html',

@@ -144,7 +144,6 @@ module.exports = {
   },
   prepareGraphData: function (data, sensor) {
 		var results = [];
-		//results['data']= []
 		data.map(function(item, index) {
 			var point = [];
 			var timestamp = format_date(item.DateTimeUTC, "UTC-milliseconds");
@@ -200,6 +199,7 @@ module.exports = {
 				_id: item._id,
 				title: item.title,
 				description: item.description,
+				status: item.status,
 				priority: item.priority,
 				station: item.station,
 				due_date: format_date(item.due_date),

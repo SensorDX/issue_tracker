@@ -1,0 +1,962 @@
+[
+    {
+        "Elevation_m": 397,
+        "Latitude": 34.80833,
+        "Longitude": -98.02325,
+        "SiteCode": "ACME",
+        "SiteID": 1,
+        "SiteName": "Acme"
+    },
+    {
+        "Elevation_m": 295,
+        "Latitude": 34.79851,
+        "Longitude": -96.66909,
+        "SiteCode": "ADAX",
+        "SiteID": 2,
+        "SiteName": "Ada"
+    },
+    {
+        "Elevation_m": 416,
+        "Latitude": 34.58722,
+        "Longitude": -99.33808,
+        "SiteCode": "ALTU",
+        "SiteID": 3,
+        "SiteName": "Altus"
+    },
+    {
+        "Elevation_m": 439,
+        "Latitude": 36.70823,
+        "Longitude": -98.70974,
+        "SiteCode": "ALV2",
+        "SiteID": 4,
+        "SiteName": "Alva"
+    },
+    {
+        "Elevation_m": 450,
+        "Latitude": 36.7797,
+        "Longitude": -98.6717,
+        "SiteCode": "ANTL",
+        "SiteID": 5,
+        "SiteName": "Antl"
+    },
+    {
+        "Elevation_m": 440,
+        "Latitude": 34.91418,
+        "Longitude": -98.29216,
+        "SiteCode": "APAC",
+        "SiteID": 6,
+        "SiteName": "Apache"
+    },
+    {
+        "Elevation_m": 266,
+        "Latitude": 34.19258,
+        "Longitude": -97.08568000000001,
+        "SiteCode": "ARD2",
+        "SiteID": 7,
+        "SiteName": "Ardmore"
+    },
+    {
+        "Elevation_m": 719,
+        "Latitude": 36.07204,
+        "Longitude": -99.90308,
+        "SiteCode": "ARNE",
+        "SiteID": 8,
+        "SiteName": "Arnett"
+    },
+    {
+        "Elevation_m": 758,
+        "Latitude": 36.80253,
+        "Longitude": -100.53012,
+        "SiteCode": "BEAV",
+        "SiteID": 9,
+        "SiteName": "Beaver"
+    },
+    {
+        "Elevation_m": 511,
+        "Latitude": 35.40185,
+        "Longitude": -99.05847,
+        "SiteCode": "BESS",
+        "SiteID": 10,
+        "SiteName": "Bessie"
+    },
+    {
+        "Elevation_m": 184,
+        "Latitude": 35.96305,
+        "Longitude": -95.86621,
+        "SiteCode": "BIXB",
+        "SiteID": 11,
+        "SiteName": "Bixby"
+    },
+    {
+        "Elevation_m": 304,
+        "Latitude": 36.75443,
+        "Longitude": -97.25452,
+        "SiteCode": "BLAC",
+        "SiteID": 12,
+        "SiteName": "Blackwell"
+    },
+    {
+        "Elevation_m": 1267,
+        "Latitude": 36.69256,
+        "Longitude": -102.49713,
+        "SiteCode": "BOIS",
+        "SiteID": 13,
+        "SiteName": "Boise City"
+    },
+    {
+        "Elevation_m": 281,
+        "Latitude": 35.17156,
+        "Longitude": -96.63121,
+        "SiteCode": "BOWL",
+        "SiteID": 14,
+        "SiteName": "Bowlegs"
+    },
+    {
+        "Elevation_m": 352,
+        "Latitude": 36.412009999999995,
+        "Longitude": -97.69394,
+        "SiteCode": "BREC",
+        "SiteID": 15,
+        "SiteName": "Breckinridge"
+    },
+    {
+        "Elevation_m": 239,
+        "Latitude": 35.7805,
+        "Longitude": -96.35404,
+        "SiteCode": "BRIS",
+        "SiteID": 16,
+        "SiteName": "Bristow"
+    },
+    {
+        "Elevation_m": 113,
+        "Latitude": 34.0433,
+        "Longitude": -94.6244,
+        "SiteCode": "BROK",
+        "SiteID": 17,
+        "SiteName": "Broken Bow"
+    },
+    {
+        "Elevation_m": 559,
+        "Latitude": 36.83129,
+        "Longitude": -99.64101,
+        "SiteCode": "BUFF",
+        "SiteID": 18,
+        "SiteName": "Buffalo"
+    },
+    {
+        "Elevation_m": 301,
+        "Latitude": 36.63459,
+        "Longitude": -96.81045999999999,
+        "SiteCode": "BURB",
+        "SiteID": 19,
+        "SiteName": "Burbank"
+    },
+    {
+        "Elevation_m": 228,
+        "Latitude": 33.89376,
+        "Longitude": -97.26918,
+        "SiteCode": "BURN",
+        "SiteID": 20,
+        "SiteName": "Burneyville"
+    },
+    {
+        "Elevation_m": 520,
+        "Latitude": 35.5915,
+        "Longitude": -99.27059,
+        "SiteCode": "BUTL",
+        "SiteID": 21,
+        "SiteName": "Butler"
+    },
+    {
+        "Elevation_m": 345,
+        "Latitude": 34.8497,
+        "Longitude": -97.0033,
+        "SiteCode": "BYAR",
+        "SiteID": 22,
+        "SiteName": "Byars"
+    },
+    {
+        "Elevation_m": 234,
+        "Latitude": 34.9924,
+        "Longitude": -96.33422,
+        "SiteCode": "CALV",
+        "SiteID": 23,
+        "SiteName": "Calvin"
+    },
+    {
+        "Elevation_m": 589,
+        "Latitude": 36.028659999999995,
+        "Longitude": -99.34652,
+        "SiteCode": "CAMA",
+        "SiteID": 24,
+        "SiteName": "Camargo"
+    },
+    {
+        "Elevation_m": 293,
+        "Latitude": 36.1473,
+        "Longitude": -97.28585,
+        "SiteCode": "CARL",
+        "SiteID": 25,
+        "SiteName": "Lake Carl Blackwell"
+    },
+    {
+        "Elevation_m": 208,
+        "Latitude": 34.608959999999996,
+        "Longitude": -96.33309,
+        "SiteCode": "CENT",
+        "SiteID": 26,
+        "SiteName": "Centrahoma"
+    },
+    {
+        "Elevation_m": 291,
+        "Latitude": 35.65282,
+        "Longitude": -96.80407,
+        "SiteCode": "CHAN",
+        "SiteID": 27,
+        "SiteName": "Chandler"
+    },
+    {
+        "Elevation_m": 362,
+        "Latitude": 36.748129999999996,
+        "Longitude": -98.36274,
+        "SiteCode": "CHER",
+        "SiteID": 28,
+        "SiteName": "Cherokee"
+    },
+    {
+        "Elevation_m": 694,
+        "Latitude": 35.54615,
+        "Longitude": -99.7279,
+        "SiteCode": "CHEY",
+        "SiteID": 29,
+        "SiteName": "Cheyenne"
+    },
+    {
+        "Elevation_m": 328,
+        "Latitude": 35.03236,
+        "Longitude": -97.91445999999999,
+        "SiteCode": "CHIC",
+        "SiteID": 30,
+        "SiteName": "Chickasha"
+    },
+    {
+        "Elevation_m": 186,
+        "Latitude": 34.65657,
+        "Longitude": -95.32596,
+        "SiteCode": "CLAY",
+        "SiteID": 31,
+        "SiteName": "Clayton"
+    },
+    {
+        "Elevation_m": 221,
+        "Latitude": 34.223209999999995,
+        "Longitude": -95.2487,
+        "SiteCode": "CLOU",
+        "SiteID": 32,
+        "SiteName": "Cloudy"
+    },
+    {
+        "Elevation_m": 207,
+        "Latitude": 36.32112,
+        "Longitude": -95.64617,
+        "SiteCode": "CLRM",
+        "SiteID": 33,
+        "SiteName": "Claremore"
+    },
+    {
+        "Elevation_m": 299,
+        "Latitude": 35.680009999999996,
+        "Longitude": -94.84895999999999,
+        "SiteCode": "COOK",
+        "SiteID": 34,
+        "SiteName": "Cookson"
+    },
+    {
+        "Elevation_m": 250,
+        "Latitude": 36.90987,
+        "Longitude": -95.88553,
+        "SiteCode": "COPA",
+        "SiteID": 35,
+        "SiteName": "Copan"
+    },
+    {
+        "Elevation_m": 197,
+        "Latitude": 33.92075,
+        "Longitude": -96.32027,
+        "SiteCode": "DURA",
+        "SiteID": 36,
+        "SiteName": "Durant"
+    },
+    {
+        "Elevation_m": 419,
+        "Latitude": 35.54848,
+        "Longitude": -98.03654,
+        "SiteCode": "ELRE",
+        "SiteID": 37,
+        "SiteName": "El Reno"
+    },
+    {
+        "Elevation_m": 603,
+        "Latitude": 35.20494,
+        "Longitude": -99.80344000000001,
+        "SiteCode": "ERIC",
+        "SiteID": 38,
+        "SiteName": "Erick"
+    },
+    {
+        "Elevation_m": 200,
+        "Latitude": 35.30324,
+        "Longitude": -95.65706999999999,
+        "SiteCode": "EUFA",
+        "SiteID": 39,
+        "SiteName": "Eufaula"
+    },
+    {
+        "Elevation_m": 405,
+        "Latitude": 36.263529999999996,
+        "Longitude": -98.49766,
+        "SiteCode": "FAIR",
+        "SiteID": 40,
+        "SiteName": "Fairview"
+    },
+    {
+        "Elevation_m": 350,
+        "Latitude": 34.55205,
+        "Longitude": -96.71779000000001,
+        "SiteCode": "FITT",
+        "SiteID": 41,
+        "SiteName": "Fittstown"
+    },
+    {
+        "Elevation_m": 330,
+        "Latitude": 36.84053,
+        "Longitude": -96.42777,
+        "SiteCode": "FORA",
+        "SiteID": 42,
+        "SiteName": "Foraker"
+    },
+    {
+        "Elevation_m": 530,
+        "Latitude": 36.72562,
+        "Longitude": -99.14234,
+        "SiteCode": "FREE",
+        "SiteID": 43,
+        "SiteName": "Freedom"
+    },
+    {
+        "Elevation_m": 422,
+        "Latitude": 35.14887,
+        "Longitude": -98.46607,
+        "SiteCode": "FTCB",
+        "SiteID": 44,
+        "SiteName": "Fort Cobb"
+    },
+    {
+        "Elevation_m": 997,
+        "Latitude": 36.60183,
+        "Longitude": -101.6013,
+        "SiteCode": "GOOD",
+        "SiteID": 45,
+        "SiteName": "Goodwell"
+    },
+    {
+        "Elevation_m": 341,
+        "Latitude": 34.239444,
+        "Longitude": -98.743583,
+        "SiteCode": "GRA2",
+        "SiteID": 46,
+        "SiteName": "Grandfield"
+    },
+    {
+        "Elevation_m": 330,
+        "Latitude": 36.51806,
+        "Longitude": -97.47978,
+        "SiteCode": "GUTH",
+        "SiteID": 47,
+        "SiteName": "Guthrie"
+    },
+    {
+        "Elevation_m": 269,
+        "Latitude": 36.51806,
+        "Longitude": -96.34222,
+        "SiteCode": "WYNO",
+        "SiteID": 48,
+        "SiteName": "Wynona"
+    },
+    {
+        "Elevation_m": 183,
+        "Latitude": 35.74798,
+        "Longitude": -95.64047,
+        "SiteCode": "HASK",
+        "SiteID": 49,
+        "SiteName": "Haskell"
+    },
+    {
+        "Elevation_m": 243,
+        "Latitude": 35.84162,
+        "Longitude": -96.0024,
+        "SiteCode": "HECT",
+        "SiteID": 50,
+        "SiteName": "Hectorville"
+    },
+    {
+        "Elevation_m": 493,
+        "Latitude": 35.484390000000005,
+        "Longitude": -98.48151,
+        "SiteCode": "HINT",
+        "SiteID": 51,
+        "SiteName": "Hinton"
+    },
+    {
+        "Elevation_m": 478,
+        "Latitude": 34.989709999999995,
+        "Longitude": -99.05283,
+        "SiteCode": "HOBA",
+        "SiteID": 52,
+        "SiteName": "Hobart"
+    },
+    {
+        "Elevation_m": 497,
+        "Latitude": 34.6855,
+        "Longitude": -99.83331,
+        "SiteCode": "HOLL",
+        "SiteID": 53,
+        "SiteName": "Hollis"
+    },
+    {
+        "Elevation_m": 912,
+        "Latitude": 36.85518,
+        "Longitude": -101.22547,
+        "SiteCode": "HOOK",
+        "SiteID": 54,
+        "SiteName": "Hooker"
+    },
+    {
+        "Elevation_m": 175,
+        "Latitude": 34.030840000000005,
+        "Longitude": -95.54011,
+        "SiteCode": "HUGO",
+        "SiteID": 55,
+        "SiteName": "Hugo"
+    },
+    {
+        "Elevation_m": 110,
+        "Latitude": 33.83013,
+        "Longitude": -94.8803,
+        "SiteCode": "IDAB",
+        "SiteID": 56,
+        "SiteName": "Idabel"
+    },
+    {
+        "Elevation_m": 190,
+        "Latitude": 36.14246,
+        "Longitude": -95.45067,
+        "SiteCode": "INOL",
+        "SiteID": 57,
+        "SiteName": "Inola"
+    },
+    {
+        "Elevation_m": 304,
+        "Latitude": 36.4821,
+        "Longitude": -94.78286999999999,
+        "SiteCode": "JAYX",
+        "SiteID": 58,
+        "SiteName": "Jay"
+    },
+    {
+        "Elevation_m": 1322,
+        "Latitude": 36.829370000000004,
+        "Longitude": -102.8782,
+        "SiteCode": "KENT",
+        "SiteID": 59,
+        "SiteName": "Kenton"
+    },
+    {
+        "Elevation_m": 341,
+        "Latitude": 34.52887,
+        "Longitude": -97.76484,
+        "SiteCode": "KETC",
+        "SiteID": 60,
+        "SiteName": "Ketchum Ranch"
+    },
+    {
+        "Elevation_m": 319,
+        "Latitude": 35.8805,
+        "Longitude": -97.91121,
+        "SiteCode": "KING",
+        "SiteID": 61,
+        "SiteName": "Kingfisher"
+    },
+    {
+        "Elevation_m": 396,
+        "Latitude": 36.38435,
+        "Longitude": -98.11139,
+        "SiteCode": "LAHO",
+        "SiteID": 62,
+        "SiteName": "Lahoma"
+    },
+    {
+        "Elevation_m": 181,
+        "Latitude": 34.30876,
+        "Longitude": -95.99716,
+        "SiteCode": "LANE",
+        "SiteID": 63,
+        "SiteName": "Lane"
+    },
+    {
+        "Elevation_m": 232,
+        "Latitude": 34.035790000000006,
+        "Longitude": -96.94394,
+        "SiteCode": "MADI",
+        "SiteID": 64,
+        "SiteName": "Madill"
+    },
+    {
+        "Elevation_m": 460,
+        "Latitude": 34.83592,
+        "Longitude": -99.42398,
+        "SiteCode": "MANG",
+        "SiteID": 65,
+        "SiteName": "Mangum"
+    },
+    {
+        "Elevation_m": 327,
+        "Latitude": 36.06434,
+        "Longitude": -97.21271,
+        "SiteCode": "MARE",
+        "SiteID": 66,
+        "SiteName": "Marena"
+    },
+    {
+        "Elevation_m": 555,
+        "Latitude": 36.98707,
+        "Longitude": -99.01109,
+        "SiteCode": "MAYR",
+        "SiteID": 67,
+        "SiteName": "May Ranch"
+    },
+    {
+        "Elevation_m": 230,
+        "Latitude": 34.88231,
+        "Longitude": -95.78096,
+        "SiteCode": "MCAL",
+        "SiteID": 68,
+        "SiteName": "McAlester"
+    },
+    {
+        "Elevation_m": 332,
+        "Latitude": 36.79242,
+        "Longitude": -97.74577,
+        "SiteCode": "MEDF",
+        "SiteID": 69,
+        "SiteName": "Medford"
+    },
+    {
+        "Elevation_m": 487,
+        "Latitude": 34.729209999999995,
+        "Longitude": -98.56936,
+        "SiteCode": "MEDI",
+        "SiteID": 70,
+        "SiteName": "Medicine Park"
+    },
+    {
+        "Elevation_m": 247,
+        "Latitude": 36.88832,
+        "Longitude": -94.84437,
+        "SiteCode": "MIAM",
+        "SiteID": 71,
+        "SiteName": "Miami"
+    },
+    {
+        "Elevation_m": 430,
+        "Latitude": 35.27225,
+        "Longitude": -97.95553000000001,
+        "SiteCode": "MINC",
+        "SiteID": 72,
+        "SiteName": "Minco"
+    },
+    {
+        "Elevation_m": 311,
+        "Latitude": 36.11685,
+        "Longitude": -97.60685,
+        "SiteCode": "MRSH",
+        "SiteID": 73,
+        "SiteName": "Marshall"
+    },
+    {
+        "Elevation_m": 284,
+        "Latitude": 34.31072,
+        "Longitude": -94.82275,
+        "SiteCode": "MTHE",
+        "SiteID": 74,
+        "SiteName": "Mt Herman"
+    },
+    {
+        "Elevation_m": 366,
+        "Latitude": 36.8981,
+        "Longitude": -96.91035,
+        "SiteCode": "NEWK",
+        "SiteID": 75,
+        "SiteName": "Newkirk"
+    },
+    {
+        "Elevation_m": 283,
+        "Latitude": 34.2281,
+        "Longitude": -97.20142,
+        "SiteCode": "NEWP",
+        "SiteID": 76,
+        "SiteName": "Newport"
+    },
+    {
+        "Elevation_m": 356,
+        "Latitude": 34.96774,
+        "Longitude": -97.95201999999999,
+        "SiteCode": "NINN",
+        "SiteID": 77,
+        "SiteName": "Ninnekah"
+    },
+    {
+        "Elevation_m": 206,
+        "Latitude": 36.74374,
+        "Longitude": -95.60795,
+        "SiteCode": "NOWA",
+        "SiteID": 78,
+        "SiteName": "Nowata"
+    },
+    {
+        "Elevation_m": 357,
+        "Latitude": 35.23611,
+        "Longitude": -97.46488000000001,
+        "SiteCode": "NRMN",
+        "SiteID": 79,
+        "SiteName": "Norman"
+    },
+    {
+        "Elevation_m": 255,
+        "Latitude": 36.031259999999996,
+        "Longitude": -96.49749,
+        "SiteCode": "OILT",
+        "SiteID": 80,
+        "SiteName": "Oilton"
+    },
+    {
+        "Elevation_m": 355,
+        "Latitude": 35.47226,
+        "Longitude": -97.46414,
+        "SiteCode": "OKCE",
+        "SiteID": 81,
+        "SiteName": "Oklahoma City East"
+    },
+    {
+        "Elevation_m": 362,
+        "Latitude": 35.5556,
+        "Longitude": -97.5107,
+        "SiteCode": "OKCN",
+        "SiteID": 82,
+        "SiteName": "Oklahoma City North"
+    },
+    {
+        "Elevation_m": 366,
+        "Latitude": 35.47112,
+        "Longitude": -97.58245,
+        "SiteCode": "OKCW",
+        "SiteID": 83,
+        "SiteName": "Oklahoma City West"
+    },
+    {
+        "Elevation_m": 263,
+        "Latitude": 35.43172,
+        "Longitude": -96.26265,
+        "SiteCode": "OKEM",
+        "SiteID": 84,
+        "SiteName": "Okemah"
+    },
+    {
+        "Elevation_m": 205,
+        "Latitude": 35.58211,
+        "Longitude": -95.91473,
+        "SiteCode": "OKMU",
+        "SiteID": 85,
+        "SiteName": "Okmulgee"
+    },
+    {
+        "Elevation_m": 291,
+        "Latitude": 34.7155,
+        "Longitude": -97.22924,
+        "SiteCode": "PAUL",
+        "SiteID": 86,
+        "SiteName": "Pauls Valley"
+    },
+    {
+        "Elevation_m": 283,
+        "Latitude": 36.36114,
+        "Longitude": -96.76986,
+        "SiteCode": "PAWN",
+        "SiteID": 87,
+        "SiteName": "Pawnee"
+    },
+    {
+        "Elevation_m": 292,
+        "Latitude": 35.99865,
+        "Longitude": -97.04831,
+        "SiteCode": "PERK",
+        "SiteID": 88,
+        "SiteName": "Perkins"
+    },
+    {
+        "Elevation_m": 193,
+        "Latitude": 35.8257,
+        "Longitude": -95.55976,
+        "SiteCode": "PORT",
+        "SiteID": 89,
+        "SiteName": "Porter"
+    },
+    {
+        "Elevation_m": 201,
+        "Latitude": 36.36914,
+        "Longitude": -95.27138000000001,
+        "SiteCode": "PRYO",
+        "SiteID": 90,
+        "SiteName": "Pryor"
+    },
+    {
+        "Elevation_m": 589,
+        "Latitude": 35.89904,
+        "Longitude": -98.96038,
+        "SiteCode": "PUTN",
+        "SiteID": 91,
+        "SiteName": "Putnam"
+    },
+    {
+        "Elevation_m": 293,
+        "Latitude": 36.3559,
+        "Longitude": -97.15306,
+        "SiteCode": "REDR",
+        "SiteID": 92,
+        "SiteName": "Red Rock"
+    },
+    {
+        "Elevation_m": 538,
+        "Latitude": 35.12275,
+        "Longitude": -99.36001,
+        "SiteCode": "RETR",
+        "SiteID": 93,
+        "SiteName": "Retrop"
+    },
+    {
+        "Elevation_m": 283,
+        "Latitude": 34.19365,
+        "Longitude": -97.58811999999999,
+        "SiteCode": "RING",
+        "SiteID": 94,
+        "SiteName": "Ringling"
+    },
+    {
+        "Elevation_m": 157,
+        "Latitude": 35.43815,
+        "Longitude": -94.79805,
+        "SiteCode": "SALL",
+        "SiteID": 95,
+        "SiteName": "Sallisaw"
+    },
+    {
+        "Elevation_m": 545,
+        "Latitude": 36.190329999999996,
+        "Longitude": -99.0403,
+        "SiteCode": "SEIL",
+        "SiteID": 96,
+        "SiteName": "Seiling"
+    },
+    {
+        "Elevation_m": 328,
+        "Latitude": 35.36492,
+        "Longitude": -96.94821999999999,
+        "SiteCode": "SHAW",
+        "SiteID": 97,
+        "SiteName": "Shawnee"
+    },
+    {
+        "Elevation_m": 282,
+        "Latitude": 36.4153,
+        "Longitude": -96.03706,
+        "SiteCode": "SKIA",
+        "SiteID": 98,
+        "SiteName": "Skiatook"
+    },
+    {
+        "Elevation_m": 774,
+        "Latitude": 36.59749,
+        "Longitude": -100.26191999999999,
+        "SiteCode": "SLAP",
+        "SiteID": 99,
+        "SiteName": "Slapout"
+    },
+    {
+        "Elevation_m": 373,
+        "Latitude": 35.54208,
+        "Longitude": -97.34146,
+        "SiteCode": "SPEN",
+        "SiteID": 100,
+        "SiteName": "Spencer"
+    },
+    {
+        "Elevation_m": 173,
+        "Latitude": 35.26527,
+        "Longitude": -95.18115999999999,
+        "SiteCode": "STIG",
+        "SiteID": 101,
+        "SiteName": "Stigler"
+    },
+    {
+        "Elevation_m": 272,
+        "Latitude": 36.12093,
+        "Longitude": -97.09527,
+        "SiteCode": "STIL",
+        "SiteID": 102,
+        "SiteName": "Stillwater"
+    },
+    {
+        "Elevation_m": 256,
+        "Latitude": 34.87642,
+        "Longitude": -96.06981999999999,
+        "SiteCode": "STUA",
+        "SiteID": 103,
+        "SiteName": "Stuart"
+    },
+    {
+        "Elevation_m": 320,
+        "Latitude": 34.5661,
+        "Longitude": -96.95048,
+        "SiteCode": "SULP",
+        "SiteID": 104,
+        "SiteName": "Sulphur"
+    },
+    {
+        "Elevation_m": 290,
+        "Latitude": 35.97235,
+        "Longitude": -94.98671,
+        "SiteCode": "TAHL",
+        "SiteID": 105,
+        "SiteName": "Tahlequah"
+    },
+    {
+        "Elevation_m": 204,
+        "Latitude": 34.7107,
+        "Longitude": -95.01151999999999,
+        "SiteCode": "TALI",
+        "SiteID": 106,
+        "SiteName": "Talihina"
+    },
+    {
+        "Elevation_m": 387,
+        "Latitude": 34.43972,
+        "Longitude": -99.13755,
+        "SiteCode": "TIPT",
+        "SiteID": 107,
+        "SiteName": "Tipton"
+    },
+    {
+        "Elevation_m": 268,
+        "Latitude": 34.33262,
+        "Longitude": -96.67895,
+        "SiteCode": "TISH",
+        "SiteID": 108,
+        "SiteName": "Tishomingo"
+    },
+    {
+        "Elevation_m": 320,
+        "Latitude": 34.79146,
+        "Longitude": -96.84380999999999,
+        "SiteCode": "VANO",
+        "SiteID": 109,
+        "SiteName": "Vanoss"
+    },
+    {
+        "Elevation_m": 236,
+        "Latitude": 36.77536,
+        "Longitude": -95.22094,
+        "SiteCode": "VINI",
+        "SiteID": 110,
+        "SiteName": "Vinita"
+    },
+    {
+        "Elevation_m": 308,
+        "Latitude": 34.3647,
+        "Longitude": -98.32025,
+        "SiteCode": "WALT",
+        "SiteID": 111,
+        "SiteName": "Walters"
+    },
+    {
+        "Elevation_m": 345,
+        "Latitude": 34.982240000000004,
+        "Longitude": -97.52109,
+        "SiteCode": "WASH",
+        "SiteID": 112,
+        "SiteName": "Washington"
+    },
+    {
+        "Elevation_m": 517,
+        "Latitude": 35.84185,
+        "Longitude": -98.52615,
+        "SiteCode": "WATO",
+        "SiteID": 113,
+        "SiteName": "Watonga"
+    },
+    {
+        "Elevation_m": 283,
+        "Latitude": 34.16775,
+        "Longitude": -97.98815,
+        "SiteCode": "WAUR",
+        "SiteID": 114,
+        "SiteName": "Waurika"
+    },
+    {
+        "Elevation_m": 538,
+        "Latitude": 35.5083,
+        "Longitude": -98.77509,
+        "SiteCode": "WEAT",
+        "SiteID": 115,
+        "SiteName": "Weatherford"
+    },
+    {
+        "Elevation_m": 145,
+        "Latitude": 35.47298,
+        "Longitude": -95.13209,
+        "SiteCode": "WEBB",
+        "SiteID": 116,
+        "SiteName": "Webbers Falls"
+    },
+    {
+        "Elevation_m": 348,
+        "Latitude": 36.010999999999996,
+        "Longitude": -94.64496,
+        "SiteCode": "WEST",
+        "SiteID": 117,
+        "SiteName": "Westville"
+    },
+    {
+        "Elevation_m": 199,
+        "Latitude": 34.90092,
+        "Longitude": -95.34805,
+        "SiteCode": "WILB",
+        "SiteID": 118,
+        "SiteName": "Wilburton"
+    },
+    {
+        "Elevation_m": 143,
+        "Latitude": 34.98426,
+        "Longitude": -94.68778,
+        "SiteCode": "WIST",
+        "SiteID": 119,
+        "SiteName": "Wister"
+    },
+    {
+        "Elevation_m": 625,
+        "Latitude": 36.42329,
+        "Longitude": -99.41682,
+        "SiteCode": "WOOD",
+        "SiteID": 120,
+        "SiteName": "Woodward"
+    }
+]

@@ -37,6 +37,26 @@
   width: 18px;
 }
 </style>
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-7">
+            <h1 class="page-heading">
+                Edit Issues
+            </h1>
+        </div>
+        <div class="col-sm-5 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li><a data-ui-sref="issues" class="link-effect" >Issues</a></li>
+                <li><a data-ui-sref="viewissues({id: id})" class="link-effect" >View</a></li>
+                <li>Edit</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
 <!-- Page Content -->
 <div class="content">
     <div class="row">
@@ -142,7 +162,7 @@
 		<div class="col-xs-12">
       <md-button style="float: left;" class="md-raised md-primary" ng-click="updateIssue(issue)">Save Changes</md-button>
 			<md-button style="float: right;" data-ui-sref="viewissues({id: id})" class="right md-raised md-primary">Cancel</md-button>
-			<md-button style="float: right;" class="right md-raised md-warn">Delete</md-button>
+			<md-button style="float: right;" class="right md-raised md-warn" ng-click="deleteIssue(issue)">Delete</md-button>
 		</div>
     </section>
   </md-toolbar>

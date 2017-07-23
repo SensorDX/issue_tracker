@@ -54,7 +54,7 @@ md-backdrop.md-select-backdrop {
                         <a href="#btabs-alt-static-justified-profile"><i class="fa fa-line-chart"></i> Time Series</a>
                     </li>
                     <li>
-                        <a href="#btabs-alt-static-justified-settings"><i class="fa fa-cog"></i> Settings</a>
+                        <a href="#btabs-alt-static-justified-settings"><i class="si si-speedometer"></i> Issues</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -127,70 +127,28 @@ md-backdrop.md-select-backdrop {
 											</div>
                     </div>
                     <div class="tab-pane" id="btabs-alt-static-justified-settings">
-											<div class="margin-top">
-                        <h4 class="font-w300">Automatic Emails</h4>
-												<hr class="no-margin-top">
-												<fieldset class="standard" >
-													<div class="col-xs-6" layout="row" layout-align="space-between center">
-														<span>Erroneous values ratio</span>
-														<md-select ng-model="weapon" placeholder="------" class="md-no-underline">
-															<md-option value="10"> 1 : 10</md-option>
-															<md-option value="20"> 2 : 10</md-option>
-															<md-option value="30"> 3 : 10</md-option>
-															<md-option value="40"> 4 : 10</md-option>
-															<md-option value="50"> &gt; 50 %</md-option>
-														</md-select>
-													</div>
-													<div class="col-xs-6" layout="row" layout-align="space-between center">
-														<span>SensorDX Score</span>
-														<md-select ng-model="weapon" placeholder="------" class="md-no-underline">
-															<md-option value="1"> 10 %</md-option>
-															<md-option value="2"> 20 %</md-option>
-															<md-option value="3"> 30 %</md-option>
-															<md-option value="4"> 40 %</md-option>
-															<md-option value="5"> &gt; 50 %</md-option>
-														</md-select>
-													</div>
-												</fieldset>
-											</div>
-											<div class="margin-top">
-                        <h4 class="font-w300">View</h4>
-												<hr class="no-margin-top">
-												<fieldset class="standard" >
-													<div layout="row" layout-wrap flex>
-														<div class="col-xs-12 col-sm-4" ng-repeat="(key, item) in items">
-															<md-checkbox ng-checked="exists(key, checkbox_selected)" ng-click="toggle(key, checkbox_selected)">
-																{{ item }}
-															</md-checkbox>
-														</div>
-													</div>
-												</fieldset>
-											</div>
-											<div class="margin-top">
-                        <h4 class="font-w300">Time Series Settings</h4>
-												<hr class="no-margin-top">
-												<fieldset class="standard" >
-													<div class="col-xs-6" layout="row" layout-align="space-between center">
-														<span>Data Points Limit</span>
-														<md-select ng-model="data_point_limit" placeholder="<=1000" class="md-no-underline">
-															<md-option value="10"> &le; 1000  </md-option>
-															<md-option value="20"> &le; 5000  </md-option>
-															<md-option value="30"> &le; 10000 </md-option>
-															<md-option value="40"> &le; 50000 </md-option>
-															<md-option value="50"> &gt; 50000 </md-option>
-														</md-select>
-													</div>
-													<div class="col-xs-6" layout="row" layout-align="space-between center">
-														<span>Graph Type</span>
-														<md-select ng-model="graph_type" placeholder="------" class="md-no-underline">
-															<md-option value="1"> Spline </md-option>
-															<md-option value="2"> Area </md-option>
-															<md-option value="3"> Scatter</md-option>
-														</md-select>
-													</div>
-												</fieldset>
-											</div>
-                </div>
+											<md-content class="bg-white md-padding">
+												<table class="table table-striped">
+														<tbody>
+															<tr ng-repeat="(key, Issue) in issues | orderBy: title">
+																<td>
+																	<div>
+																		<a class="issue-title" data-ui-sref="viewissues({id: Issue._id})"><strong>{{Issue.title}}</strong></a>
+																	</div>
+																	<div style="margin-top: 10px;">#{{key + 1}} - opened {{Issue.date_opened}} ago by {{Issue.assignee}}
+																		<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{Issue.due_date}}</span></span>
+																		<span ng-repeat="(key, value) in Issue.labels" class="label {{Issue.labels_class[key]}}">{{value}}</span>
+																	</div>
+																</td>
+																<td>
+																	<br>
+																	<div style="margin-top: 10px; float: right">updated {{Issue.date_updated}} ago</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+											</md-content>
+										</div>
             </div>
             <!-- END Block Tabs Justified Default Style -->
         </div>

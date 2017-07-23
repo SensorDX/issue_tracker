@@ -11562,7 +11562,7 @@ div.tagsinput span.tag a:hover {
 	border-top: none;
 }
 .label {
-	background-color: #9e9e9e;
+	/*background-color: #9e9e9e;*/
 	border-color: #9e9e9e;
 	color: white;
 	border-radius: 100px;

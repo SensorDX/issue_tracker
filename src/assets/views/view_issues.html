@@ -6,6 +6,25 @@
 	float: right !important;
 }
 </style>
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-7">
+            <h1 class="page-heading">
+                Issues </br>
+								<small>Close, Edit, Create Issues.</small>
+            </h1>
+        </div>
+        <div class="col-sm-5 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li><a data-ui-sref="issues" class="link-effect" >Issues</a></li>
+                <li>View</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
 <!-- Page Content -->
 <div class="content">
     <div class="row">
@@ -20,7 +39,10 @@
 							</div>
 							<div style="float: right;" class="col-md-6 col-xs-12">
 									<md-button data-ui-sref="newissues" class="right md-raised md-primary">New Issue</md-button>
-									<md-button class="right md-raised md-primary">Close Issue</md-button>
+									<md-button ng-click="closeIssue(issue)" class="right md-raised md-primary">
+										<span ng-if='issue.status == "open"'>Close Issue</span>
+										<span ng-if="issue.status == 'close'">Open Issue</span>
+									</md-button>
 									<md-button data-ui-sref="editissues({id: issue._id})" class="right md-raised md-primary">Edit</md-button>
 							</div>
 							<div style="margin: 25px 0" class="col-xs-12">
