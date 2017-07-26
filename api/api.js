@@ -29,7 +29,8 @@ mongoose.connect(db, function(err, response) {
 var Issue = require('./models/issues');
 var Label = require('./models/labels');
 var User = require('./models/users');
-var CustomStations = require('./models/custom_stations');
+var SensorTypes = require('./models/sensorTypes');
+var CustomStations = require('./models/customStations');
 var Stations = require('./models/stations');
 var tools = require('./tools');
 
@@ -902,24 +903,30 @@ module.exports = function(router) {
   */
  router.get('/api/sites', function(request, response) {
   var type = request.query.type;
-  Stations.all("SELECT * FROM Sites", function(err, row) {
-   if(err) {
+  var data = [];
+  CustomStations.find({}, function(err, stations) {
+   if (err) {
     response.status(404).send(err);
-    console.log(err);
    } else {
     switch(type) {
      case 'geojson':
-      data = tools.geojson(row);
+      data = tools.geojson(stations);
+      break;
+     case 'modifyDate':
+      data = tools.modifyDate(stations);
+      break;
+     case 'manage':
+      data = tools.manage(stations);
       break;
      default:
-      data = row;
+      data = stations;
       break;
     }
     response.status(200).send(data);
-    console.log(data);
    }
   });
  });
+
  /**
   * @api {get} /api/stationdata/:sitecode  Get data for specific station 
   * @apiVersion 1.0.0
@@ -1232,5 +1239,52 @@ module.exports = function(router) {
        res.status(200).send({success: "Email was sent"});
       }
    });
+ });
+
+ /**
+  * @api {get} /api/sensors/types Get all types of sensors
+  * @apiVersion 1.0.0
+  * @apiName GetSensorTypes
+  * @apiGroup Sensor
+  *
+  * @apiExample Usage:
+  * curl -i http://localhost/api/sensors/types
+ *
+  * @apiExample Type Param Usage:
+  * curl -i http://localhost/api/sensors/types
+  * 
+  * @apiSuccess {String}    _id         Sensor Type's ID.
+  * @apiSuccess {String}    name    		Sensor's name
+  * @apiSuccess {String}    description Brief description of what the sensor is
+  * @apiSuccess {String}    notes   		Extra details on the sensor
+  *
+  * @apiSuccessExample Success-Response:
+  * HTTP/1.1 200 OK
+  *	{
+  *			"_id": {
+  *					"$oid": "5977e216f36d286610572428"
+  *			},
+  *			"name": "TAIR",
+  *			"description": "Air Temperature (1.5 m) in deg C",
+  *			"notes": ""
+  *	},
+	* {
+	* 		"_id": {
+	* 				"$oid": "5977e4e8f36d28661057257b"
+	* 		},
+	* 		"name": "RELH",
+	* 		"description": "Relative Humidity (1.5 m) in %",
+	* 		"notes": ""
+	* }
+  *
+  */
+ router.get('/api/sensors/types', function(request, response) {
+  SensorTypes.find({}, function(err, sensors) {
+   if (err) {
+    response.status(404).send(err);
+   } else {
+    response.status(200).send(sensors);
+   }
+  });
  });
 };

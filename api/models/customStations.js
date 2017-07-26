@@ -6,7 +6,9 @@ var StationsSchema = new Schema({
 	Latitude: Number,
 	Longitude: Number,
 	Elevation_m: Number,
-	Sensors: Array
+	Sensors: Array,
+	Manager: String,
+	date_created: Date
 });
 var model = mongoose.model('Stations', StationsSchema);
 module.exports = model;

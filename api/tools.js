@@ -217,5 +217,54 @@ module.exports = {
 		results['count'] = count;
 		console.log(results.data);
 		return results;
+  },
+  modifyDate: function (stations) {
+		var results = {};
+		results['data']= []
+		var current = new Date();
+		var sensors = ["TAIR", "RELH", "PRES", "RAIN", "SRAD", "WSPD"]
+		var managers = ["Rene Midouin", "Jesus Christ", "Rene Descartes", "Jon Snow", "Isaac Newton"]
+		stations.map(function(item, index) {
+			var randomManager = managers[Math.floor(Math.random() * managers.length)];
+			var items = {
+				_id: item._id,
+				Elevation_m: item.Elevation_m,
+				Latitude: item.Latitude,
+				Longitude: item.Longitude,
+				SiteCode: item.SiteCode,
+				SiteID: item.SiteID,
+				SiteName: item.SiteName,
+				Manager: randomManager,
+				Sensors: sensors,
+				date_created: current
+			};
+			results['data'].push(items);
+		});
+		console.log(results.data);
+		return results['data'];
+  },
+  manage: function (stations) {
+		var results = {};
+		results['data']= []
+		var current = new Date();
+		stations.map(function(item, index) {
+			var items = {
+				_id: item._id,
+				Elevation_m: item.Elevation_m,
+				Location: item.Latitude+", "+item.Longitude,
+				Latitude: item.Latitude,
+				Longitude: item.Longitude,
+				SiteCode: item.SiteCode,
+				SiteID: item.SiteID,
+				SiteName: item.SiteName,
+				Manager: item.Manager,
+				Sensors: item.Sensors,
+				NumSensors: item.Sensors.length,
+				date_created: current
+			};
+			results['data'].push(items);
+		});
+		console.log(results.data);
+		return results;
   }
 };

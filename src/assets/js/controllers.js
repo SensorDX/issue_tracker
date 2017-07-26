@@ -898,30 +898,82 @@ App.value('chart', {
 })
 
 // Manage Stations Controller
-App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$window',
-    function ($scope, $localStorage, $window) {
-        // Init full DataTable, for more examples you can check out https://www.datatables.net/
+App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$timeout', '$http', '$window', '$mdDialog',
+    function ($scope, $localStorage, $timeout, $http, $window, $mdDialog) {
+			/**
+			 * ADD a station modal
+			 */
+				$scope.showTabDialog = function(ev) {
+					$mdDialog.show({
+						controller: DialogController,
+						templateUrl: 'assets/views/add_station.tmpl.html',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						clickOutsideToClose:true
+					})
+							.then(function(answer) {
+								$scope.status = 'You said the information was "' + answer + '".';
+							}, function() {
+								$scope.status = 'You cancelled the dialog.';
+							});
+				};
+				function DialogController($scope, $http, $mdDialog) {
+					$scope.station = {
+						id: '',
+						name: '',
+						lat: '',
+						long: '',
+						manager: '',
+						sensors: []
+					}
+					$http.get('/api/users').then(function(response) {
+						$scope.managers = response.data;
+					}, function(error) {
+						console.log(error);
+					});
+					$http.get('/api/sensors/types').then(function(response) {
+						$scope.sensors = response.data;
+					}, function(error) {
+						console.log(error);
+					});
+					$scope.hide = function() {
+						$mdDialog.hide();
+					};
+
+					$scope.cancel = function() {
+						$mdDialog.cancel();
+					};
+
+					$scope.answer = function(answer) {
+						console.log('answer', answer);
+						$mdDialog.hide(answer);
+					};
+				}
+				//==========================================
+
         var initDataTableFull = function() {
             jQuery('.js-dataTable-full').dataTable({
-                columnDefs: [ { orderable: false, targets: [ 4 ] } ],
+								ajax: '/api/sites?type=manage',
+								"columnDefs": [ {
+										"targets": -1,
+										"data": null,
+										"defaultContent": "<div class=\"text-center btn-group\">"+
+																			"		<button class=\"btn btn-xs btn-default\" type=\"button\"><i class=\"fa fa-pencil\"></i></button>"+
+																			"		<button class=\"btn btn-xs btn-default\" type=\"button\"><i class=\"fa fa-times\"></i></button>"+
+																			"</div>"
+								},
+								{ className: "text-center",  "targets": [ 4 ] }
+								],
+								"columns": [
+										{ "data": "SiteName" },
+										{ "data": "Location" },
+										{ "data": "Manager" },
+										{ "data": "NumSensors" },
+										{ "data": "NumSensors" },
+										null
+								],
                 pageLength: 10,
                 lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]]
-            });
-        };
-
-        // Init simple DataTable, for more examples you can check out https://www.datatables.net/
-        var initDataTableSimple = function() {
-            jQuery('.js-dataTable-simple').dataTable({
-                columnDefs: [ { orderable: false, targets: [ 4 ] } ],
-                pageLength: 10,
-                lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
-                searching: false,
-                oLanguage: {
-                    sLengthMenu: ""
-                },
-                dom:
-                    "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-6'i><'col-sm-6'p>>"
             });
         };
 
@@ -1079,7 +1131,6 @@ App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$window',
 
         // Init Datatables
         bsDataTables();
-        initDataTableSimple();
         initDataTableFull();
     }
 ]);

@@ -1,0 +1,76 @@
+<md-dialog aria-label="Add Station">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Station</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+					<i class="fa fa-times" aria-label="Close dialog" aria-hidden="true"></i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+			<md-content class="md-padding">
+				<div layout="column" class="md-inline-form">
+					<md-content layout-padding>
+						<div>
+							<form name="userForm">
+								<div layout-gt-sm="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Station ID</label>
+										<input ng-model="station.id">
+									</md-input-container>
+
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Station Name</label>
+										<input ng-model="station.name">
+									</md-input-container>
+								</div>
+
+								<div layout-gt-sm="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Latitude</label>
+										<input ng-model="station.lat">
+									</md-input-container>
+
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Longitude</label>
+										<input ng-model="station.long">
+									</md-input-container>
+								</div>
+								<div layout-gt-sm="row">
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Manager</label>
+										<md-select ng-model="station.manager">
+											<md-option ng-repeat="manager in managers" value="{{manager._id}}">
+												{{manager.first_name}} {{manager.last_name}}
+											</md-option>
+										</md-select>
+									</md-input-container>
+									<md-input-container class="md-block" flex-gt-sm>
+										<label>Sensors</label>
+										<md-select ng-model="station.sensors" multiple>
+											<md-option ng-repeat="sensor in sensors" value="{{sensor.name}}">
+												{{sensor.name}}
+											</md-option>
+										</md-select>
+									</md-input-container>
+								</div>
+							</form>
+						</div>
+					</md-content>
+				</div>
+			</md-content>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer('not useful')" >
+        Cancel
+      </md-button>
+      <md-button ng-click="answer(station)" style="margin-right:20px;" >
+        Submit
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

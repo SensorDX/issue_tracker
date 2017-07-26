@@ -101,6 +101,14 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
+            .state('metadata', {
+                url: '/stations/metadata',
+                templateUrl: 'assets/views/metadata.html'
+            })
+            .state('qualityControl', {
+                url: '/stations/QC',
+                templateUrl: 'assets/views/quality_control.html'
+            })
             .state('uiActivity', {
                 url: '/ui/activity',
                 templateUrl: 'assets/views/ui_activity.html',
