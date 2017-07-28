@@ -1159,6 +1159,23 @@ App.controller('MapperCtrl', ['$scope', '$localStorage', '$window', '$mdDialog',
 								console.log($scope.status);
 							});
 				};
+				$scope.showSettings = function(ev) {
+					$mdDialog.show({
+						locals: {type: ev},
+						controller: SettingsController,
+						templateUrl: 'assets/views/mapper_settings.tmpl.html',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						clickOutsideToClose:true
+					})
+							.then(function(answer) {
+								$scope.status = 'You said the information was "' + answer + '".';
+								console.log($scope.status);
+							}, function() {
+								$scope.status = 'You cancelled the dialog.';
+								console.log($scope.status);
+							});
+				};
 				function DialogController($scope, $mdDialog, $http, type) {
       		hljs.initHighlighting();
 					var json = "";
@@ -1180,6 +1197,55 @@ App.controller('MapperCtrl', ['$scope', '$localStorage', '$window', '$mdDialog',
 							break;
 						default:
 							json = "issues";
+							break;
+					}
+					$http.get('/assets/json/mapper/'+json+'.json').then(function(response) {
+						$scope.jsonObj = JSON.stringify(response.data, null, "  ");
+					}, function(error) {
+						console.log(error);
+					});
+
+					$scope.hide = function() {
+						$mdDialog.hide();
+					};
+
+					$scope.cancel = function() {
+						$mdDialog.cancel();
+					};
+
+					$scope.answer = function(answer) {
+						console.log('answer', answer);
+						$mdDialog.hide(answer);
+					};
+				}
+				function SettingsController($scope, $mdDialog, $http, type) {
+      		hljs.initHighlighting();
+					var json = "";
+					$scope.title = "";
+					switch(type) {
+						case 'issue': 
+							json = "issues";
+							$scope.title = "Issues";
+							break;
+						case 'stations':
+							json = "stations";
+							$scope.title = "Stations";
+							break;
+						case 'labels':
+							json = "labels";
+							$scope.title = "Labels";
+							break;
+						case 'users':
+							json = "users";
+							$scope.title = "Users";
+							break;
+						case 'emails':
+							json = "emails";
+							$scope.title = "Emails";
+							break;
+						default:
+							json = "issues";
+							$scope.title = "Issues";
 							break;
 					}
 					$http.get('/assets/json/mapper/'+json+'.json').then(function(response) {
