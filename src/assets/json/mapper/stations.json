@@ -1,0 +1,74 @@
+[
+    {
+        "Elevation_m": 758,
+        "Latitude": 36.80253,
+        "Longitude": -100.53012,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BEAV",
+        "SiteName": "Beaver",
+        "_id": "5974e8a97c230c188235ca76",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 416,
+        "Latitude": 34.58722,
+        "Longitude": -99.33808,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ALTU",
+        "SiteName": "Altus",
+        "_id": "5974e8a97c230c188235ca70",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 295,
+        "Latitude": 34.79851,
+        "Longitude": -96.66909,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ADAX",
+        "SiteName": "Ada",
+        "_id": "5974e8a97c230c188235ca72",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 440,
+        "Latitude": 34.91418,
+        "Longitude": -98.29216,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "APAC",
+        "SiteName": "Apache",
+        "_id": "5974e8a97c230c188235ca74",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    }
+]

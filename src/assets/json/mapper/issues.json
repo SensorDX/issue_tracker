@@ -1,0 +1,70 @@
+[
+    {
+        "__v": 0,
+        "_id": "594caf71f31c4341efd1ab58",
+        "assignee": "Ronald Lawyer",
+        "created_at": "2017-06-23T06:04:33.335Z",
+        "description": "I don't know what happened",
+        "due_date": "1970-02-02T05:00:00.000Z",
+        "labels": [
+            "bug",
+            "help wanted"
+        ],
+        "priority": "LOW",
+        "station": "ANTL",
+        "status": "open",
+        "title": "Humidity Sensor Broken",
+        "updated_at": "2017-07-25T22:14:46.283Z"
+    },
+    {
+        "__v": 0,
+        "_id": "5960144be8a6501fe32871f7",
+        "assignee": "Ronald Lawyer",
+        "created_at": "2017-07-07T23:07:55.707Z",
+        "description": "Unfortunately, this is another issue for ADAX.",
+        "due_date": "2017-10-04T04:00:00.000Z",
+        "labels": [
+            "sensor failure",
+            "help wanted",
+            "question",
+            "bug"
+        ],
+        "priority": "NORMAL",
+        "station": "ADAX",
+        "status": "open",
+        "title": "Another Issue",
+        "updated_at": "2017-07-26T03:43:10.251Z"
+    },
+    {
+        "__v": 0,
+        "_id": "5960149ce8a6501fe32871f8",
+        "assignee": "Rene Midouin",
+        "created_at": "2017-07-07T23:09:16.671Z",
+        "description": "More issues with Station ADAX. PLEASE HELP!!!!!",
+        "due_date": "2017-11-01T04:00:00.000Z",
+        "labels": [
+            "question"
+        ],
+        "priority": "HIGH",
+        "station": "ADAX",
+        "status": "open",
+        "title": "More Issues",
+        "updated_at": "2017-07-07T23:09:16.671Z"
+    },
+    {
+        "__v": 0,
+        "_id": "596014c6e8a6501fe32871f9",
+        "assignee": "Blaise Pascal",
+        "created_at": "2017-07-07T23:09:58.301Z",
+        "description": "Temperature sensor is broken :-(",
+        "due_date": "2017-11-30T05:00:00.000Z",
+        "labels": [
+            "help wanted"
+        ],
+        "priority": "LOW",
+        "station": "ADAX",
+        "status": "open",
+        "title": "Temperature sensor broken",
+        "updated_at": "2017-07-23T13:54:00.897Z"
+    }
+]

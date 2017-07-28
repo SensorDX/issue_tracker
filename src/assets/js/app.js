@@ -109,6 +109,28 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 url: '/stations/QC',
                 templateUrl: 'assets/views/quality_control.html'
             })
+            .state('mapper', {
+                url: '/api/mapper',
+                controller: 'MapperCtrl',
+                templateUrl: 'assets/views/mapper.html',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            insertBefore: '#css-bootstrap',
+                            serie: true,
+                            files: [
+                                'assets/js/plugins/highlightjs/github-gist.min.css',
+                                'assets/js/plugins/highlightjs/highlight.pack.js',
+                                'assets/js/plugins/easy-pie-chart/jquery.easypiechart.min.js',
+                            ]
+                        });
+                    }]
+                }
+            })
+            .state('documentation', {
+                url: '/api/documentation',
+                templateUrl: 'assets/views/documentation.html'
+            })
             .state('uiActivity', {
                 url: '/ui/activity',
                 templateUrl: 'assets/views/ui_activity.html',

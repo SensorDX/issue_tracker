@@ -1134,6 +1134,96 @@ App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$timeout', '$h
         initDataTableFull();
     }
 ]);
+
+// Components Charts Controller
+App.controller('MapperCtrl', ['$scope', '$localStorage', '$window', '$mdDialog',
+    function ($scope, $localStorage, $window, $mdDialog) {
+      hljs.initHighlighting();
+			/**
+			 * Show JSON
+			 */
+				$scope.showJSON = function(ev) {
+					$mdDialog.show({
+						locals: {type: ev},
+						controller: DialogController,
+						templateUrl: 'assets/views/json_mapper.tmpl.html',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						clickOutsideToClose:true
+					})
+							.then(function(answer) {
+								$scope.status = 'You said the information was "' + answer + '".';
+								console.log($scope.status);
+							}, function() {
+								$scope.status = 'You cancelled the dialog.';
+								console.log($scope.status);
+							});
+				};
+				function DialogController($scope, $mdDialog, $http, type) {
+      		hljs.initHighlighting();
+					var json = "";
+					switch(type) {
+						case 'issue': 
+							json = "issues";
+							break;
+						case 'stations':
+							json = "stations";
+							break;
+						case 'labels':
+							json = "labels";
+							break;
+						case 'users':
+							json = "users";
+							break;
+						case 'emails':
+							json = "emails";
+							break;
+						default:
+							json = "issues";
+							break;
+					}
+					$http.get('/assets/json/mapper/'+json+'.json').then(function(response) {
+						$scope.jsonObj = JSON.stringify(response.data, null, "  ");
+					}, function(error) {
+						console.log(error);
+					});
+
+					$scope.hide = function() {
+						$mdDialog.hide();
+					};
+
+					$scope.cancel = function() {
+						$mdDialog.cancel();
+					};
+
+					$scope.answer = function(answer) {
+						console.log('answer', answer);
+						$mdDialog.hide(answer);
+					};
+				}
+				//==========================================
+
+        // Randomize Easy Pie Chart values
+        var initRandomEasyPieChart = function(){
+            jQuery('.js-pie-randomize').on('click', function(){
+                jQuery(this)
+                    .parents('.block')
+                    .find('.pie-chart')
+                    .each(function() {
+                        var random = Math.floor((Math.random() * 100) + 1);
+
+                        jQuery(this)
+                            .data('easyPieChart')
+                            .update(random);
+                    });
+            });
+        };
+
+        // Randomize Easy Pie values functionality
+        initRandomEasyPieChart();
+    }
+]);
+
 // UI Elements Activity Controller
 App.controller('UiActivityCtrl', ['$scope', '$localStorage', '$window',
     function ($scope, $localStorage, $window) {
