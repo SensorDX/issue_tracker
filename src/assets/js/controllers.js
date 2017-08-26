@@ -4,7 +4,7 @@
  *  Description: Our example controllers for demo pages
  *
  */
-
+var station_table = null;
 App.controller('LoginCtrl', ['$scope', '$window', '$http', '$state', '$location', '$cookies', function ($scope, $window, $http, $state, $location, $cookies) {
 		$scope.login = {
 			username: "",
@@ -952,7 +952,7 @@ App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$timeout', '$h
 				//==========================================
 
         var initDataTableFull = function() {
-            jQuery('.js-dataTable-full').dataTable({
+            station_table = jQuery('.js-dataTable-full').DataTable({
 								ajax: '/api/sites?type=manage',
 								"columnDefs": [ {
 										"targets": -1,
@@ -962,7 +962,10 @@ App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$timeout', '$h
 																			"		<button class=\"btn btn-xs btn-default\" type=\"button\"><i class=\"fa fa-times\"></i></button>"+
 																			"</div>"
 								},
-								{ className: "text-center",  "targets": [ 4 ] }
+								{ className: "text-center",  "targets": [ 5 ] },
+								{ className: "station-location",  "targets": [ 1 ] },
+								{ className: "station-manager",  "targets": [ 2 ] },
+								{ className: "station-issues",  "targets": [ 4 ] }
 								],
 								"columns": [
 										{ "data": "SiteName" },
@@ -975,6 +978,7 @@ App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$timeout', '$h
                 pageLength: 10,
                 lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]]
             });
+						console.log(station_table);
         };
 
         // DataTables Bootstrap integration
@@ -1220,8 +1224,21 @@ App.controller('MapperCtrl', ['$scope', '$localStorage', '$window', '$mdDialog',
 				}
 				function SettingsController($scope, $mdDialog, $http, type) {
       		hljs.initHighlighting();
+					$scope.url = "";
 					var json = "";
 					$scope.title = "";
+					$scope.hidden = true;
+					$scope.user_api = [];
+					var processApi = function(data) {
+						var final_object = null;
+						if (typeof(data) == "object") {
+								for (key in data) {
+									console.log('key', key);
+								}
+						}
+						if (typeof(data) == "object") {
+						}
+					}
 					switch(type) {
 						case 'issue': 
 							json = "issues";
@@ -1248,8 +1265,62 @@ App.controller('MapperCtrl', ['$scope', '$localStorage', '$window', '$mdDialog',
 							$scope.title = "Issues";
 							break;
 					}
+					$scope.fetch = function(url) {
+						if (!url || url == undefined) {
+							$scope.hidden = true;
+							return;
+						}
+						console.log('url -> ', url);
+						$scope.$parent.helpers.uiMapper('http://localhost:5000/sites', 'station');
+						var factorial = function(data, xml, result) {
+							if (typeof data == "boolean" || typeof data == "number" || typeof data == "string") { // terminal case
+								if (!(result.includes(xml))) result.push(xml);
+								return result;
+							} 
+							if (Array.isArray(data) && data.length > 0) {
+								for (var i = 0; i < data.length; ++i) {
+									console.log('array info'+i+': ', data[i]);
+									if (typeof(data[i]) != "object") {
+										factorial(data[i], xml+".Array."+data[i], result);
+									} else {
+										factorial(data[i], xml+".Array", result);
+									}
+								}
+							}
+							else if (typeof(data) == "object") { // block to execute
+								for (var key in data) {
+									factorial(data[key], xml+"."+key, result);
+								}
+							}
+						};
+						$http.get(url).then(function(response) {
+								console.log('my response', response);
+								var my_array = new Array();
+								console.log(factorial(response.data, "Object", my_array));
+								console.log(my_array);
+								//$scope.user_api = response.data;
+								//$scope.hidden = false;
+								/*
+								console.log('response -> ', $scope.user_api);
+								console.log('hidden -> ', $scope.hidden);
+								console.log('type -> ', typeof(response.data));
+								if (Array.isArray(response.data) && response.data.length > 0) {
+									$scope.hidden = false;
+									console.log('hidden -> ', $scope.hidden);
+								}
+								if (typeof(response.data) == "object") {
+									$scope.hidden = false;
+									console.log('hidden -> ', $scope.hidden);
+									processApi(response.data);
+								}
+								*/
+						}, function(error) {
+								//$scope.hidden = true;
+								//console.log('error ->', response.data);
+						});
+					};
 					$http.get('/assets/json/mapper/'+json+'.json').then(function(response) {
-						$scope.jsonObj = JSON.stringify(response.data, null, "  ");
+						$scope.jsonObj = response.data;
 					}, function(error) {
 						console.log(error);
 					});

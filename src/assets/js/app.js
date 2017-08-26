@@ -131,6 +131,10 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 url: '/api/documentation',
                 templateUrl: 'assets/views/documentation.html'
             })
+            .state('apiDocumentation', {
+                url: '/api/documentation/get-started',
+                templateUrl: 'doc/index.html'
+            })
             .state('uiActivity', {
                 url: '/ui/activity',
                 templateUrl: 'assets/views/ui_activity.html',
@@ -909,7 +913,13 @@ App.factory('uiHelpers', function () {
                     }
                 }
             }
-        }
+        },
+        uiProcessUrl: function (url, type) {
+					console.log('hey');
+        },
+        uiMapper: function (data) {
+					console.log('hey');
+        },
     };
 });
 

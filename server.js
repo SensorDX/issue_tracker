@@ -32,6 +32,7 @@ mailTransport.sendMail({
 
 // configuration ===============================================================
 app.use(express.static(__dirname + '/src'));                 		// set the static files location /public/img will be /img for users
+app.use('/api/documentation', express.static(__dirname + '/doc'));                 		// set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({extended: true}));               // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
