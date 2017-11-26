@@ -1,0 +1,96 @@
+{
+    "DataValues": [
+        {
+            "DataType": "Integer",
+            "Description": "Unique integer identifier for each data value.",
+            "Example": "43",
+            "Field": "ValueID"
+        },
+        {
+            "DataType": "Real",
+            "Description": "The numeric value of the observation. For Categorical variables, a number is stored here. The Variables table has DataType as Categorical and the Categories table maps from the DataValue onto Category Description.",
+            "Example": "34.5",
+            "Field": "DataValue"
+        },
+        {
+            "DataType": "Date/Time",
+            "Description": "Full name of the sampling site.",
+            "Example": "9/4/2003 2:00:00 PM",
+            "Field": "DateTimeUTC"
+        },
+        {
+            "DataType": "Integer",
+            "Description": "Integer identifier that references the site at which the observation was measured. This links data values to their locations in the Sites table",
+            "Example": "3",
+            "Field": "SiteID"
+        },
+        {
+            "DataType": "Integer",
+            "Description": "Integer identifier that references the variable that was measured. This links data values to their variable in the Variables table.",
+            "Example": "5",
+            "Field": "VariableID"
+        },
+        {
+            "DataType": "Integer",
+            "Description": "Integer identifier giving the level of quality control that the value has been subjected to. This references the QualityControlLevels table.",
+            "Example": "1432",
+            "Field": "QualityControlLevelID"
+        }
+    ],
+    "Sites": [
+        {
+            "DataType": "Integer",
+            "Description": "Unique Identifier for each sampling location",
+            "Example": "37",
+            "Field": "SiteID"
+        },
+        {
+            "DataType": "Text(50)",
+            "Description": "Code used by organization that collects the data to identify the site",
+            "Example": "10109000",
+            "Field": "SiteCode"
+        },
+        {
+            "DataType": "Text(255)",
+            "Description": "Full name of the sampling site.",
+            "Example": "LOGAN RIVER ABOVE STATE DAM, NEAR LOGAN,UT",
+            "Field": "SiteName"
+        },
+        {
+            "DataType": "Real",
+            "Description": "Latitude in decimal degrees.",
+            "Example": "45.32",
+            "Field": "Latitude"
+        },
+        {
+            "DataType": "Real",
+            "Description": "Longitude in decimal degrees. East positive, West negative.",
+            "Example": "-100.47 ",
+            "Field": "Longitude"
+        },
+        {
+            "DataType": "Text(50)",
+            "Description": "Elevation of sampling location (in m). If this is not provided it needs to be obtained programmatically from a DEM based on location information.",
+            "Example": "1432",
+            "Field": "Elevation_m"
+        },
+        {
+            "DataType": "Text(255)",
+            "Description": "Name of state in which the monitoring site is located.",
+            "Example": "1432",
+            "Field": "State"
+        },
+        {
+            "DataType": "Text(255)",
+            "Description": "Name of county in which the monitoring site is located.",
+            "Example": "Rockland",
+            "Field": "County"
+        },
+        {
+            "DataType": "Text(unlimited)",
+            "Description": "Comments related to the site.",
+            "Example": "This is a great station",
+            "Field": "Comment"
+        }
+    ]
+}

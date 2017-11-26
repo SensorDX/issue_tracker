@@ -11614,6 +11614,9 @@ div.tagsinput span.tag a:hover {
 .padding-15 {
 	padding: 15px !important;
 }
+.cursor-pointer {
+	cursor: pointer;
+}
 .station-location {
 	cursor: pointer;
 	/*text-decoration: none;*/
@@ -11623,4 +11626,10 @@ div.tagsinput span.tag a:hover {
 }
 .station-issues {
 	cursor: pointer;
+}
+.user-icon {
+}
+.users-edit {
+	height: 70px !important;
+	line-height: 70px !important;
 }

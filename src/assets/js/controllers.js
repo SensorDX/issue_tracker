@@ -4,7 +4,12 @@
  *  Description: Our example controllers for demo pages
  *
  */
-var station_table = null;
+//var station_table = null;
+App.controller('HeaderCtrl', ['$scope', '$cookies', function ($scope, $cookies) {
+		console.log('header loaded');
+		$scope._id = $cookies.get('_id');
+}]);
+
 App.controller('LoginCtrl', ['$scope', '$window', '$http', '$state', '$location', '$cookies', function ($scope, $window, $http, $state, $location, $cookies) {
 		$scope.login = {
 			username: "",
@@ -18,6 +23,7 @@ App.controller('LoginCtrl', ['$scope', '$window', '$http', '$state', '$location'
 			if ($scope.login.username == "" || $scope.login.password == "") {
 				console.log('form not submitted');
 			} else {
+				$cookies.put('_id', '1234');
 				$state.go('dashboard');
 				console.log('form submitted');
 			}
@@ -547,6 +553,11 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', 
 App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state', 'feature', '$http', '$window', '$timeout', 'chart', 'ModalService',
 	function ($scope,   $uibModalInstance, $location, $state, feature, $http, $window, $timeout, chart, ModalService) {
 		//Default Value in Settings Tab
+    $scope.feature = feature;
+		$scope.site_name = feature.properties['Station ID'];
+		var sitecode = feature.properties['Station ID'];
+		var query = "/api/stationdata/"+sitecode+"?limit=1&type=sensorify";
+		var initial = 0;
 		$scope.data_point_limit = "10000";
 
     $scope.$uibModalInstance = $uibModalInstance;
@@ -594,8 +605,7 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state
 			while( ChartObj.series.length > 0 ) {
     		ChartObj.series[0].remove( false );
 			}
-			$http.get('api/stationdata/ADAX?type=graph&sensor='+$scope.sensor_id[index]+'&limit=10000').success(function (data) {
-					console.log("fake data");
+			$http.get('api/stationdata/'+sitecode+'?type=graph&sensor='+$scope.sensor_id[index]+'&limit=10000').success(function (data) {
 					console.log(data);	
 					var myChart = ChartObj;
 					var mydata = {
@@ -621,11 +631,6 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state
 					myChart.reflow();
 			});
 		}
-    $scope.feature = feature;
-		$scope.site_name = feature.properties['Station ID'];
-		var sitecode = feature.properties['Station ID'];
-		var query = "/api/stationdata/"+sitecode+"?limit=1&type=sensorify";
-		var initial = 0;
 		$scope.sensors = ["temperature", "relative_humidity", "pressure", "precipitation", "radiation", "wind"];
 		$scope.isSelected = [true, false, false, false, false, false];
 		$scope.sensor_name = ["Temperature", "Relative Humidity", "Pressure", "Precipitation", "Radiation", "Wind"];
@@ -638,7 +643,7 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state
 			$scope.hasData = result.data.length > 0;
 			console.log(result);
 		});
-		$http.get('api/stationdata/ADAX?type=graph&sensor='+$scope.sensor_id[initial]+'&limit=10000').success(function (data) {
+		$http.get('api/stationdata/'+sitecode+'?type=graph&sensor='+$scope.sensor_id[initial]+'&limit=10000').success(function (data) {
 				console.log("fake data");
 				console.log(data);	
 				var myChart = ChartObj;
@@ -952,7 +957,7 @@ App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$timeout', '$h
 				//==========================================
 
         var initDataTableFull = function() {
-            station_table = jQuery('.js-dataTable-full').DataTable({
+            var station_table = jQuery('.js-dataTable-full').DataTable({
 								ajax: '/api/sites?type=manage',
 								"columnDefs": [ {
 										"targets": -1,
@@ -1139,9 +1144,368 @@ App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$timeout', '$h
     }
 ]);
 
+// User Profile Controller
+App.controller('ProfileCtrl', ['$scope', '$location', '$localStorage', '$timeout', '$http', '$window', '$mdDialog', '$stateParams', '$anchorScroll',
+    function ($scope, $location, $localStorage, $timeout, $http, $window, $mdDialog, $stateParams, $anchorScroll) {
+			$scope.gotoAnchor = function(x) {
+				$anchorScroll.yOffset = 50;
+				if ($location.hash() !== x) {
+					// set the $location.hash to `newHash` and
+					// $anchorScroll will automatically scroll to it
+					$location.hash(x);
+				} else {
+					// call $anchorScroll() explicitly,
+					// since $location.hash hasn't changed
+					$anchorScroll();
+				}
+			};
+			/**
+			 * ADD a station modal
+			 */
+				$scope.showTabDialog = function(ev) {
+					$mdDialog.show({
+						controller: DialogController,
+						templateUrl: 'assets/views/add_user.tmpl.html',
+						parent: angular.element(document.body),
+						targetEvent: ev,
+						clickOutsideToClose:true
+					})
+							.then(function(answer) {
+								$scope.status = 'You said the information was "' + answer + '".';
+							}, function() {
+								$scope.status = 'You cancelled the dialog.';
+							});
+				};
+				function DialogController($scope, $http, $mdDialog) {
+					console.log('add_user_tmpl');
+					$scope.station = {
+						id: '',
+						name: '',
+						lat: '',
+						long: '',
+						manager: '',
+						sensors: []
+					}
+					$http.get('/api/users').then(function(response) {
+						$scope.managers = response.data;
+					}, function(error) {
+						console.log(error);
+					});
+					$http.get('/api/sensors/types').then(function(response) {
+						$scope.sensors = response.data;
+					}, function(error) {
+						console.log(error);
+					});
+					$scope.hide = function() {
+						$mdDialog.hide();
+					};
+
+					$scope.cancel = function() {
+						$mdDialog.cancel();
+					};
+
+					$scope.answer = function(answer) {
+						console.log('answer', answer);
+						$mdDialog.hide(answer);
+					};
+				}
+				//==========================================
+
+        var initDataTableFull = function() {
+            var user_table = jQuery('.js-dataTable-full-user').DataTable({
+								ajax: '/api/sites?type=manage',
+								destroy: true,
+								"columnDefs": [ {
+										"targets": -1,
+										"data": "SiteCode",
+										"render": function ( data, type, row, meta ) {
+													return			"<div class=\"cursor-pointer\">"+
+																					"<i class=\"fa fa-pencil\"></i> "+
+																			"</div>";
+										},
+								},
+								{
+										"targets": 0,
+										"data": "SiteName",
+										"render": function ( data, type, row, meta ) {
+													var id = "594caf71f31c4341efd1ab58";
+													return			"<div><a style=\"background-color: transparent; border-bottom: 0\" href=\"#/profile/"+id+"\">"+
+																					"<img class=\"img-avatar\" src=\"assets/img/avatars/avatar3.jpg\" alt=\"\">"+
+																					"<i class=\"fa fa-circle text-success\"></i> "+data+
+																					"<div class=\"font-w400 text-muted\"><small>Field Technician</small></div>"+
+																			"</a></div>";
+										}
+								},
+								{ className: "nav-users push",  "targets": [ 0 ] },
+								{ className: "users-edit text-center",  "targets": [ -1 ] },
+								],
+								"columns": [
+										null,
+										null
+								],
+                pageLength: 5,
+                lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]]
+            });
+						console.log(user_table);
+        };
+
+        // DataTables Bootstrap integration
+        var bsDataTables = function() {
+            var DataTable = jQuery.fn.dataTable;
+
+            // Set the defaults for DataTables init
+            jQuery.extend( true, DataTable.defaults, {
+                dom:
+                    "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                renderer: 'bootstrap',
+                oLanguage: {
+                    sLengthMenu: "_MENU_",
+                    sInfo: "Showing <strong>_START_</strong>-<strong>_END_</strong> of <strong>_TOTAL_</strong>",
+                    oPaginate: {
+                        sPrevious: '<i class="fa fa-angle-left"></i>',
+                        sNext: '<i class="fa fa-angle-right"></i>'
+                    }
+                }
+            });
+
+            // Default class modification
+            jQuery.extend(DataTable.ext.classes, {
+                sWrapper: "dataTables_wrapper form-inline dt-bootstrap",
+                sFilterInput: "form-control",
+                sLengthSelect: "form-control"
+            });
+
+            // Bootstrap paging button renderer
+            DataTable.ext.renderer.pageButton.bootstrap = function (settings, host, idx, buttons, page, pages) {
+                var api     = new DataTable.Api(settings);
+                var classes = settings.oClasses;
+                var lang    = settings.oLanguage.oPaginate;
+                var btnDisplay, btnClass;
+
+                var attach = function (container, buttons) {
+                    var i, ien, node, button;
+                    var clickHandler = function (e) {
+                        e.preventDefault();
+                        if (!jQuery(e.currentTarget).hasClass('disabled')) {
+                            api.page(e.data.action).draw(false);
+                        }
+                    };
+
+                    for (i = 0, ien = buttons.length; i < ien; i++) {
+                        button = buttons[i];
+
+                        if (jQuery.isArray(button)) {
+                            attach(container, button);
+                        }
+                        else {
+                            btnDisplay = '';
+                            btnClass = '';
+
+                            switch (button) {
+                                case 'ellipsis':
+                                    btnDisplay = '&hellip;';
+                                    btnClass = 'disabled';
+                                    break;
+
+                                case 'first':
+                                    btnDisplay = lang.sFirst;
+                                    btnClass = button + (page > 0 ? '' : ' disabled');
+                                    break;
+
+                                case 'previous':
+                                    btnDisplay = lang.sPrevious;
+                                    btnClass = button + (page > 0 ? '' : ' disabled');
+                                    break;
+
+                                case 'next':
+                                    btnDisplay = lang.sNext;
+                                    btnClass = button + (page < pages - 1 ? '' : ' disabled');
+                                    break;
+
+                                case 'last':
+                                    btnDisplay = lang.sLast;
+                                    btnClass = button + (page < pages - 1 ? '' : ' disabled');
+                                    break;
+
+                                default:
+                                    btnDisplay = button + 1;
+                                    btnClass = page === button ?
+                                            'active' : '';
+                                    break;
+                            }
+
+                            if (btnDisplay) {
+                                node = jQuery('<li>', {
+                                    'class': classes.sPageButton + ' ' + btnClass,
+                                    'aria-controls': settings.sTableId,
+                                    'tabindex': settings.iTabIndex,
+                                    'id': idx === 0 && typeof button === 'string' ?
+                                            settings.sTableId + '_' + button :
+                                            null
+                                })
+                                .append(jQuery('<a>', {
+                                        'href': '#'
+                                    })
+                                    .html(btnDisplay)
+                                )
+                                .appendTo(container);
+
+                                settings.oApi._fnBindAction(
+                                    node, {action: button}, clickHandler
+                                );
+                            }
+                        }
+                    }
+                };
+
+                attach(
+                    jQuery(host).empty().html('<ul class="pagination"/>').children('ul'),
+                    buttons
+                );
+            };
+
+            // TableTools Bootstrap compatibility - Required TableTools 2.1+
+            if (DataTable.TableTools) {
+                // Set the classes that TableTools uses to something suitable for Bootstrap
+                jQuery.extend(true, DataTable.TableTools.classes, {
+                    "container": "DTTT btn-group",
+                    "buttons": {
+                        "normal": "btn btn-default",
+                        "disabled": "disabled"
+                    },
+                    "collection": {
+                        "container": "DTTT_dropdown dropdown-menu",
+                        "buttons": {
+                            "normal": "",
+                            "disabled": "disabled"
+                        }
+                    },
+                    "print": {
+                        "info": "DTTT_print_info"
+                    },
+                    "select": {
+                        "row": "active"
+                    }
+                });
+
+                // Have the collection use a bootstrap compatible drop down
+                jQuery.extend(true, DataTable.TableTools.DEFAULTS.oTags, {
+                    "collection": {
+                        "container": "ul",
+                        "button": "li",
+                        "liner": "a"
+                    }
+                });
+            }
+        };
+
+        // Init Datatables
+        bsDataTables();
+        initDataTableFull();
+    }
+]);
+
 // Components Charts Controller
 App.controller('MapperCtrl', ['$scope', '$localStorage', '$window', '$mdDialog',
     function ($scope, $localStorage, $window, $mdDialog) {
+			var data = [
+				['Array', 'Object', 'Elevation_m'],
+				['Array', 'Object', 'Latitude'],
+				['Array', 'Object', 'Longitude', 'Object', 'Lat'],
+				['Array', 'Object', 'Longitude', 'Object', 'Long'],
+				['Array', 'Object', 'Sensors', 'Array', 'TAIR'],
+				['Array', 'Object', 'Sensors', 'Array', 'PRES'],
+				['Array', 'Object', 'Sensors', 'Array', 'SRAD'],
+				['Array', 'Object', 'Sensors', 'Array', 'RELH'],
+				['Array', 'Object', 'SiteCode'],
+				['Array', 'Object', 'Manager'],
+				['Array', 'Object', 'Sensors', 'Array', 'WSPD'],
+				['Array', 'Object', 'Sensors', 'Array', 'RAIN']
+			]
+			var arr = new Array();
+			var func = function (pos, data, result) {
+				var arr = new Array();
+				var obj = new Object();
+				if (pos >= 8) {
+					return; 
+				}
+				if (data[pos] == 'Array') {
+					console.log('current pos value: ', pos);
+					if (!(arr.includes(func(pos+1, data, result)))) {
+						arr.push(func(pos+1, data, result))
+					} else {
+						console.log('element exist already in array');
+					}
+					console.log('value of arr after recursion', arr);
+					return arr;
+				}
+				if (data[pos] == 'Object') {
+					console.log('now object', data[pos+1]);
+					obj[data[pos+1]] = func(pos+2, data, result)
+					Object.assign(obj);
+					console.log('value of obj after recursion', obj);
+					return obj;
+				}
+				if (data[pos] != 'Array' && data['pos'] != 'Object') {
+					console.log('no array/ no object value', data[pos]);
+					return data[pos]
+				}
+			}
+
+			var recurse = function (pos, data, array, obj) {
+				if (pos >= data.length) {
+					return;
+				}
+				if (data[pos] == "Array") {
+					if (array == null || array.length <= 0) {
+						console.log('first null');
+						array = new Array();
+						array.push(recurse(pos+1, data, array, obj));
+						return array;
+					} else {
+						if (data[pos+1] == "Object") {
+							console.log('handling object');
+							recurse(pos+1, data, array, array[0]);
+							return array;
+						}
+						if (data[pos+1] == "Array") {
+							console.log('handling array');
+							recurse(pos+1, data, array[0], obj);
+							return array;
+						}
+						if (data[pos+1] != "Object" && data[pos+1] != "Array") {
+							console.log('handling weird stuff');
+							recurse(pos+1, data, array, obj);
+							return array;
+						}
+					}
+				}
+				if (data[pos] == "Object") {
+					if (obj == null) { obj = new Object()}
+					if (obj.hasOwnProperty(data[pos+1])) {
+						if (data[pos+2] == "Array") {
+							console.log('more array');
+							obj[data[pos+1]].push(recurse(pos+3, data, obj[data[pos+1]], obj));
+						}
+						return obj;
+					} else {
+						console.log('seetings'+data[pos+1]);
+						obj[data[pos+1]] = recurse(pos+2, data, obj[data[pos+1]], obj)
+						return obj;
+					}
+				}
+				if (data[pos] != "Object" && data[pos] != "Array") {
+						return data[pos]
+				}
+			}
+			var arr = null;
+			for (var i = 0; i < data.length; ++i) {
+				arr = recurse(0, data[i], arr, null);
+			}
+			console.log('final', arr);
+		
       hljs.initHighlighting();
 			/**
 			 * Show JSON
@@ -1223,22 +1587,19 @@ App.controller('MapperCtrl', ['$scope', '$localStorage', '$window', '$mdDialog',
 					};
 				}
 				function SettingsController($scope, $mdDialog, $http, type) {
+					$scope.content = {
+						filename: "",
+						data: ""
+					}
       		hljs.initHighlighting();
 					$scope.url = "";
 					var json = "";
+					$scope.type = type;
 					$scope.title = "";
 					$scope.hidden = true;
 					$scope.user_api = [];
-					var processApi = function(data) {
-						var final_object = null;
-						if (typeof(data) == "object") {
-								for (key in data) {
-									console.log('key', key);
-								}
-						}
-						if (typeof(data) == "object") {
-						}
-					}
+					$scope.mapper = {};
+					$scope.mapper[type] = {};
 					switch(type) {
 						case 'issue': 
 							json = "issues";
@@ -1270,57 +1631,28 @@ App.controller('MapperCtrl', ['$scope', '$localStorage', '$window', '$mdDialog',
 							$scope.hidden = true;
 							return;
 						}
+						$scope.mapper['url'] = url;
 						console.log('url -> ', url);
-						$scope.$parent.helpers.uiMapper('http://localhost:5000/sites', 'station');
-						var factorial = function(data, xml, result) {
-							if (typeof data == "boolean" || typeof data == "number" || typeof data == "string") { // terminal case
-								if (!(result.includes(xml))) result.push(xml);
-								return result;
-							} 
-							if (Array.isArray(data) && data.length > 0) {
-								for (var i = 0; i < data.length; ++i) {
-									console.log('array info'+i+': ', data[i]);
-									if (typeof(data[i]) != "object") {
-										factorial(data[i], xml+".Array."+data[i], result);
-									} else {
-										factorial(data[i], xml+".Array", result);
-									}
-								}
-							}
-							else if (typeof(data) == "object") { // block to execute
-								for (var key in data) {
-									factorial(data[key], xml+"."+key, result);
-								}
-							}
-						};
 						$http.get(url).then(function(response) {
 								console.log('my response', response);
 								var my_array = new Array();
-								console.log(factorial(response.data, "Object", my_array));
-								console.log(my_array);
-								//$scope.user_api = response.data;
-								//$scope.hidden = false;
-								/*
-								console.log('response -> ', $scope.user_api);
-								console.log('hidden -> ', $scope.hidden);
-								console.log('type -> ', typeof(response.data));
-								if (Array.isArray(response.data) && response.data.length > 0) {
-									$scope.hidden = false;
-									console.log('hidden -> ', $scope.hidden);
-								}
-								if (typeof(response.data) == "object") {
-									$scope.hidden = false;
-									console.log('hidden -> ', $scope.hidden);
-									processApi(response.data);
-								}
-								*/
+								$scope.$parent.helpers.apiProcessing(response.data, "", my_array);
+								$scope.user_api = my_array;
+								console.log($scope.user_api);
+								$scope.hidden = false;
 						}, function(error) {
-								//$scope.hidden = true;
-								//console.log('error ->', response.data);
+								$scope.hidden = true;
+								console.log('error ->', response.data);
 						});
 					};
 					$http.get('/assets/json/mapper/'+json+'.json').then(function(response) {
-						$scope.jsonObj = response.data;
+						var my_array = new Array();
+						$scope.$parent.helpers.apiProcessing(response.data, "", my_array);
+						$scope.jsonObj = my_array;
+						for (var i = 0; i < my_array.length; ++i) {
+							if (my_array[i] != "None") $scope.mapper[$scope.type][my_array[i]] = "None";
+						}
+						console.log($scope.jsonObj);
 					}, function(error) {
 						console.log(error);
 					});
@@ -1331,11 +1663,31 @@ App.controller('MapperCtrl', ['$scope', '$localStorage', '$window', '$mdDialog',
 
 					$scope.cancel = function() {
 						$mdDialog.cancel();
+						console.log('selected value', $scope.mapper);
 					};
 
-					$scope.answer = function(answer) {
-						console.log('answer', answer);
-						$mdDialog.hide(answer);
+					$scope.setup = function() {
+						$scope.$parent.helpers.saveMapper($scope.jsonObj, "stations");
+						$scope.content['filename'] = "config/mapper/"+$scope.type+".json";
+						$scope.content['data'] = JSON.stringify($scope.mapper);
+						$http.post('/api/fs/write', $scope.content)
+							.then(function(response) {
+								console.log('success writing to file');
+							},
+							function(response) {
+								console.log('error writing to file');
+							})
+							var my_array = new Array();
+						for (key in $scope.mapper[$scope.type]) {
+							console.log('my key: ', key);
+							var data = key.split('.');
+							console.log('data split', data);
+							console.log('my array', my_array);
+							$scope.$parent.helpers.stringToObj(0, 0, data, my_array);
+							console.log('my array', my_array);
+							//break;	
+						}
+						$mdDialog.hide();
 					};
 				}
 				//==========================================

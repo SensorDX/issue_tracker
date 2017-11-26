@@ -1,0 +1,19 @@
+{
+    "stations": {
+        "Array.Object.Elevation_m": "Object.stations.Array.Object.elevation",
+        "Array.Object.Latitude": "Object.stations.Array.Object.location.Object.lat",
+        "Array.Object.Longitude": "Object.stations.Array.Object.location.Object.lng",
+        "Array.Object.Manager": "None",
+        "Array.Object.Sensors.Array.PRES": "Object.stations.Array.Object.variables.Array.atmosphericpressure",
+        "Array.Object.Sensors.Array.RAIN": "Object.stations.Array.Object.variables.Array.precipitation",
+        "Array.Object.Sensors.Array.RELH": "Object.stations.Array.Object.variables.Array.relativehumidity",
+        "Array.Object.Sensors.Array.SRAD": "Object.stations.Array.Object.variables.Array.radiation",
+        "Array.Object.Sensors.Array.TAIR": "Object.stations.Array.Object.variables.Array.temperature",
+        "Array.Object.Sensors.Array.WSPD": "Object.stations.Array.Object.variables.Array.windspeed",
+        "Array.Object.SiteCode": "Object.stations.Array.Object.name",
+        "Array.Object.SiteName": "Object.stations.Array.Object.name",
+        "Array.Object._id": "Object.stations.Array.Object.id",
+        "Array.Object.date_created": "None"
+    },
+    "url": "http://localhost:3000/v1/stations"
+}

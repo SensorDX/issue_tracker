@@ -11,7 +11,7 @@ var format_date = function(mydate, type="") {
 	var milliseconds = today.getMilliseconds();
 	switch(type) {
 		case 'UTC-milliseconds':
-				console.log('here is milli');
+				//console.log('here is milli');
 				return Date.UTC(year, month, date, hour, minutes, seconds, milliseconds);
 				break;
 		default:
@@ -177,6 +177,133 @@ module.exports = {
 				"Station ID": item.SiteCode,
 				"Station site type": "",
 				"Station status": randomStatus,
+			};
+			var items = {
+				geometry: geometry,
+				properties: properties,
+				type: "Feature"
+			};
+			results['features'].push(items);
+		});
+		results['type'] = "FeatureCollection";
+		console.log(results);
+		return results;
+  },
+  sensorifyTahmo: function (data) {
+		var status = ["Active", "Delay", "Closed"];
+		var results = {};
+		results['data']= []
+		/*
+		data.map(function(item, index) {
+			var temperature = {
+				name: "Temperature",
+				icon: "temperature.svg",
+				time_stamp: item.DateTimeUTC,
+				reading: item.TAIR,
+				unit: "&#8451;",
+				QFlag: item.QTAIR,
+				QFlagText: QFlagInfo(item.QTAIR)
+			};
+			var relative_humidity = {
+				name: "Relative Humidity",
+				icon: "relative_humidity.svg",
+				time_stamp: item.DateTimeUTC,
+				reading: item.RELH,
+				unit: "%",
+				QFlag: item.QRELH,
+				QFlagText: QFlagInfo(item.QRELH)
+			};
+			var pressure = {
+				name: "Pressure",
+				icon: "pressure.svg",
+				time_stamp: item.DateTimeUTC,
+				reading: item.PRES,
+				unit: "mbar",
+				QFlag: item.QPRES,
+				QFlagText: QFlagInfo(item.QPRES)
+			};
+			var precipitation = {
+				name: "Precipitation",
+				icon: "precipitation.svg",
+				time_stamp: item.DateTimeUTC,
+				reading: item.RAIN,
+				unit: "mm",
+				QFlag: item.QRAIN,
+				QFlagText: QFlagInfo(item.QRAIN)
+			};
+			var radiation = {
+				name: "Radiation",
+				icon: "radiation.svg",
+				time_stamp: item.DateTimeUTC,
+				reading: item.SRAD,
+				unit: "W/m^2",
+				QFlag: item.QSRAD,
+				QFlagText: QFlagInfo(item.QSRAD)
+			};
+			var windspeed = {
+				name: "Wind",
+				icon: "wind.svg",
+				time_stamp: item.DateTimeUTC,
+				reading: item.WSPD,
+				unit: "m/s",
+				QFlag: item.QWSPD,
+				QFlagText: QFlagInfo(item.QWSPD)
+			};
+			results['data'].push(temperature, relative_humidity, pressure, precipitation, radiation, windspeed);
+			results['BATV'] = item.BATV;
+		});
+		*/
+		console.log(results);
+		return results;
+  },
+  prepareTahmoGraphData: function (data, sensor) {
+		console.log('now preparing '+sensor);
+		var sensor_map = {};
+		sensor_map['SRAD'] = 'radiation';
+		sensor_map['RAIN'] = 'precipitation';
+		sensor_map['WSP'] = 'windspeed';
+		sensor_map['TAIR'] = 'temperature';
+		sensor_map['RELH'] = 'relevativehumidity';
+		sensor_map['PRES'] = 'atmosphericpressure';
+		console.log(sensor_map);
+		var results = [];
+		console.log('sensor_map', sensor_map[sensor]);
+		var obj = data['timeseries'][sensor_map[sensor]];
+		//var obj = data['timeseries'][sensor_map[sensor]];
+		//console.log('my obj', obj);
+		for (key in obj) {
+			var point = [];
+			var timestamp = format_date(key, "UTC-milliseconds");
+			//console.log('time stamp');
+			//console.log(timestamp);
+			point.push(timestamp);
+			point.push(obj[key]);
+			results.push(point);
+		}
+		//console.log(results);
+		return results;
+  },
+  tahmoGeojson: function (data) {
+		var status = ["Active", "Delay", "Closed"];
+		var results = {};
+		results['features']= []
+		data['stations'].map(function(item, index) {
+			var features = [];
+			var randomStatus = status[Math.floor(Math.random() * status.length)];
+			var coordinates = [];
+			coordinates.push(item.location.lng, item.location.lat, item.elevation);
+			var geometry = {
+				coordinates: coordinates,
+				type: "Point"
+			};
+			var properties = {
+				"Country": item.countryCode,
+				"Date of installation": "",
+				"Mount height (meters)": item.elevation,
+				"Site name": item.name,
+				"Station ID": item.id,
+				"Station site type": "",
+				"Station status": item.active ? "Active" : "Closed",
 			};
 			var items = {
 				geometry: geometry,

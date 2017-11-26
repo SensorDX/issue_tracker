@@ -1,0 +1,57 @@
+[
+    {
+        "__v": 0,
+        "_id": "58ab7e4fc9e66c7095934c7b",
+        "created_at": "Mon Feb 20 2017 18:39:59 GMT-0500 (EST)",
+        "email": "renemidouin@gmail.com",
+        "first_name": "Rene",
+        "last_name": "Midouin",
+        "password": "04uas3094609N$@*(*_($",
+        "projects": [],
+        "username": "renay007"
+    },
+    {
+        "__v": 0,
+        "_id": "58ab7ecfc9e66c7095934c7c",
+        "created_at": "Mon Feb 20 2017 18:42:07 GMT-0500 (EST)",
+        "email": "renemidouin@gmail.com",
+        "first_name": "Ronald",
+        "last_name": "Lawyer",
+        "password": "04uas3094609N$@*(*_($",
+        "projects": [],
+        "username": "roro12"
+    },
+    {
+        "__v": 0,
+        "_id": "58ab7eedc9e66c7095934c7d",
+        "created_at": "Mon Feb 20 2017 18:42:37 GMT-0500 (EST)",
+        "email": "renemidouin@yahoo.com",
+        "first_name": "Rene",
+        "last_name": "Descartes",
+        "password": "04uas3094609N$@*(*_($",
+        "projects": [],
+        "username": "rere34"
+    },
+    {
+        "__v": 0,
+        "_id": "58ab7f09c9e66c7095934c7e",
+        "created_at": "Mon Feb 20 2017 18:43:05 GMT-0500 (EST)",
+        "email": "renemidouin@yahoo.com",
+        "first_name": "Blaise",
+        "last_name": "Pascal",
+        "password": "04uas3094609N$@*(*_($",
+        "projects": [],
+        "username": "bleble56"
+    },
+    {
+        "__v": 0,
+        "_id": "58ab7f29c9e66c7095934c7f",
+        "created_at": "Mon Feb 20 2017 18:43:37 GMT-0500 (EST)",
+        "email": "renemidouin@gmail.com",
+        "first_name": "Jean",
+        "last_name": "Duchemin",
+        "password": "04uas3094609N$@*(*_($",
+        "projects": [],
+        "username": "tijean77"
+    }
+]

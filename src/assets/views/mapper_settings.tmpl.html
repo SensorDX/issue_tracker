@@ -27,7 +27,7 @@ md-content {
 					<md-button class="md-raised" ng-click="fetch(url)">Fetch</md-button>
 				</md-input-container>
 			</section>
-			<table ng-if="!hidden" class="table table-bordered table-striped js-dataTable-full">
+			<table ng-if="!hidden" class="table table-bordered table-striped">
 					<thead>
 							<tr>
 									<th class="text-center hidden-xs">Your Response</th>
@@ -35,17 +35,17 @@ md-content {
 							</tr>
 					</thead>
 					<tbody>
-							<tr ng-repeat="(key, value) in jsonObj[0]">
-									<td class="text-center hidden-xs">
+							<tr ng-repeat="field in jsonObj">
+									<td ng-if="field != 'None'" class="text-center hidden-xs">
 										<md-input-container class="md-block" flex-gt-sm>
-											<md-select ng-model="val" required>
-												<md-option ng-repeat="(key, value) in user_api[0]" value="{{key}}">
-													{{key}}
+											<md-select ng-model="mapper[type][field]" required>
+												<md-option ng-repeat="(key, value) in user_api" value="{{value}}">
+													{{value}}
 												</md-option>
 											</md-select>
 										</md-input-container>
 									</td>
-									<td class="text-center hidden-xs" style="vertical-align: middle">{{key}}</td>
+									<td ng-if="field != 'None'" class="text-center hidden-xs" style="vertical-align: middle">{{field}}</td>
 							</tr>
 					</tbody>
 			</table>
@@ -53,10 +53,10 @@ md-content {
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer('not useful')" >
+      <md-button ng-click="cancel()" >
         Cancel
       </md-button>
-      <md-button ng-click="answer('useful')" style="margin-right:20px;" >
+      <md-button ng-click="setup()" style="margin-right:20px;" >
         Set up
       </md-button>
     </md-dialog-actions>

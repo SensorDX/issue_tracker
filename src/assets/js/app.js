@@ -135,6 +135,27 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 url: '/api/documentation/get-started',
                 templateUrl: 'doc/index.html'
             })
+            .state('profile', {
+                url: '/profile/:id',
+                controller: 'ProfileCtrl',
+                templateUrl: 'assets/views/profile.html',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            insertBefore: '#css-bootstrap',
+                            serie: true,
+                            files: [
+                                'assets/js/plugins/datatables/jquery.dataTables.min.css',
+                                'assets/js/plugins/datatables/jquery.dataTables.min.js'
+                            ]
+                        });
+                    }]
+                }
+            })
+            .state('settings', {
+                url: '/settings',
+                templateUrl: 'assets/views/settings.html'
+            })
             .state('uiActivity', {
                 url: '/ui/activity',
                 templateUrl: 'assets/views/ui_activity.html',
@@ -914,11 +935,61 @@ App.factory('uiHelpers', function () {
                 }
             }
         },
-        uiProcessUrl: function (url, type) {
-					console.log('hey');
+        stringToObj: function (array_pos, pos, data, result) {
+					console.log("pos = "+pos);
+					console.log("result = ", result);
+					var obj = {};
+					if ( pos >= data.length) return result;
+
+					if (data[pos] != "Array" && data[pos] != "Object") {
+						console.log ('data pos is now: ', data[pos]);
+						if (data[pos-1] == "Array") {
+							result.push(data[pos]);
+							this.stringToObj(array_pos, pos+1, data, result);
+						}
+						if (data[pos-1] == "Object") {
+							obj[data[pos]] = null;
+							result.push(obj);
+							this.stringToObj(array_pos, pos+1, data, result);
+						}
+					} 
+					if (data[pos] == "Array") {
+						if (result == null || !(result.length > 0)) {
+							console.log('array is null');
+							result = [];
+							this.stringToObj(array_pos, pos+1, data, result);
+						} else {
+							console.log('other array');
+						}
+					}
+					if (data[pos] == "Object") {
+						if (result[0] == null || Object.keys(result[0]).length == 0) {
+							console.log('array state ', result[0]);
+							result[0] = {};
+							this.stringToObj(array_pos, pos+1, data, result);
+						}
+					}
         },
-        uiMapper: function (data) {
-					console.log('hey');
+        apiProcessing: function (data, xml, result) {
+					if (!(result.includes("None"))) result.push("None");
+					if (typeof data == "boolean" || typeof data == "number" || typeof data == "string") {
+						if (!(result.includes(xml.slice(1)))) result.push(xml.slice(1));
+						return result;
+					} 
+					if (Array.isArray(data) && data.length > 0) {
+						for (var i = 0; i < data.length; ++i) {
+							if (typeof(data[i]) != "object") {
+								this.apiProcessing(data[i], xml+".Array."+data[i], result);
+							} else {
+								this.apiProcessing(data[i], xml+".Array", result);
+							}
+						}
+					}
+					else if (typeof(data) == "object") { 
+						for (var key in data) {
+							this.apiProcessing(data[key], xml+".Object."+key, result);
+						}
+					}
         },
     };
 });
@@ -1057,3 +1128,10 @@ App.controller('HeaderCtrl', ['$scope', '$localStorage', '$window',
         });
     }
 ]);
+
+App.service('fs', function() {
+	var fs = require('fs');
+	this.Write = function(filename, data) {
+		console.log('writing '+data+' to '+filename);
+	}
+});

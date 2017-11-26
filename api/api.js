@@ -1,6 +1,8 @@
 /**
  * DB Configuration
  */
+var fetch = require('node-fetch');
+var fs = require('fs-path');
 var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var credentials =require('../config/settings.js');
@@ -904,6 +906,32 @@ module.exports = function(router) {
  router.get('/api/sites', function(request, response) {
   var type = request.query.type;
   var data = [];
+	fetch('http://localhost:3000/v1/stations')
+	.then(function(res) {
+		return res.json();
+	})
+	.then(function(json) {
+		data = json;
+    switch(type) {
+     case 'geojson':
+      data = tools.tahmoGeojson(data);
+      break;
+     case 'modifyDate':
+      data = tools.modifyDate(data);
+      break;
+     case 'manage':
+      data = tools.manage(data);
+      break;
+     default:
+      break;
+    }
+    response.status(200).send(data);
+		console.log(json);
+	})
+	.catch(function(err) {
+		console.log(err);
+	});
+	//console.log(data);
   CustomStations.find({}, function(err, stations) {
    if (err) {
     response.status(404).send(err);
@@ -925,6 +953,29 @@ module.exports = function(router) {
     response.status(200).send(data);
    }
   });
+	/*
+  CustomStations.find({}, function(err, stations) {
+   if (err) {
+    response.status(404).send(err);
+   } else {
+    switch(type) {
+     case 'geojson':
+      data = tools.geojson(stations);
+      break;
+     case 'modifyDate':
+      data = tools.modifyDate(stations);
+      break;
+     case 'manage':
+      data = tools.manage(stations);
+      break;
+     default:
+      data = stations;
+      break;
+    }
+    response.status(200).send(data);
+   }
+  });
+	*/
  });
 
  /**
@@ -1164,6 +1215,30 @@ module.exports = function(router) {
   var order = request.query.order == "desc" ? "DESC " : "ASC ";
   var type = request.query.type;
   var sensor = request.query.sensor;
+	/*
+	fetch('http://localhost:3000/v1/timeseries/'+sitecode+'/rawmeasurements')
+	.then(function(res) {
+		return res.json();
+	})
+	.then(function(json) {
+		data = json;
+    switch(type) {
+     case 'sensorify':
+      data = tools.sensorifyTahmo(data, sensor);
+      break;
+     case 'graph':
+      data = tools.prepareTahmoGraphData(data, sensor);
+      break;
+     default:
+      break;
+    }
+    response.status(200).send(data);
+		//console.log(json);
+	})
+	.catch(function(err) {
+		console.log(err);
+	});
+	*/
   if (sensor) {
    var query = "SELECT DateTimeUTC, "+sensor+", Q"+sensor+" FROM DataValues WHERE SiteCode = '"+sitecode+"' ORDER BY DateTimeUTC "+order+limit;
   } else {
@@ -1287,4 +1362,20 @@ module.exports = function(router) {
    }
   });
  });
+
+	router.post('/api/fs/:action', function(req, res) {
+		var action = req.params.action;
+		console.log('fs action: '+action);
+		switch (action) {
+			case 'write':
+				fs.writeFile(req.body.filename, req.body.data, function(err) {
+					if (err) console.log('file error - ', err);	
+				});
+				res.status(200).send({success: true});
+				break;
+			default:
+				res.status(200).send({success: false});
+				break;
+		}
+	});
 };
