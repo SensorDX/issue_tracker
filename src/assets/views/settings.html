@@ -1,88 +1,186 @@
-<!-- Page Header -->
-<div class="content bg-gray-lighter">
-    <div class="row items-push">
-        <div class="col-sm-7">
-            <h1 class="page-heading">
-                Settings<br />
-								<small>To set things straight ...</small>
-            </h1>
-        </div>
-    </div>
-</div>
-<!-- END Page Header -->
+<main style="padding-top: 15px;" id="main-container">
+		<!-- Page Content -->
+		<div class="content content-boxed">
+				<!-- User Header -->
+				<div class="block">
+						<!-- Basic Info -->
+						<div class="bg-image" style="background-image: url('assets/img/photos/photo6@2x.jpg');">
+								<div class="block-content bg-primary-dark-op text-center overflow-hidden">
+										<div class="push-30-t push animated fadeInDown">
+												<i class="fa fa-cog text-white h1" style="font-size: 5.5em"></i>
+										</div>
+										<div class="push-30 animated fadeInUp">
+												<h2 class="h4 font-w600 text-white push-5">SETTINGS</h2>
+												<h3 class="h5 text-gray">30%</h3>
+										</div>
+								</div>
+						</div>
+						<!-- END Basic Info -->
+            <div class="block">
+                <ul class="nav nav-tabs nav-tabs-alt nav-justified" data-js-tabs>
+                    <li class="active">
+												<a class="h4 font-w300 text-primary animated flipInX" href="#btabs-animated-slideup-users">
+													<i class="fa fa-database"></i>
+													<div class="font-w700 text-gray-darker animated fadeIn">Databases</div>
+												</a>
+                    </li>
+                    <li>
+												<a class="h4 font-w300 text-primary animated flipInX" href="#btabs-animated-slideup-stations">
+													<i class="fa fa-user-secret"></i>
+													<div class="font-w700 text-gray-darker animated fadeIn">Sensor-DX</div>
+												</a>
+                    </li>
+                    <li>
+												<a class="h4 font-w300 text-primary animated flipInX" href="#btabs-animated-slideup-issues">
+													<i class="fa fa-wrench"></i>
+													<div class="font-w700 text-gray-darker animated fadeIn">General</div>
+												</a>
+                    </li>
+                </ul>
+								<!-- SETUP DB and/or API -->
+                <div ng-if="is_odm" class="block-content tab-content">
+									<!-- Page Content -->
+									<div class="content">
+											<div class="row">
+													<div class="col-lg-6 col-lg-offset-3">
+															<!-- Main Dashboard Chart -->
+									<div layout="column" ng-cloak class="md-inline-form">
 
-<!-- Page Content -->
-<div class="content content-boxed">
-    <!-- Table Sections (data-js-table-sections attribute is initialized in js/directives.js) -->
-    <div class="block">
-        <div class="block-header">
-            <div class="block-options">
-                <code>data-js-table-sections</code>
+										<md-toolbar class="md-theme-light">
+											<h2 class="md-toolbar-tools">
+												<span>Configure DB &nbsp </span><span ng-if="error"> -- &nbsp Error connecting </span>
+											</h2>
+										</md-toolbar>
+										<md-content layout-padding style="background: white">
+												<form name="issueForm">
+													<md-input-container class="md-block">
+														<label>Database</label>
+														<md-select style="min-width: 200px;" ng-model="db.name" md-on-open="loadAssignees()">
+															<md-option ng-value="none"><em>None</em></md-option>
+															<md-option ng-repeat="database in databases" ng-value="database">
+																{{database}}
+															</md-option>
+														</md-select>
+													</md-input-container>
+													<md-input-container style="marginTop: 30px;" class="md-block">
+														<label>Version</label>
+														<md-select style="min-width: 200px;" ng-model="db.version">
+															<md-option ng-value="none"><em>None</em></md-option>
+															<md-option ng-repeat="version in versions" ng-value="version">
+																{{version}}
+															</md-option>
+														</md-select>
+													</md-input-container>
+													<md-input-container class="md-block">
+														<label>Host</label>
+														<input ng-model="db.host">
+													</md-input-container>
+													<md-input-container class="md-block">
+														<label>Schema / Database Name</label>
+														<input ng-model="db.database">
+													</md-input-container>
+													<md-input-container class="md-block">
+														<label>Username</label>
+														<input ng-model="db.username">
+													</md-input-container>
+													<md-input-container class="md-block">
+														<label>Password</label>
+														<input ng-model="db.password" type="password">
+													</md-input-container>
+												</form>
+										</md-content>
+										<md-toolbar style="background-color: white;">
+											<section layout="row" layout-sm="column" layout-wrap layout-margin>
+												<md-button class="md-raised md-primary" ng-click="configure(db)">Configure</md-button>
+												<md-button class="md-raised md-primary" ng-click="cancel()">Cancel</md-button>
+											</section>
+										</md-toolbar>
+
+									</div>
+													</div>
+											</div>
+									</div>
+
+
+
+								</div>
+								<!-- SETUP Issue Tracker -->
+                <div ng-if="is_odm || is_issue_tracker" class="block-content tab-content">
+
+
+
+								</div>
+                <div ng-if="!is_odm && !is_issue_tracker" class="block-content tab-content">
+                    <div class="tab-pane fade fade-up in active" id="btabs-animated-slideup-users">
+												<div class="content content-boxed">
+													<!-- Header Tiles -->
+													<div class="row">
+															<div class="col-sm-6 col-md-6">
+																	<a ng-click="showODM()" style="box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);" class="block block-link-hover3 text-center" href="javascript:void(0)">
+																			<div style="line-height: 300px; height: 250px;" class="block-content block-content-full">
+																					<i style="font-size: 6em;" class="text-primary fa fa-database"></i>
+																			</div>
+																			<div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">ODM - API</div>
+																	</a>
+															</div>
+															<div class="col-sm-6 col-md-6">
+																	<a style="box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);" class="block block-link-hover3 text-center" href="base_pages_ecom_orders.html">
+																			<div style="line-height: 300px; height: 250px;" class="block-content block-content-full">
+																					<i style="font-size: 6em;" class="text-success fa fa-database"></i>
+																			</div>
+																			<div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">Issue Tracker</div>
+																	</a>
+															</div>
+													</div>
+												</div>
+										</div>
+                    <div class="tab-pane fade fade-up" id="btabs-animated-slideup-stations">
+												<div class="block">
+														<div class="block-content">
+																<table class="table table-bordered table-striped js-dataTable-full-user" width="100%">
+																		<thead class="hidden">
+																				<tr> 
+																						<th class="text-center">User</th>
+																						<th class="text-center" style="width: 20%;">Actions</th>
+																				</tr>
+																		</thead>
+																</table>
+														</div>
+												</div>
+                    </div>
+                    <div class="tab-pane fade fade-up" id="btabs-animated-slideup-issues">
+												<div class="block">
+														<div class="block-content">
+																<table class="table table-bordered table-striped js-dataTable-full-user" width="100%">
+																		<thead class="hidden">
+																				<tr> 
+																						<th class="text-center">User</th>
+																						<th class="text-center" style="width: 20%;">Actions</th>
+																				</tr>
+																		</thead>
+																</table>
+														</div>
+												</div>
+                    </div>
+                    <div class="tab-pane fade fade-up" id="btabs-animated-slideup-emails">
+												<div class="block">
+														<div class="block-content">
+																<table class="table table-bordered table-striped js-dataTable-full-user" width="100%">
+																		<thead class="hidden">
+																				<tr> 
+																						<th class="text-center">User</th>
+																						<th class="text-center" style="width: 20%;">Actions</th>
+																				</tr>
+																		</thead>
+																</table>
+														</div>
+												</div>
+                    </div>
+                </div>
             </div>
-            <h3 class="block-title">Table Sections</h3>
-        </div>
-        <div class="block-content">
-            <!--
-            Separate your table content with multiple tbody sections. Add one row and add the class .js-table-sections-header to a
-            tbody section to make it clickable. It will then toggle the next tbody section which can have multiple rows. Eg:
-
-            <tbody class="js-table-sections-header">One row</tbody>
-            <tbody>Multiple rows</tbody>
-            <tbody class="js-table-sections-header">One row</tbody>
-            <tbody>Multiple rows</tbody>
-            <tbody class="js-table-sections-header">One row</tbody>
-            <tbody>Multiple rows</tbody>
-
-            You can also add the class .open in your tbody.js-table-sections-header to make the next tbody section visible by default
-            -->
-            <table class="table table-hover" data-js-table-sections>
-                <thead>
-                    <tr>
-                        <th style="width: 30px;"></th>
-                        <th>Table</th>
-                        <th>Field</th>
-                        <th>Data Type</th>
-                        <th>Description</th>
-                        <th>Example</th>
-                        <th>Constraint</th>
-                    </tr>
-                </thead>
-                <tbody class="js-table-sections-header open">
-                    <tr>
-                        <td class="text-center">
-                            <i class="fa fa-angle-right"></i>
-                        </td>
-                        <td class="font-w600">Sites</td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td>SiteID</td>
-                        <td>Integer</td>
-                        <td>Unique Identifier for each sampling location</td>
-                        <td>37</td>
-                        <td>Primary Key</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td>SiteID</td>
-                        <td>Integer</td>
-                        <td>Unique Identifier for each sampling location</td>
-                        <td>37</td>
-                        <td>Primary Key</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- END Table Sections -->
-</div>
-<!-- END Page Content -->
+				</div>
+				<!-- END User Header -->
+		</div>
+		<!-- END Page Content -->
+</main>
+<!-- END Main Container -->

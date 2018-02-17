@@ -154,7 +154,20 @@ App.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('settings', {
                 url: '/settings',
-                templateUrl: 'assets/views/settings.html'
+                controller: 'SettingsCtrl',
+                templateUrl: 'assets/views/settings.html',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            insertBefore: '#css-bootstrap',
+                            serie: true,
+                            files: [
+                                'assets/js/plugins/datatables/jquery.dataTables.min.css',
+                                'assets/js/plugins/datatables/jquery.dataTables.min.js'
+                            ]
+                        });
+                    }]
+                }
             })
             .state('uiActivity', {
                 url: '/ui/activity',

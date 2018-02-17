@@ -1145,6 +1145,49 @@ App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$timeout', '$h
 ]);
 
 // User Profile Controller
+App.controller('SettingsCtrl', ['$scope', '$location', '$localStorage', '$timeout', '$http', '$window', '$mdDialog', '$stateParams', '$anchorScroll',
+    function ($scope, $location, $localStorage, $timeout, $http, $window, $mdDialog, $stateParams, $anchorScroll) {
+		$scope.loading = false;
+		$scope.error = false;
+		$scope.is_odm = false;
+		$scope.db = {
+			host: '',
+			database: '',
+			username: '',
+			password: '',
+			version: '',
+			name: '',
+		};
+		$scope.databases = ['MySQL', 'Microsoft SQL Server'];
+		$scope.versions = ['1.1', '1.1.1'];
+
+		$scope.showODM = function() {
+			$scope.is_odm = true;
+			console.log('is_odm', $scope.is_odm);
+		}
+		$scope.cancel = function() {
+			$scope.is_odm = false;
+			console.log('is_odm', $scope.is_odm);
+		}
+		$scope.configure = function(db) {
+			console.log('db info', db);
+			$http.post('/api/db/connect', db)
+				.then(function(response) {
+					$window.console.log('success');
+				},
+				function(response) {
+					$scope.error = true;
+					setTimeout(function () {
+							$scope.error = false;
+							console.log('error', $scope.error);
+					}, 2000);
+					$window.console.log('error');
+				})
+		};
+	}
+]);
+
+// User Profile Controller
 App.controller('ProfileCtrl', ['$scope', '$location', '$localStorage', '$timeout', '$http', '$window', '$mdDialog', '$stateParams', '$anchorScroll',
     function ($scope, $location, $localStorage, $timeout, $http, $window, $mdDialog, $stateParams, $anchorScroll) {
 			$scope.gotoAnchor = function(x) {
