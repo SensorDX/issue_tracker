@@ -1,32 +1,29 @@
-/*
- *  Document   : controllers.js
- *  Author     : pixelcave
- *  Description: Our example controllers for demo pages
- *
- */
-//var station_table = null;
-App.controller('HeaderCtrl', ['$scope', '$cookies', function ($scope, $cookies) {
-		console.log('header loaded');
-		$scope._id = $cookies.get('_id');
+App.controller('HeaderCtrl', ['$scope', '$state', 'AuthService', 
+function ($scope, $state, AuthService) {
+		$scope.onLogout = function() {
+			AuthService.ClearCredentials();
+			$state.go('login');
+		}
 }]);
 
-App.controller('LoginCtrl', ['$scope', '$window', '$http', '$state', '$location', '$cookies', function ($scope, $window, $http, $state, $location, $cookies) {
+App.controller('LoginCtrl', ['$scope', '$state', '$cookies', 'AuthService',
+function ($scope, $state, $cookies, AuthService) {
 		$scope.login = {
-			username: "",
+			email: "",
 			password: "",
 			remember_me: false
 		};
-		if ($cookies.session) {
+		if ($cookies.getObject('globals')) {
 			$state.go('dashboard');
 		}
 		$scope.onLoginSubmit = function() {
-			if ($scope.login.username == "" || $scope.login.password == "") {
-				console.log('form not submitted');
-			} else {
-				$cookies.put('_id', '1234');
-				$state.go('dashboard');
-				console.log('form submitted');
-			}
+			AuthService.Login($scope.login).then(function(response) {
+					const user = response.data;
+					if (user.success) {
+							AuthService.SetCredentials({user: user.data, ...$scope.login});
+							$state.go('dashboard');
+					}
+			})
 		}
 }]);
 
@@ -1144,7 +1141,7 @@ App.controller('ManageStationsCtrl', ['$scope', '$localStorage', '$timeout', '$h
     }
 ]);
 
-// User Profile Controller
+// User Settings Controller
 App.controller('SettingsCtrl', ['$scope', '$location', '$localStorage', '$timeout', '$http', '$window', '$mdDialog', '$stateParams', '$anchorScroll',
     function ($scope, $location, $localStorage, $timeout, $http, $window, $mdDialog, $stateParams, $anchorScroll) {
 		$scope.loading = false;

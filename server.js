@@ -8,27 +8,14 @@ var nodemailer = require('nodemailer');
 var credentials = require('./config/settings.js');//require('./../credentials');
 var port = process.env.PORT || 5000;
 
-var mailTransport = nodemailer.createTransport(
-				{ 	service: 'Gmail',
-						host: "smtp.gmail.com",
-
-            auth: {
-							user: credentials.gmail.user,
-							pass: credentials.gmail.password,
-						} 
-				});
-/*
-mailTransport.sendMail({
-            from: '"Rene Midouin" <renemidouin@gmail.com>',
-            to: 'renemidouin@gmail.com',
-            subject: 'Your Meadowlark Travel Tour',
-						         text: 'Thank you for booking your trip with Meadowlark Travel.  ' +
-                    'We look forward to your visit!',
-				}, function(err){
-					 if(err) console.error( 'Unable to send email: ' + err );
-				});
-*/
-
+var mailTransport = nodemailer.createTransport({
+	service: 'Gmail',
+	host: "smtp.gmail.com",
+	auth: {
+		user: credentials.gmail.user,
+		pass: credentials.gmail.password,
+	} 
+});
 
 // configuration ===============================================================
 app.use(express.static(__dirname + '/src'));                 		// set the static files location /public/img will be /img for users

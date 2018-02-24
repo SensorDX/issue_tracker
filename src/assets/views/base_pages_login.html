@@ -27,15 +27,15 @@
                             <form class="js-validation-login form-horizontal push-30-t push-50" ng-submit="onLoginSubmit()">
                                 <div class="form-group">
                                     <div class="col-xs-12">
-                                        <div class="form-material form-material-primary floating">
-                                            <input class="form-control" type="text" id="login-username" name="login-username" ng-model="login.username">
-                                            <label for="login-username">Username</label>
+																				<div class="form-group form-material form-material-primary floating" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                                            <input class="form-control" type="text" id="login-email" name="login-email" ng-model="login.email">
+                                            <label for="login-email">Email</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12">
-                                        <div class="form-material form-material-primary floating">
+																				<div class="form-group form-material form-material-primary floating" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
                                             <input class="form-control" type="password" id="login-password" name="login-password" ng-model="login.password">
                                             <label for="login-password">Password</label>
                                         </div>
@@ -50,7 +50,10 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <button class="btn btn-block btn-primary" type="submit"><i class="si si-login pull-right"></i> Log in</button>
+                                        <button ng-disabled="form.$invalid || dataLoading" class="btn btn-block btn-primary" type="submit">
+																						<i class="si si-login pull-right"></i> 
+																						Log in
+																				</button>
                                     </div>
                                 </div>
                             </form>

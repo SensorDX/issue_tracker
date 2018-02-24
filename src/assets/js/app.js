@@ -627,6 +627,10 @@ App.factory('uiHelpers', function () {
 									jQuery(e).closest('.help-block').remove();
 							},
 							rules: {
+								 'login-email': {
+											 required: true,
+											 email: true
+									 },
 									'login-username': {
 											required: true,
 											minlength: 3
@@ -637,6 +641,9 @@ App.factory('uiHelpers', function () {
 									}
 							},
 							messages: {
+									'login-email': {
+											required: 'Please enter a valid email address',
+									},
 									'login-username': {
 											required: 'Please enter a username',
 											minlength: 'Your username must consist of at least 3 characters'
@@ -1008,9 +1015,22 @@ App.factory('uiHelpers', function () {
 });
 
 // Run our App
-App.run(function($rootScope, uiHelpers) {
+App.run(function($rootScope, $location, $cookies, $http, uiHelpers) {
     // Access uiHelpers easily from all controllers
     $rootScope.helpers = uiHelpers;
+		$rootScope.globals = $cookies.getObject('globals') || {};
+		if ($rootScope.globals.currentUser) {
+			$http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
+		}
+		$rootScope.$on('$locationChangeStart', function (event, next, current) {
+			// redirect to login page if not logged in and trying to access a restricted page
+			console.log('location changed', $location.path());
+			//var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
+			const loggedIn = $rootScope.globals.currentUser;
+			if (!loggedIn) {
+					$location.path('/login');
+			}
+		});
 
     // On window resize or orientation change resize #main-container & Handle scrolling
     var resizeTimeout;
@@ -1026,10 +1046,17 @@ App.run(function($rootScope, uiHelpers) {
 });
 
 // Application Main Controller
-App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$log',
-    function ($scope, $localStorage, $window, $location, $log) {
+App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$log', 'AuthService',
+    function ($scope, $localStorage, $window, $location, $log, AuthService) {
         // Template Settings
-				console.log($location.path());
+				const credentials = {
+					email: 'renemidouin',
+					password: 'helloworld',
+				}
+				AuthService.Login(credentials).then(function(response) {
+					console.log('this is the response from AuthService', response);
+				});
+				//console.log($location.path());
         $scope.oneui = {
             version: '1.0', // Template version
             localStorage: false, // Enable/Disable local storage
@@ -1148,3 +1175,44 @@ App.service('fs', function() {
 		console.log('writing '+data+' to '+filename);
 	}
 });
+
+App.factory('AuthService', ['$http', '$cookies', '$rootScope', '$timeout', 
+function($http, $cookies, $rootScope, $timeout) {
+	let service = {};
+	service.Login = Login;
+	service.SetCredentials = SetCredentials;
+	service.ClearCredentials = ClearCredentials;
+	service.CreateAccount = CreateAccount;
+	return service;
+
+	function Login ({email, password}) {
+			console.log('login api -- trying ...', email);
+			return $http.post('api/auth', {email, password})
+	}
+	function SetCredentials({user, email, password}) {
+		const authdata = btoa(email + ':' + password).toString('base64');
+		console.log('authdata', authdata);
+		$rootScope.globals = {
+				currentUser: { user, email, authdata }
+		};
+		$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
+		$cookies.putObject('globals', $rootScope.globals);
+	}
+	function ClearCredentials() {
+			$rootScope.globals = {};
+			$cookies.remove('globals');
+			$http.defaults.headers.common.Authorization = 'Basic';
+	}
+	function CreateAccount({email}) {
+			return $http.put('api/auth/create', {email})
+	}
+}]);
+
+App.factory('UserService', ['$http', '$cookies', '$rootScope', '$timeout', 
+function($http, $cookies, $rootScope, $timeout) {
+	let service = {};
+	service.Create = Create;
+	service.Update = Update;
+	service.Delete = Delete;
+	return service;
+}]);

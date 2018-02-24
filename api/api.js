@@ -34,13 +34,16 @@ var User = require('./models/users');
 var SensorTypes = require('./models/sensorTypes');
 var CustomStations = require('./models/customStations');
 var Stations = require('./models/stations');
+var AuthCtrl = require('./controllers/Auth');
+var UserCtrl = require('./controllers/User');
 var tools = require('./tools');
 
 /**
  * Export API routers
  */
 module.exports = function(router) {
-
+	AuthCtrl(router);
+	UserCtrl(router);
  /**
   * @api {get} /api/labels Get all labels
   * @apiVersion 1.0.0
@@ -243,25 +246,6 @@ module.exports = function(router) {
   *   success: "New user created"
   * }
   */
- router.post('/api/users', function(request, response) {
-  var data = {
-   username: request.body.username,
-   first_name: request.body.first_name,
-   last_name: request.body.last_name,
-   email: request.body.email,
-   password: request.body.password,
-   projects: [],
-   created_at: new Date()
-  };
-  var user = new User(data);
-  user.save(function(err, data) {
-   if (err) {
-    response.status(404).send({error: err});
-   } else {
-     response.status(200).send({success: "New user created"});
-   }
-  });
- });
 
  /**
   * @api {get} /api/issues Get all issues
