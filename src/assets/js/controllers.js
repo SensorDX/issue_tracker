@@ -6,8 +6,8 @@ function ($scope, $state, AuthService) {
 		}
 }]);
 
-App.controller('LoginCtrl', ['$scope', '$state', '$cookies', 'AuthService',
-function ($scope, $state, $cookies, AuthService) {
+App.controller('LoginCtrl', ['$scope', '$state', '$cookies', 'AuthService', 'Toast',
+function ($scope, $state, $cookies, AuthService, Toast) {
 		$scope.login = {
 			email: "",
 			password: "",
@@ -22,6 +22,8 @@ function ($scope, $state, $cookies, AuthService) {
 					if (user.success) {
 							AuthService.SetCredentials({user: user.data, ...$scope.login});
 							$state.go('dashboard');
+					} else {
+						Toast.Danger(user.message);
 					}
 			})
 		}
@@ -1185,20 +1187,47 @@ App.controller('SettingsCtrl', ['$scope', '$location', '$localStorage', '$timeou
 ]);
 
 // User Profile Controller
-App.controller('ProfileCtrl', ['$scope', '$location', '$localStorage', '$timeout', '$http', '$window', '$mdDialog', '$stateParams', '$anchorScroll',
-    function ($scope, $location, $localStorage, $timeout, $http, $window, $mdDialog, $stateParams, $anchorScroll) {
-			$scope.gotoAnchor = function(x) {
-				$anchorScroll.yOffset = 50;
-				if ($location.hash() !== x) {
-					// set the $location.hash to `newHash` and
-					// $anchorScroll will automatically scroll to it
-					$location.hash(x);
-				} else {
-					// call $anchorScroll() explicitly,
-					// since $location.hash hasn't changed
-					$anchorScroll();
-				}
+App.controller('ProfileCtrl', ['$rootScope', '$scope', '$http', '$stateParams', '$mdDialog', 'UserService', 'ProfileService',
+    function ($rootScope, $scope, $http, $stateParams, $mdDialog, UserService, ProfileService) {
+			if (!$stateParams.id) {
+				$scope.id = $rootScope.globals.currentUser.id;
+			} else {
+				$scope.id = $stateParams.id;
+			}
+			$scope.user = {
+				full_name: '_____',
+				role: '_____'
 			};
+			$scope.my_users = {
+				count: 0,
+				data: [],
+			}
+			UserService.GetUserById($scope.id).then(function(response) {
+				const result = response.data;
+				$scope.user = result.data;
+				$scope.isAuthorized = UserService.isAuthorized($scope.user.role);
+				UserService.GetManagerUsers($scope.id, $scope.user.role).then(function(response) {
+					const result = response.data;
+					$scope.my_users.count = result.data.length;
+					$scope.my_users.data = result.data;
+				});
+				bsDataTables();
+				initDataTableFull($scope.id, $scope.user.role);
+				jQuery('.js-dataTable-full-user').off().on('click','td', function() {
+					var table = $('.js-dataTable-full-user').DataTable();
+					var row_data = table.row(this).data();
+					const column = table.cell(this).index().columnVisible;
+					if (column == 3) {
+						$scope.showTabDialog(this);
+						ProfileService.addUser(row_data);
+					}
+					console.log('table cell', table.cell( this ).index().columnVisible);
+					console.log('row data', table.row(this ).data());
+					//jQuery('.user-edit').on('click', function(e) {
+						//e.preventDefault();
+					//});
+				})
+			});
 			/**
 			 * ADD a station modal
 			 */
@@ -1210,83 +1239,119 @@ App.controller('ProfileCtrl', ['$scope', '$location', '$localStorage', '$timeout
 						targetEvent: ev,
 						clickOutsideToClose:true
 					})
-							.then(function(answer) {
-								$scope.status = 'You said the information was "' + answer + '".';
-							}, function() {
-								$scope.status = 'You cancelled the dialog.';
-							});
+					.then(function(answer) {
+						$scope.status = 'You said the information was "' + answer + '".';
+					}, function() {
+						$scope.status = 'You cancelled the dialog.';
+					});
 				};
-				function DialogController($scope, $http, $mdDialog) {
+				function DialogController($scope, $http, $window, $mdDialog, UserService, AuthService, Toast, ProfileService) {
 					console.log('add_user_tmpl');
-					$scope.station = {
-						id: '',
-						name: '',
-						lat: '',
-						long: '',
+					$scope.user = {
+						first_name: '',
+						last_name: '',
+						email: '',
+						phone: '',
 						manager: '',
-						sensors: []
+						role: '',
 					}
-					$http.get('/api/users').then(function(response) {
-						$scope.managers = response.data;
-					}, function(error) {
-						console.log(error);
+					$scope.temp_user = ProfileService.retrieveUser();
+					if ($scope.temp_user && $scope.temp_user.edit) {
+						$scope.user = $scope.temp_user;
+					}
+					UserService.GetManagers().then(function(response) {
+						const result = response.data;
+						$scope.managers = result.data;
 					});
-					$http.get('/api/sensors/types').then(function(response) {
-						$scope.sensors = response.data;
-					}, function(error) {
-						console.log(error);
+					UserService.GetRoles().then(function(response) {
+						$scope.roles = response;
 					});
-					$scope.hide = function() {
-						$mdDialog.hide();
-					};
-
 					$scope.cancel = function() {
 						$mdDialog.cancel();
+						ProfileService.reset();
 					};
-
-					$scope.answer = function(answer) {
-						console.log('answer', answer);
-						$mdDialog.hide(answer);
+					$scope.submit = function(user) {
+						console.log('submitting user', user);
+						if ((user.role == '' || user.role == 'agent') && user.manager == '') {
+							Toast.Danger("If you leave the user field empty, the user role will be 'agent'. User with role 'agent' needs to be assigned to a manager");
+						} else {
+							if (user.edit) {
+								console.log('editing');
+								UserService.UpdateUser(user).then(function(response) {
+									const updated_user = response.data;
+									if (updated_user.success) {
+										console.log('user updated', updated_user);
+										Toast.Success(updated_user.message);
+										$window.location.reload();
+									} else {
+										Toast.Danger(updated_user.message);
+									}
+								})
+							} else {
+								UserService.CreateUser(user).then(function(response) {
+									const new_user = response.data;
+									if (new_user.success) {
+										console.log('new user created', new_user);
+										Toast.Success(new_user.message);
+										AuthService.CreateAccount({email: user.email})
+										.then(function(response) {
+											const new_account = response.data;
+											if (new_account.success) {
+												console.log('new account created', new_account);
+												Toast.Success(new_account.message);
+												$mdDialog.hide();
+												ProfileService.reset();
+												$window.location.reload();
+											} else {
+												Toast.Danger(new_account.message);
+											}
+										});
+									} else {
+										Toast.Danger(new_user.message);
+									}
+								});
+							}
+						}
 					};
 				}
 				//==========================================
-
-        var initDataTableFull = function() {
+        var initDataTableFull = function(user_id, user_role) {
             var user_table = jQuery('.js-dataTable-full-user').DataTable({
-								ajax: '/api/sites?type=manage',
+								ajax: UserService.HttpUrlGetManagerUsers(user_id, user_role),
 								destroy: true,
 								"columnDefs": [ {
 										"targets": -1,
-										"data": "SiteCode",
 										"render": function ( data, type, row, meta ) {
-													return			"<div class=\"cursor-pointer\">"+
+													return			"<a class=\"user-edit cursor-pointer\">"+
+																					"<md-tooltip md-direction=\"left\">Add User</md-tooltip>"+
 																					"<i class=\"fa fa-pencil\"></i> "+
-																			"</div>";
+																			"</a>";
 										},
 								},
 								{
 										"targets": 0,
-										"data": "SiteName",
 										"render": function ( data, type, row, meta ) {
-													var id = "594caf71f31c4341efd1ab58";
-													return			"<div><a style=\"background-color: transparent; border-bottom: 0\" href=\"#/profile/"+id+"\">"+
+													return			"<div><a style=\"background-color: transparent; border-bottom: 0\" href=\"#/profile/"+row._id+"\">"+
 																					"<img class=\"img-avatar\" src=\"assets/img/avatars/avatar3.jpg\" alt=\"\">"+
-																					"<i class=\"fa fa-circle text-success\"></i> "+data+
-																					"<div class=\"font-w400 text-muted\"><small>Field Technician</small></div>"+
+																					"<i class=\"fa fa-circle text-success\"></i> "+row.full_name+
+																					"<div class=\"font-w400 text-muted\"><small>"+row.role+"</small></div>"+
 																			"</a></div>";
 										}
 								},
 								{ className: "nav-users push",  "targets": [ 0 ] },
-								{ className: "users-edit text-center",  "targets": [ -1 ] },
+								{ className: "users-edit text-center",  "targets": [ -1, 2, 0, 1 ] },
 								],
+								"order": [[3, 'desc']],
 								"columns": [
-										null,
-										null
+									null,
+									{ "data": "email" },
+									{ "data": "temp_password" },
+									{ "data": "updated_at", "visible": false},
+									null,
 								],
-                pageLength: 5,
+                pageLength: 10,
                 lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]]
             });
-						console.log(user_table);
         };
 
         // DataTables Bootstrap integration
@@ -1442,8 +1507,8 @@ App.controller('ProfileCtrl', ['$scope', '$location', '$localStorage', '$timeout
         };
 
         // Init Datatables
-        bsDataTables();
-        initDataTableFull();
+        //bsDataTables();
+        //initDataTableFull();
     }
 ]);
 
@@ -4013,4 +4078,25 @@ App.service('ModalService', function() {
 		getModalInstance: getModalInstance
   };
 
+});
+
+App.service('ProfileService', function() {
+	let profile_user = null;
+	let service = {};
+	var addUser = function(user) {
+		profile_user = user;
+		profile_user['edit'] = true;
+	}
+
+	var retrieveUser = function() {
+		return profile_user;
+	}
+
+	var reset = function() {
+		profile_user = null;
+	}
+	service.addUser = addUser;
+	service.retrieveUser = retrieveUser;
+	service.reset = reset;
+	return service;
 });

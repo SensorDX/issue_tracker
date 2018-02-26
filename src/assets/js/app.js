@@ -1046,16 +1046,8 @@ App.run(function($rootScope, $location, $cookies, $http, uiHelpers) {
 });
 
 // Application Main Controller
-App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$log', 'AuthService',
-    function ($scope, $localStorage, $window, $location, $log, AuthService) {
-        // Template Settings
-				const credentials = {
-					email: 'renemidouin',
-					password: 'helloworld',
-				}
-				AuthService.Login(credentials).then(function(response) {
-					console.log('this is the response from AuthService', response);
-				});
+App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$log', 
+    function ($scope, $localStorage, $window, $location, $log) {
 				//console.log($location.path());
         $scope.oneui = {
             version: '1.0', // Template version
@@ -1176,6 +1168,39 @@ App.service('fs', function() {
 	}
 });
 
+App.factory('Toast', function() {
+	let service = {};
+	service.Danger = Danger;
+	service.Success = Success;
+	return service;
+	
+	function Danger(message) {
+		jQuery.notify({
+			message: message
+		}, 
+		{
+			type: 'danger', 
+			placement: {
+				from: 'top',
+				align: 'center',
+			}
+		});
+	}
+
+	function Success(message) {
+		jQuery.notify({
+			message: message
+		}, 
+		{
+			type: 'success', 
+			placement: {
+				from: 'top',
+				align: 'center',
+			}
+		});
+	}
+});
+
 App.factory('AuthService', ['$http', '$cookies', '$rootScope', '$timeout', 
 function($http, $cookies, $rootScope, $timeout) {
 	let service = {};
@@ -1191,9 +1216,11 @@ function($http, $cookies, $rootScope, $timeout) {
 	}
 	function SetCredentials({user, email, password}) {
 		const authdata = btoa(email + ':' + password).toString('base64');
+		const id = user._id;
+		const role = user.role;
 		console.log('authdata', authdata);
 		$rootScope.globals = {
-				currentUser: { user, email, authdata }
+				currentUser: { user, email, id, role, authdata }
 		};
 		$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
 		$cookies.putObject('globals', $rootScope.globals);
@@ -1211,8 +1238,64 @@ function($http, $cookies, $rootScope, $timeout) {
 App.factory('UserService', ['$http', '$cookies', '$rootScope', '$timeout', 
 function($http, $cookies, $rootScope, $timeout) {
 	let service = {};
-	service.Create = Create;
-	service.Update = Update;
-	service.Delete = Delete;
+	service.GetManagers = GetManagers;
+	service.GetRoles = GetRoles;
+	service.GetUsers = GetUsers;
+	service.GetUserById = GetUserById;
+	service.GetManagerUsers = GetManagerUsers;
+	service.HttpUrlGetManagerUsers = HttpUrlGetManagerUsers;
+	service.isAuthorized = isAuthorized;
+	service.CreateUser = CreateUser;
+	service.UpdateUser = UpdateUser;
+	//service.Delete = Delete;
 	return service;
+
+	function GetManagers() {
+		return $http.get('api/users?role=manager');
+	}
+
+	function GetRoles() {
+		return new Promise(function(resolve) {
+			const roles = ['manager', 'agent'];
+			resolve(roles);
+		});
+	}
+
+	function GetUsers() {
+		return $http.get('api/users');
+	}
+
+	function HttpUrlGetManagerUsers(id, role) {
+		if (role && role.toLowerCase() == 'admin') {
+			return 'api/users';
+		} else {
+			return 'api/users/'+id+'/managing';
+		}
+	}
+
+	function GetManagerUsers(id, role) {
+		if (role && role.toLowerCase() == 'admin') {
+			return $http.get('api/users');
+		} else {
+			return $http.get('api/users/'+id+'/managing');
+		}
+	}
+
+	function isAuthorized(role) {
+		return role.toLowerCase() == 'admin' || 
+						role.toLowerCase() == 'manager'; 
+	}
+
+	function GetUserById(id) {
+		console.log('getting user by id', id);
+		return $http.get('api/users/'+id);
+	}
+
+	function CreateUser(user) {
+		return $http.post('api/users', user);
+	}
+
+	function UpdateUser(user) {
+		return $http.put('api/users/'+user._id, user);
+	}
 }]);

@@ -18,40 +18,42 @@
 								<div layout-gt-sm="row">
 									<md-input-container class="md-block" flex-gt-sm>
 										<label>First Name</label>
-										<input ng-model="station.id">
+										<input ng-model="user.first_name">
 									</md-input-container>
 
 									<md-input-container class="md-block" flex-gt-sm>
 										<label>Last Name</label>
-										<input ng-model="station.name">
+										<input ng-model="user.last_name">
 									</md-input-container>
 								</div>
 
 								<div layout-gt-sm="row">
 									<md-input-container class="md-block" flex-gt-sm>
 										<label>Email</label>
-										<input ng-model="station.lat">
+										<input ng-model="user.email">
 									</md-input-container>
 
 									<md-input-container class="md-block" flex-gt-sm>
 										<label>Phone</label>
-										<input ng-model="station.long">
+										<input ng-model="user.phone">
 									</md-input-container>
 								</div>
 								<div layout-gt-sm="row">
 									<md-input-container class="md-block" flex-gt-sm>
 										<label>Manager</label>
-										<md-select ng-model="station.manager">
+										<md-select ng-model="user.manager">
+											<md-option value="">
+											</md-option>
 											<md-option ng-repeat="manager in managers" value="{{manager._id}}">
-												{{manager.first_name}} {{manager.last_name}}
+												{{manager.full_name}}
 											</md-option>
 										</md-select>
 									</md-input-container>
 									<md-input-container class="md-block" flex-gt-sm>
-										<label>Sensors</label>
-										<md-select ng-model="station.sensors" multiple>
-											<md-option ng-repeat="sensor in sensors" value="{{sensor.name}}">
-												{{sensor.name}}
+										<label>Role</label>
+										<md-select ng-model="user.role">
+											<md-option ng-repeat="role in roles" value="{{role}}">
+												{{role}}
 											</md-option>
 										</md-select>
 									</md-input-container>
@@ -65,10 +67,10 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer('not useful')" >
+      <md-button ng-click="cancel()" >
         Cancel
       </md-button>
-      <md-button ng-click="answer(station)" style="margin-right:20px;" >
+      <md-button ng-click="submit(user)" style="margin-right:20px;" >
         Submit
       </md-button>
     </md-dialog-actions>

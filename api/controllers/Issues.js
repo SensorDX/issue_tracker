@@ -1,5 +1,5 @@
 //Libraries
-var User = require('./../models/users');
+var Issue = require('./../models/issues');
 var utils = require('./../utils');
 
 module.exports = function(router) {
