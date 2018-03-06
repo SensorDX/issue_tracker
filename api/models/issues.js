@@ -1,9 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var IssuesSchema = new Schema({
+	ticket_id: String,
 	title: String,
 	description: String,
+	opened_by: String,
+	closed_by: String,
 	assignee: String,
+	comments: [],
 	labels: [],
 	priority: String,
 	station: String,

@@ -29,7 +29,8 @@ function ($scope, $state, $cookies, AuthService, Toast) {
 		}
 }]);
 
-App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function ($scope, $window, $http, $location) {
+App.controller('IssueCtrl', ['$scope', '$window', '$http', 'UserService', 'IssueService', 'Toast',
+function ($scope, $window, $http, UserService, IssueService, Toast) {
 		$scope.issue = {
 			assignee: null,
 			labels: [],
@@ -91,20 +92,28 @@ App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function
 		 * Fields to be updated
 		 */
 		$scope.loadLabels = function() {
-			$http.get('/api/labels?type=name').then(function(response) {
-				$scope.labels = response.data;
-			}, function(response) {
-				console.log(response);
+			IssueService.GetLabels().then(function(response) {
+				const labels = response.data;
+				if (labels.success) {
+					$scope.labels = labels.data;
+				}
 			});
 		};
 		$scope.loadAssignees = function() {
-			$http.get('/api/users?type=fullname').then(function(response) {
-				$scope.assignees = response.data;
-			}, function(response) {
-				console.log(response);
-			});
+			UserService.GetUsers(['full_name']).then(function(response) {
+				const assignees = response.data;
+				console.log('assignees', assignees);
+				if (assignees.success) {
+					$scope.assignees = assignees.data;
+				}
+			})
 		};
-		$scope.priorities =  ["HIGH", "NORMAL", "LOW"];
+		IssueService.GetPriorities().then(function(response) {
+			const priorities = response.data;
+			if (priorities.success) {
+				$scope.priorities =  priorities.data;
+			}
+		})
 		$scope.stations = [
 			{ name: 'Station 1'},
 			{ name: 'Station 2'},
@@ -120,23 +129,32 @@ App.controller('IssueCtrl', ['$scope', '$window', '$http', '$location', function
 		/**
 		 * GET issues info
 		 */
-		$http.get('/api/issues?status=open&type=modified').then(function(response) {
-			$scope.openIssues = response.data['data'];
-			$scope.tabs.openCount = response.data['count'];
-		}, function(response) {
-			console.log(response);
+		IssueService.GetIssues("open").then(function(response) {
+			const issues = response.data;
+			if (issues.success) {
+				$scope.openIssues = issues.data;
+				$scope.tabs.openCount = issues.count;
+			} else {
+				Toast.Danger(issues.message);
+			}
 		});
-		$http.get('/api/issues?status=close&type=modified').then(function(response) {
-			$scope.closeIssues = response.data['data'];
-			$scope.tabs.closeCount = response.data['count'];
-		}, function(response) {
-			console.log(response);
+		IssueService.GetIssues("close").then(function(response) {
+			const issues = response.data;
+			if (issues.success) {
+				$scope.closeIssues = issues.data;
+				$scope.tabs.closeCount = issues.count;
+			} else {
+				Toast.Danger(issues.message);
+			}
 		});
-		$http.get('/api/issues?status=all&type=modified').then(function(response) {
-			$scope.allIssues = response.data['data'];
-			$scope.tabs.allCount = response.data['count'];
-		}, function(response) {
-			console.log(response);
+		IssueService.GetIssues("").then(function(response) {
+			const issues = response.data;
+			if (issues.success) {
+				$scope.allIssues = issues.data;
+				$scope.tabs.allCount = issues.count;
+			} else {
+				Toast.Danger(issues.message);
+			}
 		});
 		$scope.console = $window.console;
 

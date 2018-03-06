@@ -1,18 +1,31 @@
 //Libraries
-var User = require('./../models/users');
-var utils = require('./../utils');
+const User = require('./../models/users');
+const {
+	saltAndHash
+}= require('./../utils');
 
 module.exports = function(router) {
- /**
-	* GET USERS
-	*/
+ //=====================
+ // GET USERS
+ //=====================
  router.get('/api/users', function(req, res) {
-  const {role} = req.query;
+  const {role, fields} = req.query;
 	let query = {};
+	let fields_string = "";
 	if (role) {
-		query = {role};
+		let roles = role.split(',');
+		let result = [];
+		for (let i = 0; i < roles.length; ++i) {
+			result.push({'role': roles[i]});
+		}
+		query = {$or: result};
 	}
-  User.find(query, {password: 0}, function(err, users) {
+	if (fields) {
+		fields_string = fields.split(',').join(" ");
+	} else {
+		fields_string = "-password";
+	}
+  User.find(query, fields_string, function(err, users) {
    if (err) {
 		res.status(200).send({success: false, message: 'Cannot get users.'});
    } else {
@@ -22,9 +35,9 @@ module.exports = function(router) {
   });
  });
 
- /**
-	* GET USER BY ID
-	*/
+ //=====================
+ // GET USERS BY ID
+ //=====================
  router.get('/api/users/:id/:field?', function(req, res) {
 	const {id, field} = req.params;
 	let query = {};
@@ -56,9 +69,9 @@ module.exports = function(router) {
 	}
  });
 
- /**
-	* UPDATE USER BY ID
-	*/
+ //=====================
+ // UPDATE USER BY ID
+ //=====================
  router.put('/api/users/:id', function(req, res) {
 	let update = {};
 	let isUpdated = false;
@@ -90,7 +103,7 @@ module.exports = function(router) {
 		isUpdated = true;
 	}
 	if (password) {
-		update.password = utils.saltAndHash(password);
+		update.password = saltAndHash(password);
 		isUpdated = true;
 	}
 	if (phone) {
@@ -126,11 +139,11 @@ module.exports = function(router) {
 	}
  });
 
-	/**
-	 * CREATE A USER
-	 */
+ //=====================
+ // CREATE USER
+ //=====================
 	router.post('/api/users', function(req, res) {
-		var data = {
+		let data = {
 		 first_name: req.body.first_name,
 		 last_name: req.body.last_name,
 		 full_name: req.body.first_name +' '+ req.body.last_name,
@@ -169,10 +182,10 @@ module.exports = function(router) {
 					res.status(200).send({success: false, message: 'Oops! User with same email address already exists.'});
 					return;
 				} else {
-					const encrypted_password = utils.saltAndHash(data.password);
+					const encrypted_password = saltAndHash(data.password);
 					data['password'] = encrypted_password;
 					console.log('data to send', data);
-					var user = new User(data);
+					let user = new User(data);
 					user.save(function(err, data) {
 					 if (err) {
 						 res.status(200).send({success: false, message: 'Could not create user. Try again later!'});

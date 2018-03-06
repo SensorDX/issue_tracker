@@ -1,8 +1,14 @@
 //Libraries
-var User = require('./../models/users');
-var utils = require('./../utils');
+const User = require('./../models/users');
+const {
+	generateRandomPassword,
+	saltAndHash
+}= require('./../utils');
 
 module.exports = function(router) {
+ //=====================
+ // AUTHENTICATE USER
+ //=====================
 	router.post('/api/auth', function(req, res) {
 		const {email, password} = req.body;
 		if (email == "" || email == undefined || 
@@ -17,7 +23,7 @@ module.exports = function(router) {
 				if (users.length == 0) {
 					res.status(200).send({'success': false, message: 'Oops! No such user.'});
 				} else if (users.length == 1) {
-					const encrypted_password = utils.saltAndHash(password);
+					const encrypted_password = saltAndHash(password);
 					if (encrypted_password == users[0].password) {
 						const {_id, username, first_name, last_name, email, role} = users[0];
 						const result = {
@@ -39,19 +45,22 @@ module.exports = function(router) {
 		});
 	});
 
+ //=====================
+ // REGISTER USER
+ //=====================
 	router.put('/api/auth/create', function(req, res) {
-		var data = {
+		let data = {
 		 email: req.body.email,
 		 password: null,
 		 temp_password: null,
 		 updated_at: new Date(),
 		};
 		if (!req.body.password) {
-			const random_password = utils.generateRandomPassword();
-			data['password'] = utils.saltAndHash(random_password);
+			const random_password = generateRandomPassword();
+			data['password'] = saltAndHash(random_password);
 			data['temp_password'] = random_password;
 		} else {
-			data['password'] = utils.saltAndHash(req.body.password);
+			data['password'] = saltAndHash(req.body.password);
 			data['temp_password'] = "----";
 		}
 		if (data.email == "" || data.email == undefined) {

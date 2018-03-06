@@ -1201,12 +1201,15 @@ App.factory('Toast', function() {
 	}
 });
 
-App.factory('AuthService', ['$http', '$cookies', '$rootScope', '$timeout', 
-function($http, $cookies, $rootScope, $timeout) {
+App.factory('AuthService', ['$http', '$cookies', '$rootScope',
+function($http, $cookies, $rootScope) {
 	let service = {};
-	service.Login = Login;
+	//HELPERS
 	service.SetCredentials = SetCredentials;
 	service.ClearCredentials = ClearCredentials;
+	//POST
+	service.Login = Login;
+	//PUT
 	service.CreateAccount = CreateAccount;
 	return service;
 
@@ -1235,19 +1238,21 @@ function($http, $cookies, $rootScope, $timeout) {
 	}
 }]);
 
-App.factory('UserService', ['$http', '$cookies', '$rootScope', '$timeout', 
-function($http, $cookies, $rootScope, $timeout) {
+App.factory('UserService', ['$http', function($http) {
 	let service = {};
-	service.GetManagers = GetManagers;
-	service.GetRoles = GetRoles;
-	service.GetUsers = GetUsers;
-	service.GetUserById = GetUserById;
-	service.GetManagerUsers = GetManagerUsers;
+	//HELPERS
 	service.HttpUrlGetManagerUsers = HttpUrlGetManagerUsers;
 	service.isAuthorized = isAuthorized;
+	//GET
+	service.GetUsers = GetUsers;
+	service.GetUserById = GetUserById;
+	service.GetManagers = GetManagers;
+	service.GetManagerUsers = GetManagerUsers;
+	service.GetRoles = GetRoles;
+	//POST
 	service.CreateUser = CreateUser;
+	//PUT
 	service.UpdateUser = UpdateUser;
-	//service.Delete = Delete;
 	return service;
 
 	function GetManagers() {
@@ -1261,8 +1266,11 @@ function($http, $cookies, $rootScope, $timeout) {
 		});
 	}
 
-	function GetUsers() {
-		return $http.get('api/users');
+	function GetUsers(fields=[], roles=['manager', 'agent']) {
+		if (fields && fields.length > 0) {
+			return $http.get('api/users?role='+roles.join(',')+'&&fields='+fields.join(','));
+		}
+		return $http.get('api/users?role='+roles.join(','));
 	}
 
 	function HttpUrlGetManagerUsers(id, role) {
@@ -1287,7 +1295,6 @@ function($http, $cookies, $rootScope, $timeout) {
 	}
 
 	function GetUserById(id) {
-		console.log('getting user by id', id);
 		return $http.get('api/users/'+id);
 	}
 
@@ -1297,5 +1304,54 @@ function($http, $cookies, $rootScope, $timeout) {
 
 	function UpdateUser(user) {
 		return $http.put('api/users/'+user._id, user);
+	}
+}]);
+
+App.factory('IssueService', ['$http', function($http) {
+	let service = {};
+	//HELPERS
+	//service.HttpUrlGetManagerUsers = HttpUrlGetManagerUsers;
+	//service.isAuthorized = isAuthorized;
+	//GET
+	service.GetStatus = GetStatus;
+	service.GetLabels = GetLabels;
+	service.GetPriorities = GetPriorities;
+	service.GetIssues = GetIssues;
+	//POST
+	//service.CreateIssue = CreateIssue;
+	//PUT
+	service.UpdateIssues = UpdateIssues;
+	return service;
+
+	function GetStatus() {
+		return new Promise(function(resolve) {
+			const status = ['open', 'close'];
+			resolve({success: true, data: status});
+		});
+	}
+
+	function GetLabels() {
+		return new Promise(function(resolve) {
+			const labels = ['None', 'sensor failure', 'help wanted', 'question', 'bug'];
+			resolve({success: true, data: labels});
+		});
+	}
+
+	function GetPriorities() {
+		return new Promise(function(resolve) {
+			const priorities = ['HIGH', 'NORMAL', 'LOW'];
+			resolve({success: true, data: priorities});
+		});
+	}
+
+	function GetIssues(status="") {
+		if(status) {
+			return $http.get('api/issues?status='+status);
+		}
+		return $http.get('api/issues');
+	}
+
+	function UpdateIssues(issues) {
+		return $http.put('api/issues', issues);
 	}
 }]);

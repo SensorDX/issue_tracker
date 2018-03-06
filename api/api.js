@@ -34,8 +34,9 @@ var User = require('./models/users');
 var SensorTypes = require('./models/sensorTypes');
 var CustomStations = require('./models/customStations');
 var Stations = require('./models/stations');
-var AuthCtrl = require('./controllers/Auth');
-var UserCtrl = require('./controllers/User');
+const AuthCtrl = require('./controllers/Auth');
+const UserCtrl = require('./controllers/User');
+const IssueCtrl = require('./controllers/Issue');
 var tools = require('./tools');
 
 /**
@@ -44,6 +45,7 @@ var tools = require('./tools');
 module.exports = function(router) {
 	AuthCtrl(router);
 	UserCtrl(router);
+	IssueCtrl(router);
  /**
   * @api {get} /api/labels Get all labels
   * @apiVersion 1.0.0
@@ -366,37 +368,6 @@ module.exports = function(router) {
   *   ]
   * }
   */
- router.get('/api/issues', function(request, response) {
-  var type = request.query.type;
-  var status = {};
-  switch(request.query.status) {
-   case undefined:
-    status = {};
-    break;
-   case 'all':
-    status = {};
-    break;
-   default:
-    status = {status: request.query.status};
-    break;
-  }
-  var data = [];
-  Issue.find(status, function(err, issues) {
-   if (err) {
-    response.status(404).send(err);
-   } else {
-    switch(type) {
-     case 'modified':
-      data = tools.modify(issues);
-      break;
-     default:
-      data = issues;
-      break;
-    }
-    response.status(200).send(data);
-   }
-  });
- });
 
  /**
   * @api {get} /api/issues/:id  Get issue by id
@@ -455,27 +426,6 @@ module.exports = function(router) {
   *   ]
   * }
   */
- router.get('/api/issues/:id', function(request, response) {
-  var type = request.query.type;
-  var id = request.params.id;
-  var status = {_id: id};
-  var data = [];
-  Issue.find(status, function(err, issues) {
-   if (err) {
-    response.status(404).send(err);
-   } else {
-    switch(type) {
-     case 'modified':
-      data = tools.modify(issues);
-      break;
-     default:
-      data = issues;
-      break;
-    }
-    response.status(200).send(data);
-   }
-  });
- });
 
  /**
   * @api {post} /api/issues Create an issue
@@ -497,39 +447,6 @@ module.exports = function(router) {
   *   success: "New issue created",
   * }
   */
- router.post('/api/issues', function(request, response) {
-	if ( request.body.title == undefined ||
-			 request.body.assignee == undefined ||
-			 request.body.labels == undefined ||
-			 request.body.priority == undefined ||
-			 request.body.station == undefined ||
-			 request.body.due_date == undefined
-			) {
-    response.status(404).send({error: "Could not create issue"});
-		return;
-	}
-	
-  var data = {
-   title: request.body.title,
-   description: request.body.description,
-   assignee: request.body.assignee,
-   labels: request.body.labels,
-   priority: request.body.priority,
-   station: request.body.station,
-   status: 'open',
-   updated_at: new Date(),
-   due_date: request.body.due_date,
-   created_at: new Date()
-  };
-  var issue = new Issue(data);
-  issue.save(function(err, data) {
-   if (err) {
-    response.status(404).send({error: err});
-   } else {
-    response.status(200).send({success: "New issue created"});
-   }
-  });
- });
 
  /**
   * @api {put} /api/issues Modify issue(s)
@@ -552,71 +469,6 @@ module.exports = function(router) {
   *   updated: true
   * }
   */
- router.put('/api/issues', function(req, res) {
-  if(req.body.ids.length > 0) {
-   var ids = req.body.ids;
-   var update = {};
-   var isUpdated = false;
-
-   if (req.body.title) {
-    update.title = req.body.title;
-    isUpdated = true;
-   }
-   if (req.body.description) {
-    update.description = req.body.description;
-    isUpdated = true;
-   }
-   if (req.body.assignee) {
-    update.assignee = req.body.assignee;
-    isUpdated = true;
-   }
-
-   if (req.body.labels.length > 0) {
-    update.labels = req.body.labels;
-    isUpdated = true;
-   }
-
-   if (req.body.priority) {
-    update.priority = req.body.priority;
-    isUpdated = true;
-   }
-
-   if (req.body.station) {
-    update.station = req.body.station;
-    isUpdated = true;
-   }
-
-   if (req.body.status) {
-    update.status = req.body.status;
-    isUpdated = true;
-   }
-
-   if (req.body.due_date) {
-    update.due_date = req.body.due_date;
-    isUpdated = true;
-   }
-
-   if (req.body.status) {
-    update.status = req.body.status;
-    isUpdated = true;
-   }
-
-   if (isUpdated) {
-    update.updated_at = new Date();
-   }
-
-   console.log(update);
-   Issue.update({_id: {$in: ids.map(function(e){return mongoose.Types.ObjectId(e);}) }}, 
-          {$set: update}, 
-          { multi: true }, 
-          function(elm) {
-           res.send({updated: true})
-          }
-         );
-  } else {
-   res.status(404).send({updated: false});
-  }
- });
 
  /**
   * @api {delete} /api/issues/:id Delete an issue

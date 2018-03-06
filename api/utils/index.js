@@ -1,26 +1,62 @@
 //Libraries
-var md5 = require('md5');
+const md5 = require('md5');
+const Counter = require('./../models/counters');
 
-//Constants
-const salt1 = "cDp6eSU[jNT$!U)Y";
-const salt2 = "#e(2n9{h{4Am#*{N";
+const {
+	LEFT_SALT, 
+	RIGHT_SALT
+} = require('./constants');
 
-//Helper Functions
-function getIndex(seed) {
-	return Math.floor(Math.random()*seed.length);
+const {
+	getRandomCharIndexFromString,
+	format_date,
+	date_diff,
+} = require('./helpers');
+
+function generateRandomPassword(char_length = 8) {
+	const SEED = 'ABCD@!#$%^&*()EFGHIJKLMNO@!#$%^&*()PQRSTUVWXYZ@!#$%^&*()abcdevghijklmnopqrstuvwxyz0123456789@!#$%^&*()';
+	let random_password = '';
+	let index = '';
+	for (let i = 0; i < char_length; ++i) {
+		index = getRandomCharIndexFromString(SEED);
+		random_password += SEED[index];
+	}
+	return random_password;
+}
+
+function saltAndHash(password) {
+	return md5(LEFT_SALT+password+RIGHT_SALT);
+}
+
+function modifyIssuesDate(issues) {
+	results = []
+	let items = {};
+	issues.map(function(item, index) {
+		items = Object.assign(item.toObject(), {
+			due_date_formatted: format_date(item.due_date),
+			date_updated_formatted: date_diff(item.updated_at, new Date()),
+			date_opened_formatted: date_diff(item.created_at, new Date()),
+			labels_class: item.labels.map(function(info, i) {
+				return info.split(" ").join("-");
+			})
+		});
+		results.push(items);
+	});
+	console.log(results);
+	return results;
+}
+
+async function getNextSequence(name) {
+	return await Counter.findByIdAndUpdate(
+		{_id: name },
+		{$inc: {seq: 1}},
+		{new: true}
+	);
 }
 
 module.exports ={
-	generateRandomPassword: function (char_length = 8) {
-		const SEED = 'ABCD@!#$%^&*()EFGHIJKLMNO@!#$%^&*()PQRSTUVWXYZ@!#$%^&*()abcdevghijklmnopqrstuvwxyz0123456789@!#$%^&*()';
-		let random_password = '';
-		for (let i = 0; i < char_length; ++i) {
-			let index = getIndex(SEED);
-			random_password += SEED[index];
-		}
-		return random_password;
-	},
-	saltAndHash: function(password) {
-		return md5(salt1+password+salt2);
-	},
+	generateRandomPassword,
+	saltAndHash,
+  modifyIssuesDate,
+	getNextSequence,
 }
