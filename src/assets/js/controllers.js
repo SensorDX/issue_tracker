@@ -93,6 +93,7 @@ function ($scope, $window, $http, UserService, IssueService, Toast) {
 		 */
 		$scope.loadLabels = function() {
 			IssueService.GetLabels().then(function(response) {
+				console.log('labels', response);
 				const labels = response.data;
 				if (labels.success) {
 					$scope.labels = labels.data;
@@ -114,6 +115,14 @@ function ($scope, $window, $http, UserService, IssueService, Toast) {
 				$scope.priorities =  priorities.data;
 			}
 		})
+
+		IssueService.GetStatus().then(function(response) {
+			const statuses = response.data;
+			console.log('status', statuses);
+			if (statuses.success) {
+				$scope.statuses = statuses.data;
+			}
+		});
 		$scope.stations = [
 			{ name: 'Station 1'},
 			{ name: 'Station 2'},
@@ -162,30 +171,35 @@ function ($scope, $window, $http, UserService, IssueService, Toast) {
 		 * UPDATE issue
 		 */
 		$scope.updateIssue = function(issue) {
-				$window.console.log('updating ...');
-				$http.put('/api/issues', issue)
-					.then(function(response) {
-						$window.console.log(response);
-						$window.location.reload();
-					},
-					function(response) {
-						$window.console.log(response);
-						$window.location.reload();
-					});
+			IssueService.UpdateIssues(issue).then(function(response) {
+				const issue = response.data;
+				if(issue.success) {
+					Toast.Success(issue.message);
+				} else {
+					Toast.Danger(issue.message);
+				}
+				console.log('updating ...');
+				console.log(response);
+				$window.location.reload();
+			});
 		};
 
 }]);
 
-App.controller('ViewIssueCtrl', ['$scope', '$window', '$http', '$location', '$state', '$stateParams', function ($scope, $window, $http, $location, $state, $stateParams) {
+App.controller('ViewIssueCtrl', ['$scope', '$window', '$http', '$location', '$state', '$stateParams', 'IssueService', 'UserService', 'Toast',
+function ($scope, $window, $http, $location, $state, $stateParams, IssueService, UserService, Toast) {
 		var _id = $stateParams.id;
 		/**
 		 * GET issue details
 		 */
-			$http.get('api/issues/'+_id+'?type=modified').then(function(response) {
-				$scope.issue = response.data.data[0];
-				$scope.issue.ids = [_id];
-			}, function(response) {
-				console.log(response);
+			IssueService.GetIssueById(_id).then(function(response) {
+				const issue = response.data;
+				if (issue.success) {
+					$scope.issue = issue.data;
+					$scope.issue.ids = [_id];
+				} else {
+					Toast.Danger(issue.message);
+				}
 			});
 
 		/**
@@ -205,19 +219,27 @@ App.controller('ViewIssueCtrl', ['$scope', '$window', '$http', '$location', '$st
 
 }]);
 
-App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', 'ModalService', 
-	function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, ModalService) {
-		console.log('this is the modal service data');
+App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', 'ModalService', 'UserService', 'IssueService', 'Toast',
+	function ($rootScope, $scope, $http, $window, $location, $state, $stateParams, $log, $q, ModalService, UserService, IssueService, Toast) {
+		console.log('this is the modal service data', $rootScope.globals);
+		const {_id, full_name} = $rootScope.globals.currentUser.user;
 		$scope.issue = {
 			title: '',
 			description: '',
-			assignee: '',
+			opened_by: {
+				full_name,
+				_id,
+			},
+			assignee: {
+				full_name: '',
+				_id: '',
+			},
 			labels: [],
 			priority: '',
 			station: '',
 			due_date: ''
 		};
-		var from = $stateParams.from;
+		const {from} = $stateParams;
 		if (from == "modal") {
 			$scope.issue = ModalService.getIssue();
 			ModalService.reset();
@@ -226,22 +248,26 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
 			console.log(label);
 			$scope.issue.labels = label;
 		};
-		$scope.loadAssignees = function() {
-			$http.get('/api/users?type=fullname').then(function(response) {
-				$scope.assignees = response.data;
-			}, function(response) {
-				console.log(response);
-			});
-		};
-		$scope.loadLabels = function() {
-			$http.get('/api/labels?type=name').then(function(response) {
-				$scope.labels = response.data;
-			}, function(response) {
-				console.log(response);
-			});
-				console.log($scope.labels);
-		};
-		$scope.priorities =  ["HIGH", "NORMAL", "LOW"];
+		UserService.GetUsers(['full_name']).then(function(response) {
+			const assignees = response.data;
+			console.log('assignees', assignees);
+			if (assignees.success) {
+				$scope.assignees = assignees.data;
+			}
+		})
+		IssueService.GetLabels().then(function(response) {
+			console.log('labels', response);
+			const labels = response.data;
+			if (labels.success) {
+				$scope.labels = labels.data;
+			}
+		});
+		IssueService.GetPriorities().then(function(response) {
+			const priorities = response.data;
+			if (priorities.success) {
+				$scope.priorities =  priorities.data;
+			}
+		})
 
     $scope.simulateQuery = false;
     $scope.isDisabled    = false;
@@ -321,49 +347,63 @@ App.controller('NewIssueCtrl', ['$scope', '$http', '$window', '$location', '$sta
 			}
 		}
 		$scope.submitIssue = function(issue) {
-			$http.post('/api/issues', issue)
-				.then(function(response) {
-					$window.console.log('success');
+			IssueService.CreateIssue(issue).then(function(response) {
+				const issue = response.data;
+				if(issue.success) {
+					Toast.Success(issue.message);
 					if (from == "modal") {
 						$state.go('dashboard', {from: "issues"});
 					} else {
 						$state.go('issues');
 					}
-				},
-				function(response) {
-					$window.console.log('error');
-				})
+				} else {
+					Toast.Danger(issue.message);
+				}
+			});
 		};
-		$scope.console = $window.console;
 }]);
 
-App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', function ($scope, $http, $window, $location, $state, $stateParams, $log, $q) {
+App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', 'IssueService', 'UserService', 'Toast',
+function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, IssueService, UserService, Toast) {
 		var _id = $stateParams.id;
 		$scope.id = _id;
 		$scope.item = {"SiteID":null,"SiteCode":null,"SiteName":null,"Latitude":null,"Longitude":null,"Elevation_m":null,"value":"altu"};
-		$http.get('api/issues/'+_id+'?type=modified').then(function(response) {
-			$scope.issue = response.data.data[0];
-			$scope.issue.due_date = new Date($scope.issue.due_date);
-			$scope.issue.ids = [_id];
-			$scope.item.SiteCode = $scope.issue.station;
-			selectedItemChange($scope.item);
-		}, function(response) {
-			console.log(response);
+		IssueService.GetIssueById(_id).then(function(response) {
+			const issue = response.data;
+			console.log('edit issue', issue);
+			if (issue.success) {
+				$scope.issue = issue.data;
+				$scope.issue.due_date = new Date($scope.issue.due_date);
+				$scope.issue.ids = [_id];
+				$scope.item.SiteCode = $scope.issue.station;
+				selectedItemChange($scope.item);
+			} else {
+				Toast.Danger(issue.message);
+			}
 		});
 		$scope.updateLabels = function(label) {
 			$scope.issue.labels = label;
 		};
-		$http.get('/api/users?type=fullname').then(function(response) {
-			$scope.assignees = response.data;
-		}, function(response) {
-			console.log(response);
+		UserService.GetUsers(['full_name']).then(function(response) {
+			const assignees = response.data;
+			console.log('assignees', assignees);
+			if (assignees.success) {
+				$scope.assignees = assignees.data;
+			}
+		})
+		IssueService.GetLabels().then(function(response) {
+			console.log('labels', response);
+			const labels = response.data;
+			if (labels.success) {
+				$scope.labels = labels.data;
+			}
 		});
-		$http.get('/api/labels?type=name').then(function(response) {
-			$scope.labels = response.data;
-		}, function(response) {
-			console.log(response);
-		});
-		$scope.priorities =  ["HIGH", "NORMAL", "LOW"];
+		IssueService.GetPriorities().then(function(response) {
+			const priorities = response.data;
+			if (priorities.success) {
+				$scope.priorities =  priorities.data;
+			}
+		})
     $scope.simulateQuery = false;
     $scope.isDisabled    = false;
     $scope.querySearch   = querySearch;
@@ -437,31 +477,31 @@ App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$st
 		 * UPDATE issue
 		 */
 		$scope.updateIssue = function(issue) {
-				$window.console.log('updating ...');
-				$http.put('/api/issues', issue)
-					.then(function(response) {
-						$window.console.log(response);
-						$state.go('viewissues',{id: _id});
-					},
-					function(response) {
-						$window.console.log(response);
-					});
+			IssueService.UpdateIssues(issue).then(function(response) {
+				const issue = response.data;
+				if(issue.success) {
+					Toast.Success(issue.message);
+					$state.go('viewissues',{id: _id});
+				} else {
+					Toast.Danger(issue.message);
+				}
+			});
 		};
 
 		/**
 		 * DELETE issue
 		 */
 		$scope.deleteIssue = function(issue) {
-				$window.console.log('deleting ...', issue);
-				$http.delete('/api/issues/'+issue._id)
-					.then(function(response) {
+			IssueService.DeleteIssueById(issue._id).then(function(response) {
+					const deleting = response.data;
+					if(deleting.success) {
+						Toast.Success(deleting.message);
 						$window.console.log(response);
 						$state.go('issues');
-					},
-					function(response) {
-						$window.console.log(response);
-						$state.go('issues');
-					});
+					} else {
+						Toast.Danger(deleting.message);
+					}
+			});
 		};
 		$scope.console = $window.console;
 }]);

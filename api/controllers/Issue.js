@@ -1,6 +1,7 @@
 //Libraries
 const Issue = require('./../models/issues');
 const Counter = require('./../models/counters');
+const mongoose = require('mongoose');
 const {
 	modifyIssuesDate,
 	getNextSequence,
@@ -34,7 +35,7 @@ module.exports = function(router) {
    if (err) {
 		res.status(200).send({success: false, message: 'Could not retrieve the specified issue.'});
    } else {
-		res.status(200).send({success: true, message: 'Issue retrieved successfully.', data: modifyIssuesDate(issue)});
+		res.status(200).send({success: true, message: 'Issue retrieved successfully.', data: modifyIssuesDate(issue)[0]});
    }
   });
  });
@@ -181,4 +182,17 @@ module.exports = function(router) {
 		res.status(200).send({success: false, message: 'Could not update issue(s). Try again later!'});
 	}
  });
+
+
+ //======================
+ // DELETE ISSUE BY ID
+ //======================
+ router.delete('/api/issues/:id', function(req, res) {
+   const {id} = req.params;
+	 Issue.remove({_id: id}, function(err, issue) {
+			if (err) res.status(200).send({success: false, message: 'Could not delete issue. Try again later!'});
+			else res.status(200).send({success: true, message: "Issue deleted", data: []});
+	});
+ });
+
 }

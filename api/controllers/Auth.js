@@ -25,12 +25,13 @@ module.exports = function(router) {
 				} else if (users.length == 1) {
 					const encrypted_password = saltAndHash(password);
 					if (encrypted_password == users[0].password) {
-						const {_id, username, first_name, last_name, email, role} = users[0];
+						const {_id, username, first_name, last_name, full_name, email, role} = users[0];
 						const result = {
 							_id,
 							username,
 							first_name,
 							last_name,
+							full_name, 
 							email,
 							role,
 						};

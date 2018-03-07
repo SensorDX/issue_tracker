@@ -117,19 +117,19 @@
 				<div layout-gt-sm="row">
 					<md-input-container>
 						<label>Assignee</label>
-						<md-select style="min-width: 200px;" ng-model="issue.assignee" md-on-open="loadAssignees()" flex-gt-sm>
+						<md-select style="min-width: 200px;" ng-model="issue.assignee" ng-model-options="{trackBy: '$value._id'}" flex-gt-sm>
 							<md-option ng-value="none"><em>None</em></md-option>
-							<md-option ng-repeat="assignee in assignees" ng-value="assignee.name">
-								{{assignee.name}}
+							<md-option ng-repeat="assignee in assignees" ng-value="assignee">
+								{{assignee.full_name}}
 							</md-option>
 						</md-select>
 					</md-input-container>
 					<md-input-container>
 						<label>Label</label>
-						<md-select style="min-width: 200px;" ng-model="issue.labels" md-on-open="loadLabels()" ng-change="updateLabels(issue.labels)" flex-gt-sm multiple>
+						<md-select style="min-width: 200px;" ng-model="issue.labels" ng-change="updateLabels(issue.labels)" flex-gt-sm multiple>
 								<md-optgroup label="Label Type">
-									<md-option ng-repeat="label in labels" ng-value="label.name">
-										{{label.name}}
+									<md-option ng-repeat="label in labels" ng-value="label">
+										{{label}}
 									</md-option>
 								</md-optgroup>
 						</md-select>

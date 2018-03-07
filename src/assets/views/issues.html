@@ -27,8 +27,9 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 								<md-input-container>
 									<label>Status</label>
 									<md-select style="width: 200px;" ng-model="issue.status" flex-gt-sm>
-										<md-option value="open">Open</md-option>
-										<md-option value="close">Close</md-option>
+										<md-option ng-repeat="status in statuses" ng-value="status">
+											{{status}}
+										</md-option>
 									</md-select>
 								</md-input-container>
 								<md-input-container>
@@ -43,8 +44,8 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 								<md-input-container>
 									<label>Label</label>
 									<md-select style="width: 200px;" ng-model="issue.labels" md-on-open="loadLabels()" ng-change="updateLabels(issue.labels)" flex-gt-sm multiple>
-										<md-option ng-repeat="label in labels" ng-value="label.name">
-											{{label.name}}
+										<md-option ng-repeat="label in labels" ng-value="label">
+											{{label}}
 										</md-option>
 									</md-select>
 								</md-input-container>

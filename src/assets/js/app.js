@@ -1317,30 +1317,33 @@ App.factory('IssueService', ['$http', function($http) {
 	service.GetLabels = GetLabels;
 	service.GetPriorities = GetPriorities;
 	service.GetIssues = GetIssues;
+	service.GetIssueById = GetIssueById;
 	//POST
-	//service.CreateIssue = CreateIssue;
+	service.CreateIssue = CreateIssue;
 	//PUT
 	service.UpdateIssues = UpdateIssues;
+	//DELETE
+	service.DeleteIssueById = DeleteIssueById;
 	return service;
 
 	function GetStatus() {
 		return new Promise(function(resolve) {
 			const status = ['open', 'close'];
-			resolve({success: true, data: status});
+			resolve({data: {success: true, data: status}});
 		});
 	}
 
 	function GetLabels() {
 		return new Promise(function(resolve) {
 			const labels = ['None', 'sensor failure', 'help wanted', 'question', 'bug'];
-			resolve({success: true, data: labels});
+			resolve({data: {success: true, data: labels}});
 		});
 	}
 
 	function GetPriorities() {
 		return new Promise(function(resolve) {
 			const priorities = ['HIGH', 'NORMAL', 'LOW'];
-			resolve({success: true, data: priorities});
+			resolve({data: {success: true, data: priorities}});
 		});
 	}
 
@@ -1351,7 +1354,19 @@ App.factory('IssueService', ['$http', function($http) {
 		return $http.get('api/issues');
 	}
 
+	function GetIssueById(id) {
+		return $http.get('api/issues/'+id);
+	}
+
+	function CreateIssue(issue) {
+		return $http.post('api/issues', issue);
+	}
+
 	function UpdateIssues(issues) {
 		return $http.put('api/issues', issues);
+	}
+
+	function DeleteIssueById(id) {
+		return $http.delete('api/issues/'+id);
 	}
 }]);

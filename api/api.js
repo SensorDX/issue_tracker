@@ -484,13 +484,6 @@ module.exports = function(router) {
   *   deleted: true
   * }
   */
- router.delete('/api/issues/:id', function(req, res) {
-   var id = req.params.id;
-	 Issue.remove({_id: id}, function(err, issue) {
-			if (err) res.send({ deleted: false});
-			else res.send({ deleted: true});
-	});
- });
 
  /**
   * @api {get} /api/issues/station/:name  Get issue by station name
