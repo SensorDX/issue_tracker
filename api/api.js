@@ -32,11 +32,11 @@ var Issue = require('./models/issues');
 var Label = require('./models/labels');
 var User = require('./models/users');
 var SensorTypes = require('./models/sensorTypes');
-var CustomStations = require('./models/customStations');
 var Stations = require('./models/stations');
 const AuthCtrl = require('./controllers/Auth');
 const UserCtrl = require('./controllers/User');
 const IssueCtrl = require('./controllers/Issue');
+const SiteCtrl = require('./controllers/Site');
 var tools = require('./tools');
 
 /**
@@ -46,6 +46,7 @@ module.exports = function(router) {
 	AuthCtrl(router);
 	UserCtrl(router);
 	IssueCtrl(router);
+	SiteCtrl(router);
  /**
   * @api {get} /api/labels Get all labels
   * @apiVersion 1.0.0
@@ -208,26 +209,6 @@ module.exports = function(router) {
   *
   * @apiError NoAccessRight Only authenticated Admins can access the data.
   */
- router.get('/api/users', function(request, response) {
-  var category = request.query.category;
-  var type = request.query.type;
-  var data = [];
-  User.find({}, function(err, users) {
-   if (err) {
-    response.status(404).send(err);
-   } else {
-    switch(type) {
-     case 'fullname':
-      data = tools.assignee(users);
-      break;
-     default:
-      data = users;
-      break;
-    }
-    response.status(200).send(data);
-   }
-  });
- });
 
  /**
   * @api {post} /api/users Create a new user
@@ -732,6 +713,7 @@ module.exports = function(router) {
 	*   type: "FeatureCollection"
 	* }
   */
+ /*
  router.get('/api/sites', function(request, response) {
   var type = request.query.type;
   var data = [];
@@ -782,30 +764,29 @@ module.exports = function(router) {
     response.status(200).send(data);
    }
   });
-	/*
-  CustomStations.find({}, function(err, stations) {
-   if (err) {
-    response.status(404).send(err);
-   } else {
-    switch(type) {
-     case 'geojson':
-      data = tools.geojson(stations);
-      break;
-     case 'modifyDate':
-      data = tools.modifyDate(stations);
-      break;
-     case 'manage':
-      data = tools.manage(stations);
-      break;
-     default:
-      data = stations;
-      break;
-    }
-    response.status(200).send(data);
-   }
-  });
-	*/
+  //CustomStations.find({}, function(err, stations) {
+  // if (err) {
+  //  response.status(404).send(err);
+  // } else {
+  //  switch(type) {
+  //   case 'geojson':
+  //    data = tools.geojson(stations);
+  //    break;
+  //   case 'modifyDate':
+  //    data = tools.modifyDate(stations);
+  //    break;
+  //   case 'manage':
+  //    data = tools.manage(stations);
+  //    break;
+  //   default:
+  //    data = stations;
+  //    break;
+  //  }
+  //  response.status(200).send(data);
+  // }
+  //});
  });
+	*/
 
  /**
   * @api {get} /api/stationdata/:sitecode  Get data for specific station 

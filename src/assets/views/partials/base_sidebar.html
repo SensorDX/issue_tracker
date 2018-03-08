@@ -45,7 +45,7 @@
                     </li>
                 </ul>
             </div>
-            <a class="h5 text-white" data-ui-sref="dashboard" data-js-blur>
+            <a class="h5 text-white" data-ui-sref="issues" data-js-blur>
                 <i class="hidden fa fa-circle-o-notch text-primary"></i>
 								<img src="/assets/img/various/sensor-dx-logo.png" />
 								<span class="h4 font-w600 sidebar-mini-hide text-primary">Sensor</span>
@@ -58,7 +58,7 @@
         <div class="side-content">
             <!-- Main navigation functionality (data-js-main-nav attribute is initialized in js/directives.js) -->
             <ul class="nav-main" data-js-main-nav>
-                <li>
+                <li class="hidden">
                     <a data-ui-sref="dashboard" data-ui-sref-active="active">
                         <i class="si si-rocket"></i><span class="sidebar-mini-hide">Dashboard</span>
                     </a>
@@ -69,7 +69,7 @@
                     </a>
                 </li>
                 <li class="hidden nav-main-heading"><span class="sidebar-mini-hide">Examples</span></li>
-                <li class="" data-ng-class="{open: (path.indexOf('/stations/') > -1)}">
+                <li class="hidden" data-ng-class="{open: (path.indexOf('/stations/') > -1)}">
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-badge"></i><span class="sidebar-mini-hide">Stations</span></a>
                     <ul>
                         <li>
@@ -83,7 +83,7 @@
                         </li>
                     </ul>
                 </li>
-                <li data-ng-class="{open: (path.indexOf('/Api/') > -1)}">
+                <li class="hidden" data-ng-class="{open: (path.indexOf('/Api/') > -1)}">
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-magic-wand"></i><span class="sidebar-mini-hide">Api</span></a>
                     <ul>
                         <li>

@@ -26,10 +26,12 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'assets/views/base_pages_login.html',
 								controller: 'LoginCtrl'
             })
+						/*
             .state('angularjs', {
                 url: '/angularjs',
                 templateUrl: 'assets/views/ready_angularjs.html'
             })
+						*/
             .state('issues', {
                 url: '/issues',
                 templateUrl: 'assets/views/issues.html',
@@ -50,6 +52,7 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'assets/views/edit_issue.html',
                 controller: 'EditIssueCtrl',
             })
+						/*
             .state('dashboard', {
                 url: '/dashboard/?from',
                 templateUrl: 'assets/views/ready_dashboard.html',
@@ -84,6 +87,8 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
+						*/
+						/*
             .state('manageStations', {
                 url: '/stations/manage',
                 templateUrl: 'assets/views/manage_stations.html',
@@ -101,14 +106,20 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
+						*/
+						/*
             .state('metadata', {
                 url: '/stations/metadata',
                 templateUrl: 'assets/views/metadata.html'
             })
+						*/
+						/*
             .state('qualityControl', {
                 url: '/stations/QC',
                 templateUrl: 'assets/views/quality_control.html'
             })
+						*/
+						/*
             .state('mapper', {
                 url: '/api/mapper',
                 controller: 'MapperCtrl',
@@ -127,14 +138,19 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
+						*/
+						/*
             .state('documentation', {
                 url: '/api/documentation',
                 templateUrl: 'assets/views/documentation.html'
             })
+						*/
+						/*
             .state('apiDocumentation', {
                 url: '/api/documentation/get-started',
                 templateUrl: 'doc/index.html'
             })
+						*/
             .state('profile', {
                 url: '/profile/:id',
                 controller: 'ProfileCtrl',
@@ -152,6 +168,7 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
+						/*
             .state('settings', {
                 url: '/settings',
                 controller: 'SettingsCtrl',
@@ -169,6 +186,8 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
+						*/
+						/*
             .state('uiActivity', {
                 url: '/ui/activity',
                 templateUrl: 'assets/views/ui_activity.html',
@@ -458,48 +477,50 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
-            .state('compMapsGoogle', {
-                url: '/components/maps/google',
-                templateUrl: 'assets/views/comp_maps.html',
-                controller: 'CompMapsGoogleCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                /*
-                                 * Google Maps API Key (you will have to obtain a Google Maps API key to use Google Maps)
-                                 * For more info please have a look at https://developers.google.com/maps/documentation/javascript/get-api-key#key
-                                 */
-                                { type: 'js', path: '//maps.googleapis.com/maps/api/js?key=' },
-                                'assets/js/plugins/gmapsjs/gmaps.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('compMapsGoogleFull', {
-                url: '/components/maps/google-full',
-                templateUrl: 'assets/views/comp_maps_full.html',
-                controller: 'CompMapsGoogleFullCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                /*
-                                 * Google Maps API Key (you will have to obtain a Google Maps API key to use Google Maps)
-                                 * For more info please have a look at https://developers.google.com/maps/documentation/javascript/get-api-key#key
-                                 */
-                                { type: 'js', path: '//maps.googleapis.com/maps/api/js?key=' },
-                                'assets/js/plugins/gmapsjs/gmaps.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
+						*/
+            //.state('compMapsGoogle', {
+            //    url: '/components/maps/google',
+            //    templateUrl: 'assets/views/comp_maps.html',
+            //    controller: 'CompMapsGoogleCtrl',
+            //    resolve: {
+            //        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+            //            return $ocLazyLoad.load({
+            //                insertBefore: '#css-bootstrap',
+            //                serie: true,
+            //                files: [
+            //                    /*
+            //                     * Google Maps API Key (you will have to obtain a Google Maps API key to use Google Maps)
+            //                     * For more info please have a look at https://developers.google.com/maps/documentation/javascript/get-api-key#key
+            //                     */
+            //                    { type: 'js', path: '//maps.googleapis.com/maps/api/js?key=' },
+            //                    'assets/js/plugins/gmapsjs/gmaps.min.js'
+            //                ]
+            //            });
+            //        }]
+            //    }
+            //})
+            //.state('compMapsGoogleFull', {
+            //    url: '/components/maps/google-full',
+            //    templateUrl: 'assets/views/comp_maps_full.html',
+            //    controller: 'CompMapsGoogleFullCtrl',
+            //    resolve: {
+            //        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+            //            return $ocLazyLoad.load({
+            //                insertBefore: '#css-bootstrap',
+            //                serie: true,
+            //                files: [
+            //                    /*
+            //                     * Google Maps API Key (you will have to obtain a Google Maps API key to use Google Maps)
+            //                     * For more info please have a look at https://developers.google.com/maps/documentation/javascript/get-api-key#key
+            //                     */
+            //                    { type: 'js', path: '//maps.googleapis.com/maps/api/js?key=' },
+            //                    'assets/js/plugins/gmapsjs/gmaps.min.js'
+            //                ]
+            //            });
+            //        }]
+            //    }
+            //})
+						/*
             .state('compMapsVector', {
                 url: '/components/maps/vector',
                 templateUrl: 'assets/views/comp_maps_vector.html',
@@ -570,6 +591,7 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 url: '/create',
                 templateUrl: 'assets/views/ready_create.html'
             });
+						*/
     }
 ]);
 
@@ -1309,9 +1331,6 @@ App.factory('UserService', ['$http', function($http) {
 
 App.factory('IssueService', ['$http', function($http) {
 	let service = {};
-	//HELPERS
-	//service.HttpUrlGetManagerUsers = HttpUrlGetManagerUsers;
-	//service.isAuthorized = isAuthorized;
 	//GET
 	service.GetStatus = GetStatus;
 	service.GetLabels = GetLabels;
@@ -1368,5 +1387,21 @@ App.factory('IssueService', ['$http', function($http) {
 
 	function DeleteIssueById(id) {
 		return $http.delete('api/issues/'+id);
+	}
+}]);
+
+App.factory('SiteService', ['$http', function($http) {
+	let service = {};
+	//GET
+	service.GetSites = GetSites;
+	service.GetSiteByCode = GetSiteByCode;
+	return service;
+
+	function GetSites() {
+		return $http.get('api/sites');
+	}
+
+	function GetSiteByCode(sitecode) {
+		return $http.get('api/sites/'+sitecode);
 	}
 }]);

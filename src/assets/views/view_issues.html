@@ -5,6 +5,19 @@
 .right {
 	float: right !important;
 }
+.issue-status {
+	border-radius: 5px !important; 
+	padding: 5px 15px !important; 
+	line-height: 40px !important;
+	color: white;
+	margin-right: 10px;
+}
+.issue-open {
+	background-color: #3cbd70 !important; 
+}
+.issue-close {
+	background-color: #c50404 !important; 
+}
 </style>
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
@@ -32,14 +45,15 @@
 					<md-card>
 						<md-card-content>
 							<div style="float: left;" class="col-md-6 col-xs-12">
-									<span style="border-radius: 5px; background-color: #3cbd70; padding: 0 10px; line-height: 40px;">OPEN</span>
-									<span><strong>Issue #1</strong></span>
-									<span> opened <strong>{{issue.date_opened}}</strong> ago by </span>
-									<span><strong>{{issue.assignee}}</strong></span> 
+									<span class="issue-status issue-open" ng-if='issue.status == "open"'>OPEN</span>
+									<span class="issue-status issue-close" ng-if='issue.status == "close"'>CLOSE</span>
+									<span><strong>Issue #{{issue.ticket_id}}</strong></span>
+									<span> opened <strong>{{issue.date_opened_formatted}}</strong> ago by </span>
+									<span><strong>{{issue.opened_by.full_name}}</strong></span> 
 							</div>
 							<div style="float: right;" class="col-md-6 col-xs-12">
 									<md-button data-ui-sref="newissues" class="right md-raised md-primary">New Issue</md-button>
-									<md-button ng-click="closeIssue(issue)" class="right md-raised md-primary">
+									<md-button aria-label="close issue" ng-click="closeIssue(issue)" class="right md-raised md-primary">
 										<span ng-if='issue.status == "open"'>Close Issue</span>
 										<span ng-if="issue.status == 'close'">Open Issue</span>
 									</md-button>

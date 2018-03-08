@@ -14,14 +14,14 @@ function ($scope, $state, $cookies, AuthService, Toast) {
 			remember_me: false
 		};
 		if ($cookies.getObject('globals')) {
-			$state.go('dashboard');
+			$state.go('issues');
 		}
 		$scope.onLoginSubmit = function() {
 			AuthService.Login($scope.login).then(function(response) {
 					const user = response.data;
 					if (user.success) {
 							AuthService.SetCredentials({user: user.data, ...$scope.login});
-							$state.go('dashboard');
+							$state.go('issues');
 					} else {
 						Toast.Danger(user.message);
 					}
@@ -29,8 +29,8 @@ function ($scope, $state, $cookies, AuthService, Toast) {
 		}
 }]);
 
-App.controller('IssueCtrl', ['$scope', '$window', '$http', 'UserService', 'IssueService', 'Toast',
-function ($scope, $window, $http, UserService, IssueService, Toast) {
+App.controller('IssueCtrl', ['$scope', '$window', '$http', 'UserService', 'IssueService', 'SiteService', 'Toast',
+function ($scope, $window, $http, UserService, IssueService, SiteService, Toast) {
 		$scope.issue = {
 			assignee: null,
 			labels: [],
@@ -88,34 +88,26 @@ function ($scope, $window, $http, UserService, IssueService, Toast) {
 			$scope.selected = [];
 		};
 
-		/**
-		 * Fields to be updated
-		 */
-		$scope.loadLabels = function() {
-			IssueService.GetLabels().then(function(response) {
-				console.log('labels', response);
-				const labels = response.data;
-				if (labels.success) {
-					$scope.labels = labels.data;
-				}
-			});
-		};
-		$scope.loadAssignees = function() {
-			UserService.GetUsers(['full_name']).then(function(response) {
-				const assignees = response.data;
-				console.log('assignees', assignees);
-				if (assignees.success) {
-					$scope.assignees = assignees.data;
-				}
-			})
-		};
+		IssueService.GetLabels().then(function(response) {
+			console.log('labels', response);
+			const labels = response.data;
+			if (labels.success) {
+				$scope.labels = labels.data;
+			}
+		});
+		UserService.GetUsers(['full_name']).then(function(response) {
+			const assignees = response.data;
+			console.log('assignees', assignees);
+			if (assignees.success) {
+				$scope.assignees = assignees.data;
+			}
+		})
 		IssueService.GetPriorities().then(function(response) {
 			const priorities = response.data;
 			if (priorities.success) {
 				$scope.priorities =  priorities.data;
 			}
 		})
-
 		IssueService.GetStatus().then(function(response) {
 			const statuses = response.data;
 			console.log('status', statuses);
@@ -123,21 +115,15 @@ function ($scope, $window, $http, UserService, IssueService, Toast) {
 				$scope.statuses = statuses.data;
 			}
 		});
-		$scope.stations = [
-			{ name: 'Station 1'},
-			{ name: 'Station 2'},
-			{ name: 'Station 3'},
-			{ name: 'Station 4'},
-			{ name: 'Station 5'},
-			{ name: 'Station 6'},
-			{ name: 'Station 7'},
-			{ name: 'Station 8'},
-			{ name: 'Station 9'}
-		];
-
-		/**
-		 * GET issues info
-		 */
+		SiteService.GetSites().then(function(response) {
+			const sites = response.data;
+			console.log('sites', sites);
+			if (sites.success) {
+				$scope.sites = sites.data;
+			} else {
+				Toast.Danger(sites.message);
+			}
+		});
 		IssueService.GetIssues("open").then(function(response) {
 			const issues = response.data;
 			if (issues.success) {
@@ -165,11 +151,6 @@ function ($scope, $window, $http, UserService, IssueService, Toast) {
 				Toast.Danger(issues.message);
 			}
 		});
-		$scope.console = $window.console;
-
-		/**
-		 * UPDATE issue
-		 */
 		$scope.updateIssue = function(issue) {
 			IssueService.UpdateIssues(issue).then(function(response) {
 				const issue = response.data;
@@ -183,45 +164,35 @@ function ($scope, $window, $http, UserService, IssueService, Toast) {
 				$window.location.reload();
 			});
 		};
-
 }]);
 
 App.controller('ViewIssueCtrl', ['$scope', '$window', '$http', '$location', '$state', '$stateParams', 'IssueService', 'UserService', 'Toast',
 function ($scope, $window, $http, $location, $state, $stateParams, IssueService, UserService, Toast) {
-		var _id = $stateParams.id;
-		/**
-		 * GET issue details
-		 */
-			IssueService.GetIssueById(_id).then(function(response) {
+		const _id = $stateParams.id;
+		IssueService.GetIssueById(_id).then(function(response) {
+			const issue = response.data;
+			if (issue.success) {
+				$scope.issue = issue.data;
+				$scope.issue.ids = [_id];
+			} else {
+				Toast.Danger(issue.message);
+			}
+		});
+		$scope.closeIssue = function(issue) {
+			issue.status = issue.status == 'open' ? 'close' : 'open';
+			IssueService.UpdateIssues(issue).then(function(response) {
 				const issue = response.data;
-				if (issue.success) {
-					$scope.issue = issue.data;
-					$scope.issue.ids = [_id];
+				if(issue.success) {
+					console.log('issue updated', issue);
 				} else {
 					Toast.Danger(issue.message);
 				}
 			});
-
-		/**
-		 * CLOSE issue
-		 */
-		$scope.closeIssue = function(issue) {
-				issue.status = issue.status == 'open' ? 'close' : 'open';
-				$http.put('/api/issues', issue)
-					.then(function(response) {
-						$window.console.log(response);
-					},
-					function(response) {
-						$window.console.log(response);
-					});
 		};
-
-
 }]);
 
-App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', 'ModalService', 'UserService', 'IssueService', 'Toast',
-	function ($rootScope, $scope, $http, $window, $location, $state, $stateParams, $log, $q, ModalService, UserService, IssueService, Toast) {
-		console.log('this is the modal service data', $rootScope.globals);
+App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', 'ModalService', 'UserService', 'IssueService', 'SiteService', 'Toast',
+	function ($rootScope, $scope, $http, $window, $location, $state, $stateParams, $log, $q, ModalService, UserService, IssueService, SiteService, Toast) {
 		const {_id, full_name} = $rootScope.globals.currentUser.user;
 		$scope.issue = {
 			title: '',
@@ -269,83 +240,53 @@ App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$lo
 			}
 		})
 
-    $scope.simulateQuery = false;
-    $scope.isDisabled    = false;
     $scope.querySearch   = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange   = searchTextChange;
 
-    // ******************************
-    // Internal methods
-    // ******************************
-
-    /**
-     * Search for repos... use $timeout to simulate
-     * remote dataservice call.
-     */
     function querySearch (query) {
-      var results = query ? $scope.repos.filter( createFilterFor(query) ) : $scope.repos,
-          deferred;
-      if ($scope.simulateQuery) {
-        deferred = $q.defer();
-        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-        return deferred.promise;
-      } else {
-        return results;
-      }
+      const results = query ? $scope.sites.filter( createFilterFor(query) ) : $scope.sites;
+      return results;
     }
 
-    function searchTextChange(text) {
-      $log.info('Text changed to ' + text);
-			$scope.issue.station = text;
-    }
-
-    function selectedItemChange(item) {
-      $log.info('Item changed to ' + JSON.stringify(item));
-			if (item !== undefined) {
-				$scope.issue.station = item.SiteCode;
-				$log.info('stations');
-				$log.info($scope.issue.station);
-				$scope.station = item.SiteCode;
-			}
-    }
-    /**
-     * Build `components` list of key/value pairs
-     */
-		function loadAll() {
-			$http.get('/api/sites').then(function(response) {
-    		$scope.repos         = [];
-				$scope.repos = response.data;
-				if ($scope.repos.length) {
-					return $scope.repos.map( function (repo) {
-						repo.value = repo.SiteCode.toLowerCase();
-						return repo;
-					});
-				} else {}
-
-			}, function(response) {
-				console.log(response);
-			});
-    }
-		loadAll();	
-
-    /**
-     * Create filter function for a query string
-     */
     function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
+      const lowercaseQuery = angular.lowercase(query);
       return function filterFn(item) {
         return (item.value.indexOf(lowercaseQuery) === 0);
       };
     }
 
-		$scope.cancel = function() {
-			if (from == "modal") {
-				$state.go('dashboard', {from: "issues"});
-			} else {
-				$state.go('issues');
+    function selectedItemChange(item) {
+			console.log('Item changed to', item);
+			if (item !== undefined) {
+				$scope.issue.station = item.SiteCode;
 			}
+    }
+
+    function searchTextChange(text) {
+			$scope.issue.station = text;
+    }
+
+		SiteService.GetSites().then(function(response) {
+			const sites = response.data;
+			$scope.sites = [];
+			if (sites.success) {
+				$scope.sites = sites.data;
+				if ($scope.sites && $scope.sites.length > 0) {
+					$scope.sites.map( function (site) {
+						site.value = site.SiteCode.toLowerCase();
+					});
+				}
+			} else {
+				Toast.Danger(sites.message);
+			}
+		});
+
+		$scope.cancel = function() {
+			if (from == "modal") $state.go('dashboard', {from: "issues"});
+			else $state.go('issues');
 		}
+
 		$scope.submitIssue = function(issue) {
 			IssueService.CreateIssue(issue).then(function(response) {
 				const issue = response.data;
@@ -363,11 +304,20 @@ App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$lo
 		};
 }]);
 
-App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', 'IssueService', 'UserService', 'Toast',
-function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, IssueService, UserService, Toast) {
-		var _id = $stateParams.id;
+App.controller('EditIssueCtrl', ['$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', 'IssueService', 'UserService', 'SiteService', 'Toast',
+function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, IssueService, UserService, SiteService, Toast) {
+		const _id = $stateParams.id;
 		$scope.id = _id;
-		$scope.item = {"SiteID":null,"SiteCode":null,"SiteName":null,"Latitude":null,"Longitude":null,"Elevation_m":null,"value":"altu"};
+		$scope.item = {
+			"Country": null, 
+			"SiteID": null,
+			"SiteCode": null,
+			"SiteName": null,
+			"Latitude": null,
+			"Longitude": null,
+			"Elevation_m": null,
+			"value": "altu"
+		};
 		IssueService.GetIssueById(_id).then(function(response) {
 			const issue = response.data;
 			console.log('edit issue', issue);
@@ -404,78 +354,47 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 				$scope.priorities =  priorities.data;
 			}
 		})
-    $scope.simulateQuery = false;
-    $scope.isDisabled    = false;
     $scope.querySearch   = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange   = searchTextChange;
 
-    // ******************************
-    // Internal methods
-    // ******************************
-
-    /**
-     * Search for repos... use $timeout to simulate
-     * remote dataservice call.
-     */
     function querySearch (query) {
-      var results = query ? $scope.repos.filter( createFilterFor(query) ) : $scope.repos,
-          deferred;
-      if ($scope.simulateQuery) {
-        deferred = $q.defer();
-        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-        return deferred.promise;
-      } else {
-        return results;
-      }
+      const results = query ? $scope.sites.filter( createFilterFor(query) ) : $scope.sites;
+			return results;
     }
-
-    function searchTextChange(text) {
-      $log.info('Text changed to ' + text);
-				$scope.issue.station = text;
-    }
-
-    function selectedItemChange(item) {
-      $log.info('Item changed to ' + JSON.stringify(item));
-			if (item !== undefined) {
-				$scope.issue.station = item.SiteCode;
-				$log.info('stations');
-				$log.info($scope.issue.station);
-				$scope.station = item.SiteCode;
-			}
-    }
-    /**
-     * Build `components` list of key/value pairs
-     */
-		function loadAll() {
-			$http.get('/api/sites').then(function(response) {
-    		$scope.repos         = [];
-				$scope.repos = response.data;
-				if ($scope.repos.length) {
-					return $scope.repos.map( function (repo) {
-						repo.value = repo.SiteCode.toLowerCase();
-						return repo;
-					});
-				} else {}
-
-			}, function(response) {
-				console.log(response);
-			});
-    }
-		loadAll();	
-
-    /**
-     * Create filter function for a query string
-     */
     function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
+      const lowercaseQuery = angular.lowercase(query);
       return function filterFn(item) {
         return (item.value.indexOf(lowercaseQuery) === 0);
       };
     }
-		/**
-		 * UPDATE issue
-		 */
+
+    function selectedItemChange(item) {
+			console.log('Item changed to', item);
+			if (item !== undefined) {
+				$scope.issue.station = item.SiteCode;
+			}
+    }
+
+    function searchTextChange(text) {
+			$scope.issue.station = text;
+    }
+
+		SiteService.GetSites().then(function(response) {
+			const sites = response.data;
+			$scope.sites = [];
+			if (sites.success) {
+				$scope.sites = sites.data;
+				if ($scope.sites && $scope.sites.length > 0) {
+					$scope.sites.map( function (site) {
+						site.value = site.SiteCode.toLowerCase();
+					});
+				}
+			} else {
+				Toast.Danger(sites.message);
+			}
+		});
+
 		$scope.updateIssue = function(issue) {
 			IssueService.UpdateIssues(issue).then(function(response) {
 				const issue = response.data;
@@ -487,10 +406,6 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 				}
 			});
 		};
-
-		/**
-		 * DELETE issue
-		 */
 		$scope.deleteIssue = function(issue) {
 			IssueService.DeleteIssueById(issue._id).then(function(response) {
 					const deleting = response.data;
@@ -503,7 +418,6 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 					}
 			});
 		};
-		$scope.console = $window.console;
 }]);
 
 App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', '$uibModal', '$state', '$stateParams', 'ModalService',

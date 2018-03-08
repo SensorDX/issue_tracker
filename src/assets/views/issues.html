@@ -34,7 +34,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 								</md-input-container>
 								<md-input-container>
 									<label>Assignee</label>
-									<md-select style="width: 200px;" ng-model="issue.assignee" md-on-open="loadAssignees()" flex-gt-sm>
+									<md-select style="width: 200px;" ng-model="issue.assignee" flex-gt-sm>
 										<md-option ng-value="none"><em>None</em></md-option>
 										<md-option ng-repeat="assignee in assignees" ng-value="assignee.full_name">
 											{{assignee.full_name}}
@@ -43,7 +43,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 								</md-input-container>
 								<md-input-container>
 									<label>Label</label>
-									<md-select style="width: 200px;" ng-model="issue.labels" md-on-open="loadLabels()" ng-change="updateLabels(issue.labels)" flex-gt-sm multiple>
+									<md-select style="width: 200px;" ng-model="issue.labels" ng-change="updateLabels(issue.labels)" flex-gt-sm multiple>
 										<md-option ng-repeat="label in labels" ng-value="label">
 											{{label}}
 										</md-option>
@@ -62,8 +62,8 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 									<label>Station</label>
 									<md-select style="width: 200px;" ng-model="issue.station" flex-gt-sm>
 										<md-option ng-value="none"><em>None</em></md-option>
-										<md-option ng-repeat="station in stations" ng-value="station.name">
-											{{station.name}}
+										<md-option ng-repeat="site in sites" ng-value="site.SiteCode">
+											{{site.SiteCode}}
 										</md-option>
 									</md-select>
 								</md-input-container>
@@ -94,7 +94,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 										<md-content class="bg-white md-padding">
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, openIssue) in openIssues | filter: searchBox | orderBy: '-date_updated'">
+														<tr ng-repeat="(key, openIssue) in openIssues | filter: searchBox | orderBy: '-updated_at'">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(openIssue._id, selected)" ng-click="toggle(openIssue._id, selected)">
 																</md-checkbox>
@@ -103,7 +103,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 																<div>
 																	<a class="issue-title" data-ui-sref="viewissues({id: openIssue._id})"><strong>{{openIssue.title}}</strong></a>
 																</div>
-																<div style="margin-top: 10px;">#{{key + 1}} - opened {{openIssue.date_opened_formatted}} ago by {{openIssue.assignee}}
+																<div style="margin-top: 10px;">#{{openIssue.ticket_id}} - opened {{openIssue.date_opened_formatted}} ago by <strong>{{openIssue.opened_by.full_name}}</strong> assigned to <strong>{{openIssue.assignee.full_name}}</strong>
 																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{openIssue.due_date_formatted}}</span></span>
 																	<span ng-repeat="(key, value) in openIssue.labels" class="label {{openIssue.labels_class[key]}}">{{value}}</span>
 																</div>
@@ -121,14 +121,14 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 										<md-content class="bg-white md-padding">
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, closeIssue) in closeIssues | filter: searchBox | orderBy: '-date_updated'">
+														<tr ng-repeat="(key, closeIssue) in closeIssues | filter: searchBox | orderBy: '-updated_at'">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(closeIssue._id, selected)" ng-click="toggle(closeIssue._id, selected)">
 																</md-checkbox>
 															</td>
 															<td>
 																<div><a class="issue-title" data-ui-sref="viewissues({id: closeIssue._id})"><strong>{{closeIssue.title}}</strong></a></div>
-																<div style="margin-top: 10px;">#{{key + 1}} - opened {{closeIssue.date_opened_formatted}} ago by {{closeIssue.assignee}}
+																<div style="margin-top: 10px;">#{{closeIssue.ticket_id}} - opened {{closeIssue.date_opened_formatted}} ago by <strong>{{closeIssue.opened_by.full_name}}</strong> assigned to <strong>{{closeIssue.assignee.full_name}}</strong>
 																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{closeIssue.due_date_formatted}}</span></span>
 																	<span ng-repeat="(key, value) in closeIssue.labels" class="label {{closeIssue.labels_class[key]}}">{{value}}</span>
 																</div>
@@ -146,14 +146,14 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 										<md-content class="bg-white md-padding">
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, allIssue) in allIssues | filter: searchBox | orderBy: '-date_updated'">
+														<tr ng-repeat="(key, allIssue) in allIssues | filter: searchBox | orderBy: '-updated_at'">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(allIssue._id, selected)" ng-click="toggle(allIssue._id, selected)">
 																</md-checkbox>
 															</td>
 															<td>
 																<div><a class="issue-title" data-ui-sref="viewissues({id: allIssue._id})"><strong>{{allIssue.title}}</strong></a></div>
-																<div style="margin-top: 10px;">#{{key + 1}} - opened {{allIssue.date_opened_formatted}} ago by {{allIssue.assignee}}
+																<div style="margin-top: 10px;">#{{allIssue.ticket_id}} - opened {{allIssue.date_opened_formatted}} ago by <strong>{{allIssue.opened_by.full_name}}</strong> assigned to <strong>{{allIssue.assignee.full_name}}</strong>
 																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{allIssue.due_date_formatted}}</span></span>
 																	<span ng-repeat="(key, value) in allIssue.labels" class="label {{allIssue.labels_class[key]}}">{{value}}</span>
 																</div>
