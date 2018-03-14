@@ -1,6 +1,7 @@
 //Libraries
 const md5 = require('md5');
 const Counter = require('./../models/counters');
+const q = require('q');
 
 const {
 	LEFT_SALT, 
@@ -46,12 +47,14 @@ function modifyIssuesDate(issues) {
 	return results;
 }
 
-async function getNextSequence(name) {
-	return await Counter.findByIdAndUpdate(
+function getNextSequence(name) {
+	const deferred      = q.defer();
+	deferred.resolve(Counter.findByIdAndUpdate(
 		{_id: name },
 		{$inc: {seq: 1}},
 		{new: true}
-	);
+	));
+	return deferred.promise;
 }
 
 module.exports ={
