@@ -47,6 +47,19 @@ function modifyIssuesDate(issues) {
 	return results;
 }
 
+function modifyCommentsDate(comments) {
+	results = []
+	let items = {};
+	comments.map(function(item, index) {
+		items = Object.assign(item.toObject(), {
+			date_opened_formatted: date_diff(item.created_at, new Date()),
+		});
+		results.push(items);
+	});
+	console.log(results);
+	return results;
+}
+
 function getNextSequence(name) {
 	const deferred      = q.defer();
 	deferred.resolve(Counter.findByIdAndUpdate(
@@ -60,6 +73,7 @@ function getNextSequence(name) {
 module.exports ={
 	generateRandomPassword,
 	saltAndHash,
+	modifyCommentsDate,
   modifyIssuesDate,
 	getNextSequence,
 }

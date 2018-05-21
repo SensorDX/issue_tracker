@@ -14,6 +14,7 @@ var App = angular.module('app', [
 		'nemLogging',
 		'ngMaterial',
 		'ngCookies',
+		'ngSanitize',
 ]);
 
 // Router configuration
@@ -40,7 +41,20 @@ App.config(['$stateProvider', '$urlRouterProvider',
             .state('viewissues', {
                 url: '/issues/view/:id',
                 templateUrl: 'assets/views/view_issues.html',
-                controller: 'ViewIssueCtrl'
+                controller: 'ViewIssueCtrl',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            insertBefore: '#css-bootstrap',
+                            serie: true,
+                            files: [
+                                'assets/js/plugins/summernote/summernote.min.css',
+                                'assets/js/plugins/summernote/summernote.min.js',
+                                'assets/js/plugins/ckeditor/ckeditor.js'
+                            ]
+                        });
+                    }]
+                }
             })
             .state('newissues', {
                 url: '/issues/new?from',
@@ -1283,12 +1297,12 @@ App.factory('UserService', ['$http', function($http) {
 
 	function GetRoles() {
 		return new Promise(function(resolve) {
-			const roles = ['manager', 'agent'];
+			const roles = ['manager', 'agent', 'observer'];
 			resolve(roles);
 		});
 	}
 
-	function GetUsers(fields=[], roles=['manager', 'agent']) {
+	function GetUsers(fields=[], roles=['agent']) {
 		if (fields && fields.length > 0) {
 			return $http.get('api/users?role='+roles.join(',')+'&&fields='+fields.join(','));
 		}
@@ -1337,8 +1351,10 @@ App.factory('IssueService', ['$http', function($http) {
 	service.GetPriorities = GetPriorities;
 	service.GetIssues = GetIssues;
 	service.GetIssueById = GetIssueById;
+	service.GetIssueComment = GetIssueComment;
 	//POST
 	service.CreateIssue = CreateIssue;
+	service.PostIssueComment = PostIssueComment;
 	//PUT
 	service.UpdateIssues = UpdateIssues;
 	//DELETE
@@ -1376,9 +1392,19 @@ App.factory('IssueService', ['$http', function($http) {
 	function GetIssueById(id) {
 		return $http.get('api/issues/'+id);
 	}
+	
+	function GetIssueComment(id) {
+		return $http.get('api/issues/'+id+'/comments');
+	}
 
 	function CreateIssue(issue) {
 		return $http.post('api/issues', issue);
+	}
+	
+	function PostIssueComment(id, comments) {
+		console.log('posting comments id', id);
+		console.log('posting comments', comments);
+		return $http.post('api/issues/'+id+'/comments', comments);
 	}
 
 	function UpdateIssues(issues) {
@@ -1403,5 +1429,33 @@ App.factory('SiteService', ['$http', function($http) {
 
 	function GetSiteByCode(sitecode) {
 		return $http.get('api/sites/'+sitecode);
+	}
+}]);
+
+App.factory('CommentService', ['$http', function($http) {
+	let service = {};
+	//GET
+	service.GetComments = GetComments;
+	service.GetCommentById = GetCommentById;
+	//POST
+	service.CreateComment = CreateComment;
+	//DELETE
+	service.DeleteCommentById = DeleteCommentById;
+	return service;
+
+	function GetComments() {
+		return $http.get('api/comments');
+	}
+
+	function GetCommentById(id) {
+		return $http.get('api/comments/'+id);
+	}
+
+	function CreateComment(comment) {
+		return $http.post('api/comments', comment);
+	}
+
+	function DeleteCommentById(id) {
+		return $http.delete('api/comments/'+id);
 	}
 }]);

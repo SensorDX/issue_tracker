@@ -394,5 +394,24 @@ module.exports = {
 		});
 		console.log(results.data);
 		return results;
+  },
+  tahmo: function (stations) {
+		var results = {};
+		results['data']= []
+		var current = new Date();
+		stations.map(function(item, index) {
+			var items = {
+				Elevation_m: item.elevation,
+				Latitude: item.location.lat,
+				Longitude: item.location.lng,
+				SiteCode: item.id,
+				Country: item.countryCode,
+				DeviceId: item.deviceId,
+				SiteName: item.name,
+			};
+			results['data'].push(items);
+		});
+		console.log(results.data);
+		return results['data'];
   }
 };

@@ -37,6 +37,8 @@ const AuthCtrl = require('./controllers/Auth');
 const UserCtrl = require('./controllers/User');
 const IssueCtrl = require('./controllers/Issue');
 const SiteCtrl = require('./controllers/Site');
+const CommentCtrl = require('./controllers/Comment');
+const UploadCtrl = require('./controllers/Upload');
 var tools = require('./tools');
 
 /**
@@ -47,6 +49,8 @@ module.exports = function(router) {
 	UserCtrl(router);
 	IssueCtrl(router);
 	SiteCtrl(router);
+	CommentCtrl(router);
+	UploadCtrl(router);
  /**
   * @api {get} /api/labels Get all labels
   * @apiVersion 1.0.0
@@ -713,16 +717,31 @@ module.exports = function(router) {
 	*   type: "FeatureCollection"
 	* }
   */
- /*
- router.get('/api/sites', function(request, response) {
+ router.get('/api/get_sites', function(request, response) {
   var type = request.query.type;
   var data = [];
-	fetch('http://localhost:3000/v1/stations')
+	fetch('http://localhost:1234/v1/stations')
 	.then(function(res) {
 		return res.json();
 	})
 	.then(function(json) {
-		data = json;
+		data = json['stations'];
+		//const {
+		//	elevation,
+		//	id,
+		//	name,
+		//	deviceId,
+		//	location,
+		//} = data;
+		//
+		//const result = {
+		//	SiteCode: id,
+		//	SiteName: name,
+		//	DeviceId: deviceId,
+		//	Elevation_m: elevation,
+		//	Latitude: location.lat,
+		//	Longitude: location.lng,
+		//};
     switch(type) {
      case 'geojson':
       data = tools.tahmoGeojson(data);
@@ -733,60 +752,20 @@ module.exports = function(router) {
      case 'manage':
       data = tools.manage(data);
       break;
+     case 'tahmo':
+      data = tools.tahmo(data);
+      break;
      default:
       break;
     }
-    response.status(200).send(data);
+    //response.status(200).send(data);
+		response.status(200).send(data);
 		console.log(json);
 	})
 	.catch(function(err) {
 		console.log(err);
 	});
-	//console.log(data);
-  CustomStations.find({}, function(err, stations) {
-   if (err) {
-    response.status(404).send(err);
-   } else {
-    switch(type) {
-     case 'geojson':
-      data = tools.geojson(stations);
-      break;
-     case 'modifyDate':
-      data = tools.modifyDate(stations);
-      break;
-     case 'manage':
-      data = tools.manage(stations);
-      break;
-     default:
-      data = stations;
-      break;
-    }
-    response.status(200).send(data);
-   }
-  });
-  //CustomStations.find({}, function(err, stations) {
-  // if (err) {
-  //  response.status(404).send(err);
-  // } else {
-  //  switch(type) {
-  //   case 'geojson':
-  //    data = tools.geojson(stations);
-  //    break;
-  //   case 'modifyDate':
-  //    data = tools.modifyDate(stations);
-  //    break;
-  //   case 'manage':
-  //    data = tools.manage(stations);
-  //    break;
-  //   default:
-  //    data = stations;
-  //    break;
-  //  }
-  //  response.status(200).send(data);
-  // }
-  //});
  });
-	*/
 
  /**
   * @api {get} /api/stationdata/:sitecode  Get data for specific station 

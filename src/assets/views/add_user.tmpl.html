@@ -40,20 +40,20 @@
 								</div>
 								<div layout-gt-sm="row">
 									<md-input-container class="md-block" flex-gt-sm>
+										<label>Role</label>
+										<md-select ng-model="user.role">
+											<md-option ng-repeat="role in roles" value="{{role}}">
+												{{role}}
+											</md-option>
+										</md-select>
+									</md-input-container>
+									<md-input-container ng-if="user.role == 'agent'" class="md-block" flex-gt-sm>
 										<label>Manager</label>
 										<md-select ng-model="user.manager">
 											<md-option value="">
 											</md-option>
 											<md-option ng-repeat="manager in managers" value="{{manager._id}}">
 												{{manager.full_name}}
-											</md-option>
-										</md-select>
-									</md-input-container>
-									<md-input-container class="md-block" flex-gt-sm>
-										<label>Role</label>
-										<md-select ng-model="user.role">
-											<md-option ng-repeat="role in roles" value="{{role}}">
-												{{role}}
 											</md-option>
 										</md-select>
 									</md-input-container>

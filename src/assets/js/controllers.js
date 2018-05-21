@@ -166,14 +166,55 @@ function ($scope, $window, $http, UserService, IssueService, SiteService, Toast)
 		};
 }]);
 
-App.controller('ViewIssueCtrl', ['$scope', '$window', '$http', '$location', '$state', '$stateParams', 'IssueService', 'UserService', 'Toast',
-function ($scope, $window, $http, $location, $state, $stateParams, IssueService, UserService, Toast) {
+App.controller('ViewIssueCtrl', ['$rootScope', '$scope', '$window', '$http', '$location', '$state', '$stateParams', '$sce', 'IssueService', 'CommentService', 'Toast',
+function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $sce, IssueService, CommentService, Toast) {
 		const _id = $stateParams.id;
+		//const {_id, full_name} = $rootScope.globals.currentUser.user;
+		$scope.comment_to_post = {
+			message: '',
+			created_by: {
+				_id: $rootScope.globals.currentUser.user._id,
+				full_name: $rootScope.globals.currentUser.user.full_name
+			}
+		}
 		IssueService.GetIssueById(_id).then(function(response) {
 			const issue = response.data;
 			if (issue.success) {
 				$scope.issue = issue.data;
 				$scope.issue.ids = [_id];
+			} else {
+				Toast.Danger(issue.message);
+			}
+		});
+		$scope.comment = function() {
+			console.log('commenting ...');
+			var mark = jQuery('#my_summernote').summernote('code');
+			$scope.comment_to_post.message = mark;
+			CommentService.CreateComment($scope.comment_to_post).then(function(response) {
+				const comment = response.data;
+				if (comment.success) {
+					console.log('posted comment', comment);
+					$scope.comments.push(comment.data);
+					IssueService.PostIssueComment(_id, {comments: comment.data._id}).then(function(response) {
+						const issue = response.data;
+						console.log('posted comment in issues', issue);
+						jQuery('#my_summernote').summernote('reset');
+					});
+				} else {
+					Toast.Danger(issue.message);
+				}
+			}, function (error) {
+				console.log("couldn't load comments", error);	
+				Toast.Danger(error.statusText);
+			});
+			console.log('markup html -- ', mark);
+			//var station_table = jQuery('.js-dataTable-full').DataTable({
+		};
+		IssueService.GetIssueComment(_id).then(function(response) {
+			const issue = response.data;
+			console.log('issue comments', issue);
+			if (issue.success) {
+				$scope.comments = issue.data;
 			} else {
 				Toast.Danger(issue.message);
 			}
@@ -246,6 +287,7 @@ App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$lo
 
     function querySearch (query) {
       const results = query ? $scope.sites.filter( createFilterFor(query) ) : $scope.sites;
+			console.log("query search results for new issues", results);
       return results;
     }
 
@@ -311,6 +353,7 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 		$scope.item = {
 			"Country": null, 
 			"SiteID": null,
+			"DeviceId": null,
 			"SiteCode": null,
 			"SiteName": null,
 			"Latitude": null,
@@ -360,6 +403,7 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 
     function querySearch (query) {
       const results = query ? $scope.sites.filter( createFilterFor(query) ) : $scope.sites;
+			console.log("query search results for edited issues", results);
 			return results;
     }
     function createFilterFor(query) {
