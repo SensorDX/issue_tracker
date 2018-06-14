@@ -70,10 +70,45 @@ function getNextSequence(name) {
 	return deferred.promise;
 }
 
+function geojson (data) {
+	var status = ["Active", "Delay", "Closed"];
+	var results = {};
+	results['features']= []
+	data.map(function(item, index) {
+		var features = [];
+		var randomStatus = status[Math.floor(Math.random() * status.length)];
+		var coordinates = [];
+		coordinates.push(item.Longitude, item.Latitude, item.Elevation_m);
+		var geometry = {
+			coordinates: coordinates,
+			type: "Point"
+		};
+		var properties = {
+			"Country": "USA",
+			"Date of installation": "",
+			"Mount height (meters)": item.Elevation_m,
+			"Site name": item.SiteName,
+			"Station ID": item.SiteCode,
+			"Station site type": "",
+			"Station status": randomStatus,
+		};
+		var items = {
+			geometry: geometry,
+			properties: properties,
+			type: "Feature"
+		};
+		results['features'].push(items);
+	});
+	results['type'] = "FeatureCollection";
+	console.log(results);
+	return results;
+}
+
 module.exports ={
 	generateRandomPassword,
 	saltAndHash,
 	modifyCommentsDate,
   modifyIssuesDate,
 	getNextSequence,
+	geojson,
 }

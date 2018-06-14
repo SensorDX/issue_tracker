@@ -66,7 +66,6 @@ App.config(['$stateProvider', '$urlRouterProvider',
                 templateUrl: 'assets/views/edit_issue.html',
                 controller: 'EditIssueCtrl',
             })
-						/*
             .state('dashboard', {
                 url: '/dashboard/?from',
                 templateUrl: 'assets/views/ready_dashboard.html',
@@ -101,7 +100,6 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
-						*/
 						/*
             .state('manageStations', {
                 url: '/stations/manage',
@@ -1423,8 +1421,8 @@ App.factory('SiteService', ['$http', function($http) {
 	service.GetSiteByCode = GetSiteByCode;
 	return service;
 
-	function GetSites() {
-		return $http.get('api/sites');
+	function GetSites(format="") {
+		return $http.get('api/sites?format='+format);
 	}
 
 	function GetSiteByCode(sitecode) {

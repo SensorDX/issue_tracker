@@ -67,15 +67,6 @@ function ($scope, $window, $http, UserService, IssueService, SiteService, Toast)
 			return list.indexOf(item) > -1;
 		};
 
-		$scope.isIndeterminate = function() {
-			return ($scope.selected.length !== 0 &&
-					$scope.selected.length !== $scope.items.length);
-		};
-
-		$scope.isChecked = function() {
-			return $scope.selected.length === $scope.items.length;
-		};
-
 		$scope.toggleAll = function() {
 			if ($scope.selected.length === $scope.items.length) {
 				$scope.selected = [];
@@ -464,8 +455,9 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 		};
 }]);
 
-App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', '$uibModal', '$state', '$stateParams', 'ModalService',
-	function ($scope, $localStorage, $http, $window, $uibModal, $state, $stateParams, ModalService) {
+App.controller('DashboardCtrl', ['$scope', '$rootScope', '$localStorage', '$http', '$window', '$uibModal', '$state', '$stateParams', 'ModalService',
+	function ($scope, $rootScope, $localStorage, $http, $window, $uibModal, $state, $stateParams, ModalService) {
+				$scope.user = $rootScope.globals.currentUser.user;
 				var from = $stateParams.from;
 				var feature = ModalService.getModalInstance();
 				if (from == "issues" && feature) {
@@ -484,6 +476,7 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', 
 				/*
 				 * Init Lealeft.js
 				 */
+				/*
 				var working = L.AwesomeMarkers.icon({ 
 						icon: 'circle',
 						markerColor: 'green',
@@ -517,11 +510,11 @@ App.controller('DashboardCtrl', ['$scope', '$localStorage', '$http', '$window', 
 								return '#d43e2a'; 
 					}
 				}
-
-				$http.get("/api/sites?type=geojson").success(function(data, status) {
+				*/
+				$http.get("/api/sites?format=geojson").success(function(data, status) {
 						angular.extend($scope, {
 								geojson: {
-										data: data,
+										data: data.data,
 										pointToLayer: function(feature, latlng) {
 												return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
 										}
@@ -745,10 +738,10 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', funct
 			ModalService.setModalInstance(feature);
     }
     $scope.$on('leaflet', function (event, leaflet) {
-			$http.get("/api/sites?type=geojson").success(function(data, status) {
+			$http.get("/api/sites?format=geojson").success(function(data, status) {
 					angular.extend($scope, {
 							geojson: {
-									data: data,
+									data: data.data,
 							},
 							defaults: {
 									scrollWheelZoom: false

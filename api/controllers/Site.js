@@ -1,16 +1,27 @@
 //Libraries
 const Site = require('./../models/sites');
+const {geojson}= require('./../utils');
 
 module.exports = function(router) {
  //=====================
  // GET SITES
  //=====================
  router.get('/api/sites', function(req, res) {
+	const {format} = req.query;
   Site.find({}, function(err, sites) {
    if (err) {
 		res.status(200).send({success: false, message: 'Could not retrieve sites.'});
    } else {
-		res.status(200).send({success: true, message: 'Sites retrieved successfully.', data: sites});
+		let data = [];
+		switch (format) {
+			case 'geojson':
+				data = geojson(sites);
+				break;
+			default:
+				data = sites;
+				break;
+		}
+		res.status(200).send({success: true, message: 'Sites retrieved successfully.', data: data});
    }
   });
  });
