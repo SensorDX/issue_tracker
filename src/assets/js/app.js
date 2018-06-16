@@ -1053,6 +1053,16 @@ App.run(function($rootScope, $location, $cookies, $http, uiHelpers) {
     // Access uiHelpers easily from all controllers
     $rootScope.helpers = uiHelpers;
 		$rootScope.globals = $cookies.getObject('globals') || {};
+		$http.get('/api/host').then(function(response) {
+			console.log('this is my host', response);
+			const host = response.data;
+			if (host.success) {
+				$rootScope.host = host.url;
+				$cookies.putObject('host', host.url);
+			} else {
+				//$cookies.putObject('host', 'http://localhost:3000/');
+			}
+		});
 		if ($rootScope.globals.currentUser) {
 			$http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
 		}

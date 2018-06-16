@@ -39,6 +39,7 @@ const IssueCtrl = require('./controllers/Issue');
 const SiteCtrl = require('./controllers/Site');
 const CommentCtrl = require('./controllers/Comment');
 const UploadCtrl = require('./controllers/Upload');
+const HostCtrl = require('./controllers/Host');
 var tools = require('./tools');
 
 /**
@@ -51,6 +52,7 @@ module.exports = function(router) {
 	SiteCtrl(router);
 	CommentCtrl(router);
 	UploadCtrl(router);
+	HostCtrl(router);
  /**
   * @api {get} /api/labels Get all labels
   * @apiVersion 1.0.0
