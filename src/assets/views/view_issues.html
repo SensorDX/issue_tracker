@@ -18,6 +18,20 @@
 .issue-close {
 	background-color: #c50404 !important; 
 }
+.issue-title {
+	color: rgba(0,0,0,0.87) !important;
+	cursor: pointer !important;
+}
+.issue-title :hover {
+	text-decoration: underline !important;
+}
+md-input-container .md-input {
+	border-color: white;
+	color: white;
+}
+md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+	border-color: white;
+}
 </style>
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
@@ -39,7 +53,7 @@
 <!-- END Page Header -->
 
 <!-- Page Content -->
-<div class="content">
+<div id="popup-container" class="content">
     <div class="row">
         <div class="col-lg-12">
 					<md-card>
@@ -129,6 +143,43 @@
 				</div>
     </div>
 </div>
+  <div style="visibility: hidden">
+    <div class="md-dialog-container" id="myDialog">
+			<md-dialog class="bg-white md-padding">
+				<md-dialog-content  style="width:700px;max-height:210px;">
+				<md-toolbar class="md-theme-light" style="justify-content: center">
+					<md-input-container style="margin-left: 20px" class="col-xs-6 md-block">
+						<label style="color: white">Search</label>
+						<md-icon md-svg-src="assets/img/icons/md-search.svg" class="name"></md-icon>
+						<input ng-model="searchBox" type="text">
+					</md-input-container>
+				</md-toolbar>
+				<table class="table table-striped">
+						<tbody>
+							<tr ng-repeat="issue in issues | filter: searchBox | orderBy: '-ticket_id'">
+								<td>
+									{{issue.ticket_id}}
+								</td>
+								<td>
+									<div>
+										<a class="issue-title" ng-click="linking(issue)"><strong>{{issue.title}}</strong></a>
+									</div>
+									<div style="margin-top: 10px;">
+											{{issue.description | limitTo: 200 }}{{issue.description.length > 200 ? '...' : ''}}
+									</div>
+								</td>
+								<td>
+									<br>
+									<div style="margin-top: 10px; float: right"><strong>{{issue.opened_by.full_name}}</strong></div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</md-dialog-content>
+			</md-dialog>
+    </div>
+  </div>
+
 <script>
 $(document).ready(function() {
 	function sendFile(file) {
@@ -149,13 +200,62 @@ $(document).ready(function() {
         }
     });
 	}
+
+	function find_linking(comment) {
+		let words = [];
+		let partial = "";
+		for (let i = 0; i <  comment.length; ++i) {
+			if (comment[i] == '#') {
+				while (comment[i] != ' ' && i != comment.length - 1) {
+					partial += comment[i];
+					++i;
+				}
+				words.push(partial);
+				partial = "";
+			}
+		}
+		return words;
+	}
+
+	function find_and_replace(result, ids, pointer) {
+		let new_result = result;
+		for (let i = 0; i < ids.length; ++i) {
+			new_result = new_result.replace(ids[i], "");
+		}
+		return new_result;
+	}
+
 	$('#my_summernote').summernote({
 		minHeight: 250,
 		callbacks: {
 			onImageUpload: function(files) {
 				sendFile(files[0]);
 				console.log('files -- image to upload: ', files);
-			}
+			},
+			onChange: function(contents) {
+				let result = $(this).summernote('code');
+				let result_text = $(this).html(result).text();
+				let linking_ids = find_linking(result_text);
+				let new_result = find_and_replace(result_text, linking_ids);
+				var scope = angular.element(document.getElementById("popup-container")).scope();
+				//$(this).summernote('reset');
+				//$(this).summernote('insertText', new_result);
+				//$(this).summernote('insertText', new_result);
+				if (new_result[new_result.length - 1] == '#') {
+					scope.safeApply(function () {
+						//scope.updateCustomRequest(data, type, res);
+						scope.showAlert();
+					});
+				}
+				if (linking_ids.length > 0) {
+					//$(this).summernote('insertText', 'yooo');
+				}
+				console.log("this is the linking _id", find_linking(result_text));
+				console.log("this is the new_result", new_result);
+			},
+			//onChange: function(contents, $editable) {
+			//	console.log('onChange:', contents, $editable);
+			//}
 		}
 	});
 });

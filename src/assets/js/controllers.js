@@ -157,10 +157,11 @@ function ($scope, $window, $http, UserService, IssueService, SiteService, Toast)
 		};
 }]);
 
-App.controller('ViewIssueCtrl', ['$rootScope', '$scope', '$window', '$http', '$location', '$state', '$stateParams', '$sce', 'IssueService', 'CommentService', 'Toast',
-function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $sce, IssueService, CommentService, Toast) {
+App.controller('ViewIssueCtrl', ['$rootScope', '$scope', '$window', '$http', '$location', '$state', '$stateParams', '$sce', 'IssueService', 'CommentService', 'Toast', '$mdDialog',
+function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $sce, IssueService, CommentService, Toast, $mdDialog) {
 		const _id = $stateParams.id;
 		//const {_id, full_name} = $rootScope.globals.currentUser.user;
+		console.log('this is the rootScope', $rootScope);
 		$scope.comment_to_post = {
 			message: '',
 			created_by: {
@@ -168,6 +169,15 @@ function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $
 				full_name: $rootScope.globals.currentUser.user.full_name
 			}
 		}
+		IssueService.GetIssues().then(function(response) {
+			const issues = response.data;
+			if (issues.success) {
+				$scope.issues = issues.data;
+				console.log('all issues retrieved', $scope.issues);
+			} else {
+				Toast.Danger(issue.message);
+			}
+		})
 		IssueService.GetIssueById(_id).then(function(response) {
 			const issue = response.data;
 			if (issue.success) {
@@ -177,6 +187,57 @@ function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $
 				Toast.Danger(issue.message);
 			}
 		});
+		$scope.safeApply = function(fn) {
+			var phase = this.$root.$$phase;
+			if(phase == '$apply' || phase == '$digest') {
+				if(fn && (typeof(fn) === 'function')) {
+					fn();
+				}
+			} else {
+				this.$apply(fn);
+			}
+		};
+		$scope.linking = function (issue) {
+			var mark = jQuery('#my_summernote').summernote('code');
+			//var mark_test = jQuery('#my_summernote').html(mark).text();
+			jQuery('#my_summernote').summernote('reset');
+			//jQuery('#my_summernote').summernote('insertText', mark_test);
+			jQuery('#my_summernote').summernote('createLink', {
+				text: '#'+issue.ticket_id,
+				url: $rootScope.host+'/#/issues/view/'+issue._id,
+				isNewWindow: true
+			});
+			var tag = jQuery('#my_summernote').summernote('code');
+			//jQuery('#my_summernote').summernote('reset');
+			//jQuery('#my_summernote').summernote('code', mark+'<span>hello</span>'+tag);
+			jQuery('#my_summernote').summernote('code', mark);
+			jQuery('.note-editable > p').last().append('<span> '+tag+'</span>')
+			$mdDialog.cancel();
+		}
+
+	   function find_linking(comment) { 
+			 let words = [];             
+			 let partial = "";           
+			 for (let i = 0; i <  comment.length; ++i) {
+				 if (comment[i] == '#') {  
+					 while (comment[i] != ' ' && i != comment.length - 1) {   
+						 partial += comment[i];
+						 ++i;                  
+					 }
+					 words.push(partial);    
+					 partial = "";                                                                                                                                                                                  
+				 }  
+			 }    
+			 return words;
+		 } 	
+	  $scope.showAlert = function(ev) {
+			$mdDialog.show({
+				contentElement: '#myDialog',
+				parent: angular.element(document.querySelector('#popup-container')),
+				targetEvent: ev,
+				clickOutsideToClose: true
+			});
+		};
 		$scope.comment = function() {
 			console.log('commenting ...');
 			var mark = jQuery('#my_summernote').summernote('code');
@@ -199,7 +260,6 @@ function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $
 				Toast.Danger(error.statusText);
 			});
 			console.log('markup html -- ', mark);
-			//var station_table = jQuery('.js-dataTable-full').DataTable({
 		};
 		IssueService.GetIssueComment(_id).then(function(response) {
 			const issue = response.data;
