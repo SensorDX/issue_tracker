@@ -104,6 +104,24 @@ function geojson (data) {
 	return results;
 }
 
+function tahmo (data) {
+	var results = [];
+	let my_data = JSON.parse(JSON.stringify(data));
+	my_data.map(function(item, index) {
+		var station = {
+			"Elevation_m": item.elevation,
+			"Latitude": item.location ? item.location.lat : null,
+			"Longitude": item.location ? item.location.lng : null,
+			"SiteCode": item.weatherunderground ? item.weatherunderground.stationId : null,
+			"Country": item.countryCode,
+			"DeviceId": item.decagon ? item.decagon.deviceId : null,
+			"SiteName": item.name
+		}
+		results.push(station);
+	});
+	return results;
+}
+
 module.exports ={
 	generateRandomPassword,
 	saltAndHash,
@@ -111,4 +129,5 @@ module.exports ={
   modifyIssuesDate,
 	getNextSequence,
 	geojson,
+	tahmo,
 }

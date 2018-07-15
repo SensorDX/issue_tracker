@@ -36,7 +36,7 @@ function ($scope, $window, $http, UserService, IssueService, SiteService, Toast)
 			labels: [],
 			ids: [],
 			priority: null,
-			station: null,
+			station: "",
 			status: null
 		};
 		$scope.updateLabels = function(label) {
@@ -111,6 +111,7 @@ function ($scope, $window, $http, UserService, IssueService, SiteService, Toast)
 			console.log('sites', sites);
 			if (sites.success) {
 				$scope.sites = sites.data;
+				console.log('scope.sites', $scope.sites);
 			} else {
 				Toast.Danger(sites.message);
 			}
@@ -272,6 +273,23 @@ App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$lo
 			}
 		})
 
+		SiteService.GetSites().then(function(response) {
+			const sites = response.data;
+			$scope.sites = [];
+			if (sites.success) {
+				$scope.sites = sites.data;
+				if ($scope.sites && $scope.sites.length > 0) {
+					$scope.sites.map( function (site) {
+						site.sitecode = site.SiteCode ? site.SiteCode.toLowerCase() : null;
+						site.deviceid = site.DeviceId ? site.DeviceId.toLowerCase() : null;
+						site.sitename = site.SiteName ? site.SiteName.toLowerCase() : null;
+					});
+				}
+			} else {
+				Toast.Danger(sites.message);
+			}
+		});
+
     $scope.querySearch   = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange   = searchTextChange;
@@ -285,7 +303,10 @@ App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$lo
     function createFilterFor(query) {
       const lowercaseQuery = angular.lowercase(query);
       return function filterFn(item) {
-        return (item.value.indexOf(lowercaseQuery) === 0);
+        return (item.sitecode && item.sitecode.indexOf(lowercaseQuery) === 0 ||
+								item.deviceid && item.deviceid.indexOf(lowercaseQuery) === 0 ||
+								item.sitename && item.sitename.indexOf(lowercaseQuery) === 0
+				);
       };
     }
 
@@ -293,27 +314,13 @@ App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$lo
 			console.log('Item changed to', item);
 			if (item !== undefined) {
 				$scope.issue.station = item.SiteCode;
+				$scope.issue.deviceId = item.DeviceId;
 			}
     }
 
     function searchTextChange(text) {
 			$scope.issue.station = text;
     }
-
-		SiteService.GetSites().then(function(response) {
-			const sites = response.data;
-			$scope.sites = [];
-			if (sites.success) {
-				$scope.sites = sites.data;
-				if ($scope.sites && $scope.sites.length > 0) {
-					$scope.sites.map( function (site) {
-						site.value = site.SiteCode.toLowerCase();
-					});
-				}
-			} else {
-				Toast.Danger(sites.message);
-			}
-		});
 
 		$scope.cancel = function() {
 			if (from == "modal") $state.go('dashboard', {from: "issues"});
@@ -360,6 +367,7 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 				$scope.issue.due_date = new Date($scope.issue.due_date);
 				$scope.issue.ids = [_id];
 				$scope.item.SiteCode = $scope.issue.station;
+				$scope.item.DeviceId = $scope.issue.deviceId;
 				selectedItemChange($scope.item);
 			} else {
 				Toast.Danger(issue.message);
@@ -400,7 +408,10 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
     function createFilterFor(query) {
       const lowercaseQuery = angular.lowercase(query);
       return function filterFn(item) {
-        return (item.value.indexOf(lowercaseQuery) === 0);
+        return (item.sitecode && item.sitecode.indexOf(lowercaseQuery) === 0 ||
+								item.deviceid && item.deviceid.indexOf(lowercaseQuery) === 0 ||
+								item.sitename && item.sitename.indexOf(lowercaseQuery) === 0
+				);
       };
     }
 
@@ -408,6 +419,7 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 			console.log('Item changed to', item);
 			if (item !== undefined) {
 				$scope.issue.station = item.SiteCode;
+				$scope.issue.deviceId = item.DeviceId;
 			}
     }
 
@@ -422,7 +434,9 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 				$scope.sites = sites.data;
 				if ($scope.sites && $scope.sites.length > 0) {
 					$scope.sites.map( function (site) {
-						site.value = site.SiteCode.toLowerCase();
+						site.sitecode = site.SiteCode ? site.SiteCode.toLowerCase() : null;
+						site.deviceid = site.DeviceId ? site.DeviceId.toLowerCase() : null;
+						site.sitename = site.SiteName ? site.SiteName.toLowerCase() : null;
 					});
 				}
 			} else {

@@ -189,19 +189,21 @@ module.exports = function(router) {
       labels: req.body.labels,
       priority: req.body.priority,
       station: req.body.station,
+			deviceId: req.body.deviceId,
       status: 'open',
       updated_at: new Date(),
       due_date: req.body.due_date,
       created_at: new Date(),
     };
     for (key in data) {
-      if (data[key] == '' || data[key] == undefined) {
-        res
-          .status(200)
-          .send({success: false, message: 'Cannot leave ' + key + ' empty'});
+      if ((key !== "station" && key !== 'deviceId') && (data[key] == '' || data[key] == undefined)) {
+        res.status(200).send({success: false, message: 'Cannot leave ' + key + ' empty'});
         return;
       }
     }
+		if (!data['station'] && !data['deviceId']) {
+			res.status(200).send({success: false, message: 'Cannot leave station empty'});
+		}
     getNextSequence('ticket_id').then(
       function(response) {
         if (response.seq) {

@@ -15,16 +15,6 @@ var mailTransport = nodemailer.createTransport({
  } 
 });
 
-// Replace by user's info during configuration
-var db = "mongodb://sensordx:helloworld@ds161049.mlab.com:61049/issue_tracker";
-
-mongoose.connect(db, function(err, response) {
- if (err)
-  console.log('Fail to connect to '+ db);
- else
-  console.log('Successfully connected to '+ db);
-});
-
 /**
  * Initiate Models
  */
@@ -39,6 +29,7 @@ const IssueCtrl = require('./controllers/Issue');
 const SiteCtrl = require('./controllers/Site');
 const CommentCtrl = require('./controllers/Comment');
 const UploadCtrl = require('./controllers/Upload');
+const EmailCtrl = require('./controllers/Email');
 var tools = require('./tools');
 
 /**
@@ -51,6 +42,7 @@ module.exports = function(router) {
 	SiteCtrl(router);
 	CommentCtrl(router);
 	UploadCtrl(router);
+	EmailCtrl(router);
  /**
   * @api {get} /api/labels Get all labels
   * @apiVersion 1.0.0
@@ -1090,17 +1082,17 @@ module.exports = function(router) {
    var text = req.body.text;
 
    mailTransport.sendMail({
-    from: sender + ' <renemidouin@gmail.com>',
+    from: sender, //+ ' <renemidouin@gmail.com>',
     to: receiver,
     subject: subject,
     text: text
    }, function(err){
       if(err) {
        console.error( 'Unable to send email: ' + err );
-       res.status(200).send({error: "Unable to send email: " + err});
+       res.status(200).send({success: false, message: 'Could not send email.', data: error});
       } else {
        console.log('Mail sent');
-       res.status(200).send({success: "Email was sent"});
+       res.status(200).send({success: false, message: 'Email sent successfully.'});
       }
    });
  });

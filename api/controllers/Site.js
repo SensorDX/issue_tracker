@@ -1,6 +1,6 @@
 //Libraries
 const Site = require('./../models/sites');
-const {geojson}= require('./../utils');
+const {geojson, tahmo}= require('./../utils');
 
 module.exports = function(router) {
  //=====================
@@ -15,12 +15,13 @@ module.exports = function(router) {
 		let data = [];
 		switch (format) {
 			case 'geojson':
-				data = geojson(sites);
+				data = geojson(tahmo(sites));
 				break;
 			default:
-				data = sites;
+				data = tahmo(sites);
 				break;
 		}
+	  console.log('sites', data);
 		res.status(200).send({success: true, message: 'Sites retrieved successfully.', data: data});
    }
   });

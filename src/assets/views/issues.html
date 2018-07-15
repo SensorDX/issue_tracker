@@ -63,7 +63,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 									<md-select style="width: 200px;" ng-model="issue.station" flex-gt-sm>
 										<md-option ng-value="none"><em>None</em></md-option>
 										<md-option ng-repeat="site in sites" ng-value="site.SiteCode">
-											{{site.SiteCode}}
+											{{site.SiteCode || site.DeviceId}}
 										</md-option>
 									</md-select>
 								</md-input-container>
@@ -101,7 +101,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 															</td>
 															<td>
 																<div>
-																	<a class="issue-title" data-ui-sref="viewissues({id: openIssue._id})"><strong>{{openIssue.station}} - {{openIssue.title}}</strong></a>
+																	<a class="issue-title" data-ui-sref="viewissues({id: openIssue._id})"><strong>{{openIssue.station || openIssue.deviceId}} - {{openIssue.title}}</strong></a>
 																</div>
 																<div style="margin-top: 10px;">#{{openIssue.ticket_id}} - opened {{openIssue.date_opened_formatted}} ago by <strong>{{openIssue.opened_by.full_name}}</strong> assigned to <strong>{{openIssue.assignee.full_name}}</strong>
 																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{openIssue.due_date_formatted}}</span></span>
@@ -127,7 +127,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 																</md-checkbox>
 															</td>
 															<td>
-																<div><a class="issue-title" data-ui-sref="viewissues({id: closeIssue._id})"><strong>{{closeIssue.station}} - {{closeIssue.title}}</strong></a></div>
+																<div><a class="issue-title" data-ui-sref="viewissues({id: closeIssue._id})"><strong>{{closeIssue.station || closeIssue.deviceId}} - {{closeIssue.title}}</strong></a></div>
 																<div style="margin-top: 10px;">#{{closeIssue.ticket_id}} - opened {{closeIssue.date_opened_formatted}} ago by <strong>{{closeIssue.opened_by.full_name}}</strong> assigned to <strong>{{closeIssue.assignee.full_name}}</strong>
 																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{closeIssue.due_date_formatted}}</span></span>
 																	<span ng-repeat="(key, value) in closeIssue.labels" class="label {{closeIssue.labels_class[key]}}">{{value}}</span>
@@ -152,7 +152,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 																</md-checkbox>
 															</td>
 															<td>
-																<div><a class="issue-title" data-ui-sref="viewissues({id: allIssue._id})"><strong>{{allIssue.station}} - {{allIssue.title}}</strong></a></div>
+																<div><a class="issue-title" data-ui-sref="viewissues({id: allIssue._id})"><strong>{{allIssue.station || allIssue.deviceId}} - {{allIssue.title}}</strong></a></div>
 																<div style="margin-top: 10px;">#{{allIssue.ticket_id}} - opened {{allIssue.date_opened_formatted}} ago by <strong>{{allIssue.opened_by.full_name}}</strong> assigned to <strong>{{allIssue.assignee.full_name}}</strong>
 																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{allIssue.due_date_formatted}}</span></span>
 																	<span ng-repeat="(key, value) in allIssue.labels" class="label {{allIssue.labels_class[key]}}">{{value}}</span>

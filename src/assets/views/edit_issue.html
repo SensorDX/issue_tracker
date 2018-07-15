@@ -86,35 +86,35 @@
 					style="margin-bottom: 20px;" 
           ng-disabled="isDisabled"
           md-no-cache="noCache"
-          md-selected-item="item.SiteCode"
+          md-selected-item="item.SiteCode || item.DeviceId"
           md-search-text-change="searchTextChange(searchText)"
           md-search-text="searchText"
           md-selected-item-change="selectedItemChange(item)"
           md-items="item in querySearch(searchText) | orderBy: 'SiteCode'"
-          md-item-text="'DeviceId: '+item.DeviceId+' -- SiteCode: '+item.SiteCode"
+          md-item-text="item.SiteCode || item.DeviceId"
           md-min-length="0"
           placeholder="Choose a station"
           md-menu-class="autocomplete-custom-template">
 					<md-item-template>
 						<span class="item-title">
 							<i class="fa fa-flag" style="color: red" aria-hidden="true"></i>
-							<span> {{item.DeviceId || item.SiteCode}} </span>
+							<span> {{item.SiteCode || item.DeviceId}} </span>
 						</span>
 						<span class="item-metadata">
 							<span>
 								<strong>Site Name: </strong> <em>{{item.SiteName}}</em>
 							</span>
-							<span ng-if="item.DeviceId">
-								<strong>Site Code: </strong> <em>{{item.SiteCode}}</em>
+							<span>
+								<strong>Site Code: </strong> <em>{{item.SiteCode || " --- "}}</em>
+							</span>
+							<span>
+								<strong>Device ID: </strong> <em>{{item.DeviceId}}</em>
 							</span>
 							<span>
 								<strong>Latitude: </strong><em>{{item.Latitude}}</em>
 							</span>
 							<span>
 								<strong>Longitude: </strong><em>{{item.Longitude}}</em>
-							</span>
-							<span>
-								<strong>Elevation (m): </strong><em>{{item.Elevation_m}}</em>
 							</span>
 						</span>
 					</md-item-template>

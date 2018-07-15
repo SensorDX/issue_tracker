@@ -1,6 +1,6 @@
+var {sites_conn} = require('./connections');
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var SitesSchema = new Schema({
+var SitesSchema = new mongoose.Schema({
 	SiteCode: String,
 	SiteName: String,
 	Country: String,
@@ -8,5 +8,5 @@ var SitesSchema = new Schema({
 	Latitude: Number,
 	Longitude: Number,
 });
-var model = mongoose.model('Sites', SitesSchema);
+var model = sites_conn.model('Stations', SitesSchema);
 module.exports = model;

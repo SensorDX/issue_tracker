@@ -1,8 +1,8 @@
+var {issue_tracker_conn} = require('./connections');
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var LabelsSchema = new Schema({
+var LabelsSchema = new mongoose.Schema({
 	user: String,
 	name: String
 });
-var model = mongoose.model('Labels', LabelsSchema);
+var model = issue_tracker_conn.model('Labels', LabelsSchema);
 module.exports = model;
