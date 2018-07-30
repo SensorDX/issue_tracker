@@ -90,7 +90,7 @@ function geojson (data) {
 			"Site name": item.SiteName,
 			"Station ID": item.SiteCode,
 			"Station site type": "",
-			"Station status": randomStatus,
+			"Station status": item.SiteActive ? "Active" : "Closed",
 		};
 		var items = {
 			geometry: geometry,
@@ -112,10 +112,11 @@ function tahmo (data) {
 			"Elevation_m": item.elevation,
 			"Latitude": item.location ? item.location.lat : null,
 			"Longitude": item.location ? item.location.lng : null,
-			"SiteCode": item.weatherunderground ? item.weatherunderground.stationId : null,
+			"SiteCode": item.id,
 			"Country": item.countryCode,
-			"DeviceId": item.decagon ? item.decagon.deviceId : null,
-			"SiteName": item.name
+			"DeviceId": item.deviceId,
+			"SiteName": item.name,
+			"SiteActive": item.active,
 		}
 		results.push(station);
 	});

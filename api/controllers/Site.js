@@ -1,30 +1,81 @@
 //Libraries
 const Site = require('./../models/sites');
 const {geojson, tahmo}= require('./../utils');
+var fetch = require('node-fetch');
 
 module.exports = function(router) {
  //=====================
  // GET SITES
  //=====================
  router.get('/api/sites', function(req, res) {
-	const {format} = req.query;
-  Site.find({}, function(err, sites) {
-   if (err) {
-		res.status(200).send({success: false, message: 'Could not retrieve sites.'});
-   } else {
-		let data = [];
-		switch (format) {
-			case 'geojson':
-				data = geojson(tahmo(sites));
+	const {auth_type, format, provider} = req.query;
+	if (provider) {
+		let url = null;
+		let username = null;
+		let password = null;
+		let headers = null;
+		switch (provider) {
+			case 'tahmo':
+				url = "https://tahmoapi.mybluemix.net/v1/stations";
+				username = "6WYHYT0XVY7BXZHXN7HBKYAZ8";
+				password = "Rk7pZpdJ0gwxHVGr3kpbpHX6p8fk2+pJhhKAx2Nr77I";
 				break;
-			default:
-				data = tahmo(sites);
+			default: 
 				break;
 		}
-	  console.log('sites', data);
-		res.status(200).send({success: true, message: 'Sites retrieved successfully.', data: data});
-   }
-  });
+		switch (auth_type) {
+			case 'basic':
+				headers = {'Authorization': 'Basic ' + Buffer.from(username + ":" + password).toString('base64')};
+				break;
+			default:
+				headers = {'Authorization': 'Basic ' + Buffer.from(username + ":" + password).toString('base64')};
+				break;
+		}
+		fetch(url, {
+			method: 'GET',
+			headers: headers,
+		})
+		.then(function(res) {
+			return res.json();
+		})
+		.then(function(json) {
+			data = json['stations'];
+			console.log('sites from provider', data);
+			switch(format) {
+			 case 'geojson':
+				data = geojson(tahmo(data));
+				break;
+			 case 'raw':
+				break;
+			 default:
+				data = tahmo(data);
+				break;
+			}
+			res.status(200).send({success: true, message: 'Sites retrieved successfully.', data: data});
+		})
+		.catch(function(err) {
+			console.log(err);
+			res.status(200).send({success: false, message: 'Could not retrieve sites.'});
+		});
+	} else {
+		Site.find({}, function(err, sites) {
+		 if (err) {
+			res.status(200).send({success: false, message: 'Could not retrieve sites.'});
+		 } else {
+			let data = [];
+			switch (format) {
+				case 'geojson':
+					data = geojson(tahmo(sites));
+					break;
+				default:
+					data = tahmo(sites);
+					break;
+			}
+			console.log('sites', data);
+			res.status(200).send({success: true, message: 'Sites retrieved successfully.', data: data});
+		 }
+		});
+	}
  });
 
  //=====================

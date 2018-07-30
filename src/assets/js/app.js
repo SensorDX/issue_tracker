@@ -1300,7 +1300,7 @@ App.factory('UserService', ['$http', function($http) {
 		});
 	}
 
-	function GetUsers(fields=[], roles=['agent']) {
+	function GetUsers(fields=[], roles=['agent,manager']) {
 		if (fields && fields.length > 0) {
 			return $http.get('api/users?role='+roles.join(',')+'&&fields='+fields.join(','));
 		}
@@ -1368,7 +1368,7 @@ App.factory('IssueService', ['$http', function($http) {
 
 	function GetLabels() {
 		return new Promise(function(resolve) {
-			const labels = ['None', 'sensor failure', 'help wanted', 'question', 'bug'];
+			const labels = ['None', 'sensor failure', 'battery problem', 'communication problem', 'general maintenance'];
 			resolve({data: {success: true, data: labels}});
 		});
 	}
@@ -1421,8 +1421,8 @@ App.factory('SiteService', ['$http', function($http) {
 	service.GetSiteByCode = GetSiteByCode;
 	return service;
 
-	function GetSites(format="") {
-		return $http.get('api/sites?format='+format);
+	function GetSites(provider="tahmo", format="") {
+		return $http.get('api/sites?provider='+provider+'&format='+format);
 	}
 
 	function GetSiteByCode(sitecode) {

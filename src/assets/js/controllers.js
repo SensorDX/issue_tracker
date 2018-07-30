@@ -274,28 +274,31 @@ App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$lo
 		})
 
 		SiteService.GetSites().then(function(response) {
-			const sites = response.data;
-			$scope.sites = [];
-			if (sites.success) {
-				$scope.sites = sites.data;
-				if ($scope.sites && $scope.sites.length > 0) {
-					$scope.sites.map( function (site) {
-						site.sitecode = site.SiteCode ? site.SiteCode.toLowerCase() : null;
-						site.deviceid = site.DeviceId ? site.DeviceId.toLowerCase() : null;
-						site.sitename = site.SiteName ? site.SiteName.toLowerCase() : null;
-					});
+				const sites = response.data;
+				$scope.sites = [];
+				if (sites.success) {
+					$scope.sites = sites.data;
+					if ($scope.sites && $scope.sites.length > 0) {
+						$scope.sites.map( function (site) {
+							site.sitecode = site.SiteCode ? site.SiteCode.toLowerCase() : null;
+							site.deviceid = site.DeviceId ? site.DeviceId.toLowerCase() : null;
+							site.sitename = site.SiteName ? site.SiteName.toLowerCase() : null;
+						});
+					}
+				} else {
+					Toast.Danger(sites.message);
 				}
-			} else {
-				Toast.Danger(sites.message);
-			}
-		});
+			})
 
     $scope.querySearch   = querySearch;
     $scope.selectedItemChange = selectedItemChange;
     $scope.searchTextChange   = searchTextChange;
 
     function querySearch (query) {
-      const results = query ? $scope.sites.filter( createFilterFor(query) ) : $scope.sites;
+			let results = [];
+			if ($scope.sites && $scope.sites.length > 0) {
+      	results = query ? $scope.sites.filter( createFilterFor(query) ) : $scope.sites;
+			}
 			console.log("query search results for new issues", results);
       return results;
     }
@@ -401,9 +404,12 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
     $scope.searchTextChange   = searchTextChange;
 
     function querySearch (query) {
-      const results = query ? $scope.sites.filter( createFilterFor(query) ) : $scope.sites;
+			let results = [];
+			if ($scope.sites && $scope.sites.length > 0) {
+      	results = query ? $scope.sites.filter( createFilterFor(query) ) : $scope.sites;
+			}
 			console.log("query search results for edited issues", results);
-			return results;
+      return results;
     }
     function createFilterFor(query) {
       const lowercaseQuery = angular.lowercase(query);
@@ -469,8 +475,8 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 		};
 }]);
 
-App.controller('DashboardCtrl', ['$scope', '$rootScope', '$localStorage', '$http', '$window', '$uibModal', '$state', '$stateParams', 'ModalService',
-	function ($scope, $rootScope, $localStorage, $http, $window, $uibModal, $state, $stateParams, ModalService) {
+App.controller('DashboardCtrl', ['$scope', '$rootScope', '$localStorage', '$http', '$window', '$uibModal', '$state', '$stateParams', 'ModalService', 'SiteService',
+	function ($scope, $rootScope, $localStorage, $http, $window, $uibModal, $state, $stateParams, ModalService, SiteService) {
 				$scope.user = $rootScope.globals.currentUser.user;
 				var from = $stateParams.from;
 				var feature = ModalService.getModalInstance();
@@ -512,6 +518,7 @@ App.controller('DashboardCtrl', ['$scope', '$rootScope', '$localStorage', '$http
 					'Closed': broken
 				};
 
+				*/
 				$scope.sensorstate = function(state) {
 					switch(state) {
 						case 'Active':
@@ -524,7 +531,41 @@ App.controller('DashboardCtrl', ['$scope', '$rootScope', '$localStorage', '$http
 								return '#d43e2a'; 
 					}
 				}
-				*/
+				SiteService.GetSites("tahmo", "geojson").then(function(response) {
+					const sites = response.data;
+					if (sites.success) {
+						angular.extend($scope, {
+								geojson: {
+										data: sites.data,
+										pointToLayer: function(feature, latlng) {
+												return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
+										}
+								},
+								defaults: {
+										scrollWheelZoom: false
+								}
+						});
+						$scope.features = [];
+						$scope.sensorcount = {
+							active: 0,
+							delay: 0,
+							closed: 0,
+						}
+						for (var i in $scope.geojson.data.features) {
+							if ($scope.geojson.data.features[i].properties['Station status'] == 'Active')
+								$scope.sensorcount.active++;
+							if ($scope.geojson.data.features[i].properties['Station status'] == 'Delay')
+								$scope.sensorcount.delay++;
+							if ($scope.geojson.data.features[i].properties['Station status'] == 'Closed')
+								$scope.sensorcount.closed++;
+
+							$scope.features.push($scope.geojson.data.features[i]);
+						}
+					} else {
+						Toast.Danger(sites.message);
+					}
+				});
+				/*
 				$http.get("/api/sites?format=geojson").success(function(data, status) {
 						angular.extend($scope, {
 								geojson: {
@@ -554,6 +595,7 @@ App.controller('DashboardCtrl', ['$scope', '$rootScope', '$localStorage', '$http
 							$scope.features.push($scope.geojson.data.features[i]);
 						}
 				});
+				*/
 				$scope.details = function(type) {
 					$scope.features = [];
 					$scope.geometry = [];
@@ -701,7 +743,7 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state
   }
 ])
 
-App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', function ($scope, $uibModal, $http, ModalService) {
+App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', 'SiteService', function ($scope, $uibModal, $http, ModalService, SiteService) {
 		var working = L.AwesomeMarkers.icon({ 
 				icon: 'circle',
 				markerColor: 'green',
@@ -752,6 +794,78 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', funct
 			ModalService.setModalInstance(feature);
     }
     $scope.$on('leaflet', function (event, leaflet) {
+			SiteService.GetSites("tahmo", "geojson").then(function(response) {
+				const sites = response.data;
+				if (sites.success) {
+					angular.extend($scope, {
+							geojson: {
+									data: sites.data,
+							},
+							defaults: {
+									scrollWheelZoom: false
+							}
+					});
+					$scope.features = [];
+					var markers = L.markerClusterGroup({ chunkedLoading: true });
+					var gg = $scope.geojson.data;
+					mylayer = L.geoJSON(gg, {
+						pointToLayer: function(feature, latlng) {
+								return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
+						}
+					})
+					mylayer.addTo(markers);
+					markers.addTo(leaflet);
+					mylayer.on('click', $scope.openModal);
+					$scope.centerJSON = function (type="all") {
+						mylayer.removeFrom(leaflet);
+						mylayer = L.geoJSON(gg, {
+							pointToLayer: function(feature, latlng) {
+								var mymarker = null;
+								if (feature.properties['Station status'] == type) {
+									mymarker = new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
+								} else if (type == "all") {
+									mymarker = new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
+								} else {
+									mymarker = null;
+								}
+								return mymarker;
+							}
+						})
+						mylayer.addTo(markers);
+						markers.addTo(leaflet);
+						mylayer.on('click', $scope.openModal);
+						var latlngs = [];
+						for (var i in $scope.geojson.data.features) {
+								if ($scope.geojson.data.features[i].properties['Station status'] == type) {
+									var points = $scope.geojson.data.features[i].geometry.coordinates;
+									$scope.features.push($scope.geojson.data.features[i]);
+									latlngs.push(L.GeoJSON.coordsToLatLng(points));
+								}
+								if (type=="all") {
+									var points = $scope.geojson.data.features[i].geometry.coordinates;
+									$scope.features.push($scope.geojson.data.features[i]);
+									latlngs.push(L.GeoJSON.coordsToLatLng(points));
+								}
+						}
+						if (latlngs.length > 0) {
+							leaflet.fitBounds(latlngs);
+						}
+					}
+					$scope.centerSingleJSON = function (coordinates) {
+						var latlngs = [];
+						latlngs.push(L.GeoJSON.coordsToLatLng(coordinates));
+						if (latlngs.length > 0) {
+							console.log("latlngs is:");
+							console.log(latlngs);
+							leaflet.fitBounds(latlngs);
+						}
+					}
+					$scope.centerJSON();
+				} else {
+					Toast.Danger(sites.message);
+				}
+			});
+			/*
 			$http.get("/api/sites?format=geojson").success(function(data, status) {
 					angular.extend($scope, {
 							geojson: {
@@ -820,6 +934,7 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', funct
 					}
 					$scope.centerJSON();
 			});
+			*/
     })
 		$scope.$on('center', function(event, type) {
 			console.log('this is the type');
