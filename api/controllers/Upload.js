@@ -1,5 +1,6 @@
 //Libraries
 const path = require('path');
+const q = require('q');
 var AWS = require('ibm-cos-sdk');
 var config = {
     endpoint: 's3-api.us-geo.objectstorage.softlayer.net/',
@@ -7,6 +8,7 @@ var config = {
     ibmAuthEndpoint: 'iam.ng.bluemix.net/oidc/token',
     serviceInstanceId: 'crn:v1:bluemix:public:cloud-object-storage:global:a/16a94a5aac6765350e3b23814baba84b:cfff3f7d-aa64-44b8-9361-56d507fcf62b::'
 };
+AWS.config.setPromisesDependency(require('q').Promise);
 var cos = new AWS.S3(config);
 
 function uploadImage(bucketName, itemName, data) {
