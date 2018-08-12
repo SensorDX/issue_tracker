@@ -56,3 +56,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# removing email credentials -- should be secret
+api/controllers/config/credentials.js

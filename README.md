@@ -18,6 +18,24 @@ Standard coding
 npm install
 node server.js
 ```
+## Setting up email service
+To enable email functionality, please create a credentials file in
+```ruby
+api/controllers/config
+```
+
+that looks like the following:
+```ruby
+{
+	email: {
+		user: 'account@domain.com',
+		password: 'account_password',
+		host: 'my_smtp_host.com',
+		port: 'xxx'
+	}
+}
+```
+
 ## Notes
 
 This issue tracker is still in the making. While we're cooking good stuff for our beloved community, 
