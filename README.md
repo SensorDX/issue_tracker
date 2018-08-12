@@ -27,12 +27,12 @@ api/controllers/config
 that looks like the following:
 ```ruby
 {
-	email: {
-		user: 'account@domain.com',
-		password: 'account_password',
-		host: 'my_smtp_host.com',
-		port: 'xxx'
-	}
+  email: {
+    user: 'account@domain.com',
+    password: 'account_password',
+    host: 'my_smtp_host.com',
+    port: 'xxx'
+  }
 }
 ```
 
