@@ -11578,6 +11578,11 @@ div.tagsinput span.tag a:hover {
 	border-color: #d8110c !important;
 	color: white !important;
 }
+.general-maintenance {
+	background-color: #eab214 !important;
+	border-color: #eab214 !important;
+	color: white !important;
+}
 .sensor-failure {
 	background-color: #607d8b !important;
 	border-color: #607d8b !important;
@@ -11588,7 +11593,17 @@ div.tagsinput span.tag a:hover {
 	border-color: #2196f3 !important;
 	color: white !important;
 }
+.battery-problem {
+	background-color: #2196f3 !important;
+	border-color: #2196f3 !important;
+	color: white !important;
+}
 .help-wanted {
+	background-color: #4caf50 !important;
+	border-color: #4caf50 !important;
+	color: white !important;
+}
+.communication-problem {
 	background-color: #4caf50 !important;
 	border-color: #4caf50 !important;
 	color: white !important;

@@ -1,12 +1,13 @@
 //Libraries
-const credentials =require('./../../config/settings.js');
+const credentials =require('./config/credentials.js');
 const nodemailer = require('nodemailer');
 const mailTransport = nodemailer.createTransport({
- service: 'Gmail',
- host: "smtp.gmail.com",
+ host: credentials.email.host,
+ port: credentials.email.port,
+ secure: true,
  auth: {
-  user: credentials.gmail.user,
-  pass: credentials.gmail.password,
+  user: credentials.email.user,
+  pass: credentials.email.password,
  } 
 });
 
@@ -15,23 +16,22 @@ module.exports = function(router) {
  // EMAIL USER
  //=====================
 	 router.post('/api/sendmail', function(req, res) {
-		 var sender = req.body.from;
 		 var receiver = req.body.to;
 		 var subject = req.body.subject;
 		 var text = req.body.text;
 
 		 mailTransport.sendMail({
-			from: sender, //+ ' <renemidouin@gmail.com>',
+			from: credentials.email.user,
 			to: receiver,
 			subject: subject,
-			text: text
+			html: text
 		 }, function(err){
 				if(err) {
 				 console.error( 'Unable to send email: ' + err );
-				 res.status(200).send({success: false, message: 'Could not send email.', data: error});
+				 res.status(200).send({success: false, message: 'Could not send email.', data: err});
 				} else {
 				 console.log('Mail sent');
-				 res.status(200).send({success: false, message: 'Email sent successfully.'});
+				 res.status(200).send({success: true, message: 'Email sent successfully.'});
 				}
 		 });
 	 });

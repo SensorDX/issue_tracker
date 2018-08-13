@@ -52,7 +52,7 @@ function modifyCommentsDate(comments) {
 	let items = {};
 	comments.map(function(item, index) {
 		items = Object.assign(item.toObject(), {
-			date_opened_formatted: date_diff(item.created_at, new Date()),
+			date_opened_formatted: date_diff(item.updated_at, new Date()),
 		});
 		results.push(items);
 	});

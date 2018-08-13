@@ -52,12 +52,12 @@
 									<span><strong>{{issue.opened_by.full_name}}</strong></span> 
 							</div>
 							<div style="float: right;" class="col-md-6 col-xs-12">
-									<md-button data-ui-sref="newissues" class="right md-raised md-primary">New Issue</md-button>
-									<md-button aria-label="close issue" ng-click="closeIssue(issue)" class="right md-raised md-primary">
+									<md-button data-ui-sref="newissues" class="col-xs-12 col-sm-3 right md-raised md-primary">New Issue</md-button>
+									<md-button aria-label="close issue" ng-click="closeIssue(issue)" class="col-xs-12 col-sm-3 right md-raised md-primary">
 										<span ng-if='issue.status == "open"'>Close Issue</span>
 										<span ng-if="issue.status == 'close'">Open Issue</span>
 									</md-button>
-									<md-button data-ui-sref="editissues({id: issue._id})" class="right md-raised md-primary">Edit</md-button>
+									<md-button data-ui-sref="editissues({id: issue._id})" class="col-xs-12 col-sm-3 right md-raised md-primary">Edit</md-button>
 							</div>
 							<div style="margin: 25px 0" class="col-xs-12">
 							 <md-divider></md-divider>
@@ -87,17 +87,22 @@
                         <div class="js-chat-talk overflow-y-auto block-content block-content-full" data-chat-id="5">
                             <!-- Messages -->
 														<div ng-repeat="comment in comments" class="row" style="margin-bottom: 30px;">
-															<div class="col-xs-1">
+															<div class="col-sm-1 col-xs-12">
 																<img class="img-avatar img-avatar-thumb" src="assets/img/avatars/avatar10.jpg" alt="">
 															</div>
-															<div class="col-xs-10" style="/* margin-top: 10px; */">
+															<div class="col-sm-10 col-xs-12" style="/* margin-top: 10px; */">
 																<md-card class="_md">
 																	<md-card-content style="padding: 0;">
-																		<div style="margin-bottom: 0;/* background-color: #5b90d2; */padding-left: 20px;padding: 15px;" class="bg-gray-lighter">
-																			<span style="/* color: white; */font-weight: bold;">{{comment.created_by.full_name}}</span>
-																			<span style="/* color: white; */">commented {{comment.date_opened_formatted}} ago</span>
+																		<div>
+																			<div style="margin-bottom: 0;/* background-color: #5b90d2; */padding-left: 20px;padding: 15px;" class="bg-gray-lighter">
+																				<span style="/* color: white; */font-weight: bold;">{{comment.created_by.full_name}}</span>
+																				<span style="/* color: white; */">commented {{comment.date_opened_formatted}} ago</span>
+																				<span ng-if="editing[comment._id] !== true" ng-click="edit(comment)" style="float: right; cursor: pointer; text-decoration: underline;">Edit <i class="si si-pencil"></i></span>
+																				<span ng-if="editing[comment._id] == true" ng-click="save(comment)" style="float: right; cursor: pointer; text-decoration: underline;">Save</i></span>
+																				<span ng-if="editing[comment._id] == true" ng-click="cancel(comment)" style="margin-right: 10px; float: right; cursor: pointer; text-decoration: underline;">Cancel </i></span>
+																			</div>
 																		</div>
-																		<div class="" style="min-height: 64px;padding-left: 15px;padding-top: 15px;">
+																		<div ng-attr-id="{{'click2edit_' + comment._id}}" style="min-height: 64px;padding-left: 15px;padding-top: 15px;">
 																			<p ng-bind-html="comment.message"></p>
 																		</div>
 																	</md-card-content>

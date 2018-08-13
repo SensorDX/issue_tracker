@@ -6,15 +6,6 @@ var fs = require('fs-path');
 var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var credentials =require('../config/settings.js');
-var mailTransport = nodemailer.createTransport({ 
- service: 'Gmail',
- host: "smtp.gmail.com",
- auth: {
-  user: credentials.gmail.user,
-  pass: credentials.gmail.password,
- } 
-});
-
 /**
  * Initiate Models
  */
@@ -74,7 +65,7 @@ module.exports = function(router) {
   *   user: "admin",
   *   name: "sensor failure",
   * }
- *
+  *
   * @apiSuccessExample Type Param Success-Response:
   * HTTP/1.1 200 OK
   * {
@@ -1075,27 +1066,6 @@ module.exports = function(router) {
   *   success: "Email was sent",
   * }
   */
- router.post('/api/sendmail', function(req, res) {
-   var sender = req.body.from;
-   var receiver = req.body.to;
-   var subject = req.body.subject;
-   var text = req.body.text;
-
-   mailTransport.sendMail({
-    from: sender, //+ ' <renemidouin@gmail.com>',
-    to: receiver,
-    subject: subject,
-    text: text
-   }, function(err){
-      if(err) {
-       console.error( 'Unable to send email: ' + err );
-       res.status(200).send({success: false, message: 'Could not send email.', data: error});
-      } else {
-       console.log('Mail sent');
-       res.status(200).send({success: false, message: 'Email sent successfully.'});
-      }
-   });
- });
 
  /**
   * @api {get} /api/sensors/types Get all types of sensors

@@ -161,7 +161,8 @@ function ($scope, $window, $http, UserService, IssueService, SiteService, Toast)
 App.controller('ViewIssueCtrl', ['$rootScope', '$scope', '$window', '$http', '$location', '$state', '$stateParams', '$sce', 'IssueService', 'CommentService', 'Toast',
 function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $sce, IssueService, CommentService, Toast) {
 		const _id = $stateParams.id;
-		//const {_id, full_name} = $rootScope.globals.currentUser.user;
+		$scope.editing = {};
+		$scope.old_message = {};
 		$scope.comment_to_post = {
 			message: '',
 			created_by: {
@@ -178,6 +179,41 @@ function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $
 				Toast.Danger(issue.message);
 			}
 		});
+		$scope.edit = function(comment) {
+			console.log('comment was clicked', comment);
+			$scope.editing[comment._id] = true;
+			$scope.old_message[comment._id] = comment.message;
+			jQuery('#click2edit_'+comment._id).summernote({focus: true});
+			console.log('edit', $scope.editing);
+		};
+		$scope.cancel = function(comment) {
+			$scope.editing[comment._id] = false;
+			console.log('cancel', $scope.editing);
+			$('#click2edit_'+comment._id).summernote('code', $scope.old_message[comment._id]);
+			$('#click2edit_'+comment._id).summernote('destroy');
+		}
+		$scope.save = function(comment) {
+			$scope.editing[comment._id] = false;
+			var markup = $('#click2edit_'+comment._id).summernote('code');
+			comment.message = markup;
+			console.log('save', $scope.editing);
+			CommentService.UpdateComment(comment).then(function(response) {
+				const updated_comment = response.data;
+				if (updated_comment.success) {
+					console.log('updated comment', updated_comment);
+					$('#click2edit_'+comment._id).summernote('code', markup);
+					Toast.Success(updated_comment.message);
+					$('#click2edit_'+comment._id).summernote('destroy');
+				} else {
+					Toast.Danger(updated_comment.message);
+					$('#click2edit_'+comment._id).summernote('destroy');
+				}
+			}, function (error) {
+				console.log("couldn't load comments", error);	
+				Toast.Danger(error.statusText);
+				$('#click2edit_'+comment._id).summernote('destroy');
+			});
+		}
 		$scope.comment = function() {
 			console.log('commenting ...');
 			var mark = jQuery('#my_summernote').summernote('code');
@@ -224,8 +260,8 @@ function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $
 		};
 }]);
 
-App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', 'ModalService', 'UserService', 'IssueService', 'SiteService', 'Toast',
-	function ($rootScope, $scope, $http, $window, $location, $state, $stateParams, $log, $q, ModalService, UserService, IssueService, SiteService, Toast) {
+App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$location', '$state', '$stateParams', '$log', '$q', 'ModalService', 'UserService', 'IssueService', 'SiteService', 'EmailService', 'Toast',
+	function ($rootScope, $scope, $http, $window, $location, $state, $stateParams, $log, $q, ModalService, UserService, IssueService, SiteService, EmailService, Toast) {
 		const {_id, full_name} = $rootScope.globals.currentUser.user;
 		$scope.issue = {
 			title: '',
@@ -252,7 +288,7 @@ App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$lo
 			console.log(label);
 			$scope.issue.labels = label;
 		};
-		UserService.GetUsers(['full_name']).then(function(response) {
+		UserService.GetUsers(['full_name, email']).then(function(response) {
 			const assignees = response.data;
 			console.log('assignees', assignees);
 			if (assignees.success) {
@@ -331,17 +367,33 @@ App.controller('NewIssueCtrl', ['$rootScope', '$scope', '$http', '$window', '$lo
 		}
 
 		$scope.submitIssue = function(issue) {
+			const {email} = issue.assignee;
+			delete issue.assignee.email;
 			IssueService.CreateIssue(issue).then(function(response) {
-				const issue = response.data;
-				if(issue.success) {
-					Toast.Success(issue.message);
+				const new_issue = response.data;
+				if(new_issue.success) {
+					Toast.Success(new_issue.message);
+					const mail = {
+						to: email,
+						subject: 'You have been assigned a new ticket.',
+						text: issue.opened_by.full_name+' has assigned you a new ticket. <br/> <strong>Due date:</strong> '+issue.due_date
+					}
+					EmailService.SendMail(mail).then(function(response) {
+						const email = response.data;
+						console.log('email response', email);
+						if (email.success) {
+							Toast.Success(email.message);
+						} else {
+							Toast.Danger(email.message);
+						}
+					});
 					if (from == "modal") {
 						$state.go('dashboard', {from: "issues"});
 					} else {
 						$state.go('issues');
 					}
 				} else {
-					Toast.Danger(issue.message);
+					Toast.Danger(new_issue.message);
 				}
 			});
 		};
@@ -1327,6 +1379,7 @@ App.controller('SettingsCtrl', ['$scope', '$location', '$localStorage', '$timeou
 // User Profile Controller
 App.controller('ProfileCtrl', ['$rootScope', '$scope', '$http', '$stateParams', '$mdDialog', 'UserService', 'ProfileService',
     function ($rootScope, $scope, $http, $stateParams, $mdDialog, UserService, ProfileService) {
+			console.log('user', $rootScope);
 			if (!$stateParams.id) {
 				$scope.id = $rootScope.globals.currentUser.id;
 			} else {
@@ -1383,7 +1436,7 @@ App.controller('ProfileCtrl', ['$rootScope', '$scope', '$http', '$stateParams', 
 						$scope.status = 'You cancelled the dialog.';
 					});
 				};
-				function DialogController($scope, $http, $window, $mdDialog, UserService, AuthService, Toast, ProfileService) {
+				function DialogController($scope, $http, $window, $mdDialog, UserService, AuthService, Toast, ProfileService, EmailService) {
 					console.log('add_user_tmpl');
 					$scope.user = {
 						first_name: '',
@@ -1400,6 +1453,7 @@ App.controller('ProfileCtrl', ['$rootScope', '$scope', '$http', '$stateParams', 
 					UserService.GetManagers().then(function(response) {
 						const result = response.data;
 						$scope.managers = result.data;
+						console.log('managers', $scope.managers);
 					});
 					UserService.GetRoles().then(function(response) {
 						$scope.roles = response;
@@ -1429,13 +1483,25 @@ App.controller('ProfileCtrl', ['$rootScope', '$scope', '$http', '$stateParams', 
 								UserService.CreateUser(user).then(function(response) {
 									const new_user = response.data;
 									if (new_user.success) {
-										console.log('new user created', new_user);
 										Toast.Success(new_user.message);
 										AuthService.CreateAccount({email: user.email})
 										.then(function(response) {
 											const new_account = response.data;
 											if (new_account.success) {
-												console.log('new account created', new_account);
+												const mail = {
+													to: new_user.data.email,
+													subject: 'Your SensorDX Issue Tracker account has been created!',
+													text: 'Your login info: <br/><br/><strong>Issue Tracker Website:</strong> https://tahmoissuetracker.mybluemix.net <br /> <strong>Email:</strong> '+new_user.data.email+'<br /><strong>Password:</strong> '+new_account.data,
+												}
+												EmailService.SendMail(mail).then(function(response) {
+													const email = response.data;
+													console.log('email response', email);
+													if (email.success) {
+														Toast.Success(email.message);
+													} else {
+														Toast.Danger(email.message);
+													}
+												});
 												Toast.Success(new_account.message);
 												$mdDialog.hide();
 												ProfileService.reset();

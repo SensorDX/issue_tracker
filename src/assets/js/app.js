@@ -1437,6 +1437,8 @@ App.factory('CommentService', ['$http', function($http) {
 	service.GetCommentById = GetCommentById;
 	//POST
 	service.CreateComment = CreateComment;
+	//PUT
+	service.UpdateComment = UpdateComment;
 	//DELETE
 	service.DeleteCommentById = DeleteCommentById;
 	return service;
@@ -1453,7 +1455,30 @@ App.factory('CommentService', ['$http', function($http) {
 		return $http.post('api/comments', comment);
 	}
 
+	function UpdateComment(comment) {
+		return $http.put('api/comments/'+comment._id, comment);
+	}
+
 	function DeleteCommentById(id) {
 		return $http.delete('api/comments/'+id);
+	}
+}]);
+
+App.factory('EmailService', ['$http', function($http) {
+	let service = {};
+	service.SendMail = SendMail;
+	service.SendMailByType = SendMailByType;
+	return service;
+
+	function SendMail(mail) {
+		return $http.post('api/sendmail', mail);
+	}
+	function SendMailByType(receiver, type='new_account') {
+		let mail = {};
+		mail.to = receiver;
+		switch (type) {
+
+		}
+		return $http.post('api/sendmail', mail);
 	}
 }]);

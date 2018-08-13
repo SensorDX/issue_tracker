@@ -94,6 +94,34 @@ module.exports = function(router) {
 			}
 		});
   });
+  //======================
+  // UPDATE COMMENTS BY ID
+  //======================
+  router.put('/api/comments/:id', function(req, res) {
+		let update = {};
+		let isUpdated = false;
+		const {id} = req.params;
+		const {message} = req.body;
+
+		if (message) {
+			update.message = message;
+			isUpdated = true;
+		}
+
+		if (isUpdated) {
+			update.updated_at = new Date();
+			Comment.findOneAndUpdate({_id: id}, update, {new: true}, function(err, comment) {
+			 if (err) {
+				res.status(200).send({success: false, message: 'Error updating comment.'});
+			 } else {
+				console.log('comment updated', comment);
+				res.status(200).send({success: true, message: 'Comment updated.', data: comment});
+			 }
+			});
+		} else {
+			res.status(200).send({success: false, message: 'Nothing to update.'});
+		}
+	});
 
   //======================
   // DELETE COMMENT BY ID
