@@ -29,8 +29,8 @@ function ($scope, $state, $cookies, AuthService, Toast) {
 		}
 }]);
 
-App.controller('IssueCtrl', ['$scope', '$window', '$http', 'UserService', 'IssueService', 'SiteService', 'Toast',
-function ($scope, $window, $http, UserService, IssueService, SiteService, Toast) {
+App.controller('IssueCtrl', ['$rootScope', '$scope', '$window', '$http', 'UserService', 'IssueService', 'SiteService', 'Toast',
+function ($rootScope, $scope, $window, $http, UserService, IssueService, SiteService, Toast) {
 		$scope.issue = {
 			assignee: null,
 			labels: [],
@@ -39,6 +39,41 @@ function ($scope, $window, $http, UserService, IssueService, SiteService, Toast)
 			station: "",
 			status: null
 		};
+		$scope.filter_assignee = {
+			_id: $rootScope.globals.currentUser.user._id,
+			full_name: $rootScope.globals.currentUser.user.full_name
+		}
+		$scope.selectAssignee = function() {
+			console.log('choosing assignee', $scope.filter_assignee);
+			const assignee_id = $scope.filter_assignee ? $scope.filter_assignee._id : "";
+			IssueService.GetIssues("open", assignee_id).then(function(response) {
+				const issues = response.data;
+				if (issues.success) {
+					$scope.openIssues = issues.data;
+					$scope.tabs.openCount = issues.count;
+				} else {
+					Toast.Danger(issues.message);
+				}
+			});
+			IssueService.GetIssues("close", assignee_id).then(function(response) {
+				const issues = response.data;
+				if (issues.success) {
+					$scope.closeIssues = issues.data;
+					$scope.tabs.closeCount = issues.count;
+				} else {
+					Toast.Danger(issues.message);
+				}
+			});
+			IssueService.GetIssues("", assignee_id).then(function(response) {
+				const issues = response.data;
+				if (issues.success) {
+					$scope.allIssues = issues.data;
+					$scope.tabs.allCount = issues.count;
+				} else {
+					Toast.Danger(issues.message);
+				}
+			});
+		}
 		$scope.updateLabels = function(label) {
 			console.log(label);
 			$scope.issue.labels = label;
@@ -116,33 +151,6 @@ function ($scope, $window, $http, UserService, IssueService, SiteService, Toast)
 				Toast.Danger(sites.message);
 			}
 		});
-		IssueService.GetIssues("open").then(function(response) {
-			const issues = response.data;
-			if (issues.success) {
-				$scope.openIssues = issues.data;
-				$scope.tabs.openCount = issues.count;
-			} else {
-				Toast.Danger(issues.message);
-			}
-		});
-		IssueService.GetIssues("close").then(function(response) {
-			const issues = response.data;
-			if (issues.success) {
-				$scope.closeIssues = issues.data;
-				$scope.tabs.closeCount = issues.count;
-			} else {
-				Toast.Danger(issues.message);
-			}
-		});
-		IssueService.GetIssues("").then(function(response) {
-			const issues = response.data;
-			if (issues.success) {
-				$scope.allIssues = issues.data;
-				$scope.tabs.allCount = issues.count;
-			} else {
-				Toast.Danger(issues.message);
-			}
-		});
 		$scope.updateIssue = function(issue) {
 			IssueService.UpdateIssues(issue).then(function(response) {
 				const issue = response.data;
@@ -156,6 +164,7 @@ function ($scope, $window, $http, UserService, IssueService, SiteService, Toast)
 				$window.location.reload();
 			});
 		};
+		$scope.selectAssignee();
 }]);
 
 App.controller('ViewIssueCtrl', ['$rootScope', '$scope', '$window', '$http', '$location', '$state', '$stateParams', '$sce', 'IssueService', 'CommentService', 'Toast',

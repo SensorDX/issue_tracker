@@ -14,12 +14,17 @@ module.exports = function(router) {
   // GET ISSUES
   //=====================
   router.get('/api/issues', function(req, res) {
-    const {status} = req.query;
-    let query = {};
+    const {status, assignee} = req.query;
+		console.log('req.query', req.query);
+    let status_query = {};
+		let assignee_query = {};
     if (status) {
-      query = {status};
+      status_query = {status};
     }
-    Issue.find(query, function(err, issues) {
+		if (assignee) {
+			assignee_query = {"assignee._id": assignee}
+		}
+    Issue.find({ $and: [status_query, assignee_query]}, function(err, issues) {
       if (err) {
         res
           .status(200)

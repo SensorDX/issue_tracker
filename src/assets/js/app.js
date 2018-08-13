@@ -1380,11 +1380,8 @@ App.factory('IssueService', ['$http', function($http) {
 		});
 	}
 
-	function GetIssues(status="") {
-		if(status) {
-			return $http.get('api/issues?status='+status);
-		}
-		return $http.get('api/issues');
+	function GetIssues(status="", assignee="") {
+		return $http.get('api/issues?status='+status+'&assignee='+assignee);
 	}
 
 	function GetIssueById(id) {

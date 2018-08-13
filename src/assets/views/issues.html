@@ -9,6 +9,15 @@
 .issue-title :hover {
 	text-decoration: underline !important;
 }
+md-select .md-select-value {
+	border-bottom-color: white;
+}
+md-select:not([disabled]):focus .md-select-value {
+	border-bottom-color: white;
+}
+md-select:not([disabled]):focus .md-select-value {
+	color: white;
+}
 md-input-container .md-input {
 	border-color: white;
 	color: white;
@@ -80,11 +89,22 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
     <div class="row">
         <div class="col-lg-12">
 						<md-toolbar class="md-theme-light" style="justify-content: center">
-							<md-input-container style="margin-left: 20px" class="col-xs-4 md-block">
-								<label style="color: white">Search</label>
-								<md-icon md-svg-src="assets/img/icons/md-search.svg" class="name"></md-icon>
-								<input ng-model="searchBox" type="text">
-							</md-input-container>
+							<div layout-gt-sm="row">
+								<md-input-container style="margin-left: 20px" class="col-xs-4 md-block">
+									<label style="color: white">Search</label>
+									<md-icon md-svg-src="assets/img/icons/md-search.svg" class="name"></md-icon>
+									<input ng-model="searchBox" type="text">
+								</md-input-container>
+								<md-input-container style="margin-left: 40px; font-size: 15px;">
+									<label style="color: white">Assignee</label>
+									<md-select style="min-width: 200px;" ng-model="filter_assignee" ng-model-options="{trackBy: '$value._id'}" ng-change="selectAssignee()" flex-gt-sm>
+										<md-option ng-value="none"><em>All</em></md-option>
+										<md-option ng-repeat="assignee in assignees" ng-value="assignee">
+											{{assignee.full_name}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+							</div>
 							<md-button data-ui-sref="newissues" style="margin-top: 0" class="md-raised new-issue">New Issue</md-button>
 						</md-toolbar>
 						<div ng-cloak id="popupContainer">
