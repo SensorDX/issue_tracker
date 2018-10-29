@@ -84,19 +84,19 @@
             'header-navbar-fixed': oneui.settings.headerFixed
         }">
             <!-- Side Overlay-->
-            <aside data-ng-include="'assets/views/partials/base_side_overlay.html'" data-ng-controller="SideOverlayCtrl" id="side-overlay"></aside>
+            <aside data-ng-include="'assets/views/partials/side_overlay.html'" data-ng-controller="SideOverlayCtrl" id="side-overlay"></aside>
 
             <!-- Sidebar -->
-            <nav data-ng-include="'assets/views/partials/base_sidebar.html'" data-ng-controller="SidebarCtrl" id="sidebar"></nav>
+            <nav data-ng-include="'assets/views/partials/sidebar.html'" data-ng-controller="SidebarCtrl" id="sidebar"></nav>
 
             <!-- Header -->
-            <header data-ng-include="'assets/views/partials/base_header.html'" data-ng-controller="HeaderCtrl" id="header-navbar" class="content-mini content-mini-full"></header>
+            <header data-ng-include="'assets/views/partials/header.html'" data-ng-controller="HeaderCtrl" id="header-navbar" class="content-mini content-mini-full"></header>
 
             <!-- Main Container -->
             <main id="main-container" data-autoscroll="true" data-ui-view></main>
 
             <!-- Footer -->
-            <footer data-ng-include="'assets/views/partials/base_footer.html'" id="page-footer" class="content-mini content-mini-full font-s12 bg-gray-lighter clearfix"></footer>
+            <footer data-ng-include="'assets/views/partials/footer.html'" id="page-footer" class="content-mini content-mini-full font-s12 bg-gray-lighter clearfix"></footer>
         </div>
         <!-- END Page Container -->
 

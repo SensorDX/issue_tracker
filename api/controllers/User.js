@@ -1,4 +1,3 @@
-//Libraries
 const User = require('./../models/users');
 const {
 	saltAndHash
@@ -29,7 +28,6 @@ module.exports = function(router) {
    if (err) {
 		res.status(200).send({success: false, message: 'Cannot get users.'});
    } else {
-		console.log('users retrieved', users);
 		res.status(200).send({success: true, message: 'Users retrieved.', data: users});
    }
   });
@@ -53,7 +51,6 @@ module.exports = function(router) {
 		 if (err) {
 			res.status(200).send({success: false, message: "Cannot get manager's users."});
 		 } else {
-			console.log("manager's users retrieved", users);
 			res.status(200).send({success: true, message: "Manager's users retrieved.", data: users});
 		 }
 		});
@@ -62,7 +59,6 @@ module.exports = function(router) {
 		 if (err) {
 			res.status(200).send({success: false, message: 'Cannot get user.'});
 		 } else {
-			console.log('user retrieved', user);
 			res.status(200).send({success: true, message: 'Single user retrieved.', data: user});
 		 }
 		});
@@ -130,7 +126,6 @@ module.exports = function(router) {
 		 if (err) {
 			res.status(200).send({success: false, message: 'Error updating user.'});
 		 } else {
-			console.log('user updated', user);
 			res.status(200).send({success: true, message: 'User updated.', data: user});
 		 }
 		});
@@ -184,7 +179,6 @@ module.exports = function(router) {
 				} else {
 					const encrypted_password = saltAndHash(data.password);
 					data['password'] = encrypted_password;
-					console.log('data to send', data);
 					let user = new User(data);
 					user.save(function(err, data) {
 					 if (err) {

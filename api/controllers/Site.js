@@ -40,7 +40,6 @@ module.exports = function(router) {
 		})
 		.then(function(json) {
 			data = json['stations'];
-			console.log('sites from provider', data);
 			switch(format) {
 			 case 'geojson':
 				data = geojson(tahmo(data));
@@ -54,7 +53,6 @@ module.exports = function(router) {
 			res.status(200).send({success: true, message: 'Sites retrieved successfully.', data: data});
 		})
 		.catch(function(err) {
-			console.log(err);
 			res.status(200).send({success: false, message: 'Could not retrieve sites.'});
 		});
 	} else {
@@ -71,7 +69,6 @@ module.exports = function(router) {
 					data = tahmo(sites);
 					break;
 			}
-			console.log('sites', data);
 			res.status(200).send({success: true, message: 'Sites retrieved successfully.', data: data});
 		 }
 		});

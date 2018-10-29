@@ -15,7 +15,6 @@ module.exports = function(router) {
   //=====================
   router.get('/api/issues', function(req, res) {
     const {status, assignee} = req.query;
-		console.log('req.query', req.query);
     let status_query = {};
 		let assignee_query = {};
     if (status) {
@@ -73,7 +72,6 @@ module.exports = function(router) {
           message: 'Could not retrieve the comments for the specified issue.',
         });
       } else {
-        console.log('those are the comments', issue[0].comments);
         const {comments} = issue[0];
         let query = {};
         if (typeof comments === 'object') {
@@ -112,7 +110,6 @@ module.exports = function(router) {
   router.post('/api/issues/:id/comments', function(req, res) {
     const {id} = req.params;
     const {comments} = req.body;
-    console.log('issue/id/comment/', req.body);
     if (comments == '' || comments == undefined) {
       res
         .status(200)
@@ -136,7 +133,6 @@ module.exports = function(router) {
             data: issue,
           });
         }
-        console.log(err);
       });
   });
 
@@ -149,7 +145,6 @@ module.exports = function(router) {
           message: 'Could not retrieve the comments for the specified issue.',
         });
       } else {
-        console.log('those are the comments', issue[0].comments);
         const {comments} = issue[0];
         let query = {};
         if (typeof comments === 'object') {
@@ -331,7 +326,6 @@ module.exports = function(router) {
           query = {_id: {$in: ids}};
         }
         update.updated_at = new Date();
-        console.log(update);
         Issue.update(query, {$set: update}, {multi: true, new: true}, function(err, issue) {
           if (err) {
             res
