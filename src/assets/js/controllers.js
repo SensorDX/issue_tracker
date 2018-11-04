@@ -558,6 +558,9 @@ App.controller('NewIssueCtrl', [
         const new_issue = response.data;
         if (new_issue.success) {
           Toast.Success(new_issue.message);
+          console.log('new issue created', new_issue);
+          IssueService.Subscribe(new_issue.data._id, issue.opened_by._id);
+          IssueService.Subscribe(new_issue.data._id, issue.assignee._id);
           const mail = {
             to: email,
             subject: 'You have been assigned a new ticket.',
