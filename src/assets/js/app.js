@@ -1350,7 +1350,11 @@ App.factory('IssueService', ['$http', function($http) {
 	service.GetIssues = GetIssues;
 	service.GetIssueById = GetIssueById;
 	service.GetIssueComment = GetIssueComment;
+  service.GetSubscriptionsByUser = GetSubscriptionsByUser;
+  service.GetSubscriptionsByIssue = GetSubscriptionsByIssue;
 	//POST
+  service.Subscribe = Subscribe;
+  service.Unsubscribe = Unsubscribe;
 	service.CreateIssue = CreateIssue;
 	service.PostIssueComment = PostIssueComment;
 	//PUT
@@ -1391,6 +1395,22 @@ App.factory('IssueService', ['$http', function($http) {
 	function GetIssueComment(id) {
 		return $http.get('api/issues/'+id+'/comments');
 	}
+
+  function GetSubscriptionsByUser(userId) {
+		return $http.get('api/issues/subscriptions?user_id='+userId);
+  }
+
+  function GetSubscriptionsByIssue(issueId) {
+		return $http.get('api/issues/subscriptions?issue_id='+issueId);
+  }
+
+  function Subscribe(issueId, user_id) {
+    return $http.post('api/issues/'+issueId+'/subscribe', {user_id});
+  }
+
+  function Unsubscribe(issueId, user_id) {
+    return $http.post('api/issues/'+issueId+'/unsubscribe', {user_id});
+  }
 
 	function CreateIssue(issue) {
 		return $http.post('api/issues', issue);

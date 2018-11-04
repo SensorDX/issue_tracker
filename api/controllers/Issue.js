@@ -1,7 +1,9 @@
 //Libraries
 const Issue = require('./../models/issues');
+const IssueSubscription = require('./../models/issueSubscription');
 const Comment = require('./../models/comments');
 const Counter = require('./../models/counters');
+const User = require('./../models/users');
 const mongoose = require('mongoose');
 const {
   modifyCommentsDate,
@@ -15,16 +17,16 @@ module.exports = function(router) {
   //=====================
   router.get('/api/issues', function(req, res) {
     const {status, assignee} = req.query;
-		console.log('req.query', req.query);
+    console.log('req.query', req.query);
     let status_query = {};
-		let assignee_query = {};
+    let assignee_query = {};
     if (status) {
       status_query = {status};
     }
-		if (assignee) {
-			assignee_query = {"assignee._id": assignee}
-		}
-    Issue.find({ $and: [status_query, assignee_query]}, function(err, issues) {
+    if (assignee) {
+      assignee_query = {'assignee._id': assignee};
+    }
+    Issue.find({$and: [status_query, assignee_query]}, function(err, issues) {
       if (err) {
         res
           .status(200)
@@ -41,9 +43,50 @@ module.exports = function(router) {
   });
 
   //=====================
+  // GET ISSUE SUBSCRIBTION
+  //=====================
+  router.get('/api/issues/subscriptions', function(req, res) {
+    const {user_id, issue_id} = req.query;
+    let query = user_id ? {user_id} : {};
+    query = issue_id ? {issue_id} : query;
+    const distinct = user_id ? 'issue_id' : 'user_id';
+    IssueSubscription.find(query).distinct(distinct, function(err, issues) {
+      if (err) {
+        res
+          .status(200)
+          .send({success: false, message: 'Could not retrieve issue subscriptions.'});
+      } else {
+        if (issue_id) {
+          console.log('we are here', user_id);
+          User.find({_id: {$in: issues}}, 'email', function(err, users) {
+              if(err) {
+                res
+                  .status(200)
+                  .send({success: false, message: 'Could not retrieve issue subscriptions.'});
+              } else {
+                res.status(200).send({
+                  success: true,
+                  message: 'Issue subscriptions retrieved successfully.',
+                  data: users
+                });
+              }
+          });
+
+        } else {
+          res.status(200).send({
+            success: true,
+            message: 'Issue subscriptions retrieved successfully.',
+            data: issues
+          });
+        }
+      }
+    });
+  });
+  //=====================
   // GET ISSUES BY ID
   //=====================
   router.get('/api/issues/:id', function(req, res) {
+    console.log('this is the params', req.params);
     const {id} = req.params;
     Issue.find({_id: id}, function(err, issue) {
       if (err) {
@@ -137,7 +180,8 @@ module.exports = function(router) {
           });
         }
         console.log(err);
-      });
+      },
+    );
   });
 
   router.get('/api/issues/:id/comments', function(req, res) {
@@ -194,21 +238,29 @@ module.exports = function(router) {
       labels: req.body.labels,
       priority: req.body.priority,
       station: req.body.station,
-			deviceId: req.body.deviceId,
+      deviceId: req.body.deviceId,
       status: 'open',
       updated_at: new Date(),
       due_date: req.body.due_date,
       created_at: new Date(),
     };
     for (key in data) {
-      if ((key !== "station" && key !== 'deviceId') && (data[key] == '' || data[key] == undefined)) {
-        res.status(200).send({success: false, message: 'Cannot leave ' + key + ' empty'});
+      if (
+        key !== 'station' &&
+        key !== 'deviceId' &&
+        (data[key] == '' || data[key] == undefined)
+      ) {
+        res
+          .status(200)
+          .send({success: false, message: 'Cannot leave ' + key + ' empty'});
         return;
       }
     }
-		if (!data['station'] && !data['deviceId']) {
-			res.status(200).send({success: false, message: 'Cannot leave station empty'});
-		}
+    if (!data['station'] && !data['deviceId']) {
+      res
+        .status(200)
+        .send({success: false, message: 'Cannot leave station empty'});
+    }
     getNextSequence('ticket_id').then(
       function(response) {
         if (response.seq) {
@@ -242,7 +294,8 @@ module.exports = function(router) {
           message: 'Could not generate new ticket_id. Try again later!',
         });
         return;
-      });
+      },
+    );
   });
 
   //======================
@@ -332,7 +385,10 @@ module.exports = function(router) {
         }
         update.updated_at = new Date();
         console.log(update);
-        Issue.update(query, {$set: update}, {multi: true, new: true}, function(err, issue) {
+        Issue.update(query, {$set: update}, {multi: true, new: true}, function(
+          err,
+          issue,
+        ) {
           if (err) {
             res
               .status(200)
@@ -369,6 +425,61 @@ module.exports = function(router) {
         res
           .status(200)
           .send({success: true, message: 'Issue deleted', data: []});
+    });
+  });
+
+  //=====================
+  // POST ISSUE SUBSCRIBTION
+  //=====================
+  router.post('/api/issues/:issue_id/subscribe', function(req, res) {
+    const {issue_id} = req.params;
+    const {user_id} = req.body;
+    console.log('issue/id/subscribe/', req.body);
+    if (issue_id === '' || issue_id === undefined || user_id === '' || user_id === undefined) {
+      res
+        .status(200)
+        .send({
+          success: false,
+          message: 'Unable to subscribe to issue. Please try again later!',
+        });
+      return;
+    }
+    let data = {
+      user_id,
+      issue_id
+    };
+    const issueSubscription = new IssueSubscription(data);
+    issueSubscription.save(function(err, data) {
+      if (err) {
+        res.status(200).send({
+          success: false,
+          message: 'Unable to subscribe to issue. Please try again later!',
+        });
+      } else {
+        res.status(200).send({
+          success: true,
+          message: 'Successfully subscribed to issue',
+          data: data,
+        });
+      }
+    });
+  });
+  //=====================
+  // DELETE ISSUE SUBSCRIBTION
+  //=====================
+  router.post('/api/issues/:issue_id/unsubscribe', function(req, res) {
+    const {issue_id} = req.params;
+    const {user_id} = req.body;
+    IssueSubscription.remove({issue_id, user_id}, function(err, issue) {
+      if (err)
+        res.status(200).send({
+          success: false,
+          message: 'Could not unsubscribe to issue. Please try again later!'
+        });
+      else
+        res
+          .status(200)
+          .send({success: true, message: 'Successfully unsubscribed to issue', data: []});
     });
   });
 };

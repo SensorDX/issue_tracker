@@ -130,7 +130,19 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 															</td>
 															<td>
 																<br>
-																<div style="margin-top: 10px; float: right">updated {{openIssue.date_updated_formatted}} ago</div>
+                                <div style="margin-top: 10px; float: right">updated {{openIssue.date_updated_formatted}} ago</div>
+															</td>
+															<td>
+                                <div style="margin-top: 30px; float: right">
+                                  <div>
+																	<strong>Subscribe</strong>
+                                  <md-checkbox 
+                                    ng-checked="isSubscribedTo(openIssue._id, subscribedIssues)" 
+                                    ng-click="subscribeToIssue(openIssue._id, subscribedIssues)" 
+                                    aria-label="Email Subscription">
+                                  </md-checkbox>
+                                  </div>
+                                </div>
 															</td>
 														</tr>
 													</tbody>
