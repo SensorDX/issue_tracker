@@ -180,8 +180,7 @@ module.exports = function(router) {
           });
         }
         console.log(err);
-      },
-    );
+      });
   });
 
   router.get('/api/issues/:id/comments', function(req, res) {
@@ -294,8 +293,7 @@ module.exports = function(router) {
           message: 'Could not generate new ticket_id. Try again later!',
         });
         return;
-      },
-    );
+      });
   });
 
   //======================
@@ -385,10 +383,7 @@ module.exports = function(router) {
         }
         update.updated_at = new Date();
         console.log(update);
-        Issue.update(query, {$set: update}, {multi: true, new: true}, function(
-          err,
-          issue,
-        ) {
+        Issue.update(query, {$set: update}, {multi: true, new: true}, function(err, issue) {
           if (err) {
             res
               .status(200)
