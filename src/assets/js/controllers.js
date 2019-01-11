@@ -48,8 +48,8 @@ function ($scope, $state, $cookies, AuthService, Toast) {
 		}
 }]);
 
-App.controller('IssueCtrl', ['$rootScope', '$scope', '$window', '$http', 'UserService', 'IssueService', 'SiteService', 'Toast',
-function ($rootScope, $scope, $window, $http, UserService, IssueService, SiteService, Toast) {
+App.controller('IssueCtrl', ['$rootScope', '$scope', '$window', '$http', '$localStorage', 'UserService', 'IssueService', 'SiteService', 'Toast',
+function ($rootScope, $scope, $window, $http, $localStorage, UserService, IssueService, SiteService, Toast) {
 		$scope.issue = {
 			assignee: null,
 			labels: [],
@@ -58,12 +58,19 @@ function ($rootScope, $scope, $window, $http, UserService, IssueService, SiteSer
 			station: "",
 			status: null
 		};
+    const assignee_id = $localStorage.filter_assignee 
+      ? $localStorage.filter_assignee._id
+      : $rootScope.globals.currentUser.user._id;
+    const assignee_name = $localStorage.filter_assignee 
+      ? $localStorage.filter_assignee.full_name
+      : $rootScope.globals.currentUser.user.full_name;
 		$scope.filter_assignee = {
-			_id: $rootScope.globals.currentUser.user._id,
-			full_name: $rootScope.globals.currentUser.user.full_name
+			_id: assignee_id,
+			full_name: assignee_name
 		}
 		$scope.selectAssignee = function() {
 			console.log('choosing assignee', $scope.filter_assignee);
+      $localStorage.filter_assignee =  $scope.filter_assignee || 'none';
 			const assignee_id = $scope.filter_assignee ? $scope.filter_assignee._id : "";
 			IssueService.GetIssues("open", assignee_id).then(function(response) {
 				const issues = response.data;
