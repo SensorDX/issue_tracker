@@ -3,10 +3,7 @@ var opts = {uri_decode_auth: true};
 
 // Issue Tracker DB
 var db_1 = 'mongodb://tahmo:7db_p%40%24%24word@ds261570.mlab.com:61570/sensordx-tickets';
-var issue_tracker_conn = mongoose.createConnection(db_1, opts, function(
-  err,
-  response,
-) {
+var issue_tracker_conn = mongoose.createConnection(db_1, opts, function(err, response) {
   if (err) console.log('Fail to connect to ' + db_1);
   else console.log('Successfully connected to ' + db_1);
 });
