@@ -1,6 +1,6 @@
 //Libraries
 const Site = require('./../models/sites');
-const {geojson, tahmo}= require('./../utils');
+const {geojson, siteCodeObj, tahmo}= require('./../utils');
 var fetch = require('node-fetch');
 
 module.exports = function(router) {
@@ -46,6 +46,9 @@ module.exports = function(router) {
 				break;
 			 case 'raw':
 				break;
+       case 'siteCodeObj':
+				data = siteCodeObj(tahmo(data));
+        break;
 			 default:
 				data = tahmo(data);
 				break;

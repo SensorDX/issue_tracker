@@ -10,22 +10,42 @@ const {
   modifyIssuesDate,
   getNextSequence,
 } = require('./../utils');
+var fetch = require('node-fetch');
 
 module.exports = function(router) {
   //=====================
   // GET ISSUES
   //=====================
   router.get('/api/issues', function(req, res) {
+    let url = req && req.headers ? req.headers.host : '';
+    url += '/api/sites?provider=tahmo&format=siteCodeObj';
+    url = 'https://tahmoissuetracker.mybluemix.net/api/sites?provider=tahmo&format=siteCodeObj';
+
     const {status, assignee} = req.query;
-    console.log('req.query', req.query);
     let status_query = {};
     let assignee_query = {};
+    let sites = {};
     if (status) {
       status_query = {status};
     }
     if (assignee) {
       assignee_query = {'assignee._id': assignee};
     }
+
+		fetch(url, {
+			method: 'GET',
+		})
+		.then(function(res) {
+			return res.json();
+		})
+		.then(function(response) {
+      if (response.success) {
+        sites = response.data;
+      } 
+		})
+		.catch(function(err) {
+      console.log('err', err);
+		});
     Issue.find({$and: [status_query, assignee_query]}, function(err, issues) {
       if (err) {
         res
@@ -36,7 +56,7 @@ module.exports = function(router) {
           success: true,
           message: 'Issues retrieved successfully.',
           count: issues.length,
-          data: modifyIssuesDate(issues),
+          data: modifyIssuesDate(issues, sites),
         });
       }
     });
@@ -57,7 +77,6 @@ module.exports = function(router) {
           .send({success: false, message: 'Could not retrieve issue subscriptions.'});
       } else {
         if (issue_id) {
-          console.log('we are here', user_id);
           User.find({_id: {$in: issues}}, 'email', function(err, users) {
               if(err) {
                 res
@@ -86,7 +105,6 @@ module.exports = function(router) {
   // GET ISSUES BY ID
   //=====================
   router.get('/api/issues/:id', function(req, res) {
-    console.log('this is the params', req.params);
     const {id} = req.params;
     Issue.find({_id: id}, function(err, issue) {
       if (err) {
@@ -116,7 +134,6 @@ module.exports = function(router) {
           message: 'Could not retrieve the comments for the specified issue.',
         });
       } else {
-        console.log('those are the comments', issue[0].comments);
         const {comments} = issue[0];
         let query = {};
         if (typeof comments === 'object') {
@@ -155,7 +172,6 @@ module.exports = function(router) {
   router.post('/api/issues/:id/comments', function(req, res) {
     const {id} = req.params;
     const {comments} = req.body;
-    console.log('issue/id/comment/', req.body);
     if (comments == '' || comments == undefined) {
       res
         .status(200)
@@ -192,7 +208,6 @@ module.exports = function(router) {
           message: 'Could not retrieve the comments for the specified issue.',
         });
       } else {
-        console.log('those are the comments', issue[0].comments);
         const {comments} = issue[0];
         let query = {};
         if (typeof comments === 'object') {
@@ -429,7 +444,6 @@ module.exports = function(router) {
   router.post('/api/issues/:issue_id/subscribe', function(req, res) {
     const {issue_id} = req.params;
     const {user_id} = req.body;
-    console.log('issue/id/subscribe/', req.body);
     if (issue_id === '' || issue_id === undefined || user_id === '' || user_id === undefined) {
       res
         .status(200)

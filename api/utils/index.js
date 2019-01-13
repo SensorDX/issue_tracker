@@ -29,7 +29,8 @@ function saltAndHash(password) {
 	return md5(LEFT_SALT+password+RIGHT_SALT);
 }
 
-function modifyIssuesDate(issues) {
+function modifyIssuesDate(issues, sites) {
+  console.log('those are the sites', sites);
 	results = []
 	let items = {};
 	issues.map(function(item, index) {
@@ -101,6 +102,14 @@ function geojson (data) {
 	return results;
 }
 
+function siteCodeObj(data = []) {
+  let result = {};
+  data.map(function(item, index) {
+    result[item.SiteCode] = item;
+  });
+  return result;
+}
+
 function tahmo (data) {
 	var results = [];
 	let my_data = JSON.parse(JSON.stringify(data));
@@ -132,5 +141,6 @@ module.exports ={
   modifyIssuesDate,
 	getNextSequence,
 	geojson,
+  siteCodeObj,
 	tahmo,
 }

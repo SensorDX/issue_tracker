@@ -162,6 +162,7 @@ App.controller('IssueCtrl', [
       });
       IssueService.GetIssues('', assignee_id).then(function(response) {
         const issues = response.data;
+        console.log('allIssues', issues);
         if (issues.success) {
           $scope.allIssues = issues.data;
           $scope.tabs.allCount = issues.count;
@@ -486,6 +487,8 @@ App.controller('NewIssueCtrl', [
       labels: [],
       priority: '',
       station: '',
+      deviceId: '',
+      siteName: '',
       due_date: '',
     };
     const {from} = $stateParams;
@@ -566,6 +569,7 @@ App.controller('NewIssueCtrl', [
       if (item !== undefined) {
         $scope.issue.station = item.SiteCode;
         $scope.issue.deviceId = item.DeviceId;
+        $scope.issue.siteName = item.SiteName;
       }
     }
 
@@ -725,6 +729,7 @@ App.controller('EditIssueCtrl', [
       if (item !== undefined) {
         $scope.issue.station = item.SiteCode;
         $scope.issue.deviceId = item.DeviceId;
+        $scope.issue.siteName = item.SiteName;
       }
     }
 
