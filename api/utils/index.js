@@ -43,7 +43,6 @@ function modifyIssuesDate(issues) {
 		});
 		results.push(items);
 	});
-	console.log(results);
 	return results;
 }
 
@@ -56,7 +55,6 @@ function modifyCommentsDate(comments) {
 		});
 		results.push(items);
 	});
-	console.log(results);
 	return results;
 }
 
@@ -100,7 +98,6 @@ function geojson (data) {
 		results['features'].push(items);
 	});
 	results['type'] = "FeatureCollection";
-	console.log(results);
 	return results;
 }
 
@@ -123,7 +120,12 @@ function tahmo (data) {
 	return results;
 }
 
+function faultInboxHelper() {
+  return 'faultInboxHelper() executed';
+}
+
 module.exports ={
+  faultInboxHelper,
 	generateRandomPassword,
 	saltAndHash,
 	modifyCommentsDate,

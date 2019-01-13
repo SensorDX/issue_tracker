@@ -1,3 +1,22 @@
+App.controller('FaultInboxCtrl', ['$scope', 'Toast', 'FaultInboxService',
+function ($scope, Toast, FaultInboxService) {
+
+  // Note: FaultInboxService is located in 'src/assets/js/app.js'
+  // Sample Controller Logic for Fault Inbox
+  FaultInboxService.GetInbox().then(function(response) {
+      const inbox = response.data;
+      if (inbox.success) {
+        $scope.inbox = inbox.data;
+        Toast.Success('Success retrieving inbox');
+      } else {
+        Toast.Danger('Failure retrieving inbox');
+      }
+  })
+}]);
+
+
+// Controller for rest of app below.
+// No need to modify
 App.controller('HeaderCtrl', [
   '$scope',
   '$state',
@@ -118,6 +137,7 @@ App.controller('IssueCtrl', [
       IssueService.GetIssues('open', assignee_id).then(function(response) {
         const issues = response.data;
         if (issues.success) {
+          console.log('open issues', issues);
           $scope.openIssues = issues.data;
           $scope.tabs.openCount = issues.count;
         } else {
@@ -127,6 +147,7 @@ App.controller('IssueCtrl', [
       IssueService.GetIssues('close', assignee_id).then(function(response) {
         const issues = response.data;
         if (issues.success) {
+          console.log('close issues', issues);
           $scope.closeIssues = issues.data;
           $scope.tabs.closeCount = issues.count;
         } else {
@@ -136,6 +157,7 @@ App.controller('IssueCtrl', [
       IssueService.GetIssues('', assignee_id).then(function(response) {
         const issues = response.data;
         if (issues.success) {
+          console.log('all issues', issues);
           $scope.allIssues = issues.data;
           $scope.tabs.allCount = issues.count;
         } else {
@@ -309,6 +331,7 @@ App.controller('ViewIssueCtrl', [
 
     IssueService.GetIssueById(_id).then(function(response) {
       const issue = response.data;
+      console.log('GetIssueById ViewCtrl', issue);
       if (issue.success) {
         $scope.issue = issue.data;
         $scope.issue.ids = [_id];
@@ -386,7 +409,6 @@ App.controller('ViewIssueCtrl', [
         },
       );
       console.log('markup html -- ', mark);
-      //var station_table = jQuery('.js-dataTable-full').DataTable({
     };
     IssueService.GetIssueComment(_id).then(function(response) {
       const issue = response.data;
@@ -633,7 +655,7 @@ App.controller('EditIssueCtrl', [
     };
     IssueService.GetIssueById(_id).then(function(response) {
       const issue = response.data;
-      console.log('edit issue', issue);
+      console.log('GetIssueById EditIssue', issue);
       if (issue.success) {
         $scope.issue = issue.data;
         $scope.issue.due_date = new Date($scope.issue.due_date);
@@ -777,7 +799,7 @@ App.controller('DashboardCtrl', [
     if (from == 'issues' && feature) {
       console.log('reopen modal');
       $uibModal.open({
-        templateUrl: 'assets/views/map_popup.html',
+        templateUrl: 'assets/views/dashboard/map_popup.html',
         controller: 'PopupCtrl',
         size: 'lg',
         resolve: {
@@ -787,32 +809,6 @@ App.controller('DashboardCtrl', [
         },
       });
     }
-    /*
-				 * Init Lealeft.js
-				 */
-    /*
-				var working = L.AwesomeMarkers.icon({ 
-						icon: 'circle',
-						markerColor: 'green',
-						prefix: 'fa'
-				});
-				var delay = L.AwesomeMarkers.icon({ 
-						icon: 'circle',
-						markerColor: 'orange',
-						prefix: 'fa'
-				});
-				var broken = L.AwesomeMarkers.icon({ 
-						icon: 'circle',
-						markerColor: 'red',
-						prefix: 'fa'
-				});
-				var icons = {
-					'Active': working,
-					'Delay': delay,
-					'Closed': broken
-				};
-
-				*/
     $scope.sensorstate = function(state) {
       switch (state) {
         case 'Active':
@@ -870,37 +866,6 @@ App.controller('DashboardCtrl', [
         Toast.Danger(sites.message);
       }
     });
-    /*
-				$http.get("/api/sites?format=geojson").success(function(data, status) {
-						angular.extend($scope, {
-								geojson: {
-										data: data.data,
-										pointToLayer: function(feature, latlng) {
-												return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
-										}
-								},
-								defaults: {
-										scrollWheelZoom: false
-								}
-						});
-						$scope.features = [];
-						$scope.sensorcount = {
-							active: 0,
-							delay: 0,
-							closed: 0,
-						}
-						for (var i in $scope.geojson.data.features) {
-							if ($scope.geojson.data.features[i].properties['Station status'] == 'Active')
-								$scope.sensorcount.active++;
-							if ($scope.geojson.data.features[i].properties['Station status'] == 'Delay')
-								$scope.sensorcount.delay++;
-							if ($scope.geojson.data.features[i].properties['Station status'] == 'Closed')
-								$scope.sensorcount.closed++;
-
-							$scope.features.push($scope.geojson.data.features[i]);
-						}
-				});
-				*/
     $scope.details = function(type) {
       $scope.features = [];
       $scope.geometry = [];
@@ -1106,7 +1071,6 @@ App.controller('PopupCtrl', [
     $http.get('/api/issues/station/' + sitecode + '?&type=modified').then(
       function(response) {
         $scope.issues = response.data['data'];
-        //$scope.tabs.openCount = response.data['count'];
       },
       function(response) {
         console.log('my issues for', sitecode);
@@ -1161,7 +1125,7 @@ App.controller('leaflet', [
       console.log(event);
       var feature = event.layer.feature;
       $uibModal.open({
-        templateUrl: 'assets/views/map_popup.html',
+        templateUrl: 'assets/views/dashboard/map_popup.html',
         controller: 'PopupCtrl',
         size: 'lg',
         resolve: {
@@ -1255,76 +1219,6 @@ App.controller('leaflet', [
           Toast.Danger(sites.message);
         }
       });
-      /*
-			$http.get("/api/sites?format=geojson").success(function(data, status) {
-					angular.extend($scope, {
-							geojson: {
-									data: data.data,
-							},
-							defaults: {
-									scrollWheelZoom: false
-							}
-					});
-					$scope.features = [];
-					var markers = L.markerClusterGroup({ chunkedLoading: true });
-					var gg = $scope.geojson.data;
-					mylayer = L.geoJSON(gg, {
-						pointToLayer: function(feature, latlng) {
-								return new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
-						}
-					})
-					//mylayer.addTo(leaflet);
-					mylayer.addTo(markers);
-					markers.addTo(leaflet);
-					mylayer.on('click', $scope.openModal);
-					$scope.centerJSON = function (type="all") {
-						mylayer.removeFrom(leaflet);
-						mylayer = L.geoJSON(gg, {
-							pointToLayer: function(feature, latlng) {
-								var mymarker = null;
-								if (feature.properties['Station status'] == type) {
-									mymarker = new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
-								} else if (type == "all") {
-									mymarker = new L.marker(latlng, {icon: icons[feature.properties['Station status']]});
-								} else {
-									mymarker = null;
-								}
-								return mymarker;
-							}
-						})
-						//mylayer.addTo(leaflet);
-						mylayer.addTo(markers);
-						markers.addTo(leaflet);
-						mylayer.on('click', $scope.openModal);
-						var latlngs = [];
-						for (var i in $scope.geojson.data.features) {
-								if ($scope.geojson.data.features[i].properties['Station status'] == type) {
-									var points = $scope.geojson.data.features[i].geometry.coordinates;
-									$scope.features.push($scope.geojson.data.features[i]);
-									latlngs.push(L.GeoJSON.coordsToLatLng(points));
-								}
-								if (type=="all") {
-									var points = $scope.geojson.data.features[i].geometry.coordinates;
-									$scope.features.push($scope.geojson.data.features[i]);
-									latlngs.push(L.GeoJSON.coordsToLatLng(points));
-								}
-						}
-						if (latlngs.length > 0) {
-							leaflet.fitBounds(latlngs);
-						}
-					}
-					$scope.centerSingleJSON = function (coordinates) {
-						var latlngs = [];
-						latlngs.push(L.GeoJSON.coordsToLatLng(coordinates));
-						if (latlngs.length > 0) {
-							console.log("latlngs is:");
-							console.log(latlngs);
-							leaflet.fitBounds(latlngs);
-						}
-					}
-					$scope.centerJSON();
-			});
-			*/
     });
     $scope.$on('center', function(event, type) {
       console.log('this is the type');
@@ -1376,11 +1270,9 @@ App.directive('highchart', [
   function(chart) {
     return {
       link: function(scope, element, attributes) {
-        //var data = angular.extend(scope.data, chart)
         console.log('my element');
         var data = chart;
         setTimeout(function() {
-          //ChartObj = $(element[0]).stockChart(data);
           ChartObj = new Highcharts.stockChart('chart-container', data);
           console.log(ChartObj);
         }, 0);

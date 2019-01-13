@@ -24,23 +24,22 @@ App.config(['$stateProvider', '$urlRouterProvider',
         $stateProvider
             .state('login', {
                 url: '/login',
-                templateUrl: 'assets/views/base_pages_login.html',
+                templateUrl: 'assets/views/settings/auth/login.html',
 								controller: 'LoginCtrl'
             })
-						/*
-            .state('angularjs', {
-                url: '/angularjs',
-                templateUrl: 'assets/views/ready_angularjs.html'
+            .state('faultinbox', {
+              url: '/faultinbox',
+              templateUrl: 'assets/views/fault_inbox/index.html',
+              controller: 'FaultInboxCtrl',
             })
-						*/
             .state('issues', {
                 url: '/issues',
-                templateUrl: 'assets/views/issues.html',
+                templateUrl: 'assets/views/issues/index.html',
                 controller: 'IssueCtrl'
             })
             .state('viewissues', {
                 url: '/issues/view/:id',
-                templateUrl: 'assets/views/view_issues.html',
+                templateUrl: 'assets/views/issues/view.html',
                 controller: 'ViewIssueCtrl',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -58,17 +57,17 @@ App.config(['$stateProvider', '$urlRouterProvider',
             })
             .state('newissues', {
                 url: '/issues/new?from',
-                templateUrl: 'assets/views/new_issue.html',
+                templateUrl: 'assets/views/issues/new.html',
                 controller: 'NewIssueCtrl',
             })
             .state('editissues', {
                 url: '/issues/edit/:id',
-                templateUrl: 'assets/views/edit_issue.html',
+                templateUrl: 'assets/views/issues/edit.html',
                 controller: 'EditIssueCtrl',
             })
             .state('dashboard', {
                 url: '/dashboard/?from',
-                templateUrl: 'assets/views/ready_dashboard.html',
+                templateUrl: 'assets/views/dashboard/index.html',
                 controller: 'DashboardCtrl',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
@@ -100,73 +99,10 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
-						/*
-            .state('manageStations', {
-                url: '/stations/manage',
-                templateUrl: 'assets/views/manage_stations.html',
-                controller: 'ManageStationsCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/datatables/jquery.dataTables.min.css',
-                                'assets/js/plugins/datatables/jquery.dataTables.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-						*/
-						/*
-            .state('metadata', {
-                url: '/stations/metadata',
-                templateUrl: 'assets/views/metadata.html'
-            })
-						*/
-						/*
-            .state('qualityControl', {
-                url: '/stations/QC',
-                templateUrl: 'assets/views/quality_control.html'
-            })
-						*/
-						/*
-            .state('mapper', {
-                url: '/api/mapper',
-                controller: 'MapperCtrl',
-                templateUrl: 'assets/views/mapper.html',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/highlightjs/github-gist.min.css',
-                                'assets/js/plugins/highlightjs/highlight.pack.js',
-                                'assets/js/plugins/easy-pie-chart/jquery.easypiechart.min.js',
-                            ]
-                        });
-                    }]
-                }
-            })
-						*/
-						/*
-            .state('documentation', {
-                url: '/api/documentation',
-                templateUrl: 'assets/views/documentation.html'
-            })
-						*/
-						/*
-            .state('apiDocumentation', {
-                url: '/api/documentation/get-started',
-                templateUrl: 'doc/index.html'
-            })
-						*/
             .state('profile', {
                 url: '/profile/:id',
                 controller: 'ProfileCtrl',
-                templateUrl: 'assets/views/profile.html',
+                templateUrl: 'assets/views/settings/profile/index.html',
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load({
@@ -180,430 +116,6 @@ App.config(['$stateProvider', '$urlRouterProvider',
                     }]
                 }
             })
-						/*
-            .state('settings', {
-                url: '/settings',
-                controller: 'SettingsCtrl',
-                templateUrl: 'assets/views/settings.html',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/datatables/jquery.dataTables.min.css',
-                                'assets/js/plugins/datatables/jquery.dataTables.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-						*/
-						/*
-            .state('uiActivity', {
-                url: '/ui/activity',
-                templateUrl: 'assets/views/ui_activity.html',
-                controller: 'UiActivityCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/sweetalert/sweetalert.min.css',
-                                'assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js',
-                                'assets/js/plugins/sweetalert/sweetalert.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('uiTabs', {
-                url: '/ui/tabs',
-                templateUrl: 'assets/views/ui_tabs.html'
-            })
-            .state('mapPopUp', {
-                url: '/ui/popup',
-                templateUrl: 'assets/views/map_popup.html'
-            })
-            .state('uiModalsTooltips', {
-                url: '/ui/modals-tooltips',
-                templateUrl: 'assets/views/ui_modals_tooltips.html'
-            })
-            .state('uiColorThemes', {
-                url: '/ui/color-themes',
-                templateUrl: 'assets/views/ui_color_themes.html'
-            })
-            .state('uiBlocksDraggable', {
-                url: '/ui/blocks-draggable',
-                templateUrl: 'assets/views/ui_blocks_draggable.html',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/jquery-ui/jquery-ui.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('uiChatFull', {
-                url: '/ui/chat/full',
-                templateUrl: 'assets/views/ui_chat_full.html',
-                controller: 'UiChatCtrl'
-            })
-            .state('uiChatFixed', {
-                url: '/ui/chat/fixed',
-                templateUrl: 'assets/views/ui_chat_fixed.html',
-                controller: 'UiChatCtrl'
-            })
-            .state('uiChatPopup', {
-                url: '/ui/chat/popup',
-                templateUrl: 'assets/views/ui_chat_popup.html',
-                controller: 'UiChatCtrl'
-            })
-            .state('tablesTools', {
-                url: '/tables/tools',
-                templateUrl: 'assets/views/tables_tools.html'
-            })
-            .state('tablesDatatables', {
-                url: '/tables/datatables',
-                templateUrl: 'assets/views/tables_datatables.html',
-                controller: 'TablesDatatablesCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/datatables/jquery.dataTables.min.css',
-                                'assets/js/plugins/datatables/jquery.dataTables.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('formsPickersMore', {
-                url: '/forms/pickers-more',
-                templateUrl: 'assets/views/forms_pickers_more.html',
-                controller: 'FormsPickersMoreCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css',
-                                'assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css',
-                                'assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css',
-                                'assets/js/plugins/select2/select2.min.css',
-                                'assets/js/plugins/select2/select2-bootstrap.min.css',
-                                'assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css',
-                                'assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css',
-                                'assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css',
-                                'assets/js/plugins/dropzonejs/dropzone.min.css',
-                                'assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css',
-                                'assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js',
-                                'assets/js/plugins/bootstrap-datetimepicker/moment.min.js',
-                                'assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js',
-                                'assets/js/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js',
-                                'assets/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js',
-                                'assets/js/plugins/select2/select2.full.min.js',
-                                'assets/js/plugins/masked-inputs/jquery.maskedinput.min.js',
-                                'assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.js',
-                                'assets/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js',
-                                'assets/js/plugins/dropzonejs/dropzone.min.js',
-                                'assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('formsEditors', {
-                url: '/forms/editors',
-                templateUrl: 'assets/views/forms_editors.html',
-                controller: 'FormsEditorsCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/summernote/summernote.min.css',
-                                'assets/js/plugins/summernote/summernote.min.js',
-                                'assets/js/plugins/ckeditor/ckeditor.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('formsValidation', {
-                url: '/forms/validation',
-                templateUrl: 'assets/views/forms_validation.html',
-                controller: 'FormsValidationCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/select2/select2.min.css',
-                                'assets/js/plugins/select2/select2-bootstrap.min.css',
-                                'assets/js/plugins/select2/select2.full.min.js',
-                                'assets/js/plugins/jquery-validation/jquery.validate.min.js',
-                                'assets/js/plugins/jquery-validation/additional-methods.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('formsWizard', {
-                url: '/forms/wizard',
-                templateUrl: 'assets/views/forms_wizard.html',
-                controller: 'FormsWizardCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js',
-                                'assets/js/plugins/jquery-validation/jquery.validate.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('compCharts', {
-                url: '/components/charts',
-                templateUrl: 'assets/views/comp_charts.html',
-                controller: 'CompChartsCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/sparkline/jquery.sparkline.min.js',
-                                'assets/js/plugins/easy-pie-chart/jquery.easypiechart.min.js',
-                                'assets/js/plugins/chartjs/Chart.min.js',
-                                'assets/js/plugins/flot/jquery.flot.min.js',
-                                'assets/js/plugins/flot/jquery.flot.pie.min.js',
-                                'assets/js/plugins/flot/jquery.flot.stack.min.js',
-                                'assets/js/plugins/flot/jquery.flot.resize.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('compCalendar', {
-                url: '/components/calendar',
-                templateUrl: 'assets/views/comp_calendar.html',
-                controller: 'CompCalendarCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/fullcalendar/fullcalendar.min.css',
-                                'assets/js/plugins/jquery-ui/jquery-ui.min.js',
-                                'assets/js/plugins/fullcalendar/moment.min.js',
-                                'assets/js/plugins/fullcalendar/fullcalendar.min.js',
-                                'assets/js/plugins/fullcalendar/gcal.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('compSliders', {
-                url: '/components/sliders',
-                templateUrl: 'assets/views/comp_sliders.html',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/slick/slick.min.css',
-                                'assets/js/plugins/slick/slick-theme.min.css',
-                                'assets/js/plugins/slick/slick.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('compScrolling', {
-                url: '/components/scrolling',
-                templateUrl: 'assets/views/comp_scrolling.html'
-            })
-            .state('compSyntaxHighlighting', {
-                url: '/components/syntax-highlighting',
-                templateUrl: 'assets/views/comp_syntax_highlighting.html',
-                controller: 'CompSyntaxHighlightingCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/highlightjs/github-gist.min.css',
-                                'assets/js/plugins/highlightjs/highlight.pack.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('compRating', {
-                url: '/components/rating',
-                templateUrl: 'assets/views/comp_rating.html',
-                controller: 'CompRatingCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/jquery-raty/jquery.raty.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('compTreeview', {
-                url: '/components/treeview',
-                templateUrl: 'assets/views/comp_treeview.html',
-                controller: 'CompTreeviewCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/bootstrap-treeview/bootstrap-treeview.min.css',
-                                'assets/js/plugins/bootstrap-treeview/bootstrap-treeview.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-						*/
-            //.state('compMapsGoogle', {
-            //    url: '/components/maps/google',
-            //    templateUrl: 'assets/views/comp_maps.html',
-            //    controller: 'CompMapsGoogleCtrl',
-            //    resolve: {
-            //        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-            //            return $ocLazyLoad.load({
-            //                insertBefore: '#css-bootstrap',
-            //                serie: true,
-            //                files: [
-            //                    /*
-            //                     * Google Maps API Key (you will have to obtain a Google Maps API key to use Google Maps)
-            //                     * For more info please have a look at https://developers.google.com/maps/documentation/javascript/get-api-key#key
-            //                     */
-            //                    { type: 'js', path: '//maps.googleapis.com/maps/api/js?key=' },
-            //                    'assets/js/plugins/gmapsjs/gmaps.min.js'
-            //                ]
-            //            });
-            //        }]
-            //    }
-            //})
-            //.state('compMapsGoogleFull', {
-            //    url: '/components/maps/google-full',
-            //    templateUrl: 'assets/views/comp_maps_full.html',
-            //    controller: 'CompMapsGoogleFullCtrl',
-            //    resolve: {
-            //        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-            //            return $ocLazyLoad.load({
-            //                insertBefore: '#css-bootstrap',
-            //                serie: true,
-            //                files: [
-            //                    /*
-            //                     * Google Maps API Key (you will have to obtain a Google Maps API key to use Google Maps)
-            //                     * For more info please have a look at https://developers.google.com/maps/documentation/javascript/get-api-key#key
-            //                     */
-            //                    { type: 'js', path: '//maps.googleapis.com/maps/api/js?key=' },
-            //                    'assets/js/plugins/gmapsjs/gmaps.min.js'
-            //                ]
-            //            });
-            //        }]
-            //    }
-            //})
-						/*
-            .state('compMapsVector', {
-                url: '/components/maps/vector',
-                templateUrl: 'assets/views/comp_maps_vector.html',
-                controller: 'CompMapsVectorCtrl',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/jquery-jvectormap/jquery-jvectormap.min.css',
-                                'assets/js/plugins/jquery-jvectormap/jquery-jvectormap.min.js',
-                                'assets/js/plugins/jquery-jvectormap/maps/jquery-jvectormap-au-mill-en.js',
-                                'assets/js/plugins/jquery-jvectormap/maps/jquery-jvectormap-cn-mill-en.js',
-                                'assets/js/plugins/jquery-jvectormap/maps/jquery-jvectormap-de-mill-en.js',
-                                'assets/js/plugins/jquery-jvectormap/maps/jquery-jvectormap-europe-mill-en.js',
-                                'assets/js/plugins/jquery-jvectormap/maps/jquery-jvectormap-fr-mill-en.js',
-                                'assets/js/plugins/jquery-jvectormap/maps/jquery-jvectormap-in-mill-en.js',
-                                'assets/js/plugins/jquery-jvectormap/maps/jquery-jvectormap-us-aea-en.js',
-                                'assets/js/plugins/jquery-jvectormap/maps/jquery-jvectormap-world-mill-en.js',
-                                'assets/js/plugins/jquery-jvectormap/maps/jquery-jvectormap-za-mill-en.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('compGallerySimple', {
-                url: '/components/gallery/simple',
-                templateUrl: 'assets/views/comp_gallery_simple.html',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                                'assets/js/plugins/magnific-popup/magnific-popup.min.css',
-                                'assets/js/plugins/magnific-popup/magnific-popup.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('compGalleryAdvanced', {
-                url: '/components/gallery/advanced',
-                templateUrl: 'assets/views/comp_gallery_advanced.html',
-                resolve: {
-                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            insertBefore: '#css-bootstrap',
-                            serie: true,
-                            files: [
-                               'assets/js/plugins/magnific-popup/magnific-popup.min.css',
-                                'assets/js/plugins/magnific-popup/magnific-popup.min.js'
-                            ]
-                        });
-                    }]
-                }
-            })
-            .state('blocks', {
-                url: '/blocks',
-                templateUrl: 'assets/views/api_blocks.html'
-            })
-            .state('layout', {
-                url: '/layout',
-                templateUrl: 'assets/views/api_layout.html'
-            })
-            .state('create', {
-                url: '/create',
-                templateUrl: 'assets/views/ready_create.html'
-            });
-						*/
     }
 ]);
 
@@ -1006,7 +518,7 @@ App.factory('uiHelpers', function () {
 							result.push(obj);
 							this.stringToObj(array_pos, pos+1, data, result);
 						}
-					} 
+					}
 					if (data[pos] == "Array") {
 						if (result == null || !(result.length > 0)) {
 							console.log('array is null');
@@ -1029,7 +541,7 @@ App.factory('uiHelpers', function () {
 					if (typeof data == "boolean" || typeof data == "number" || typeof data == "string") {
 						if (!(result.includes(xml.slice(1)))) result.push(xml.slice(1));
 						return result;
-					} 
+					}
 					if (Array.isArray(data) && data.length > 0) {
 						for (var i = 0; i < data.length; ++i) {
 							if (typeof(data[i]) != "object") {
@@ -1039,7 +551,7 @@ App.factory('uiHelpers', function () {
 							}
 						}
 					}
-					else if (typeof(data) == "object") { 
+					else if (typeof(data) == "object") {
 						for (var key in data) {
 							this.apiProcessing(data[key], xml+".Object."+key, result);
 						}
@@ -1080,7 +592,7 @@ App.run(function($rootScope, $location, $cookies, $http, uiHelpers) {
 });
 
 // Application Main Controller
-App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$log', 
+App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$log',
     function ($scope, $localStorage, $window, $location, $log) {
 				//console.log($location.path());
         $scope.oneui = {
@@ -1142,7 +654,7 @@ App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$
 
 						// Run validation code
             $scope.helpers.uiValidateLogin();
-			
+
 						setTimeout(function() {
 							$scope.helpers.uiHelperAppearCountTo();
 						}, 0);
@@ -1207,13 +719,13 @@ App.factory('Toast', function() {
 	service.Danger = Danger;
 	service.Success = Success;
 	return service;
-	
+
 	function Danger(message) {
 		jQuery.notify({
 			message: message
-		}, 
+		},
 		{
-			type: 'danger', 
+			type: 'danger',
 			placement: {
 				from: 'top',
 				align: 'center',
@@ -1224,9 +736,9 @@ App.factory('Toast', function() {
 	function Success(message) {
 		jQuery.notify({
 			message: message
-		}, 
+		},
 		{
-			type: 'success', 
+			type: 'success',
 			placement: {
 				from: 'top',
 				align: 'center',
@@ -1324,8 +836,8 @@ App.factory('UserService', ['$http', function($http) {
 	}
 
 	function isAuthorized(role) {
-		return role.toLowerCase() == 'admin' || 
-						role.toLowerCase() == 'manager'; 
+		return role.toLowerCase() == 'admin' ||
+						role.toLowerCase() == 'manager';
 	}
 
 	function GetUserById(id) {
@@ -1391,7 +903,7 @@ App.factory('IssueService', ['$http', function($http) {
 	function GetIssueById(id) {
 		return $http.get('api/issues/'+id);
 	}
-	
+
 	function GetIssueComment(id) {
 		return $http.get('api/issues/'+id+'/comments');
 	}
@@ -1415,7 +927,7 @@ App.factory('IssueService', ['$http', function($http) {
 	function CreateIssue(issue) {
 		return $http.post('api/issues', issue);
 	}
-	
+
 	function PostIssueComment(id, comments) {
 		console.log('posting comments id', id);
 		console.log('posting comments', comments);
@@ -1499,3 +1011,20 @@ App.factory('EmailService', ['$http', function($http) {
 		return $http.post('api/sendmail', mail);
 	}
 }]);
+
+// New
+App.factory('FaultInboxService', ['$http',
+  function($http) {
+    let service = {};
+    service.GetInbox = GetInbox;
+    return service;
+
+    function GetInbox() {
+      // Logic for api/faultinbox is located in api folder
+      // Look for 'FaultInboxCtrl' in 'api.js'
+      // Look for 'fault_inbox.js' inside api/models
+      // Look for 'FaultInbox.js' inside api/controllers
+      return $http.get('api/faultinbox');
+    }
+  },
+]);
