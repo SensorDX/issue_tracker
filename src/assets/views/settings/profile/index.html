@@ -1,0 +1,104 @@
+<main style="padding-top: 15px;" id="main-container">
+		<!-- Page Content -->
+		<div class="content content-boxed">
+				<!-- User Header -->
+				<div class="block">
+						<!-- Basic Info -->
+						<div class="bg-image" style="background-image: url('assets/img/photos/photo6@2x.jpg');">
+								<div class="block-content bg-primary-dark-op text-center overflow-hidden">
+										<div class="push-30-t push animated fadeInDown">
+												<img class="img-avatar img-avatar96 img-avatar-thumb" src="assets/img/avatars/avatar4.jpg" alt="">
+										</div>
+										<div class="push-30 animated fadeInUp">
+												<h2 class="h4 font-w600 text-white push-5">{{user.full_name}}</h2>
+												<h3 class="h5 text-gray">{{user.role}}</h3>
+										</div>
+								</div>
+						</div>
+						<!-- END Basic Info -->
+
+            <div class="block">
+                <ul class="nav nav-tabs nav-tabs-alt nav-justified" data-js-tabs>
+                    <li class="active">
+												<a class="h4 font-w300 text-primary animated flipInX" href="#btabs-animated-slideup-users">
+													<i class="fa fa-user"></i>
+													<div class="font-w700 text-gray-darker animated fadeIn">Users</div>
+													{{my_users.count}}
+												</a>
+                    </li>
+                    <li>
+												<a class="h4 font-w300 text-primary animated flipInX" href="#btabs-animated-slideup-stations">
+													<i class="fa fa-map"></i>
+													<div class="font-w700 text-gray-darker animated fadeIn">Stations</div>
+													---
+												</a>
+                    </li>
+                    <li>
+												<a class="h4 font-w300 text-primary animated flipInX" href="#btabs-animated-slideup-issues">
+													<i class="fa fa-flag"></i>
+													<div class="font-w700 text-gray-darker animated fadeIn">Open Issues</div>
+													---
+												</a>
+                    </li>
+                </ul>
+                <div class="block-content tab-content">
+                    <div class="tab-pane fade fade-up in active" id="btabs-animated-slideup-users">
+												<div class="block">
+														<div ng-if="isAuthorized" style="text-align: right; margin-bottom: 20px;">
+																<md-button class="md-fab md-primary md-raised" ng-click="showTabDialog($event)" aria-label="Add User">
+																	<md-tooltip md-direction="left">Add User</md-tooltip>
+																	<i class="fa fa-plus" aria-hidden="true"></i>
+																</md-button>
+														</div>
+
+														<div class="block-content">
+																<table class="table table-bordered table-striped js-dataTable-full-user" width="100%">
+																		<thead class="">
+																				<tr> 
+																						<th class="text-center">User</th>
+																						<th class="text-center" style="width: 20%;">Email</th>
+																						<th class="text-center">Password</th>
+																						<th class="text-center">Date Updated</th>
+																						<th class="text-center" style="width: 20%;">Actions</th>
+																				</tr>
+																		</thead>
+																</table>
+														</div>
+												</div>
+                    </div>
+                    <div class="tab-pane fade fade-up" id="btabs-animated-slideup-stations">
+												<div class="block">
+														<div class="block-content">
+																<table class="table table-bordered table-striped js-dataTable-full-stations" width="100%">
+																		<thead class="hidden">
+																				<tr> 
+																						<th class="text-center">User</th>
+																						<th class="text-center" style="width: 20%;">Actions</th>
+																				</tr>
+																		</thead>
+																</table>
+														</div>
+												</div>
+                    </div>
+                    <div class="tab-pane fade fade-up" id="btabs-animated-slideup-issues">
+												<div class="block">
+														<div class="block-content">
+																<table class="table table-bordered table-striped js-dataTable-full-issues" width="100%">
+																		<thead class="hidden">
+																				<tr> 
+																						<th class="text-center">User</th>
+																						<th class="text-center" style="width: 20%;">Actions</th>
+																				</tr>
+																		</thead>
+																</table>
+														</div>
+												</div>
+                    </div>
+                </div>
+            </div>
+				</div>
+				<!-- END User Header -->
+		</div>
+		<!-- END Page Content -->
+</main>
+<!-- END Main Container -->

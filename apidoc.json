@@ -1,0 +1,27 @@
+{
+  "name": "Sensor DX API",
+  "version": "1.0.0",
+  "description": "This is the API behind our wonderful Sensor DX sensor management system.",
+  "title": "Sensor DX API Documentaion",
+  "url" : "",
+  "order": [
+		"GetIssues",
+		"GetSpecificIssue",
+		"GetSpecificIssueStationName",
+		"PostIssues",
+		"PutIssues",
+		"PutIssuesStationName",
+		"DeleteIssue",
+		"GetLabels",
+		"PostLabel",
+    "GetUser",
+    "PostUser",
+		"GetStationsMetadata",
+		"GetStationData",
+		"PostMail"
+  ],
+  "template": {
+  	"withCompare": true,
+  	"withGenerator": true
+  }
+}

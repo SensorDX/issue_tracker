@@ -1,0 +1,38 @@
+<!-- Header Navigation Right -->
+<ul class="nav-header pull-right">
+    <li>
+        <div class="btn-group" data-on-toggle="toggled(open)" data-uib-dropdown>
+            <button class="btn btn-default btn-image" type="button" data-uib-dropdown-toggle>
+                <img src="assets/img/avatars/avatar10.jpg" alt="Avatar">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu-right" data-uib-dropdown-menu>
+                <li class="dropdown-header">Profile</li>
+                <li>
+                    <a tabindex="-1" data-ui-sref="profile({id: _id})">
+                        <i class="si si-user pull-right"></i>
+                        <span class="pull-right"></span>Profile
+                    </a>
+                </li>
+                <li class="hidden">
+                    <a tabindex="-1" data-ui-sref="settings">
+                        <i class="si si-settings pull-right"></i>Settings
+                    </a>
+                </li>
+                <li class="hidden divider"></li>
+                <li class="hidden dropdown-header">Actions</li>
+                <li class="hidden">
+                    <a tabindex="-1" href="javascript:void(0)">
+                        <i class="si si-lock pull-right"></i>Lock Account
+                    </a>
+                </li>
+                <li>
+                    <a style="cursor: pointer" tabindex="-1" ng-click="onLogout()">
+                        <i class="si si-logout pull-right"></i>Log out
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+</ul>
+<!-- END Header Navigation Right -->

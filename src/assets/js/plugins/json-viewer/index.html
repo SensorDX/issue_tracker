@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>ng-json-viewer by samrose3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">ng-json-viewer</h1>
+      <h2 class="project-tagline">An AngularJS directive for viewing JSON.</h2>
+      <a href="https://github.com/samrose3/ng-json-viewer" class="btn">View on GitHub</a>
+      <a href="https://github.com/samrose3/ng-json-viewer/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/samrose3/ng-json-viewer/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h2>
+<a id="changes-history-you-can-find-here" class="anchor" href="#changes-history-you-can-find-here" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changes history you can find <a href="https://github.com/samrose3/ng-json-viewer/blob/master/CHANGES.md">here</a>
+</h2>
+
+<h1>
+<a id="main-features" class="anchor" href="#main-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Main features</h1>
+
+<ul>
+<li>Code folding</li>
+<li>Array index</li>
+<li>Syntax highlighting</li>
+<li>Display value type</li>
+</ul>
+
+<h1>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h1>
+
+<p>You can see demo on <a href="http://samrose3.github.io/ng-json-viewer/demo/index.html">this page</a></p>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<ul>
+<li>Via bower (preferred way)</li>
+</ul>
+
+<div class="highlight highlight-bash"><pre>bower install --save jv.json-viewer</pre></div>
+
+<ul>
+<li><a href="https://github.com/samrose3/ng-json-viewer/archive/master.zip">Download zip package</a></li>
+</ul>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<ol>
+<li>Add module as dependency to your app:</li>
+</ol>
+
+<div class="highlight highlight-javascript"><pre>angular.module(<span class="pl-s"><span class="pl-pds">'</span>your-app<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>jv.json-viewer<span class="pl-pds">'</span></span>]);</pre></div>
+
+<ol>
+<li>Add <a href="#json-viewer"><strong>json viewer directive</strong></a> to template:</li>
+</ol>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">jv</span><span class="pl-e">-json-viewer</span>&gt;&lt;/<span class="pl-ent">jv</span><span class="pl-e">-json-viewer</span>&gt;</pre></div>
+
+<ol>
+<li>Default JSON Viewer code colors you can find in <a href="https://github.com/samrose3/ng-json-viewer/blob/master/demo/jsonViewer.less">demo/jsonViewer.less</a> (at the top of file).</li>
+</ol>
+
+<h1>
+<a id="modules-components" class="anchor" href="#modules-components" aria-hidden="true"><span class="octicon octicon-link"></span></a>Module's components</h1>
+
+<ul>
+<li>
+<a href="#jsonviewer-directive"><strong>jsonViewer directive</strong></a> - directive for adding progress bar to the page.</li>
+<li>
+<a href="#jsonViewer-service"><strong>jsonViewer service</strong></a> - all <a href="#jsonViewer-directive"><strong> directives</strong></a> parsing is done in this service.</li>
+</ul>
+
+<h2>
+<a id="jsonviewer-directive" class="anchor" href="#jsonviewer-directive" aria-hidden="true"><span class="octicon octicon-link"></span></a>jsonViewer directive</h2>
+
+<p>Directive will be replaced by its template. For customization different progress bars you can add classes to it. It will be merged with template classes.</p>
+
+<h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>2015, Sam Rose (<a href="https://github.com/samrose3" class="user-mention">@samrose3</a>), project architecture inspired by Pavel Grinchenko's progress-bars.</p>
+
+<h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Having trouble with ng-json-viewer? Check out the documentation at <a href="https://samrose3.github.com/ng-json-viewer/demo/">https://samrose3.github.com/ng-json-viewer/demo/</a> or contact <a href="mailto:samrose3@gmail.com">samrose3@gmail.com</a>.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/samrose3/ng-json-viewer">ng-json-viewer</a> is maintained by <a href="https://github.com/samrose3">samrose3</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+

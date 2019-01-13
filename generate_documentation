@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "now generating SensorDX documention"
+apidoc -i api -o src/assets/views/doc/ -v
+echo "SensorDX documention successfully created"

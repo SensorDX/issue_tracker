@@ -1,0 +1,171 @@
+<style>
+.leaflet-container {                                                                                                                                 
+	  height: 480px;
+}
+.bootstrap-select {
+	float: left !important;
+}
+.popover-title {
+	text-align: center !important;
+}
+.bootstrap-select button {
+	background: white !important;
+	border: #a29e9e !important;
+	color: #646464 !important;
+	font-weight: 500 !important;
+}
+.description-height {
+	max-height: 135px !important;
+}
+ .autocomplete-custom-template li {
+  border-bottom: 1px solid #ccc;
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  white-space: normal;
+}
+.autocomplete-custom-template li:last-child {
+  border-bottom-width: 0;
+}
+.autocomplete-custom-template .item-title,
+.autocomplete-custom-template .item-metadata {
+  display: block;
+  line-height: 2;
+}
+.autocomplete-custom-template .item-title md-icon {
+  height: 18px;
+  width: 18px;
+}
+</style>
+
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-7">
+            <h1 class="page-heading">
+                New Issue
+            </h1>
+        </div>
+        <div class="col-sm-5 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li><a data-ui-sref="issues" class="link-effect" >Issues</a></li>
+                <li>New</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Main Dashboard Chart -->
+<div layout="column" ng-cloak class="md-inline-form">
+
+  <md-toolbar class="md-theme-light">
+    <h2 class="md-toolbar-tools">
+      <span>New Issue</span>
+    </h2>
+  </md-toolbar>
+  <md-content layout-padding style="background: white">
+    <div>
+      <form name="issueForm">
+
+        <md-input-container class="md-block">
+          <label>Title</label>
+          <input ng-model="issue.title">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <textarea ng-model="issue.description" style="description-height" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+				<md-autocomplete
+					style="margin-bottom: 20px;" 
+          md-no-cache="noCache"
+          md-search-text-change="searchTextChange(searchText)"
+          md-search-text="searchText"
+          md-selected-item-change="selectedItemChange(item)"
+          md-items="item in querySearch(searchText) | orderBy: 'SiteCode'"
+          md-item-text="item.SiteCode"
+          md-min-length="0"
+          placeholder="Choose a station"
+          md-menu-class="autocomplete-custom-template">
+					<md-item-template>
+						<span class="item-title">
+							<i class="fa fa-flag" style="color: red" aria-hidden="true"></i>
+							<span> {{item.SiteCode}} </span>
+						</span>
+						<span class="item-metadata">
+							<span>
+								<strong>Country: </strong> <em>{{item.Country}}</em>
+							</span>
+							<span>
+								<strong>Site Name: </strong> <em>{{item.SiteName}}</em>
+							</span>
+							<span>
+								<strong>Station Code: </strong> <em>{{item.SiteCode}}</em>
+							</span>
+							<span>
+								<strong>Device ID: </strong> <em>{{item.DeviceId}}</em>
+							</span>
+							<span>
+								<strong>Latitude: </strong><em>{{item.Latitude}}</em>
+							</span>
+							<span>
+								<strong>Longitude: </strong><em>{{item.Longitude}}</em>
+							</span>
+						</span>
+					</md-item-template>
+				</md-autocomplete>
+				<div layout-gt-sm="row">
+					<md-input-container>
+						<label>Assignee</label>
+						<md-select style="min-width: 200px;" ng-model="issue.assignee" ng-model-options="{trackBy: '$value._id'}" flex-gt-sm>
+							<md-option ng-value="none"><em>None</em></md-option>
+							<md-option ng-repeat="assignee in assignees" ng-value="assignee">
+								{{assignee.full_name}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+					<md-input-container>
+						<label>Label</label>
+						<md-select style="min-width: 200px;" ng-model="issue.labels" ng-change="updateLabels(issue.labels)" flex-gt-sm multiple>
+								<md-optgroup label="Label Type">
+									<md-option ng-repeat="label in labels" ng-value="label">
+										{{label}}
+									</md-option>
+								</md-optgroup>
+						</md-select>
+					</md-input-container>
+				</div>
+				<div layout-gt-sm="row">
+					<md-input-container>
+						<label>Priority</label>
+						<md-select style="min-width: 200px;" ng-model="issue.priority" flex-gt-sm>
+							<md-option ng-value="none"><em>None</em></md-option>
+							<md-option ng-repeat="priority in priorities" ng-value="priority">
+								{{priority}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+				<md-input-container>
+					<md-datepicker ng-model="issue.due_date" md-placeholder="Due Date"></md-datepicker>
+				</md-input-container>
+      </form>
+    </div>
+  </md-content>
+  <md-toolbar style="background-color: white;">
+    <section layout="row" layout-sm="column" layout-wrap layout-margin>
+      <md-button class="md-raised md-primary" ng-click="submitIssue(issue)">Submit Issue</md-button>
+      <md-button class="md-raised md-primary" ng-click="cancel()">Cancel</md-button>
+    </section>
+  </md-toolbar>
+
+</div>
+				</div>
+    </div>
+</div>
+<!-- END Page Content -->

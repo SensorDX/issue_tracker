@@ -1,0 +1,116 @@
+<style>
+.leaflet-container {                                                                                                                                 
+	  height: 480px;
+}
+</style>
+<!-- Page Header -->
+<div class="content bg-image overflow-hidden" style="background-image: url('assets/img/photos/photo3@2x.jpg');">
+    <div class="push-50-t push-15">
+        <h1 class="h2 text-white animated zoomIn">Dashboard</h1>
+				<h2 class="h5 text-white-op animated zoomIn">Welcome {{user.first_name}}</h2>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Stats -->
+<div class="content content-narrow">
+		<div class="row text-uppercase">
+				<div class="col-xs-6 col-sm-4">
+						<div class="block block-rounded">
+								<div class="block-content block-content-full" style="cursor: pointer" ng-click="details('Active')">
+										<div class="text-muted">
+												<small><i class="si si-calendar"></i> Today</small>
+										</div>
+										<div class="font-s12 font-w700">Working</div>
+										<!-- <a class="h2 font-w300 text-primary" data-toggle="countTo" data-to="{{sensorcount.active}}">{{sensorcount.active}}</a> -->
+										<a class="h2 font-w300 text-primary">{{sensorcount.active}}</a>
+								</div>
+						</div>
+				</div>
+				<div class="col-xs-6 col-sm-4">
+						<div class="block block-rounded">
+								<div class="block-content block-content-full" style="cursor: pointer" ng-click="details('Delay')">
+										<div class="text-muted">
+												<small><i class="si si-calendar"></i> Today</small>
+										</div>
+										<div class="font-s12 font-w700">Warning</div>
+										<!-- <a class="h2 font-w300 text-primary" data-toggle="countTo" data-to="{{sensorcount.delay}}"></a> -->
+										<a class="h2 font-w300 text-primary">{{sensorcount.delay}}</a>
+								</div>
+						</div>
+				</div>
+				<div class="col-xs-6 col-sm-4">
+						<div class="block block-rounded">
+								<div class="block-content block-content-full" style="cursor: pointer" ng-click="details('Closed')">
+										<div class="text-muted">
+												<small><i class="si si-calendar"></i> Today</small>
+										</div>
+										<div class="font-s12 font-w700">Broken</div>
+										<!-- <a class="h2 font-w300 text-primary" data-toggle="countTo" data-to="{{sensorcount.closed}}"></a> -->
+										<a class="h2 font-w300 text-primary">{{sensorcount.closed}}</a>
+								</div>
+						</div>
+				</div>
+		</div>
+		<!-- END Stats -->
+</div>
+<!-- END Stats -->
+
+<!-- Page Content -->
+<div class="content">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Main Dashboard Chart -->
+            <div class="block">
+                <div class="block-header">
+                    <ul class="hidden block-options">
+                        <li>
+                            <button type="button" data-js-block-option data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Stations Map</h3>
+                </div>
+                <div class="block-content block-content-full bg-gray-lighter text-center">
+                    <!-- Leaflet.js Leaflet (is initialized in js/controllers.js -> 'DashboardCtrl' Controller), -->
+										<!-- for more examples you can check out http://angular-ui.github.io/ui-leaflet/examples/0000-viewer.html#/basic/first-example -->
+										<div ng-app="app" ng-controller="leaflet" leaflet></div>
+										<!-- <leaflet width="100%" height="480px" defaults="defaults" geojson="geojson"></leaflet>-->
+								</div>
+						</div>
+				</div>
+        <div class="col-md-4">
+						<div style="max-height: 570px; overflow-y: scroll;" class="bg-gray-lighter">
+								<table class="stations-list table table-hover block" data-js-table-checkable>
+										<thead class="block-header">
+												<tr style="position: absolute; left: 15px; right: 15px; z-index: 999; background-color: white; border-bottom: 1px solid #ddd;">
+														<th class="text-center hidden " style="width: 50px; border: none;">
+																<label class="css-input css-checkbox css-checkbox-primary remove-margin-t remove-margin-b">
+																		<input type="checkbox" id="check-all" name="check-all"><span></span>
+																</label>
+														</th>
+														<th style="border: none;">Stations List</th>
+														<th style="border: none;"></th>
+												</tr>
+										</thead>
+										<tbody class="block-content bg-gray-lighter">
+												<tr ng-repeat="feature in features">
+														<td class="hidden text-center">
+																<label class="css-input css-checkbox css-checkbox-primary">
+																		<input type="checkbox" id="row_1" name="row_1"><span></span>
+																</label>
+														</td>
+														<td>
+																<p style="cursor: pointer" ng-click="focus(feature.geometry)" class="font-w600 push-10">{{feature.properties['Station ID']}}</p>
+																<p class="text-muted remove-margin-b">{{feature.properties['Site name']}}, {{feature.properties['Country']}} -- {{feature.properties['Station site type']}}</p>
+														</td>
+														<td class="middle text-center">
+																<i class="fa fa-circle" style="color: {{sensorstate(feature.properties['Station status'])}}" aria-hidden="true"></i>
+														</td>
+												</tr>
+										</tbody>
+								</table>
+						</div>
+        </div>
+    </div>
+</div>
+<!-- END Page Content -->

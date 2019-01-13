@@ -1,0 +1,195 @@
+<style>
+.bg-white {
+	background: white !important;
+}
+.issue-title {
+	color: rgba(0,0,0,0.87) !important;
+	cursor: pointer !important;
+}
+.issue-title :hover {
+	text-decoration: underline !important;
+}
+md-select .md-select-value {
+	border-bottom-color: white;
+}
+md-select:not([disabled]):focus .md-select-value {
+	border-bottom-color: white;
+}
+md-select:not([disabled]):focus .md-select-value {
+	color: white;
+}
+md-input-container .md-input {
+	border-color: white;
+	color: white;
+}
+md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+	border-color: white;
+}
+</style>
+<!-- Page Content -->
+<div ng-if="isCheckbox()" class="content">
+    <div class="row">
+        <div class="col-lg-12">
+					<md-card>
+						<md-card-content>
+							<div layout-gt-sm="row">
+								<md-input-container>
+									<label>Status</label>
+									<md-select style="width: 200px;" ng-model="issue.status" flex-gt-sm>
+										<md-option ng-repeat="status in statuses" ng-value="status">
+											{{status}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container>
+									<label>Assignee</label>
+									<md-select style="width: 200px;" ng-model="issue.assignee" flex-gt-sm>
+										<md-option ng-value="none"><em>None</em></md-option>
+										<md-option ng-repeat="assignee in assignees" ng-value="assignee.full_name">
+											{{assignee.full_name}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container>
+									<label>Label</label>
+									<md-select style="width: 200px;" ng-model="issue.labels" ng-change="updateLabels(issue.labels)" flex-gt-sm multiple>
+										<md-option ng-repeat="label in labels" ng-value="label">
+											{{label}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container>
+									<label>Priority</label>
+									<md-select style="width: 200px;" ng-model="issue.priority" flex-gt-sm>
+										<md-option ng-value="none"><em>None</em></md-option>
+										<md-option ng-repeat="priority in priorities" ng-value="priority">
+											{{priority}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container>
+									<label>Station</label>
+									<md-select style="width: 200px;" ng-model="issue.station" flex-gt-sm>
+										<md-option ng-value="none"><em>None</em></md-option>
+										<md-option ng-repeat="site in sites" ng-value="site.SiteCode">
+											{{site.SiteCode || site.DeviceId}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container>
+									<md-button ng-click="updateIssue(issue)" class="md-raised md-primary">Update Issues</md-button>
+								</md-input-container>
+							</div>
+						</md-card-content>
+					</md-card>
+		</div>
+	</div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+						<md-toolbar class="md-theme-light" style="justify-content: center">
+							<div layout-gt-sm="row">
+								<md-input-container style="margin-left: 20px" class="col-xs-4 md-block">
+									<label style="color: white">Search</label>
+									<md-icon md-svg-src="assets/img/icons/md-search.svg" class="name"></md-icon>
+									<input ng-model="searchBox" type="text">
+								</md-input-container>
+								<md-input-container style="margin-left: 40px; font-size: 15px;">
+									<label style="color: white">Assignee</label>
+									<md-select style="min-width: 200px;" ng-model="filter_assignee" ng-model-options="{trackBy: '$value._id'}" ng-change="selectAssignee()" flex-gt-sm>
+										<md-option ng-value="none"><em>All</em></md-option>
+										<md-option ng-repeat="assignee in assignees" ng-value="assignee">
+											{{assignee.full_name}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+							</div>
+							<md-button data-ui-sref="newissues" style="margin-top: 0" class="md-raised new-issue">New Issue</md-button>
+						</md-toolbar>
+						<div ng-cloak id="popupContainer">
+							<md-content class="bg-white">
+								<md-tabs md-dynamic-height md-border-bottom>
+									<md-tab label="Open ({{tabs.openCount}})" md-on-select="clearSelected()">
+										<md-content class="bg-white md-padding">
+											<table class="table table-striped">
+													<tbody>
+														<tr ng-repeat="(key, openIssue) in openIssues | filter: searchBox | orderBy: '-updated_at'">
+															<td>
+																<md-checkbox aria-label="key" ng-checked="exists(openIssue._id, selected)" ng-click="toggle(openIssue._id, selected)">
+																</md-checkbox>
+															</td>
+															<td>
+																<div>
+																	<a class="issue-title" data-ui-sref="viewissues({id: openIssue._id})"><strong>{{openIssue.station || openIssue.deviceId}} - {{openIssue.title}}</strong></a>
+																</div>
+																<div style="margin-top: 10px;">#{{openIssue.ticket_id}} - opened {{openIssue.date_opened_formatted}} ago by <strong>{{openIssue.opened_by.full_name}}</strong> assigned to <strong>{{openIssue.assignee.full_name}}</strong>
+																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{openIssue.due_date_formatted}}</span></span>
+																	<span ng-repeat="(key, value) in openIssue.labels" class="label {{openIssue.labels_class[key]}}">{{value}}</span>
+																</div>
+															</td>
+															<td>
+																<br>
+																<div style="margin-top: 10px; float: right">updated {{openIssue.date_updated_formatted}} ago</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+										</md-content>
+									</md-tab>
+									<md-tab label="Closed ({{tabs.closeCount}})" md-on-select="clearSelected()">
+										<md-content class="bg-white md-padding">
+											<table class="table table-striped">
+													<tbody>
+														<tr ng-repeat="(key, closeIssue) in closeIssues | filter: searchBox | orderBy: '-updated_at'">
+															<td>
+																<md-checkbox aria-label="key" ng-checked="exists(closeIssue._id, selected)" ng-click="toggle(closeIssue._id, selected)">
+																</md-checkbox>
+															</td>
+															<td>
+																<div><a class="issue-title" data-ui-sref="viewissues({id: closeIssue._id})"><strong>{{closeIssue.station || closeIssue.deviceId}} - {{closeIssue.title}}</strong></a></div>
+																<div style="margin-top: 10px;">#{{closeIssue.ticket_id}} - opened {{closeIssue.date_opened_formatted}} ago by <strong>{{closeIssue.opened_by.full_name}}</strong> assigned to <strong>{{closeIssue.assignee.full_name}}</strong>
+																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{closeIssue.due_date_formatted}}</span></span>
+																	<span ng-repeat="(key, value) in closeIssue.labels" class="label {{closeIssue.labels_class[key]}}">{{value}}</span>
+																</div>
+															</td>
+															<td>
+																<br>
+																<div style="margin-top: 10px; float: right">updated {{closeIssue.date_updated_formatted}} ago</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+										</md-content>
+									</md-tab>
+									<md-tab label="All ({{tabs.allCount}})" md-on-select="clearSelected()">
+										<md-content class="bg-white md-padding">
+											<table class="table table-striped">
+													<tbody>
+														<tr ng-repeat="(key, allIssue) in allIssues | filter: searchBox | orderBy: '-updated_at'">
+															<td>
+																<md-checkbox aria-label="key" ng-checked="exists(allIssue._id, selected)" ng-click="toggle(allIssue._id, selected)">
+																</md-checkbox>
+															</td>
+															<td>
+																<div><a class="issue-title" data-ui-sref="viewissues({id: allIssue._id})"><strong>{{allIssue.station || allIssue.deviceId}} - {{allIssue.title}}</strong></a></div>
+																<div style="margin-top: 10px;">#{{allIssue.ticket_id}} - opened {{allIssue.date_opened_formatted}} ago by <strong>{{allIssue.opened_by.full_name}}</strong> assigned to <strong>{{allIssue.assignee.full_name}}</strong>
+																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{allIssue.due_date_formatted}}</span></span>
+																	<span ng-repeat="(key, value) in allIssue.labels" class="label {{allIssue.labels_class[key]}}">{{value}}</span>
+																</div>
+															</td>
+															<td>
+																<br>
+																<div style="margin-top: 10px; float: right">updated {{allIssue.date_updated_formatted}} ago</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+										</md-content>
+									</md-tab>
+								</md-tabs>
+							</md-content>
+						</div>
+				</div>
+    </div>
+</div>

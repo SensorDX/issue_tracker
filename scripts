@@ -1,0 +1,2 @@
+mongoimport -h ds161049.mlab.com --port 61049 -d issue_tracker -u sensordx --collection stations --drop --file stations.json --jsonArray -p helloworld
+

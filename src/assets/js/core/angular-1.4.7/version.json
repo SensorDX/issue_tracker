@@ -1,0 +1,22 @@
+{
+    "branch": "v1.4.x",
+    "build": [],
+    "cdn": {
+        "build": [],
+        "docsUrl": "http://code.angularjs.org/1.4.6/docs",
+        "major": 1,
+        "minor": 4,
+        "patch": 6,
+        "prerelease": [],
+        "raw": "v1.4.6",
+        "version": "1.4.6"
+    },
+    "codeName": "dark-luminescence",
+    "full": "1.4.7",
+    "major": 1,
+    "minor": 4,
+    "patch": 7,
+    "prerelease": [],
+    "raw": "v1.4.7",
+    "version": "1.4.7"
+}

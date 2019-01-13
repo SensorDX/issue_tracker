@@ -1,0 +1,2162 @@
+[
+    {
+        "Elevation_m": 397,
+        "Latitude": 34.80833,
+        "Longitude": -98.02325,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ACME",
+        "SiteName": "Acme",
+        "_id": "5974e8a97c230c188235ca71",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 416,
+        "Latitude": 34.58722,
+        "Longitude": -99.33808,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ALTU",
+        "SiteName": "Altus",
+        "_id": "5974e8a97c230c188235ca70",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 295,
+        "Latitude": 34.79851,
+        "Longitude": -96.66909,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ADAX",
+        "SiteName": "Ada",
+        "_id": "5974e8a97c230c188235ca72",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 758,
+        "Latitude": 36.80253,
+        "Longitude": -100.53012,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BEAV",
+        "SiteName": "Beaver",
+        "_id": "5974e8a97c230c188235ca76",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 440,
+        "Latitude": 34.91418,
+        "Longitude": -98.29216,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "APAC",
+        "SiteName": "Apache",
+        "_id": "5974e8a97c230c188235ca74",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 450,
+        "Latitude": 36.7797,
+        "Longitude": -98.6717,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ANTL",
+        "SiteName": "Antl",
+        "_id": "5974e8a97c230c188235ca73",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 266,
+        "Latitude": 34.19258,
+        "Longitude": -97.08568000000001,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ARD2",
+        "SiteName": "Ardmore",
+        "_id": "5974e8a97c230c188235ca77",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 719,
+        "Latitude": 36.07204,
+        "Longitude": -99.90308,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ARNE",
+        "SiteName": "Arnett",
+        "_id": "5974e8a97c230c188235ca75",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 184,
+        "Latitude": 35.96305,
+        "Longitude": -95.86621,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BIXB",
+        "SiteName": "Bixby",
+        "_id": "5974e8a97c230c188235ca78",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 239,
+        "Latitude": 35.7805,
+        "Longitude": -96.35404,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BRIS",
+        "SiteName": "Bristow",
+        "_id": "5974e8a97c230c188235ca7d",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 352,
+        "Latitude": 36.412009999999995,
+        "Longitude": -97.69394,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BREC",
+        "SiteName": "Breckinridge",
+        "_id": "5974e8a97c230c188235ca7c",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 559,
+        "Latitude": 36.83129,
+        "Longitude": -99.64101,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BUFF",
+        "SiteName": "Buffalo",
+        "_id": "5974e8a97c230c188235ca7f",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 113,
+        "Latitude": 34.0433,
+        "Longitude": -94.6244,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BROK",
+        "SiteName": "Broken Bow",
+        "_id": "5974e8a97c230c188235ca7e",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 304,
+        "Latitude": 36.75443,
+        "Longitude": -97.25452,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BLAC",
+        "SiteName": "Blackwell",
+        "_id": "5974e8a97c230c188235ca80",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 301,
+        "Latitude": 36.63459,
+        "Longitude": -96.81045999999999,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BURB",
+        "SiteName": "Burbank",
+        "_id": "5974e8a97c230c188235ca81",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 281,
+        "Latitude": 35.17156,
+        "Longitude": -96.63121,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BOWL",
+        "SiteName": "Bowlegs",
+        "_id": "5974e8a97c230c188235ca7b",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 511,
+        "Latitude": 35.40185,
+        "Longitude": -99.05847,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BESS",
+        "SiteName": "Bessie",
+        "_id": "5974e8a97c230c188235ca79",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 228,
+        "Latitude": 33.89376,
+        "Longitude": -97.26918,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BURN",
+        "SiteName": "Burneyville",
+        "_id": "5974e8a97c230c188235ca83",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 293,
+        "Latitude": 36.1473,
+        "Longitude": -97.28585,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CARL",
+        "SiteName": "Lake Carl Blackwell",
+        "_id": "5974e8a97c230c188235ca85",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 520,
+        "Latitude": 35.5915,
+        "Longitude": -99.27059,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BUTL",
+        "SiteName": "Butler",
+        "_id": "5974e8a97c230c188235ca82",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 345,
+        "Latitude": 34.8497,
+        "Longitude": -97.0033,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BYAR",
+        "SiteName": "Byars",
+        "_id": "5974e8a97c230c188235ca84",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 234,
+        "Latitude": 34.9924,
+        "Longitude": -96.33422,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CALV",
+        "SiteName": "Calvin",
+        "_id": "5974e8a97c230c188235ca86",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 1267,
+        "Latitude": 36.69256,
+        "Longitude": -102.49713,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "BOIS",
+        "SiteName": "Boise City",
+        "_id": "5974e8a97c230c188235ca7a",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 208,
+        "Latitude": 34.608959999999996,
+        "Longitude": -96.33309,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CENT",
+        "SiteName": "Centrahoma",
+        "_id": "5974e8a97c230c188235ca87",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 291,
+        "Latitude": 35.65282,
+        "Longitude": -96.80407,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CHAN",
+        "SiteName": "Chandler",
+        "_id": "5974e8a97c230c188235ca88",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 362,
+        "Latitude": 36.748129999999996,
+        "Longitude": -98.36274,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CHER",
+        "SiteName": "Cherokee",
+        "_id": "5974e8a97c230c188235ca89",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 328,
+        "Latitude": 35.03236,
+        "Longitude": -97.91445999999999,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CHIC",
+        "SiteName": "Chickasha",
+        "_id": "5974e8a97c230c188235ca8b",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 589,
+        "Latitude": 36.028659999999995,
+        "Longitude": -99.34652,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CAMA",
+        "SiteName": "Camargo",
+        "_id": "5974e8a97c230c188235ca8f",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 207,
+        "Latitude": 36.32112,
+        "Longitude": -95.64617,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CLRM",
+        "SiteName": "Claremore",
+        "_id": "5974e8a97c230c188235ca8e",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 694,
+        "Latitude": 35.54615,
+        "Longitude": -99.7279,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CHEY",
+        "SiteName": "Cheyenne",
+        "_id": "5974e8a97c230c188235ca8a",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 299,
+        "Latitude": 35.680009999999996,
+        "Longitude": -94.84895999999999,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "COOK",
+        "SiteName": "Cookson",
+        "_id": "5974e8a97c230c188235ca90",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 250,
+        "Latitude": 36.90987,
+        "Longitude": -95.88553,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "COPA",
+        "SiteName": "Copan",
+        "_id": "5974e8a97c230c188235ca91",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 221,
+        "Latitude": 34.223209999999995,
+        "Longitude": -95.2487,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CLOU",
+        "SiteName": "Cloudy",
+        "_id": "5974e8a97c230c188235ca8d",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 419,
+        "Latitude": 35.54848,
+        "Longitude": -98.03654,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ELRE",
+        "SiteName": "El Reno",
+        "_id": "5974e8a97c230c188235ca93",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 197,
+        "Latitude": 33.92075,
+        "Longitude": -96.32027,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "DURA",
+        "SiteName": "Durant",
+        "_id": "5974e8a97c230c188235ca92",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 186,
+        "Latitude": 34.65657,
+        "Longitude": -95.32596,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "CLAY",
+        "SiteName": "Clayton",
+        "_id": "5974e8a97c230c188235ca8c",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 350,
+        "Latitude": 34.55205,
+        "Longitude": -96.71779000000001,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "FITT",
+        "SiteName": "Fittstown",
+        "_id": "5974e8a97c230c188235ca95",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 603,
+        "Latitude": 35.20494,
+        "Longitude": -99.80344000000001,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ERIC",
+        "SiteName": "Erick",
+        "_id": "5974e8a97c230c188235ca94",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 422,
+        "Latitude": 35.14887,
+        "Longitude": -98.46607,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "FTCB",
+        "SiteName": "Fort Cobb",
+        "_id": "5974e8a97c230c188235ca99",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 530,
+        "Latitude": 36.72562,
+        "Longitude": -99.14234,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "FREE",
+        "SiteName": "Freedom",
+        "_id": "5974e8a97c230c188235ca98",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 200,
+        "Latitude": 35.30324,
+        "Longitude": -95.65706999999999,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "EUFA",
+        "SiteName": "Eufaula",
+        "_id": "5974e8a97c230c188235ca96",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 997,
+        "Latitude": 36.60183,
+        "Longitude": -101.6013,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "GOOD",
+        "SiteName": "Goodwell",
+        "_id": "5974e8a97c230c188235ca9a",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 405,
+        "Latitude": 36.263529999999996,
+        "Longitude": -98.49766,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "FAIR",
+        "SiteName": "Fairview",
+        "_id": "5974e8a97c230c188235ca9b",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 269,
+        "Latitude": 36.51806,
+        "Longitude": -96.34222,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WYNO",
+        "SiteName": "Wynona",
+        "_id": "5974e8a97c230c188235ca9c",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 330,
+        "Latitude": 36.84053,
+        "Longitude": -96.42777,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "FORA",
+        "SiteName": "Foraker",
+        "_id": "5974e8a97c230c188235ca97",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 330,
+        "Latitude": 36.51806,
+        "Longitude": -97.47978,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "GUTH",
+        "SiteName": "Guthrie",
+        "_id": "5974e8a97c230c188235ca9e",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 341,
+        "Latitude": 34.239444,
+        "Longitude": -98.743583,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "GRA2",
+        "SiteName": "Grandfield",
+        "_id": "5974e8a97c230c188235ca9d",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 243,
+        "Latitude": 35.84162,
+        "Longitude": -96.0024,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "HECT",
+        "SiteName": "Hectorville",
+        "_id": "5974e8a97c230c188235ca9f",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 175,
+        "Latitude": 34.030840000000005,
+        "Longitude": -95.54011,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "HUGO",
+        "SiteName": "Hugo",
+        "_id": "5974e8a97c230c188235caa2",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 478,
+        "Latitude": 34.989709999999995,
+        "Longitude": -99.05283,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "HOBA",
+        "SiteName": "Hobart",
+        "_id": "5974e8a97c230c188235caa3",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 183,
+        "Latitude": 35.74798,
+        "Longitude": -95.64047,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "HASK",
+        "SiteName": "Haskell",
+        "_id": "5974e8a97c230c188235caa0",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 190,
+        "Latitude": 36.14246,
+        "Longitude": -95.45067,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "INOL",
+        "SiteName": "Inola",
+        "_id": "5974e8a97c230c188235caa5",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 110,
+        "Latitude": 33.83013,
+        "Longitude": -94.8803,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "IDAB",
+        "SiteName": "Idabel",
+        "_id": "5974e8a97c230c188235caa4",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 912,
+        "Latitude": 36.85518,
+        "Longitude": -101.22547,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "HOOK",
+        "SiteName": "Hooker",
+        "_id": "5974e8a97c230c188235caa8",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 304,
+        "Latitude": 36.4821,
+        "Longitude": -94.78286999999999,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "JAYX",
+        "SiteName": "Jay",
+        "_id": "5974e8a97c230c188235caa6",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 1322,
+        "Latitude": 36.829370000000004,
+        "Longitude": -102.8782,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "KENT",
+        "SiteName": "Kenton",
+        "_id": "5974e8a97c230c188235caa7",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 493,
+        "Latitude": 35.484390000000005,
+        "Longitude": -98.48151,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "HINT",
+        "SiteName": "Hinton",
+        "_id": "5974e8a97c230c188235caa1",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 341,
+        "Latitude": 34.52887,
+        "Longitude": -97.76484,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "KETC",
+        "SiteName": "Ketchum Ranch",
+        "_id": "5974e8a97c230c188235caa9",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 497,
+        "Latitude": 34.6855,
+        "Longitude": -99.83331,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "HOLL",
+        "SiteName": "Hollis",
+        "_id": "5974e8a97c230c188235caac",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 181,
+        "Latitude": 34.30876,
+        "Longitude": -95.99716,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "LANE",
+        "SiteName": "Lane",
+        "_id": "5974e8a97c230c188235caad",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 232,
+        "Latitude": 34.035790000000006,
+        "Longitude": -96.94394,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MADI",
+        "SiteName": "Madill",
+        "_id": "5974e8a97c230c188235caaf",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 319,
+        "Latitude": 35.8805,
+        "Longitude": -97.91121,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "KING",
+        "SiteName": "Kingfisher",
+        "_id": "5974e8a97c230c188235caaa",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 396,
+        "Latitude": 36.38435,
+        "Longitude": -98.11139,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "LAHO",
+        "SiteName": "Lahoma",
+        "_id": "5974e8a97c230c188235caab",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 460,
+        "Latitude": 34.83592,
+        "Longitude": -99.42398,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MANG",
+        "SiteName": "Mangum",
+        "_id": "5974e8a97c230c188235caae",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 327,
+        "Latitude": 36.06434,
+        "Longitude": -97.21271,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MARE",
+        "SiteName": "Marena",
+        "_id": "5974e8a97c230c188235cab2",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 332,
+        "Latitude": 36.79242,
+        "Longitude": -97.74577,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MEDF",
+        "SiteName": "Medford",
+        "_id": "5974e8a97c230c188235cab1",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 487,
+        "Latitude": 34.729209999999995,
+        "Longitude": -98.56936,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MEDI",
+        "SiteName": "Medicine Park",
+        "_id": "5974e8a97c230c188235cab5",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 230,
+        "Latitude": 34.88231,
+        "Longitude": -95.78096,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MCAL",
+        "SiteName": "McAlester",
+        "_id": "5974e8a97c230c188235cab0",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 366,
+        "Latitude": 36.8981,
+        "Longitude": -96.91035,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "NEWK",
+        "SiteName": "Newkirk",
+        "_id": "5974e8a97c230c188235cab7",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 311,
+        "Latitude": 36.11685,
+        "Longitude": -97.60685,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MRSH",
+        "SiteName": "Marshall",
+        "_id": "5974e8a97c230c188235cab6",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 247,
+        "Latitude": 36.88832,
+        "Longitude": -94.84437,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MIAM",
+        "SiteName": "Miami",
+        "_id": "5974e8a97c230c188235cab3",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 284,
+        "Latitude": 34.31072,
+        "Longitude": -94.82275,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MTHE",
+        "SiteName": "Mt Herman",
+        "_id": "5974e8a97c230c188235cab8",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 283,
+        "Latitude": 34.2281,
+        "Longitude": -97.20142,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "NEWP",
+        "SiteName": "Newport",
+        "_id": "5974e8a97c230c188235cab9",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 355,
+        "Latitude": 35.47226,
+        "Longitude": -97.46414,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "OKCE",
+        "SiteName": "Oklahoma City East",
+        "_id": "5974e8a97c230c188235cabe",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 356,
+        "Latitude": 34.96774,
+        "Longitude": -97.95201999999999,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "NINN",
+        "SiteName": "Ninnekah",
+        "_id": "5974e8a97c230c188235caba",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 430,
+        "Latitude": 35.27225,
+        "Longitude": -97.95553000000001,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MINC",
+        "SiteName": "Minco",
+        "_id": "5974e8a97c230c188235cab4",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 555,
+        "Latitude": 36.98707,
+        "Longitude": -99.01109,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "MAYR",
+        "SiteName": "May Ranch",
+        "_id": "5974e8a97c230c188235cabf",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 362,
+        "Latitude": 35.5556,
+        "Longitude": -97.5107,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "OKCN",
+        "SiteName": "Oklahoma City North",
+        "_id": "5974e8a97c230c188235cac0",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 263,
+        "Latitude": 35.43172,
+        "Longitude": -96.26265,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "OKEM",
+        "SiteName": "Okemah",
+        "_id": "5974e8a97c230c188235cac2",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 366,
+        "Latitude": 35.47112,
+        "Longitude": -97.58245,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "OKCW",
+        "SiteName": "Oklahoma City West",
+        "_id": "5974e8a97c230c188235cac1",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 255,
+        "Latitude": 36.031259999999996,
+        "Longitude": -96.49749,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "OILT",
+        "SiteName": "Oilton",
+        "_id": "5974e8a97c230c188235cabd",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 205,
+        "Latitude": 35.58211,
+        "Longitude": -95.91473,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "OKMU",
+        "SiteName": "Okmulgee",
+        "_id": "5974e8a97c230c188235cac3",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 206,
+        "Latitude": 36.74374,
+        "Longitude": -95.60795,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "NOWA",
+        "SiteName": "Nowata",
+        "_id": "5974e8a97c230c188235cabb",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 291,
+        "Latitude": 34.7155,
+        "Longitude": -97.22924,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "PAUL",
+        "SiteName": "Pauls Valley",
+        "_id": "5974e8a97c230c188235cac4",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 357,
+        "Latitude": 35.23611,
+        "Longitude": -97.46488000000001,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "NRMN",
+        "SiteName": "Norman",
+        "_id": "5974e8a97c230c188235cabc",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 292,
+        "Latitude": 35.99865,
+        "Longitude": -97.04831,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "PERK",
+        "SiteName": "Perkins",
+        "_id": "5974e8a97c230c188235cac6",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 201,
+        "Latitude": 36.36914,
+        "Longitude": -95.27138000000001,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "PRYO",
+        "SiteName": "Pryor",
+        "_id": "5974e8a97c230c188235cac8",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 589,
+        "Latitude": 35.89904,
+        "Longitude": -98.96038,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "PUTN",
+        "SiteName": "Putnam",
+        "_id": "5974e8a97c230c188235cac9",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 283,
+        "Latitude": 34.19365,
+        "Longitude": -97.58811999999999,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "RING",
+        "SiteName": "Ringling",
+        "_id": "5974e8a97c230c188235caca",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 545,
+        "Latitude": 36.190329999999996,
+        "Longitude": -99.0403,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "SEIL",
+        "SiteName": "Seiling",
+        "_id": "5974e8a97c230c188235cacb",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 293,
+        "Latitude": 36.3559,
+        "Longitude": -97.15306,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "REDR",
+        "SiteName": "Red Rock",
+        "_id": "5974e8a97c230c188235cacd",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 157,
+        "Latitude": 35.43815,
+        "Longitude": -94.79805,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "SALL",
+        "SiteName": "Sallisaw",
+        "_id": "5974e8a97c230c188235cacc",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 193,
+        "Latitude": 35.8257,
+        "Longitude": -95.55976,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "PORT",
+        "SiteName": "Porter",
+        "_id": "5974e8a97c230c188235cac7",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 538,
+        "Latitude": 35.12275,
+        "Longitude": -99.36001,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "RETR",
+        "SiteName": "Retrop",
+        "_id": "5974e8a97c230c188235cace",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 328,
+        "Latitude": 35.36492,
+        "Longitude": -96.94821999999999,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "SHAW",
+        "SiteName": "Shawnee",
+        "_id": "5974e8a97c230c188235cacf",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 282,
+        "Latitude": 36.4153,
+        "Longitude": -96.03706,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "SKIA",
+        "SiteName": "Skiatook",
+        "_id": "5974e8a97c230c188235cad0",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 774,
+        "Latitude": 36.59749,
+        "Longitude": -100.26191999999999,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "SLAP",
+        "SiteName": "Slapout",
+        "_id": "5974e8a97c230c188235cad1",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 373,
+        "Latitude": 35.54208,
+        "Longitude": -97.34146,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "SPEN",
+        "SiteName": "Spencer",
+        "_id": "5974e8a97c230c188235cad2",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 283,
+        "Latitude": 36.36114,
+        "Longitude": -96.76986,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "PAWN",
+        "SiteName": "Pawnee",
+        "_id": "5974e8a97c230c188235cac5",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 272,
+        "Latitude": 36.12093,
+        "Longitude": -97.09527,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "STIL",
+        "SiteName": "Stillwater",
+        "_id": "5974e8a97c230c188235cad5",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 256,
+        "Latitude": 34.87642,
+        "Longitude": -96.06981999999999,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "STUA",
+        "SiteName": "Stuart",
+        "_id": "5974e8a97c230c188235cad4",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 320,
+        "Latitude": 34.5661,
+        "Longitude": -96.95048,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "SULP",
+        "SiteName": "Sulphur",
+        "_id": "5974e8a97c230c188235cad6",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 204,
+        "Latitude": 34.7107,
+        "Longitude": -95.01151999999999,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "TALI",
+        "SiteName": "Talihina",
+        "_id": "5974e8a97c230c188235cad7",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 387,
+        "Latitude": 34.43972,
+        "Longitude": -99.13755,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "TIPT",
+        "SiteName": "Tipton",
+        "_id": "5974e8a97c230c188235cad8",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 268,
+        "Latitude": 34.33262,
+        "Longitude": -96.67895,
+        "Manager": "Isaac Newton",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "TISH",
+        "SiteName": "Tishomingo",
+        "_id": "5974e8a97c230c188235cad9",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 320,
+        "Latitude": 34.79146,
+        "Longitude": -96.84380999999999,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "VANO",
+        "SiteName": "Vanoss",
+        "_id": "5974e8a97c230c188235cadb",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 517,
+        "Latitude": 35.84185,
+        "Longitude": -98.52615,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WATO",
+        "SiteName": "Watonga",
+        "_id": "5974e8a97c230c188235cade",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 173,
+        "Latitude": 35.26527,
+        "Longitude": -95.18115999999999,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "STIG",
+        "SiteName": "Stigler",
+        "_id": "5974e8a97c230c188235cad3",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 348,
+        "Latitude": 36.010999999999996,
+        "Longitude": -94.64496,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WEST",
+        "SiteName": "Westville",
+        "_id": "5974e8a97c230c188235cae0",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 283,
+        "Latitude": 34.16775,
+        "Longitude": -97.98815,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WAUR",
+        "SiteName": "Waurika",
+        "_id": "5974e8a97c230c188235cadf",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 236,
+        "Latitude": 36.77536,
+        "Longitude": -95.22094,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "VINI",
+        "SiteName": "Vinita",
+        "_id": "5974e8a97c230c188235cada",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 145,
+        "Latitude": 35.47298,
+        "Longitude": -95.13209,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WEBB",
+        "SiteName": "Webbers Falls",
+        "_id": "5974e8a97c230c188235cae2",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 345,
+        "Latitude": 34.982240000000004,
+        "Longitude": -97.52109,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WASH",
+        "SiteName": "Washington",
+        "_id": "5974e8a97c230c188235cadd",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 290,
+        "Latitude": 35.97235,
+        "Longitude": -94.98671,
+        "Manager": "Jesus Christ",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "TAHL",
+        "SiteName": "Tahlequah",
+        "_id": "5974e8a97c230c188235cae1",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 199,
+        "Latitude": 34.90092,
+        "Longitude": -95.34805,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WILB",
+        "SiteName": "Wilburton",
+        "_id": "5974e8a97c230c188235cae3",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 538,
+        "Latitude": 35.5083,
+        "Longitude": -98.77509,
+        "Manager": "Rene Midouin",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WEAT",
+        "SiteName": "Weatherford",
+        "_id": "5974e8a97c230c188235cae5",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 143,
+        "Latitude": 34.98426,
+        "Longitude": -94.68778,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WIST",
+        "SiteName": "Wister",
+        "_id": "5974e8a97c230c188235cae4",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 308,
+        "Latitude": 34.3647,
+        "Longitude": -98.32025,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WALT",
+        "SiteName": "Walters",
+        "_id": "5974e8a97c230c188235cadc",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 625,
+        "Latitude": 36.42329,
+        "Longitude": -99.41682,
+        "Manager": "Jon Snow",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "WOOD",
+        "SiteName": "Woodward",
+        "_id": "5974e8a97c230c188235cae6",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    },
+    {
+        "Elevation_m": 439,
+        "Latitude": 36.70823,
+        "Longitude": -98.70974,
+        "Manager": "Rene Descartes",
+        "Sensors": [
+            "TAIR",
+            "RELH",
+            "PRES",
+            "RAIN",
+            "SRAD",
+            "WSPD"
+        ],
+        "SiteCode": "ALV2",
+        "SiteName": "Alva",
+        "_id": "5974e8a97c230c188235ca6f",
+        "date_created": "2017-07-23T23:21:29.885Z"
+    }
+]

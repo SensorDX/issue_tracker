@@ -1,0 +1,157 @@
+<style>
+md-backdrop.md-select-backdrop {
+    z-index:103;
+}
+
+.md-select-menu-container {
+    z-index:2000;
+}
+	.highcharts-loading {
+		width: 100% !important
+	}
+	.highcharts-container {
+		width: 100% !important
+	}
+	.cursor {
+		cursor: pointer;
+	}
+	.margin-top {
+		margin-top: 20px;
+	}
+	.no-margin-top {
+		margin-top: 0;
+	}
+	.no-bullets {
+		list-style: none;
+	}
+	.no-bullets > li {
+		float: right;
+	}
+	.no-bullets > li > a > i {
+		color: #ffffff;
+		font-size: 1.1em;
+	}
+	.no-bullets > li > a:hover > i {
+		color: #646464 !important;
+	}
+	.bg-grey {
+		background-color: #aaaaaa;
+	}
+</style>
+<!-- Page Content -->
+<!-- Bootstrap tabs (data-js-tabs attribute is initialized in js/directives.js) -->
+<h4 style="padding-top: 15px;" class="text-center font-w300">{{site_name}}</h4>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Block Tabs Justified Alternative Style -->
+            <div class="block">
+                <ul class="nav nav-tabs nav-tabs-alt nav-justified" data-js-tabs>
+                    <li class="active">
+                        <a href="#btabs-alt-static-justified-home"><i class="fa fa-home"></i> Sensor Types</a>
+                    </li>
+                    <li ng-click="resize()" >
+                        <a href="#btabs-alt-static-justified-profile"><i class="fa fa-line-chart"></i> Time Series</a>
+                    </li>
+                    <li>
+                        <a href="#btabs-alt-static-justified-settings"><i class="si si-speedometer"></i> Issues</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="btabs-alt-static-justified-home">
+												<div class="row margin-top">
+													<div ng-repeat="sensor in sensors" class="text-center padding-15  col-md-4 col-sm-4 col-xs-12">
+															<ul class="nav no-bullets bg-grey" data-js-tabs>
+																<li class="active">
+																	<a ng-click="createIssue($index)" href="#"><i class="fa fa-pencil-square-o"></i></a>
+																</li>
+																<li>
+																	<a href="#btabs-alt-static-justified-profile"><i class="fa fa-line-chart"></i></a>
+																</li>
+															</ul>
+														<div class="bg-gray-lighter padding-30">
+															<img ng-if="sensor == 'temperature'" ng-src="/assets/img/sensors/{{sensor}}.svg" height="30" width="20" alt="Temperature">
+															<img ng-if="sensor != 'temperature'" ng-src="/assets/img/sensors/{{sensor}}.svg" height="30" width="30" alt="Temperature">
+															<table class="sensor-types table">
+																	<thead>
+																		<th class="text-center" colspan="2">{{sensor_name[$index]}}</th>
+																	</thead>
+																	<tbody>
+																			<tr class="text-left">
+																					<td class="middle">
+																							<div class="h5 font-w300 text-muted">Time</div>
+																					</td>
+																					<td class="middle">
+																							<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].time_stamp}}</div>
+																							<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
+																					</td>
+																			</tr>
+																			<tr class="text-left">
+																					<td class="middle">
+																							<div class="h5 font-w300 text-muted">Reading</div>
+																					</td>
+																					<td class="middle">
+																							<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].reading}}
+																								<span ng-if="sensor_data[$index].name == 'Temperature'">&#8451;</span>
+																								<span ng-if="sensor_data[$index].name != 'Temperature'">{{sensor_data[$index].unit}}</span>
+																							</div>
+																							<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
+																					</td>
+																			</tr>
+																			<tr class="text-left">
+																					<td class="middle">
+																							<div class="h5 font-w300 text-muted">Q Flag</div>
+																					</td>
+																					<td class="middle">
+																							<div ng-if="hasData" class="h5 font-w300 text-muted">{{sensor_data[$index].QFlag}} ({{sensor_data[$index].QFlagText}}) </div>
+																							<div ng-if="!hasData" class="h5 font-w300 text-muted">-------</div>
+																					</td>
+																			</tr>
+																	</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+                    </div>
+                    <div class="tab-pane" id="btabs-alt-static-justified-profile">
+											<div class="margin-top" id="chart-container" ng-controller="highchart" highchart></div>
+											<div class="row">
+												<div class="col-xs-12">
+													<div ng-click="selected($index)" ng-repeat="sensor in sensors" class="cursor text-center padding-15  col-md-2 col-sm-2 col-xs-2">
+														<img ng-if="sensor == 'temperature' && isSelected[$index]" ng-src="/assets/img/sensors/{{sensor}}-blue.svg" height="30" width="20" alt="Temperature">
+														<img ng-if="sensor == 'temperature' && !isSelected[$index]" ng-src="/assets/img/sensors/{{sensor}}.svg" height="30" width="20" alt="Temperature">
+														<img ng-if="sensor != 'temperature' && isSelected[$index]" ng-src="/assets/img/sensors/{{sensor}}-blue.svg" height="30" width="30" alt="Temperature">
+														<img ng-if="sensor != 'temperature' && !isSelected[$index]" ng-src="/assets/img/sensors/{{sensor}}.svg" height="30" width="30" alt="Temperature">
+													</div>
+												</div>
+											</div>
+                    </div>
+                    <div class="tab-pane" id="btabs-alt-static-justified-settings">
+											<md-content class="bg-white md-padding">
+												<table class="table table-striped">
+														<tbody>
+															<tr ng-repeat="(key, Issue) in issues | orderBy: title">
+																<td>
+																	<div>
+																		<a class="issue-title" data-ui-sref="viewissues({id: Issue._id})"><strong>{{Issue.title}}</strong></a>
+																	</div>
+																	<div style="margin-top: 10px;">#{{key + 1}} - opened {{Issue.date_opened}} ago by {{Issue.assignee}}
+																		<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{Issue.due_date}}</span></span>
+																		<span ng-repeat="(key, value) in Issue.labels" class="label {{Issue.labels_class[key]}}">{{value}}</span>
+																	</div>
+																</td>
+																<td>
+																	<br>
+																	<div style="margin-top: 10px; float: right">updated {{Issue.date_updated}} ago</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+											</md-content>
+										</div>
+            </div>
+            <!-- END Block Tabs Justified Default Style -->
+        </div>
+    </div>
+</div>
+<!-- END Page Content -->

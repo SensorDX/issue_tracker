@@ -1,0 +1,167 @@
+<style>
+.bg-white {
+	background: white !important;
+}
+.right {
+	float: right !important;
+}
+.issue-status {
+	border-radius: 5px !important; 
+	padding: 5px 15px !important; 
+	line-height: 40px !important;
+	color: white;
+	margin-right: 10px;
+}
+.issue-open {
+	background-color: #3cbd70 !important; 
+}
+.issue-close {
+	background-color: #c50404 !important; 
+}
+</style>
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-7">
+            <h1 class="page-heading">
+                Issues </br>
+								<small>Close, Edit, Create Issues.</small>
+            </h1>
+        </div>
+        <div class="col-sm-5 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li><a data-ui-sref="issues" class="link-effect" >Issues</a></li>
+                <li>View</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12">
+					<md-card>
+						<md-card-content>
+							<div style="float: left;" class="col-md-6 col-xs-12">
+									<span class="issue-status issue-open" ng-if='issue.status == "open"'>OPEN</span>
+									<span class="issue-status issue-close" ng-if='issue.status == "close"'>CLOSE</span>
+									<span><strong>Issue #{{issue.ticket_id}}</strong></span>
+									<span> opened <strong>{{issue.date_opened_formatted}}</strong> ago by </span>
+									<span><strong>{{issue.opened_by.full_name}}</strong></span> 
+							</div>
+							<div style="float: right;" class="col-md-6 col-xs-12">
+									<md-button data-ui-sref="newissues" class="col-xs-12 col-sm-3 right md-raised md-primary">New Issue</md-button>
+									<md-button aria-label="close issue" ng-click="closeIssue(issue)" class="col-xs-12 col-sm-3 right md-raised md-primary">
+										<span ng-if='issue.status == "open"'>Close Issue</span>
+										<span ng-if="issue.status == 'close'">Open Issue</span>
+									</md-button>
+									<md-button data-ui-sref="editissues({id: issue._id})" class="col-xs-12 col-sm-3 right md-raised md-primary">Edit</md-button>
+							</div>
+							<div style="margin: 25px 0" class="col-xs-12">
+							 <md-divider></md-divider>
+							</div>
+							<div class="col-xs-12">
+								<h2 style="margin-bottom: 25px;">{{issue.title}}</h2>
+								<p style="line-height: 35px;">
+								{{issue.description}}
+								</p>
+							</div>
+						</md-card-content>
+					</md-card>
+        <div class="col-xs-12">
+            <!-- Chat Fixed Height -->
+            <div class="block">
+                <ul class="nav nav-tabs nav-tabs-alt" data-js-tabs>
+                    <li class="active">
+                        <a href="#chat-window1">
+                            <img class="img-avatar img-avatar16" src="assets/img/avatars/avatar8.jpg" alt="">
+                            <span class="push-5-l">Comments</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content overflow-hidden">
+                    <!-- Chat Window 5 -->
+                    <div class="tab-pane fade in active" id="chat-window1">
+                        <div class="js-chat-talk overflow-y-auto block-content block-content-full" data-chat-id="5">
+                            <!-- Messages -->
+														<div ng-repeat="comment in comments" class="row" style="margin-bottom: 30px;">
+															<div class="col-sm-1 col-xs-12">
+																<img class="img-avatar img-avatar-thumb" src="assets/img/avatars/avatar10.jpg" alt="">
+															</div>
+															<div class="col-sm-10 col-xs-12" style="/* margin-top: 10px; */">
+																<md-card class="_md">
+																	<md-card-content style="padding: 0;">
+																		<div>
+																			<div style="margin-bottom: 0;/* background-color: #5b90d2; */padding-left: 20px;padding: 15px;" class="bg-gray-lighter">
+																				<span style="/* color: white; */font-weight: bold;">{{comment.created_by.full_name}}</span>
+																				<span style="/* color: white; */">commented {{comment.date_opened_formatted}} ago</span>
+																				<span ng-if="editing[comment._id] !== true" ng-click="edit(comment)" style="float: right; cursor: pointer; text-decoration: underline;">Edit <i class="si si-pencil"></i></span>
+																				<span ng-if="editing[comment._id] == true" ng-click="save(comment)" style="float: right; cursor: pointer; text-decoration: underline;">Save</i></span>
+																				<span ng-if="editing[comment._id] == true" ng-click="cancel(comment)" style="margin-right: 10px; float: right; cursor: pointer; text-decoration: underline;">Cancel </i></span>
+																			</div>
+																		</div>
+																		<div ng-attr-id="{{'click2edit_' + comment._id}}" style="min-height: 64px;padding-left: 15px;padding-top: 15px;">
+																			<p ng-bind-html="comment.message"></p>
+																		</div>
+																	</md-card-content>
+																</md-card>
+															</div>
+														</div>
+                            <!-- END Messages -->
+                        </div>
+                        <div class="js-chat-form block-content block-content-full block-content-mini">
+														<div id="my_summernote" data-js-summernote></div>
+                        </div>
+                    </div>
+                    <!-- END Chat Window 5 -->
+										<md-toolbar class="md-theme-light" style="justify-content: center">
+											<md-button ng-click="comment()" style="margin-top: 0" class="md-raised new-issue">Comment</md-button>
+										</md-toolbar>
+                </div>
+            </div>
+            <!-- END Chat Fixed Height -->
+        </div>
+		</div>
+	</div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-lg-8">
+						<div ng-cloak id="popupContainer">
+						</div>
+				</div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+	function sendFile(file) {
+    data = new FormData();
+    data.append("file", file);
+		console.log("data formatted", data);
+    $.ajax({
+        data: data,
+        type: "POST",
+        url: "/api/upload",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+						console.log('ajax success', response);
+						var image = $('<img>').attr('src', response.url);
+            $('#my_summernote').summernote("insertNode", image[0]);
+        }
+    });
+	}
+	$('#my_summernote').summernote({
+		minHeight: 250,
+		callbacks: {
+			onImageUpload: function(files) {
+				sendFile(files[0]);
+				console.log('files -- image to upload: ', files);
+			}
+		}
+	});
+});
+</script>
