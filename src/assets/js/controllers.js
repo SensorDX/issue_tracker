@@ -133,7 +133,6 @@ App.controller('IssueCtrl', [
         const issues = response.data;
         if (issues.success) {
           $scope.subscribedIssues = issues.data;
-          console.log('subscribedIssues', $scope.subscribedIssues);
         } else {
           Toast.Danger(issues.message);
         }
@@ -146,7 +145,6 @@ App.controller('IssueCtrl', [
       IssueService.GetIssues('open', assignee_id).then(function(response) {
         const issues = response.data;
         if (issues.success) {
-          console.log('open issues', issues);
           $scope.openIssues = issues.data;
           $scope.tabs.openCount = issues.count;
         } else {
@@ -156,7 +154,6 @@ App.controller('IssueCtrl', [
       IssueService.GetIssues('close', assignee_id).then(function(response) {
         const issues = response.data;
         if (issues.success) {
-          console.log('close issues', issues);
           $scope.closeIssues = issues.data;
           $scope.tabs.closeCount = issues.count;
         } else {
@@ -166,7 +163,6 @@ App.controller('IssueCtrl', [
       IssueService.GetIssues('', assignee_id).then(function(response) {
         const issues = response.data;
         if (issues.success) {
-          console.log('all issues', issues);
           $scope.allIssues = issues.data;
           $scope.tabs.allCount = issues.count;
         } else {
