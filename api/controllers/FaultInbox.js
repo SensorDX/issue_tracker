@@ -6,7 +6,6 @@ module.exports = function(router) {
   // GET FAULT INBOX
   //=====================
   router.get('/api/faultinbox', function(req, res) {
-    console.log('what up');
     const helper = faultInboxHelper();
     let model1Data = '';
     let model2Data = '';
