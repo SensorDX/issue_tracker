@@ -137,7 +137,6 @@ App.controller('IssueCtrl', [
           Toast.Danger(issues.message);
         }
       });
-      console.log('choosing assignee', $scope.filter_assignee);
       $localStorage.filter_assignee =  $scope.filter_assignee || 'none';
       const assignee_id = $scope.filter_assignee
         ? $scope.filter_assignee._id
@@ -162,7 +161,6 @@ App.controller('IssueCtrl', [
       });
       IssueService.GetIssues('', assignee_id).then(function(response) {
         const issues = response.data;
-        console.log('allIssues', issues);
         if (issues.success) {
           $scope.allIssues = issues.data;
           $scope.tabs.allCount = issues.count;
@@ -172,7 +170,6 @@ App.controller('IssueCtrl', [
       });
     };
     $scope.updateLabels = function(label) {
-      console.log(label);
       $scope.issue.labels = label;
     };
     $scope.tabs = {
@@ -192,7 +189,6 @@ App.controller('IssueCtrl', [
         list.push(item);
       }
       $scope.issue.ids = $scope.selected;
-      console.log($scope.issue.ids);
     };
     $scope.exists = function(item, list) {
       return list.indexOf(item) > -1;
@@ -211,7 +207,6 @@ App.controller('IssueCtrl', [
     };
 
     IssueService.GetLabels().then(function(response) {
-      console.log('labels', response);
       const labels = response.data;
       if (labels.success) {
         $scope.labels = labels.data;
@@ -219,7 +214,6 @@ App.controller('IssueCtrl', [
     });
     UserService.GetUsers(['full_name']).then(function(response) {
       const assignees = response.data;
-      console.log('assignees', assignees);
       if (assignees.success) {
         $scope.assignees = assignees.data;
       }
@@ -232,17 +226,14 @@ App.controller('IssueCtrl', [
     });
     IssueService.GetStatus().then(function(response) {
       const statuses = response.data;
-      console.log('status', statuses);
       if (statuses.success) {
         $scope.statuses = statuses.data;
       }
     });
     SiteService.GetSites().then(function(response) {
       const sites = response.data;
-      console.log('sites', sites);
       if (sites.success) {
         $scope.sites = sites.data;
-        console.log('scope.sites', $scope.sites);
       } else {
         Toast.Danger(sites.message);
       }
@@ -255,8 +246,6 @@ App.controller('IssueCtrl', [
         } else {
           Toast.Danger(issue.message);
         }
-        console.log('updating ...');
-        console.log(response);
         $window.location.reload();
       });
     };
@@ -304,7 +293,6 @@ App.controller('ViewIssueCtrl', [
       },
     };
     $scope.subscribers = [];
-    console.log('subscribers', $scope.subscriber);
     bulkEmail = function(receivers) {
       receivers.map(function(receiver) {
         const mail = {
@@ -337,7 +325,6 @@ App.controller('ViewIssueCtrl', [
 
     IssueService.GetIssueById(_id).then(function(response) {
       const issue = response.data;
-      console.log('GetIssueById ViewCtrl', issue);
       if (issue.success) {
         $scope.issue = issue.data;
         $scope.issue.ids = [_id];
@@ -346,15 +333,12 @@ App.controller('ViewIssueCtrl', [
       }
     });
     $scope.edit = function(comment) {
-      console.log('comment was clicked', comment);
       $scope.editing[comment._id] = true;
       $scope.old_message[comment._id] = comment.message;
       jQuery('#click2edit_' + comment._id).summernote({focus: true});
-      console.log('edit', $scope.editing);
     };
     $scope.cancel = function(comment) {
       $scope.editing[comment._id] = false;
-      console.log('cancel', $scope.editing);
       $('#click2edit_' + comment._id).summernote(
         'code',
         $scope.old_message[comment._id],
@@ -365,12 +349,10 @@ App.controller('ViewIssueCtrl', [
       $scope.editing[comment._id] = false;
       var markup = $('#click2edit_' + comment._id).summernote('code');
       comment.message = markup;
-      console.log('save', $scope.editing);
       CommentService.UpdateComment(comment).then(
         function(response) {
           const updated_comment = response.data;
           if (updated_comment.success) {
-            console.log('updated comment', updated_comment);
             $('#click2edit_' + comment._id).summernote('code', markup);
             Toast.Success(updated_comment.message);
             bulkEmail($scope.subscribers);
@@ -381,27 +363,23 @@ App.controller('ViewIssueCtrl', [
           }
         },
         function(error) {
-          console.log("couldn't load comments", error);
           Toast.Danger(error.statusText);
           $('#click2edit_' + comment._id).summernote('destroy');
         },
       );
     };
     $scope.comment = function() {
-      console.log('commenting ...');
       var mark = jQuery('#my_summernote').summernote('code');
       $scope.comment_to_post.message = mark;
       CommentService.CreateComment($scope.comment_to_post).then(
         function(response) {
           const comment = response.data;
           if (comment.success) {
-            console.log('posted comment', comment);
             $scope.comments.push(comment.data);
             IssueService.PostIssueComment(_id, {
               comments: comment.data._id,
             }).then(function(response) {
               const issue = response.data;
-              console.log('posted comment in issues', issue);
               bulkEmail($scope.subscribers);
               jQuery('#my_summernote').summernote('reset');
             });
@@ -410,15 +388,12 @@ App.controller('ViewIssueCtrl', [
           }
         },
         function(error) {
-          console.log("couldn't load comments", error);
           Toast.Danger(error.statusText);
         },
       );
-      console.log('markup html -- ', mark);
     };
     IssueService.GetIssueComment(_id).then(function(response) {
       const issue = response.data;
-      console.log('issue comments', issue);
       if (issue.success) {
         $scope.comments = issue.data;
       } else {
@@ -430,7 +405,6 @@ App.controller('ViewIssueCtrl', [
       IssueService.UpdateIssues(issue).then(function(response) {
         const issue = response.data;
         if (issue.success) {
-          console.log('issue updated', issue);
         } else {
           Toast.Danger(issue.message);
         }
@@ -497,18 +471,15 @@ App.controller('NewIssueCtrl', [
       ModalService.reset();
     }
     $scope.updateLabels = function(label) {
-      console.log(label);
       $scope.issue.labels = label;
     };
     UserService.GetUsers(['full_name, email']).then(function(response) {
       const assignees = response.data;
-      console.log('assignees', assignees);
       if (assignees.success) {
         $scope.assignees = assignees.data;
       }
     });
     IssueService.GetLabels().then(function(response) {
-      console.log('labels', response);
       const labels = response.data;
       if (labels.success) {
         $scope.labels = labels.data;
@@ -549,7 +520,6 @@ App.controller('NewIssueCtrl', [
           ? $scope.sites.filter(createFilterFor(query))
           : $scope.sites;
       }
-      console.log('query search results for new issues', results);
       return results;
     }
 
@@ -565,7 +535,6 @@ App.controller('NewIssueCtrl', [
     }
 
     function selectedItemChange(item) {
-      console.log('Item changed to', item);
       if (item !== undefined) {
         $scope.issue.station = item.SiteCode;
         $scope.issue.deviceId = item.DeviceId;
@@ -589,7 +558,6 @@ App.controller('NewIssueCtrl', [
         const new_issue = response.data;
         if (new_issue.success) {
           Toast.Success(new_issue.message);
-          console.log('new issue created', new_issue);
           IssueService.Subscribe(new_issue.data._id, issue.opened_by._id);
           IssueService.Subscribe(new_issue.data._id, issue.assignee._id);
           const mail = {
@@ -602,7 +570,6 @@ App.controller('NewIssueCtrl', [
           };
           EmailService.SendMail(mail).then(function(response) {
             const email = response.data;
-            console.log('email response', email);
             if (email.success) {
               Toast.Success(email.message);
             } else {
@@ -664,7 +631,6 @@ App.controller('EditIssueCtrl', [
     };
     IssueService.GetIssueById(_id).then(function(response) {
       const issue = response.data;
-      console.log('GetIssueById EditIssue', issue);
       if (issue.success) {
         $scope.issue = issue.data;
         $scope.issue.due_date = new Date($scope.issue.due_date);
@@ -681,13 +647,11 @@ App.controller('EditIssueCtrl', [
     };
     UserService.GetUsers(['full_name']).then(function(response) {
       const assignees = response.data;
-      console.log('assignees', assignees);
       if (assignees.success) {
         $scope.assignees = assignees.data;
       }
     });
     IssueService.GetLabels().then(function(response) {
-      console.log('labels', response);
       const labels = response.data;
       if (labels.success) {
         $scope.labels = labels.data;
@@ -710,7 +674,6 @@ App.controller('EditIssueCtrl', [
           ? $scope.sites.filter(createFilterFor(query))
           : $scope.sites;
       }
-      console.log('query search results for edited issues', results);
       return results;
     }
     function createFilterFor(query) {
@@ -725,7 +688,6 @@ App.controller('EditIssueCtrl', [
     }
 
     function selectedItemChange(item) {
-      console.log('Item changed to', item);
       if (item !== undefined) {
         $scope.issue.station = item.SiteCode;
         $scope.issue.deviceId = item.DeviceId;
@@ -770,7 +732,6 @@ App.controller('EditIssueCtrl', [
         const deleting = response.data;
         if (deleting.success) {
           Toast.Success(deleting.message);
-          $window.console.log(response);
           $state.go('issues');
         } else {
           Toast.Danger(deleting.message);
@@ -807,7 +768,6 @@ App.controller('DashboardCtrl', [
     var from = $stateParams.from;
     var feature = ModalService.getModalInstance();
     if (from == 'issues' && feature) {
-      console.log('reopen modal');
       $uibModal.open({
         templateUrl: 'assets/views/dashboard/map_popup.html',
         controller: 'PopupCtrl',
@@ -886,8 +846,6 @@ App.controller('DashboardCtrl', [
           $scope.features.push($scope.geojson.data.features[i]);
         }
       }
-      console.log('details');
-      console.log($scope.features);
       $scope.$broadcast('center', type);
     };
     $scope.focus = function(geometry) {
@@ -966,7 +924,6 @@ App.controller('PopupCtrl', [
         due_date: '',
       };
       ModalService.addIssue(issue);
-      console.log(issue);
       $scope.$uibModalInstance.close();
       $state.go('newissues', {from: 'modal'});
     };
@@ -975,8 +932,6 @@ App.controller('PopupCtrl', [
         $scope.isSelected[key] = false;
       });
       $scope.isSelected[index] = true;
-      console.log($scope.isSelected);
-      console.log(index);
       while (ChartObj.series.length > 0) {
         ChartObj.series[0].remove(false);
       }
@@ -989,7 +944,6 @@ App.controller('PopupCtrl', [
             '&limit=10000',
         )
         .success(function(data) {
-          console.log(data);
           var myChart = ChartObj;
           var mydata = {
             name: $scope.sensor_name[index],
@@ -1005,14 +959,8 @@ App.controller('PopupCtrl', [
               valueSuffix: $scope.sensor_unit[index],
             },
           };
-          console.log('chart object after rendering');
           myChart.setTitle({text: $scope.sensor_name[index]});
-          console.log(chart);
-          console.log('chart object after changing');
-          console.log("here's my chart again");
-          console.log(ChartObj);
           myChart.addSeries(mydata);
-          console.log(chart);
           myChart.reflow();
         });
     };
@@ -1036,11 +984,9 @@ App.controller('PopupCtrl', [
     $scope.sensor_id = ['TAIR', 'RELH', 'PRES', 'RAIN', 'SRAD', 'WSPD'];
     $scope.sensor_unit = ['°C', '%', 'mbar', 'mm', 'W/m^2', 'mph'];
     $scope.hasData = false;
-    console.log(query);
     $http.get(query).success(function(result, status) {
       $scope.sensor_data = result.data;
       $scope.hasData = result.data.length > 0;
-      console.log(result);
     });
     $http
       .get(
@@ -1051,8 +997,6 @@ App.controller('PopupCtrl', [
           '&limit=10000',
       )
       .success(function(data) {
-        console.log('fake data');
-        console.log(data);
         var myChart = ChartObj;
         var mydata = {
           name: $scope.sensor_name[initial],
@@ -1068,14 +1012,8 @@ App.controller('PopupCtrl', [
             valueSuffix: $scope.sensor_unit[initial],
           },
         };
-        console.log('chart object after rendering');
         myChart.setTitle({text: $scope.sensor_name[initial]});
-        console.log(chart);
-        console.log('chart object after changing');
-        console.log("here's my chart again");
-        console.log(ChartObj);
         myChart.addSeries(mydata);
-        console.log(chart);
         myChart.reflow();
       });
     $http.get('/api/issues/station/' + sitecode + '?&type=modified').then(
@@ -1083,8 +1021,6 @@ App.controller('PopupCtrl', [
         $scope.issues = response.data['data'];
       },
       function(response) {
-        console.log('my issues for', sitecode);
-        console.log(response);
       },
     );
   },
@@ -1131,8 +1067,6 @@ App.controller('leaflet', [
       }
     };
     $scope.openModal = function(event) {
-      console.log('this is the event');
-      console.log(event);
       var feature = event.layer.feature;
       $uibModal.open({
         templateUrl: 'assets/views/dashboard/map_popup.html',
@@ -1219,8 +1153,6 @@ App.controller('leaflet', [
             var latlngs = [];
             latlngs.push(L.GeoJSON.coordsToLatLng(coordinates));
             if (latlngs.length > 0) {
-              console.log('latlngs is:');
-              console.log(latlngs);
               leaflet.fitBounds(latlngs);
             }
           };
@@ -1231,8 +1163,6 @@ App.controller('leaflet', [
       });
     });
     $scope.$on('center', function(event, type) {
-      console.log('this is the type');
-      console.log(type);
       $scope.centerJSON(type);
     });
     $scope.$on('center-single', function(event, geometry) {
@@ -1245,8 +1175,6 @@ App.controller('highchart', [
   '$scope',
   '$http',
   function($scope, $http) {
-    console.log('my data');
-    console.log($scope.data);
   },
 ]);
 
@@ -1280,11 +1208,9 @@ App.directive('highchart', [
   function(chart) {
     return {
       link: function(scope, element, attributes) {
-        console.log('my element');
         var data = chart;
         setTimeout(function() {
           ChartObj = new Highcharts.stockChart('chart-container', data);
-          console.log(ChartObj);
         }, 0);
       },
     };
@@ -1296,13 +1222,10 @@ App.value('chart', {
     type: 'spline',
     events: {
       load: function() {
-        console.log('my chart was loaded');
       },
       redraw: function() {
-        console.log('my chart was redrawn');
       },
       render: function() {
-        console.log('my chart was rendered');
       },
     },
   },
@@ -1364,7 +1287,6 @@ App.controller('ProfileCtrl', [
     UserService,
     ProfileService,
   ) {
-    console.log('user', $rootScope);
     if (!$stateParams.id) {
       $scope.id = $rootScope.globals.currentUser.id;
     } else {
@@ -1401,8 +1323,6 @@ App.controller('ProfileCtrl', [
             $scope.showTabDialog(this);
             ProfileService.addUser(row_data);
           }
-          console.log('table cell', table.cell(this).index().columnVisible);
-          console.log('row data', table.row(this).data());
           //jQuery('.user-edit').on('click', function(e) {
           //e.preventDefault();
           //});
@@ -1440,7 +1360,6 @@ App.controller('ProfileCtrl', [
       ProfileService,
       EmailService,
     ) {
-      console.log('add_user_tmpl');
       $scope.user = {
         first_name: '',
         last_name: '',
@@ -1456,7 +1375,6 @@ App.controller('ProfileCtrl', [
       UserService.GetManagers().then(function(response) {
         const result = response.data;
         $scope.managers = result.data;
-        console.log('managers', $scope.managers);
       });
       UserService.GetRoles().then(function(response) {
         $scope.roles = response;
@@ -1466,18 +1384,15 @@ App.controller('ProfileCtrl', [
         ProfileService.reset();
       };
       $scope.submit = function(user) {
-        console.log('submitting user', user);
         if ((user.role == '' || user.role == 'agent') && user.manager == '') {
           Toast.Danger(
             "If you leave the user field empty, the user role will be 'agent'. User with role 'agent' needs to be assigned to a manager",
           );
         } else {
           if (user.edit) {
-            console.log('editing');
             UserService.UpdateUser(user).then(function(response) {
               const updated_user = response.data;
               if (updated_user.success) {
-                console.log('user updated', updated_user);
                 Toast.Success(updated_user.message);
                 $window.location.reload();
               } else {
@@ -1506,7 +1421,6 @@ App.controller('ProfileCtrl', [
                     };
                     EmailService.SendMail(mail).then(function(response) {
                       const email = response.data;
-                      console.log('email response', email);
                       if (email.success) {
                         Toast.Success(email.message);
                       } else {

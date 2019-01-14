@@ -9,7 +9,6 @@ const {
   modifyCommentsDate,
   modifyIssuesDate,
   getNextSequence,
-  getSites
 } = require('./../utils');
 var fetch = require('node-fetch');
 
@@ -19,8 +18,8 @@ module.exports = function(router) {
   //=====================
   router.get('/api/issues', function(req, res) {
     let url = req && req.headers ? req.headers.host : '';
-    url += '/api/sites?provider=tahmo&format=siteCodeObj';
-    // url = 'https://tahmoissuetracker.mybluemix.net/api/sites?provider=tahmo&format=siteCodeObj';
+    url = 'https://'+ url + '/api/sites?provider=tahmo&format=siteCodeObj';
+    url = 'https://tahmoissuetracker.mybluemix.net/api/sites?provider=tahmo&format=siteCodeObj';
     let sites = {};
     const {status, assignee} = req.query;
     let status_query = {};
@@ -41,25 +40,31 @@ module.exports = function(router) {
 		.then(function(response) {
       if (response.success) {
         sites = response.data;
-      } 
-		})
-		.catch(function(err) {
-      console.log('err', err);
-		});
-    Issue.find({$and: [status_query, assignee_query]}, function(err, issues) {
-      if (err) {
+        Issue.find({$and: [status_query, assignee_query]}, function(err, issues) {
+          if (err) {
+            res
+              .status(200)
+              .send({success: false, message: 'Could not retrieve issues.'});
+          } else {
+            res.status(200).send({
+              success: true,
+              message: 'Issues retrieved successfully.',
+              count: issues.length,
+              data: modifyIssuesDate(issues, sites),
+            });
+          }
+        });
+      } else {
         res
           .status(200)
-          .send({success: false, message: 'Could not retrieve issues.'});
-      } else {
-        res.status(200).send({
-          success: true,
-          message: 'Issues retrieved successfully.',
-          count: issues.length,
-          data: modifyIssuesDate(issues, sites),
-        });
+          .send({success: false, message: 'Could not retrieve sites. Therefore no issues retrieved.'});
       }
-    });
+		})
+		.catch(function(err) {
+      res
+        .status(200)
+        .send({success: false, message: 'Could not retrieve sites. Therefore no issues retrieved.'});
+		});
   });
 
   //=====================
@@ -106,9 +111,11 @@ module.exports = function(router) {
   //=====================
   router.get('/api/issues/:id', function(req, res) {
     let url = req && req.headers ? req.headers.host : '';
-    url += '/api/sites?provider=tahmo&format=siteCodeObj';
-    // url = 'https://tahmoissuetracker.mybluemix.net/api/sites?provider=tahmo&format=siteCodeObj';
+    url = 'https://'+ url + '/api/sites?provider=tahmo&format=siteCodeObj';
+    url = 'https://tahmoissuetracker.mybluemix.net/api/sites?provider=tahmo&format=siteCodeObj';
     let sites = {};
+
+    const {id} = req.params;
 
 		fetch(url, {
 			method: 'GET',
@@ -119,26 +126,34 @@ module.exports = function(router) {
 		.then(function(response) {
       if (response.success) {
         sites = response.data;
-      } 
-		})
-		.catch(function(err) {
-      console.log('err', err);
-		});
-    const {id} = req.params;
-    Issue.find({_id: id}, function(err, issue) {
-      if (err) {
-        res.status(200).send({
-          success: false,
-          message: 'Could not retrieve the specified issue.',
+        Issue.find({_id: id}, function(err, issue) {
+          if (err) {
+            res.status(200).send({
+              success: false,
+              message: 'Could not retrieve the specified issue.',
+            });
+          } else {
+            console.log('fetch response', modifyIssuesDate(issue, sites));
+            res.status(200).send({
+              success: true,
+              message: 'Issue retrieved successfully.',
+              data: modifyIssuesDate(issue, sites)[0],
+            });
+          }
         });
       } else {
         res.status(200).send({
-          success: true,
-          message: 'Issue retrieved successfully.',
-          data: modifyIssuesDate(issue, sites)[0],
+          success: false,
+          message: 'Could not retrieve sites. Therefore issue not retrieved.'
         });
       }
-    });
+		})
+		.catch(function(err) {
+      res.status(200).send({
+        success: false,
+        message: 'Could not retrieve sites. Therefore issue not retrieved.'
+      });
+		});
   });
 
   //=====================
@@ -352,7 +367,8 @@ module.exports = function(router) {
       let update = {};
       let isUpdated = false;
 
-      if (title) {
+      if (true) {
+        // Always update title even if empty
         update.title = title;
         isUpdated = true;
       }

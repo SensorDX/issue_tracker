@@ -157,7 +157,6 @@ App.factory('uiHelpers', function () {
 					});
         },
         uiValidateLogin: function () {
-					console.log('function was initialized');
 					jQuery('.js-validation-login').validate({
 							errorClass: 'help-block text-right animated fadeInDown',
 							errorElement: 'div',
@@ -502,13 +501,10 @@ App.factory('uiHelpers', function () {
             }
         },
         stringToObj: function (array_pos, pos, data, result) {
-					console.log("pos = "+pos);
-					console.log("result = ", result);
 					var obj = {};
 					if ( pos >= data.length) return result;
 
 					if (data[pos] != "Array" && data[pos] != "Object") {
-						console.log ('data pos is now: ', data[pos]);
 						if (data[pos-1] == "Array") {
 							result.push(data[pos]);
 							this.stringToObj(array_pos, pos+1, data, result);
@@ -521,16 +517,13 @@ App.factory('uiHelpers', function () {
 					}
 					if (data[pos] == "Array") {
 						if (result == null || !(result.length > 0)) {
-							console.log('array is null');
 							result = [];
 							this.stringToObj(array_pos, pos+1, data, result);
 						} else {
-							console.log('other array');
 						}
 					}
 					if (data[pos] == "Object") {
 						if (result[0] == null || Object.keys(result[0]).length == 0) {
-							console.log('array state ', result[0]);
 							result[0] = {};
 							this.stringToObj(array_pos, pos+1, data, result);
 						}
@@ -570,7 +563,6 @@ App.run(function($rootScope, $location, $cookies, $http, uiHelpers) {
 		}
 		$rootScope.$on('$locationChangeStart', function (event, next, current) {
 			// redirect to login page if not logged in and trying to access a restricted page
-			console.log('location changed', $location.path());
 			//var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
 			const loggedIn = $rootScope.globals.currentUser;
 			if (!loggedIn) {
@@ -594,7 +586,6 @@ App.run(function($rootScope, $location, $cookies, $http, uiHelpers) {
 // Application Main Controller
 App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$log',
     function ($scope, $localStorage, $window, $location, $log) {
-				//console.log($location.path());
         $scope.oneui = {
             version: '1.0', // Template version
             localStorage: false, // Enable/Disable local storage
@@ -611,7 +602,6 @@ App.controller('AppCtrl', ['$scope', '$localStorage', '$window', '$location', '$
                 headerFixed: true // Enables fixed header
             }
         };
-				console.log($scope.oneui.settings.isLogin);
 
         // If local storage setting is enabled
         if ($scope.oneui.localStorage) {
@@ -710,7 +700,6 @@ App.controller('HeaderCtrl', ['$scope', '$localStorage', '$window',
 App.service('fs', function() {
 	var fs = require('fs');
 	this.Write = function(filename, data) {
-		console.log('writing '+data+' to '+filename);
 	}
 });
 
@@ -760,14 +749,12 @@ function($http, $cookies, $rootScope) {
 	return service;
 
 	function Login ({email, password}) {
-			console.log('login api -- trying ...', email);
 			return $http.post('api/auth', {email, password})
 	}
 	function SetCredentials({user, email, password}) {
 		const authdata = btoa(email + ':' + password).toString('base64');
 		const id = user._id;
 		const role = user.role;
-		console.log('authdata', authdata);
 		$rootScope.globals = {
 				currentUser: { user, email, id, role, authdata }
 		};
@@ -929,8 +916,6 @@ App.factory('IssueService', ['$http', function($http) {
 	}
 
 	function PostIssueComment(id, comments) {
-		console.log('posting comments id', id);
-		console.log('posting comments', comments);
 		return $http.post('api/issues/'+id+'/comments', comments);
 	}
 

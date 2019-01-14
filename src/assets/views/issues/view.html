@@ -63,7 +63,9 @@
 							 <md-divider></md-divider>
 							</div>
 							<div class="col-xs-12">
-								<h2 style="margin-bottom: 25px;">{{issue.title}}</h2>
+								<h3 style="margin-bottom: 25px;">
+                  {{issue.site.SiteCode || '__'}}/{{issue.site.DeviceId || '__'}}, {{issue.site.SiteName || '__'}} {{issue.title ? '-' : ''}} {{issue.title}}
+                </h3>
 								<p style="line-height: 35px;">
 								{{issue.description}}
 								</p>
