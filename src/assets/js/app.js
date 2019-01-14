@@ -883,8 +883,8 @@ App.factory('IssueService', ['$http', function($http) {
 		});
 	}
 
-	function GetIssues(status="", assignee="") {
-		return $http.get('api/issues?status='+status+'&assignee='+assignee);
+	function GetIssues(status="", assignee="", country="") {
+		return $http.get('api/issues?status='+status+'&assignee='+assignee+'&country='+country);
 	}
 
 	function GetIssueById(id) {
@@ -933,14 +933,17 @@ App.factory('SiteService', ['$http', function($http) {
 	//GET
 	service.GetSites = GetSites;
 	service.GetSiteByCode = GetSiteByCode;
+  service.GetSiteCountries = GetSiteCountries;
 	return service;
 
 	function GetSites(provider="tahmo", format="") {
 		return $http.get('api/sites?provider='+provider+'&format='+format);
 	}
-
 	function GetSiteByCode(sitecode) {
 		return $http.get('api/sites/'+sitecode);
+	}
+	function GetSiteCountries() {
+		return $http.get('api/sites/countries');
 	}
 }]);
 

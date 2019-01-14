@@ -21,9 +21,10 @@ module.exports = function(router) {
     url = 'https://'+ url + '/api/sites?provider=tahmo&format=siteCodeObj';
     url = 'https://tahmoissuetracker.mybluemix.net/api/sites?provider=tahmo&format=siteCodeObj';
     let sites = {};
-    const {status, assignee} = req.query;
+    const {status, assignee, country} = req.query;
     let status_query = {};
     let assignee_query = {};
+    let country_query = {};
     if (status) {
       status_query = {status};
     }
@@ -46,11 +47,12 @@ module.exports = function(router) {
               .status(200)
               .send({success: false, message: 'Could not retrieve issues.'});
           } else {
+            let data = modifyIssuesDate(issues, sites, country);
             res.status(200).send({
               success: true,
               message: 'Issues retrieved successfully.',
-              count: issues.length,
-              data: modifyIssuesDate(issues, sites),
+              count: data.length,
+              data: data
             });
           }
         });

@@ -102,6 +102,17 @@ App.controller('IssueCtrl', [
       _id: assignee_id,
 			full_name: assignee_name
     };
+    
+    const country_code = $localStorage.filter_country &&  $localStorage.filter_country.code
+      ? $localStorage.filter_country.code
+      : '';
+    const country_name = $localStorage.filter_country && $localStorage.filter_country.name
+      ? $localStorage.filter_country.name
+      : '';
+    $scope.filter_country = country_code && country_name ? {
+      code: country_code,
+			name: country_name
+    } : null;
 
     $scope.subscribedIssues = [];
     $scope.isSubscribedTo = function(item, list) {
@@ -131,7 +142,7 @@ App.controller('IssueCtrl', [
         });
       }
     };
-    $scope.selectAssignee = function() {
+    $scope.selectFilter = function() {
       IssueService.GetSubscriptionsByUser(userId).then(function(response) {
         const issues = response.data;
         if (issues.success) {
@@ -141,10 +152,15 @@ App.controller('IssueCtrl', [
         }
       });
       $localStorage.filter_assignee =  $scope.filter_assignee || 'none';
+      $localStorage.filter_country =  $scope.filter_country || 'none';
+      console.log('filter_country', $scope.filter_country);
       const assignee_id = $scope.filter_assignee
         ? $scope.filter_assignee._id
         : '';
-      IssueService.GetIssues('open', assignee_id).then(function(response) {
+      const country_code = $scope.filter_country
+        ? $scope.filter_country.code
+        : '';
+      IssueService.GetIssues('open', assignee_id, country_code).then(function(response) {
         const issues = response.data;
         if (issues.success) {
           $scope.openIssues = issues.data;
@@ -153,7 +169,7 @@ App.controller('IssueCtrl', [
           Toast.Danger(issues.message);
         }
       });
-      IssueService.GetIssues('pending', assignee_id).then(function(response) {
+      IssueService.GetIssues('pending', assignee_id, country_code).then(function(response) {
         const issues = response.data;
         console.log('getting pending issues', issues);
         if (issues.success) {
@@ -163,7 +179,7 @@ App.controller('IssueCtrl', [
           Toast.Danger(issues.message);
         }
       });
-      IssueService.GetIssues('close', assignee_id).then(function(response) {
+      IssueService.GetIssues('close', assignee_id, country_code).then(function(response) {
         const issues = response.data;
         if (issues.success) {
           $scope.closeIssues = issues.data;
@@ -172,8 +188,9 @@ App.controller('IssueCtrl', [
           Toast.Danger(issues.message);
         }
       });
-      IssueService.GetIssues('', assignee_id).then(function(response) {
+      IssueService.GetIssues('', assignee_id, country_code).then(function(response) {
         const issues = response.data;
+        console.log('all issues', issues);
         if (issues.success) {
           $scope.allIssues = issues.data;
           $scope.tabs.allCount = issues.count;
@@ -252,6 +269,14 @@ App.controller('IssueCtrl', [
         Toast.Danger(sites.message);
       }
     });
+    SiteService.GetSiteCountries().then(function(response) {
+      const countries = response.data;
+      if (countries.success) {
+        $scope.countries = countries.data;
+      } else {
+        Toast.Danger(countries.message);
+      }
+    });
     $scope.updateIssue = function(issue) {
       IssueService.UpdateIssues(issue).then(function(response) {
         const issue = response.data;
@@ -263,7 +288,7 @@ App.controller('IssueCtrl', [
         $window.location.reload();
       });
     };
-    $scope.selectAssignee();
+    $scope.selectFilter();
   },
 ]);
 

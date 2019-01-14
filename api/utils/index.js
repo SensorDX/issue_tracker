@@ -3,6 +3,7 @@ const md5 = require('md5');
 const Counter = require('./../models/counters');
 const q = require('q');
 var fetch = require('node-fetch');
+const isoCountries = require('./isoCountries.json');
 
 function getSites() {
   let url = req && req.headers ? req.headers.host : '';
@@ -42,12 +43,13 @@ function saltAndHash(password) {
 	return md5(LEFT_SALT+password+RIGHT_SALT);
 }
 
-function modifyIssuesDate(issues, sites) {
+function modifyIssuesDate(issues, sites, country) {
 	results = []
 	let items = {};
 	issues.map(function(item, index) {
+    const site = sites[item.station];
 		items = Object.assign(item.toObject(), {
-      site: sites[item.station],
+      site: site,
 			due_date_formatted: format_date(item.due_date),
 			date_updated_formatted: date_diff(item.updated_at, new Date()),
 			date_opened_formatted: date_diff(item.created_at, new Date()),
@@ -57,6 +59,12 @@ function modifyIssuesDate(issues, sites) {
 		});
 		results.push(items);
 	});
+
+  if (country) {
+    return results.filter(function(el) {
+      return el && el.site ? el.site.Country == country : false;
+    })
+  }
 	return results;
 }
 
@@ -146,15 +154,29 @@ function faultInboxHelper() {
   return 'faultInboxHelper() executed';
 }
 
+function modifyCountries(countries) {
+  let result = [];
+  let temp = {};
+  for (countryCode in countries) {
+    temp['code'] = countryCode;
+    temp['name'] = countries[countryCode];
+    result.push(temp);
+    temp = {};
+  }
+  return result;
+}
+
 module.exports ={
   faultInboxHelper,
 	generateRandomPassword,
 	saltAndHash,
+  modifyCountries,
 	modifyCommentsDate,
   modifyIssuesDate,
 	getNextSequence,
   getSites,
 	geojson,
+  isoCountries,
   siteCodeObj,
 	tahmo,
 }

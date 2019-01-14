@@ -1,6 +1,6 @@
 //Libraries
 const Site = require('./../models/sites');
-const {geojson, siteCodeObj, tahmo}= require('./../utils');
+const {geojson, isoCountries, modifyCountries, siteCodeObj, tahmo}= require('./../utils');
 var fetch = require('node-fetch');
 
 module.exports = function(router) {
@@ -77,6 +77,15 @@ module.exports = function(router) {
 		});
 	}
  });
+
+ //=====================
+ // GET SITES COUNTRIES
+ //=====================
+ router.get('/api/sites/countries', function(req, res) {
+  console.log('isoCountries', isoCountries);
+  res.status(200).send({success: true, message: 'Countries retrieved successfully.', data: modifyCountries(isoCountries)});
+ });
+
 
  //=====================
  // GET SITES BY SITECODE

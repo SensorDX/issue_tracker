@@ -100,10 +100,19 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 								</md-input-container>
 								<md-input-container style="margin-left: 40px; font-size: 15px;">
 									<label style="color: white">Assignee</label>
-									<md-select style="min-width: 200px;" ng-model="filter_assignee" ng-model-options="{trackBy: '$value._id'}" ng-change="selectAssignee()" flex-gt-sm>
+									<md-select style="min-width: 200px;" ng-model="filter_assignee" ng-model-options="{trackBy: '$value._id'}" ng-change="selectFilter()" flex-gt-sm>
 										<md-option ng-value="none"><em>All</em></md-option>
 										<md-option ng-repeat="assignee in assignees | orderBy: 'full_name'" ng-value="assignee">
 											{{assignee.full_name}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+								<md-input-container style="margin-left: 40px; font-size: 15px;">
+									<label style="color: white">Country</label>
+									<md-select style="min-width: 200px;" ng-model="filter_country" ng-model-options="{trackBy: '$value.name'}" ng-change="selectFilter()" flex-gt-sm>
+										<md-option ng-value="none"><em>All</em></md-option>
+										<md-option ng-repeat="country in countries | orderBy: 'name'" ng-value="country">
+											{{country.name}}
 										</md-option>
 									</md-select>
 								</md-input-container>
