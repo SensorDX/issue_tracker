@@ -36,7 +36,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 					<md-card>
 						<md-card-content>
 							<div layout-gt-sm="row">
-								<md-input-container>
+								<md-input-container ng-if='isAuthorized'>
 									<label>Status</label>
 									<md-select style="width: 200px;" ng-model="issue.status" flex-gt-sm>
 										<md-option ng-repeat="status in statuses" ng-value="status">
@@ -48,7 +48,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 									<label>Assignee</label>
 									<md-select style="width: 200px;" ng-model="issue.assignee" flex-gt-sm>
 										<md-option ng-value="none"><em>None</em></md-option>
-										<md-option ng-repeat="assignee in assignees" ng-value="assignee.full_name">
+										<md-option ng-repeat="assignee in assignees | orderBy: 'full_name'" ng-value="assignee.full_name">
 											{{assignee.full_name}}
 										</md-option>
 									</md-select>
@@ -79,8 +79,8 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 										</md-option>
 									</md-select>
 								</md-input-container>
-								<md-input-container>
-									<md-button ng-click="updateIssue(issue)" class="md-raised md-primary">Update Issues</md-button>
+                <md-input-container style="flex: 1;">
+									<md-button ng-click="updateIssue(issue)" style="float: right" class="md-raised md-primary">Update Issues</md-button>
 								</md-input-container>
 							</div>
 						</md-card-content>
@@ -102,7 +102,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 									<label style="color: white">Assignee</label>
 									<md-select style="min-width: 200px;" ng-model="filter_assignee" ng-model-options="{trackBy: '$value._id'}" ng-change="selectAssignee()" flex-gt-sm>
 										<md-option ng-value="none"><em>All</em></md-option>
-										<md-option ng-repeat="assignee in assignees" ng-value="assignee">
+										<md-option ng-repeat="assignee in assignees | orderBy: 'full_name'" ng-value="assignee">
 											{{assignee.full_name}}
 										</md-option>
 									</md-select>

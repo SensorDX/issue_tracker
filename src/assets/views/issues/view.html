@@ -53,7 +53,7 @@
 							</div>
 							<div style="float: right;" class="col-md-6 col-xs-12">
 									<md-button data-ui-sref="newissues" class="col-xs-12 col-sm-3 right md-raised md-primary">New Issue</md-button>
-									<md-button aria-label="close issue" ng-click="closeIssue(issue)" class="col-xs-12 col-sm-3 right md-raised md-primary">
+									<md-button ng-if='isAuthorized' aria-label="close issue" ng-click="closeIssue(issue)" class="col-xs-12 col-sm-3 right md-raised md-primary">
 										<span ng-if='issue.status == "open"'>Close Issue</span>
 										<span ng-if="issue.status == 'close'">Open Issue</span>
 									</md-button>

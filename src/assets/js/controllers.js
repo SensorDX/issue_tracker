@@ -79,6 +79,9 @@ App.controller('IssueCtrl', [
     SiteService,
     Toast,
   ) {
+    const role = $rootScope.globals.currentUser.user.role;
+    $scope.isAuthorized = UserService.isAuthorized(role);
+
     const userId = $rootScope.globals.currentUser.user._id;
 
     $scope.issue = {
@@ -262,6 +265,7 @@ App.controller('ViewIssueCtrl', [
   '$state',
   '$stateParams',
   '$sce',
+  'UserService',
   'IssueService',
   'CommentService',
   'EmailService',
@@ -275,11 +279,15 @@ App.controller('ViewIssueCtrl', [
     $state,
     $stateParams,
     $sce,
+    UserService,
     IssueService,
     CommentService,
     EmailService,
     Toast,
   ) {
+    const role = $rootScope.globals.currentUser.user.role;
+    $scope.isAuthorized = UserService.isAuthorized(role);
+
     const _id = $stateParams.id;
     const userId = $rootScope.globals.currentUser.user._id;
     const fullName = $rootScope.globals.currentUser.user.full_name;
