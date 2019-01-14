@@ -1343,7 +1343,7 @@ App.controller('ProfileCtrl', [
       $mdDialog
         .show({
           controller: DialogController,
-          templateUrl: 'assets/views/add_user.tmpl.html',
+          templateUrl: 'assets/views/settings/profile/add_user.html',
           parent: angular.element(document.body),
           targetEvent: ev,
           clickOutsideToClose: true,
