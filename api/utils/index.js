@@ -2,6 +2,19 @@
 const md5 = require('md5');
 const Counter = require('./../models/counters');
 const q = require('q');
+var fetch = require('node-fetch');
+
+function getSites() {
+  let url = req && req.headers ? req.headers.host : '';
+  url += '/api/sites?provider=tahmo&format=siteCodeObj';
+  url = 'https://tahmoissuetracker.mybluemix.net/api/sites?provider=tahmo&format=siteCodeObj';
+	const deferred = q.defer();
+	deferred.resolve(fetch(url, {
+			method: 'GET',
+		})
+	);
+	return deferred.promise;
+}
 
 const {
 	LEFT_SALT, 
@@ -30,11 +43,11 @@ function saltAndHash(password) {
 }
 
 function modifyIssuesDate(issues, sites) {
-  console.log('those are the sites', sites);
 	results = []
 	let items = {};
 	issues.map(function(item, index) {
 		items = Object.assign(item.toObject(), {
+      site: sites[item.station],
 			due_date_formatted: format_date(item.due_date),
 			date_updated_formatted: date_diff(item.updated_at, new Date()),
 			date_opened_formatted: date_diff(item.created_at, new Date()),
@@ -140,6 +153,7 @@ module.exports ={
 	modifyCommentsDate,
   modifyIssuesDate,
 	getNextSequence,
+  getSites,
 	geojson,
   siteCodeObj,
 	tahmo,

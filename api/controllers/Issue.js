@@ -9,6 +9,7 @@ const {
   modifyCommentsDate,
   modifyIssuesDate,
   getNextSequence,
+  getSites
 } = require('./../utils');
 var fetch = require('node-fetch');
 
@@ -19,12 +20,11 @@ module.exports = function(router) {
   router.get('/api/issues', function(req, res) {
     let url = req && req.headers ? req.headers.host : '';
     url += '/api/sites?provider=tahmo&format=siteCodeObj';
-    url = 'https://tahmoissuetracker.mybluemix.net/api/sites?provider=tahmo&format=siteCodeObj';
-
+    // url = 'https://tahmoissuetracker.mybluemix.net/api/sites?provider=tahmo&format=siteCodeObj';
+    let sites = {};
     const {status, assignee} = req.query;
     let status_query = {};
     let assignee_query = {};
-    let sites = {};
     if (status) {
       status_query = {status};
     }
@@ -105,6 +105,25 @@ module.exports = function(router) {
   // GET ISSUES BY ID
   //=====================
   router.get('/api/issues/:id', function(req, res) {
+    let url = req && req.headers ? req.headers.host : '';
+    url += '/api/sites?provider=tahmo&format=siteCodeObj';
+    // url = 'https://tahmoissuetracker.mybluemix.net/api/sites?provider=tahmo&format=siteCodeObj';
+    let sites = {};
+
+		fetch(url, {
+			method: 'GET',
+		})
+		.then(function(res) {
+			return res.json();
+		})
+		.then(function(response) {
+      if (response.success) {
+        sites = response.data;
+      } 
+		})
+		.catch(function(err) {
+      console.log('err', err);
+		});
     const {id} = req.params;
     Issue.find({_id: id}, function(err, issue) {
       if (err) {
@@ -116,7 +135,7 @@ module.exports = function(router) {
         res.status(200).send({
           success: true,
           message: 'Issue retrieved successfully.',
-          data: modifyIssuesDate(issue)[0],
+          data: modifyIssuesDate(issue, sites)[0],
         });
       }
     });
