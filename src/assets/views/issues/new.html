@@ -124,7 +124,7 @@
 						<label>Assignee</label>
 						<md-select style="min-width: 200px;" ng-model="issue.assignee" ng-model-options="{trackBy: '$value._id'}" flex-gt-sm>
 							<md-option ng-value="none"><em>None</em></md-option>
-							<md-option ng-repeat="assignee in assignees" ng-value="assignee">
+							<md-option ng-repeat="assignee in assignees | orderBy: 'full_name'" ng-value="assignee">
 								{{assignee.full_name}}
 							</md-option>
 						</md-select>

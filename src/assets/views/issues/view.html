@@ -18,6 +18,10 @@
 .issue-close {
 	background-color: #c50404 !important; 
 }
+.issue-pending {
+	background-color: #ffbe00 !important; 
+}
+
 </style>
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
@@ -46,18 +50,22 @@
 						<md-card-content>
 							<div style="float: left;" class="col-md-6 col-xs-12">
 									<span class="issue-status issue-open" ng-if='issue.status == "open"'>OPEN</span>
+									<span class="issue-status issue-pending" ng-if='issue.status == "pending"'>PENDING</span>
 									<span class="issue-status issue-close" ng-if='issue.status == "close"'>CLOSE</span>
 									<span><strong>Issue #{{issue.ticket_id}}</strong></span>
 									<span> opened <strong>{{issue.date_opened_formatted}}</strong> ago by </span>
 									<span><strong>{{issue.opened_by.full_name}}</strong></span> 
 							</div>
 							<div style="float: right;" class="col-md-6 col-xs-12">
-									<md-button data-ui-sref="newissues" class="col-xs-12 col-sm-3 right md-raised md-primary">New Issue</md-button>
+									<md-button data-ui-sref="newissues" class="col-xs-12 col-sm-2 right md-raised md-primary">New Issue</md-button>
 									<md-button ng-if='isAuthorized' aria-label="close issue" ng-click="closeIssue(issue)" class="col-xs-12 col-sm-3 right md-raised md-primary">
-										<span ng-if='issue.status == "open"'>Close Issue</span>
+										<span ng-if='issue.status == "open" || issue.status == "pending"'>Close Issue</span>
 										<span ng-if="issue.status == 'close'">Open Issue</span>
 									</md-button>
-									<md-button data-ui-sref="editissues({id: issue._id})" class="col-xs-12 col-sm-3 right md-raised md-primary">Edit</md-button>
+									<md-button ng-if='isAuthorized' aria-label="peding issue" ng-click="setIssueToPending(issue)" class="col-xs-12 col-sm-2 right md-raised md-primary">
+                    Pending
+									</md-button>
+									<md-button data-ui-sref="editissues({id: issue._id})" class="col-xs-12 col-sm-2 right md-raised md-primary">Edit</md-button>
 							</div>
 							<div style="margin: 25px 0" class="col-xs-12">
 							 <md-divider></md-divider>

@@ -152,6 +152,33 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 												</table>
 										</md-content>
 									</md-tab>
+									<md-tab label="Pending ({{tabs.pendingCount}})" md-on-select="clearSelected()">
+										<md-content class="bg-white md-padding">
+											<table class="table table-striped">
+													<tbody>
+														<tr ng-repeat="(key, pendingIssue) in pendingIssues | filter: searchBox | orderBy: '-updated_at'">
+															<td>
+																<md-checkbox aria-label="key" ng-checked="exists(pendingIssue._id, selected)" ng-click="toggle(pendingIssue._id, selected)">
+																</md-checkbox>
+															</td>
+															<td>
+																<div>
+                                  <a class="issue-title" data-ui-sref="viewissues({id: pendingIssue._id})"><strong>{{pendingIssue.site.SiteCode || '__'}}/{{pendingIssue.site.DeviceId || '__'}}, {{pendingIssue.site.SiteName || '__'}} {{pendingIssue.title ? '-' : ''}} {{pendingIssue.title}}</strong></a>
+																</div>
+																<div style="margin-top: 10px;">#{{pendingIssue.ticket_id}} - opened {{pendingIssue.date_opened_formatted}} ago by <strong>{{pendingIssue.opened_by.full_name}}</strong> assigned to <strong>{{pendingIssue.assignee.full_name}}</strong>
+																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{closeIssue.due_date_formatted}}</span></span>
+																	<span ng-repeat="(key, value) in pendingIssue.labels" class="label {{pendingIssue.labels_class[key]}}">{{value}}</span>
+																</div>
+															</td>
+															<td>
+																<br>
+																<div style="margin-top: 10px; float: right">updated {{pendingIssue.date_updated_formatted}} ago</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+										</md-content>
+									</md-tab>
 									<md-tab label="Closed ({{tabs.closeCount}})" md-on-select="clearSelected()">
 										<md-content class="bg-white md-padding">
 											<table class="table table-striped">

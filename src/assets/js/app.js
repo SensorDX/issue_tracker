@@ -864,7 +864,7 @@ App.factory('IssueService', ['$http', function($http) {
 
 	function GetStatus() {
 		return new Promise(function(resolve) {
-			const status = ['open', 'close'];
+			const status = ['open', 'pending', 'close'];
 			resolve({data: {success: true, data: status}});
 		});
 	}

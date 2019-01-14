@@ -153,6 +153,16 @@ App.controller('IssueCtrl', [
           Toast.Danger(issues.message);
         }
       });
+      IssueService.GetIssues('pending', assignee_id).then(function(response) {
+        const issues = response.data;
+        console.log('getting pending issues', issues);
+        if (issues.success) {
+          $scope.pendingIssues = issues.data;
+          $scope.tabs.pendingCount = issues.count;
+        } else {
+          Toast.Danger(issues.message);
+        }
+      });
       IssueService.GetIssues('close', assignee_id).then(function(response) {
         const issues = response.data;
         if (issues.success) {
@@ -177,6 +187,7 @@ App.controller('IssueCtrl', [
     };
     $scope.tabs = {
       openCount: '0',
+      pendingCount: '0',
       closeCount: '0',
       allCount: '0',
     };
@@ -408,8 +419,18 @@ App.controller('ViewIssueCtrl', [
         Toast.Danger(issue.message);
       }
     });
+    $scope.setIssueToPending = function(issue) {
+      issue.status = 'pending'
+      IssueService.UpdateIssues(issue).then(function(response) {
+        const issue = response.data;
+        if (issue.success) {
+        } else {
+          Toast.Danger(issue.message);
+        }
+      });
+    };
     $scope.closeIssue = function(issue) {
-      issue.status = issue.status == 'open' ? 'close' : 'open';
+      issue.status = (issue.status == 'open' || issue.status == 'pending') ? 'close' : 'open';
       IssueService.UpdateIssues(issue).then(function(response) {
         const issue = response.data;
         if (issue.success) {
