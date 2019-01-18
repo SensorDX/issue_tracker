@@ -372,7 +372,7 @@ module.exports = function(router) {
       let update = {};
       let isUpdated = false;
 
-      if (true) {
+      if (title !== undefined && title !== null) {
         // Always update title even if empty
         update.title = title;
         isUpdated = true;
