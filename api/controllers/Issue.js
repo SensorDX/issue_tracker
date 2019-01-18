@@ -207,7 +207,9 @@ module.exports = function(router) {
   //=====================
   router.post('/api/issues/:id/comments', function(req, res) {
     const {id} = req.params;
-    const {comments} = req.body;
+    const {comments, updated_at} = req.body;
+    const update = {};
+    update.updated_at = updated_at;
     if (comments == '' || comments == undefined) {
       res
         .status(200)
@@ -216,7 +218,7 @@ module.exports = function(router) {
     }
     Issue.findByIdAndUpdate(
       {_id: id},
-      {$push: {comments: req.body.comments}},
+      {$set: update, $push: {comments: req.body.comments}},
       {safe: true, upsert: true, new: true},
       function(err, issue) {
         if (err) {
@@ -363,6 +365,7 @@ module.exports = function(router) {
       station,
       status,
       due_date,
+      updated_at
     } = req.body;
 
     if (ids && ids.length > 0) {
@@ -417,6 +420,11 @@ module.exports = function(router) {
 
       if (due_date) {
         update.due_date = due_date;
+        isUpdated = true;
+      }
+
+      if (updated_at) {
+        update.updated_at = updated_at;
         isUpdated = true;
       }
 

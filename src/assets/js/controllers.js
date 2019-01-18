@@ -396,7 +396,13 @@ App.controller('ViewIssueCtrl', [
       CommentService.UpdateComment(comment).then(
         function(response) {
           const updated_comment = response.data;
+          console.log('log updated_comment', updated_comment);
           if (updated_comment.success) {
+            const issue = {
+              ids: [_id],
+              updated_at: updated_comment.updated_at,
+            };
+            IssueService.UpdateIssues(issue);
             $('#click2edit_' + comment._id).summernote('code', markup);
             Toast.Success(updated_comment.message);
             bulkEmail($scope.subscribers);
@@ -422,6 +428,7 @@ App.controller('ViewIssueCtrl', [
             $scope.comments.push(comment.data);
             IssueService.PostIssueComment(_id, {
               comments: comment.data._id,
+              updated_at: comment.data.updated_at
             }).then(function(response) {
               const issue = response.data;
               bulkEmail($scope.subscribers);

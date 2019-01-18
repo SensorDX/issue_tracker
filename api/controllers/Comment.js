@@ -1,4 +1,5 @@
 //Libraries
+const Issue = require('./../models/issues');
 const Comment = require('./../models/comments');
 const {modifyCommentsDate} = require('./../utils');
 
