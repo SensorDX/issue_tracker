@@ -45,7 +45,6 @@ function date_diff(first, second) {
   if (month >= 1) return Math.floor(month) + monthUnit;
   if (day >= 1) return Math.floor(day) + dayUnit;
 
-	day = (day < 1) ? '' : Math.floor(day) + dayUnit;
 	hr = (hr < 1) ? '' : Math.floor(hr) + hourUnit;
 	min = (min < 0) ? '' : Math.floor(min) + minuteUnit;
 	sec = (sec < 1) ? '' : Math.ceil(sec) + secondUnit;
