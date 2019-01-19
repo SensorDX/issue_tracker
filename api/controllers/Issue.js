@@ -135,7 +135,6 @@ module.exports = function(router) {
               message: 'Could not retrieve the specified issue.',
             });
           } else {
-            console.log('fetch response', modifyIssuesDate(issue, sites));
             res.status(200).send({
               success: true,
               message: 'Issue retrieved successfully.',
@@ -233,7 +232,6 @@ module.exports = function(router) {
             data: issue,
           });
         }
-        console.log(err);
       });
   });
 
@@ -368,6 +366,7 @@ module.exports = function(router) {
       updated_at
     } = req.body;
 
+
     if (ids && ids.length > 0) {
       let update = {};
       let isUpdated = false;
@@ -441,8 +440,7 @@ module.exports = function(router) {
         } else {
           query = {_id: {$in: ids}};
         }
-        update.updated_at = new Date();
-        console.log(update);
+        update.updated_at = updated_at ? updated_at : new Date();
         Issue.update(query, {$set: update}, {multi: true, new: true}, function(err, issue) {
           if (err) {
             res

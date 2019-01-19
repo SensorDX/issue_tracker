@@ -400,9 +400,11 @@ App.controller('ViewIssueCtrl', [
           if (updated_comment.success) {
             const issue = {
               ids: [_id],
-              updated_at: updated_comment.updated_at,
+              updated_at: updated_comment.data.updated_at,
             };
-            IssueService.UpdateIssues(issue);
+            IssueService.UpdateIssues(issue).then(function(response) {
+              console.log('trying to update issue as well', response);
+            });
             $('#click2edit_' + comment._id).summernote('code', markup);
             Toast.Success(updated_comment.message);
             bulkEmail($scope.subscribers);
