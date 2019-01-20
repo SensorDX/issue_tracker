@@ -39,6 +39,7 @@ app.use(express.static('./'));
 // // viewed at http://localhost:8080
 app.get('/api/raw_data', function(req, res) {
     var req = http.request(options, function (response) {
+      console.log(options);
       var chunks = [];
       //res.json(null);
 
@@ -50,12 +51,27 @@ app.get('/api/raw_data', function(req, res) {
         var body = Buffer.concat(chunks);
         json = JSON.parse(body);
         res.json(json);
-        console.log(json);
+        //console.log(json);
       });
     });
     //req.end();
     //res.sendFile(path.join(__dirname + '/index.html'));
     req.end();
+});
+
+app.post('/test', function(req, res){
+  console.log(req.body.dataInfo);
+  options = {
+    "method": "GET",
+    "hostname": "tahmoapi.mybluemix.net",
+    "port": null,
+    "path": "/v1/timeseries/" + req.body.dataInfo + "/rawMeasurements?startDate=2018-06-07&endDate=2018-08-12",
+    "headers": {
+      "authorization": "Basic NldZSFlUMFhWWTdCWFpIWE43SEJLWUFaODpSazdwWnBkSjBnd3hIVkdyM2twYnBIWDZwOGZrMitwSmhoS0F4Mk5yNzdJ",
+      "cache-control": "no-cache",
+      "postman-token": "f5be9690-4509-0a30-f656-2d3b984caefa"
+    }
+  };
 });
 
 
@@ -87,7 +103,7 @@ app.get('/api/fault_data', function(req, response) {
       var body = Buffer.concat(chunks);
       json = JSON.parse(body);
       response.json(json);
-      console.log(json);
+      //console.log(json);
     });
     });
 
@@ -98,5 +114,5 @@ app.get('/api/fault_data', function(req, response) {
 
 
 app.listen(port, function() {
-	console.log('Listening on port '+ port);
+	//console.log('Listening on port '+ port);
 });

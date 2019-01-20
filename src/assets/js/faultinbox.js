@@ -26,6 +26,21 @@ function ajax2(){
 }
 
 function addnewGraph(){
+
+  stationID = document.getElementById("StationID");
+  selectedStationId = stationID.options[stationID.selectedIndex].value;
+  $.ajax({
+          url: "/test",
+          type: 'POST',
+          dataType: 'text',
+          data: {dataInfo : selectedStationId}, // added data type
+          success: function() {
+              alert('POSTED!');
+          }
+  });
+
+  console.log(00001 + 1);
+
   var checkboxes = document.getElementsByName("sensor");
   var checkboxesChecked = [];
   console.log(rawMeasurements);
@@ -72,12 +87,12 @@ function addnew(sensor){
       loader.setAttribute("class", "loader");
       container.appendChild(newGraph);
       container.appendChild(loader);
-      if(rawMeasurements && faultMeasurements){
-        processData(rawMeasurements, faultMeasurements, sensor, divName);
-        container.removeChild(loader);
-        newGraph.appendChild(close);
-      }
-      else{
+      // if(rawMeasurements && faultMeasurements){
+      //   processData(rawMeasurements, faultMeasurements, sensor, divName);
+      //   container.removeChild(loader);
+      //   newGraph.appendChild(close);
+      // }
+      //else{
         $.when(ajax1(), ajax2()).done(function(a1, a2){
             processData(a1[0], a2[0], sensor, divName);
             rawMeasurements = a1[0];
@@ -86,7 +101,7 @@ function addnew(sensor){
             newGraph.appendChild(close);
         });
       }
-    }
+    //}
 }
 
 function processData(data, faultData, sensor, divName){
@@ -95,77 +110,79 @@ function processData(data, faultData, sensor, divName){
     var titleName;
     console.log(data);
     console.log(faultData);
-    if(sensor == "wg"){
-      Object.keys(data.timeseries.windgusts).forEach(function(key){
-          date.push(key);
-          rawdata.push(data.timeseries.windgusts[key]);
-          titleName = "Wind Gust";
-      });
+    if(data.status == "success"){
+      if(sensor == "wg"){
+        Object.keys(data.timeseries.windgusts).forEach(function(key){
+            date.push(key);
+            rawdata.push(data.timeseries.windgusts[key]);
+            titleName = "Wind Gust";
+        });
+      }
+      else if(sensor == "wd"){
+        Object.keys(data.timeseries.winddirection).forEach(function(key){
+            date.push(key);
+            rawdata.push(data.timeseries.winddirection[key]);
+            titleName = "Wind Direction";
+        });
+      }
+      else if(sensor == "ws"){
+        Object.keys(data.timeseries.windspeed).forEach(function(key){
+            date.push(key);
+            rawdata.push(data.timeseries.windspeed[key]);
+            titleName = "Wind Speed";
+        });
+      }
+      else if(sensor == "te"){
+        Object.keys(data.timeseries.temperature).forEach(function(key){
+            date.push(key);
+            rawdata.push(data.timeseries.temperature[key]);
+            titleName = "Temperature";
+        });
+      }
+      else if(sensor == "rh"){
+        Object.keys(data.timeseries.relativehumidity).forEach(function(key){
+            date.push(key);
+            rawdata.push(data.timeseries.relativehumidity[key]);
+            titleName = "Relative Humidity";
+        });
+      }
+      else if(sensor == "ra"){
+        Object.keys(data.timeseries.radiation).forEach(function(key){
+            date.push(key);
+            rawdata.push(data.timeseries.radiation[key]);
+            titleName = "Radiation";
+        });
+      }
+      else if(sensor == "ap"){
+        Object.keys(data.timeseries.atmosphericpressure).forEach(function(key){
+            date.push(key);
+            rawdata.push(data.timeseries.atmosphericpressure[key]);
+            titleName = "Atmospheric Pressure";
+        });
+      }
+      else if(sensor == "ec"){
+        Object.keys(data.timeseries.electricalconductivity).forEach(function(key){
+            date.push(key);
+            rawdata.push(data.timeseries.electricalconductivity[key]);
+            titleName = "Electrical Conductivity";
+        });
+      }
+      else if(sensor == "vp"){
+        Object.keys(data.timeseries.vaporpressure).forEach(function(key){
+            date.push(key);
+            rawdata.push(data.timeseries.vaporpressure[key]);
+            titleName = "Vapor Pressure";
+        });
+      }
+      else if(sensor == "pr"){
+        Object.keys(data.timeseries.precipitation).forEach(function(key){
+            date.push(key);
+            rawdata.push(data.timeseries.precipitation[key]);
+            titleName = "Precipitation";
+        });
+      }
+      createChart(date, rawdata, faultData, sensor, divName, titleName);
     }
-    else if(sensor == "wd"){
-      Object.keys(data.timeseries.winddirection).forEach(function(key){
-          date.push(key);
-          rawdata.push(data.timeseries.winddirection[key]);
-          titleName = "Wind Direction";
-      });
-    }
-    else if(sensor == "ws"){
-      Object.keys(data.timeseries.windspeed).forEach(function(key){
-          date.push(key);
-          rawdata.push(data.timeseries.windspeed[key]);
-          titleName = "Wind Speed";
-      });
-    }
-    else if(sensor == "te"){
-      Object.keys(data.timeseries.temperature).forEach(function(key){
-          date.push(key);
-          rawdata.push(data.timeseries.temperature[key]);
-          titleName = "Temperature";
-      });
-    }
-    else if(sensor == "rh"){
-      Object.keys(data.timeseries.relativehumidity).forEach(function(key){
-          date.push(key);
-          rawdata.push(data.timeseries.relativehumidity[key]);
-          titleName = "Relative Humidity";
-      });
-    }
-    else if(sensor == "ra"){
-      Object.keys(data.timeseries.radiation).forEach(function(key){
-          date.push(key);
-          rawdata.push(data.timeseries.radiation[key]);
-          titleName = "Radiation";
-      });
-    }
-    else if(sensor == "ap"){
-      Object.keys(data.timeseries.atmosphericpressure).forEach(function(key){
-          date.push(key);
-          rawdata.push(data.timeseries.atmosphericpressure[key]);
-          titleName = "Atmospheric Pressure";
-      });
-    }
-    else if(sensor == "ec"){
-      Object.keys(data.timeseries.electricalconductivity).forEach(function(key){
-          date.push(key);
-          rawdata.push(data.timeseries.electricalconductivity[key]);
-          titleName = "Electrical Conductivity";
-      });
-    }
-    else if(sensor == "vp"){
-      Object.keys(data.timeseries.vaporpressure).forEach(function(key){
-          date.push(key);
-          rawdata.push(data.timeseries.vaporpressure[key]);
-          titleName = "Vapor Pressure";
-      });
-    }
-    else if(sensor == "pr"){
-      Object.keys(data.timeseries.precipitation).forEach(function(key){
-          date.push(key);
-          rawdata.push(data.timeseries.precipitation[key]);
-          titleName = "Precipitation";
-      });
-    }
-    createChart(date, rawdata, faultData, sensor, divName, titleName);
 
 }
 
@@ -365,7 +382,7 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
       result,
       {
         legend: 'always',
-        title: titleName,
+        title: titleName + " (" + document.getElementById("StationID").value + ")",
         showRangeSelector: true,
         labels: ["Date", "Value"],
         ylabel: 'Value',
