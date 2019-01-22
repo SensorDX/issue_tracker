@@ -23,7 +23,7 @@ module.exports = function(router) {
     Model3.findAll(function(result) {
       model3Data = result;
     });
-    
+
     const data = `${helper}. ${model1Data} data, ${model2Data} data, and ${model3Data} data retrieved ...`;
 
     if (model1Data && model2Data && model3Data) {
