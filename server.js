@@ -65,7 +65,7 @@ app.post('/test', function(req, res){
     "method": "GET",
     "hostname": "tahmoapi.mybluemix.net",
     "port": null,
-    "path": "/v1/timeseries/" + req.body.dataInfo + "/rawMeasurements?startDate=2018-06-07&endDate=2018-08-12",
+    "path": "/v1/timeseries/" + req.body.dataInfo + "/rawMeasurements?startDate=" + req.body.startDateInfo + "&endDate=" + req.body.endDateInfo,
     "headers": {
       "authorization": "Basic NldZSFlUMFhWWTdCWFpIWE43SEJLWUFaODpSazdwWnBkSjBnd3hIVkdyM2twYnBIWDZwOGZrMitwSmhoS0F4Mk5yNzdJ",
       "cache-control": "no-cache",

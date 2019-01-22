@@ -8,6 +8,286 @@ function ($scope, Toast, FaultInboxService) {
       if (inbox.success) {
         $scope.inbox = inbox.data;
         Toast.Success('Success retrieving inbox');
+        var stations = [
+              "TA00006",
+              "TA00007",
+              "TA00008",
+              "TA00009",
+              "TA00010",
+              "TA00011",
+              "TA00015",
+              "TA00016",
+              "TA00024",
+              "TA00025",
+              "TA00027",
+              "TA00028",
+              "TA00045",
+              "TA00047",
+              "TA00049",
+              "TA00050",
+              "TA00055",
+              "TA00056",
+              "TA00057",
+              "TA00061",
+              "TA00064",
+              "TA00066",
+              "TA00067",
+              "TA00075",
+              "TA00076",
+              "TA00077",
+              "TA00080",
+              "TA00081",
+              "TA00083",
+              "TA00084",
+              "TA00086",
+              "TA00087",
+              "TA00090",
+              "TA00098",
+              "TA00103",
+              "TA00111",
+              "TA00115",
+              "TA00116",
+              "TA00117",
+              "TA00118",
+              "TA00120",
+              "TA00121",
+              "TA00122",
+              "TA00130",
+              "TA00132",
+              "TA00133",
+              "TA00134",
+              "TA00136",
+              "TA00142",
+              "TA00146",
+              "TA00148",
+              "TA00151",
+              "TA00152",
+              "TA00154",
+              "TA00156",
+              "TA00157",
+              "TA00158",
+              "TA00161",
+              "TA00162",
+              "TA00163",
+              "TA00164",
+              "TA00165",
+              "TA00166",
+              "TA00167",
+              "TA00168",
+              "TA00169",
+              "TA00172",
+              "TA00176",
+              "TA00180",
+              "TA00184",
+              "TA00186",
+              "TA00187",
+              "TA00189",
+              "TA00196",
+              "TA00197",
+              "TA00198",
+              "TA00199",
+              "TA00200",
+              "TA00201",
+              "TA00203",
+              "TA00207",
+              "TA00215",
+              "TA00216",
+              "TA00217",
+              "TA00220",
+              "TA00222",
+              "TA00224",
+              "TA00228",
+              "TA00229",
+              "TA00230",
+              "TA00232",
+              "TA00236",
+              "TA00237",
+              "TA00238",
+              "TA00239",
+              "TA00243",
+              "TA00245",
+              "TA00246",
+              "TA00247",
+              "TA00248",
+              "TA00249",
+              "TA00250",
+              "TA00251",
+              "TA00253",
+              "TA00254",
+              "TA00255",
+              "TA00256",
+              "TA00258",
+              "TA00259",
+              "TA00261",
+              "TA00262",
+              "TA00264",
+              "TA00265",
+              "TA00266",
+              "TA00267",
+              "TA00268",
+              "TA00272",
+              "TA00275",
+              "TA00276",
+              "TA00278",
+              "TA00281",
+              "TA00282",
+              "TA00284",
+              "TA00285",
+              "TA00286",
+              "TA00287",
+              "TA00290",
+              "TA00291",
+              "TA00292",
+              "TA00293",
+              "TA00294",
+              "TA00295",
+              "TA00300",
+              "TA00301",
+              "TA00302",
+              "TA00303",
+              "TA00305",
+              "TA00307",
+              "TA00309",
+              "TA00310",
+              "TA00312",
+              "TA00315",
+              "TA00317",
+              "TA00319",
+              "TA00320",
+              "TA00321",
+              "TA00322",
+              "TA00323",
+              "TA00324",
+              "TA00325",
+              "TA00329",
+              "TA00330",
+              "TA00331",
+              "TA00332",
+              "TA00334",
+              "TA00335",
+              "TA00336",
+              "TA00337",
+              "TA00339",
+              "TA00340",
+              "TA00341",
+              "TA00342",
+              "TA00343",
+              "TA00344",
+              "TA00345",
+              "TA00346",
+              "TA00347",
+              "TA00348",
+              "TA00349",
+              "TA00350",
+              "TA00351",
+              "TA00352",
+              "TA00353",
+              "TA00354",
+              "TA00355",
+              "TA00356",
+              "TA00358",
+              "TA00359",
+              "TA00362",
+              "TA00363",
+              "TA00364",
+              "TA00365",
+              "TA00367",
+              "TA00368",
+              "TA00369",
+              "TA00370",
+              "TA00371",
+              "TA00372",
+              "TA00373",
+              "TA00375",
+              "TA00377",
+              "TA00380",
+              "TA00381",
+              "TA00382",
+              "TA00383",
+              "TA00385",
+              "TA00386",
+              "TA00390",
+              "TA00392",
+              "TA00395",
+              "TA00397",
+              "TA00400",
+              "TA00404",
+              "TA00405",
+              "TA00406",
+              "TA00407",
+              "TA00409",
+              "TA00412",
+              "TA00414",
+              "TA00419",
+              "TA00420",
+              "TA00421",
+              "TA00422",
+              "TA00424",
+              "TA00426",
+              "TA00427",
+              "TA00428",
+              "TA00429",
+              "TA00431",
+              "TA00432",
+              "TA00434",
+              "TA00437",
+              "TA00438",
+              "TA00441",
+              "TA00442",
+              "TA00444",
+              "TA00449",
+              "TA00453",
+              "TA00454",
+              "TA00455",
+              "TA00456",
+              "TA00457",
+              "TA00462",
+              "TA00464",
+              "TA00465",
+              "TA00466",
+              "TA00467",
+              "TA00470",
+              "TA00471",
+              "TA00472"];
+
+
+              $( document ).ready(function() {
+                sID = document.getElementById("StationID");
+                dateID = document.getElementsByClassName("form-control")
+                for(var i = 0; i < stations.length; i++){
+                   var option = document.createElement("option");
+                   option.text = stations[i];
+                   sID.add(option);
+                }
+                sID.addEventListener("change", function(){
+                  changedStation = 1;
+                });
+
+
+                var date_input=$('input[name="date"]');
+                var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+                var options={
+                  format: 'yyyy-mm-dd',
+                  container: container,
+                  todayHighlight: true,
+                  autoclose: true,
+                };
+                date_input.datepicker(options);
+
+                $('#start_date').on('change', function() {
+                 changedStation = 1;
+               });
+
+               $('#end_date').on('change', function() {
+                 changedStation = 1;
+               });
+
+               $(document).ready(function(){
+                 $('[data-toggle="tooltip"]').tooltip();
+               });
+
+
+              });
       } else {
         Toast.Danger('Failure retrieving inbox');
       }
@@ -17,7 +297,7 @@ function ($scope, Toast, FaultInboxService) {
 
 // Controller for rest of app below.
 // No need to modify
-App.controller('HeaderCtrl', ['$scope', '$state', 'AuthService', 
+App.controller('HeaderCtrl', ['$scope', '$state', 'AuthService',
 function ($scope, $state, AuthService) {
 		$scope.onLogout = function() {
 			AuthService.ClearCredentials();
@@ -237,7 +517,7 @@ function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $
 					$('#click2edit_'+comment._id).summernote('destroy');
 				}
 			}, function (error) {
-				console.log("couldn't load comments", error);	
+				console.log("couldn't load comments", error);
 				Toast.Danger(error.statusText);
 				$('#click2edit_'+comment._id).summernote('destroy');
 			});
@@ -260,7 +540,7 @@ function ($rootScope, $scope, $window, $http, $location, $state, $stateParams, $
 					Toast.Danger(issue.message);
 				}
 			}, function (error) {
-				console.log("couldn't load comments", error);	
+				console.log("couldn't load comments", error);
 				Toast.Danger(error.statusText);
 			});
 			console.log('markup html -- ', mark);
@@ -432,7 +712,7 @@ function ($scope, $http, $window, $location, $state, $stateParams, $log, $q, Iss
 		const _id = $stateParams.id;
 		$scope.id = _id;
 		$scope.item = {
-			"Country": null, 
+			"Country": null,
 			"SiteID": null,
 			"DeviceId": null,
 			"SiteCode": null,
@@ -568,7 +848,7 @@ App.controller('DashboardCtrl', ['$scope', '$rootScope', '$localStorage', '$http
 						'size': 'lg',
 						'resolve': {
 							'feature': function () {
-								return feature; 
+								return feature;
 							}
 						}
 					})
@@ -577,17 +857,17 @@ App.controller('DashboardCtrl', ['$scope', '$rootScope', '$localStorage', '$http
 				 * Init Lealeft.js
 				 */
 				/*
-				var working = L.AwesomeMarkers.icon({ 
+				var working = L.AwesomeMarkers.icon({
 						icon: 'circle',
 						markerColor: 'green',
 						prefix: 'fa'
 				});
-				var delay = L.AwesomeMarkers.icon({ 
+				var delay = L.AwesomeMarkers.icon({
 						icon: 'circle',
 						markerColor: 'orange',
 						prefix: 'fa'
 				});
-				var broken = L.AwesomeMarkers.icon({ 
+				var broken = L.AwesomeMarkers.icon({
 						icon: 'circle',
 						markerColor: 'red',
 						prefix: 'fa'
@@ -604,11 +884,11 @@ App.controller('DashboardCtrl', ['$scope', '$rootScope', '$localStorage', '$http
 						case 'Active':
 								return '#71ae26';
 						case 'Delay':
-								return '#f0932f'; 
+								return '#f0932f';
 						case 'Closed':
-								return '#d43e2a'; 
+								return '#d43e2a';
 						default:
-								return '#d43e2a'; 
+								return '#d43e2a';
 					}
 				}
 				SiteService.GetSites("tahmo", "geojson").then(function(response) {
@@ -750,7 +1030,7 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state
     		ChartObj.series[0].remove( false );
 			}
 			$http.get('api/stationdata/'+sitecode+'?type=graph&sensor='+$scope.sensor_id[index]+'&limit=10000').success(function (data) {
-					console.log(data);	
+					console.log(data);
 					var myChart = ChartObj;
 					var mydata = {
 							name: $scope.sensor_name[index],
@@ -789,7 +1069,7 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state
 		});
 		$http.get('api/stationdata/'+sitecode+'?type=graph&sensor='+$scope.sensor_id[initial]+'&limit=10000').success(function (data) {
 				console.log("fake data");
-				console.log(data);	
+				console.log(data);
 				var myChart = ChartObj;
 				var mydata = {
 						name: $scope.sensor_name[initial],
@@ -824,17 +1104,17 @@ App.controller('PopupCtrl', ['$scope', '$uibModalInstance', '$location', '$state
 ])
 
 App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', 'SiteService', function ($scope, $uibModal, $http, ModalService, SiteService) {
-		var working = L.AwesomeMarkers.icon({ 
+		var working = L.AwesomeMarkers.icon({
 				icon: 'circle',
 				markerColor: 'green',
 				prefix: 'fa'
 		});
-		var delay = L.AwesomeMarkers.icon({ 
+		var delay = L.AwesomeMarkers.icon({
 				icon: 'circle',
 				markerColor: 'orange',
 				prefix: 'fa'
 		});
-		var broken = L.AwesomeMarkers.icon({ 
+		var broken = L.AwesomeMarkers.icon({
 				icon: 'circle',
 				markerColor: 'red',
 				prefix: 'fa'
@@ -850,11 +1130,11 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', 'Site
 				case 'Active':
 						return '#71ae26';
 				case 'Delay':
-						return '#f0932f'; 
+						return '#f0932f';
 				case 'Closed':
-						return '#d43e2a'; 
+						return '#d43e2a';
 				default:
-						return '#d43e2a'; 
+						return '#d43e2a';
 			}
 		}
     $scope.openModal = function (event) {
@@ -867,7 +1147,7 @@ App.controller('leaflet', ['$scope', '$uibModal', '$http', 'ModalService', 'Site
 				'size': 'lg',
         'resolve': {
           'feature': function () {
-            return feature; 
+            return feature;
           }
         }
       })
@@ -1089,7 +1369,7 @@ App.controller('ProfileCtrl', ['$rootScope', '$scope', '$http', '$stateParams', 
 					console.log('row data', table.row(this ).data());
 				})
 			});
-      
+
       // ADD a station modal
 				$scope.showTabDialog = function(ev) {
 					$mdDialog.show({

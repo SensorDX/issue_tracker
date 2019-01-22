@@ -5,6 +5,7 @@ var oldAnnotations = [];
 var sync;
 var rawMeasurements;
 var faultMeasurements;
+var changedStation = 0;
 
 //Get the raw data
 function ajax1(){
@@ -28,20 +29,31 @@ function ajax2(){
 function addnewGraph(){
 
   stationID = document.getElementById("StationID");
-  selectedStationId = stationID.options[stationID.selectedIndex].value;
+  selectedStationId = stationID.options[stationID.selectedIndex].text;
+  console.log(selectedStationId);
+
+  dateID = document.getElementsByClassName("form-control")
+  console.log($('#start_date')[0].value);
+  console.log($('#end_date')[0].value);
+
+
+  console.log(changedStation);
+
   $.ajax({
           url: "/test",
           type: 'POST',
           dataType: 'text',
-          data: {dataInfo : selectedStationId}, // added data type
-          success: function() {
-              alert('POSTED!');
-          }
+          data:
+          {
+            dataInfo : selectedStationId,
+            startDateInfo : $('#start_date')[0].value,
+            endDateInfo : $('#end_date')[0].value
+          }, // added data type
   });
 
-  console.log(00001 + 1);
 
   var checkboxes = document.getElementsByName("sensor");
+  console.log(checkboxes);
   var checkboxesChecked = [];
   console.log(rawMeasurements);
   console.log(faultMeasurements);
@@ -87,21 +99,22 @@ function addnew(sensor){
       loader.setAttribute("class", "loader");
       container.appendChild(newGraph);
       container.appendChild(loader);
-      // if(rawMeasurements && faultMeasurements){
-      //   processData(rawMeasurements, faultMeasurements, sensor, divName);
-      //   container.removeChild(loader);
-      //   newGraph.appendChild(close);
-      // }
-      //else{
+      if(rawMeasurements && faultMeasurements && changedStation == 0){
+        processData(rawMeasurements, faultMeasurements, sensor, divName);
+        container.removeChild(loader);
+        newGraph.appendChild(close);
+      }
+      else{
         $.when(ajax1(), ajax2()).done(function(a1, a2){
             processData(a1[0], a2[0], sensor, divName);
             rawMeasurements = a1[0];
             faultMeasurements = a2[0];
             container.removeChild(loader);
             newGraph.appendChild(close);
+            changedStation = 0;
         });
       }
-    //}
+    }
 }
 
 function processData(data, faultData, sensor, divName){
@@ -382,7 +395,7 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
       result,
       {
         legend: 'always',
-        title: titleName + " (" + document.getElementById("StationID").value + ")",
+        title: titleName + " (" + document.getElementById("StationID").value + ")" + " - " + $('#start_date')[0].value + " to " + $('#end_date')[0].value,
         showRangeSelector: true,
         labels: ["Date", "Value"],
         ylabel: 'Value',

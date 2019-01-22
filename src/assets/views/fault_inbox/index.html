@@ -3,32 +3,154 @@
     <div class="col-lg-12">
       <h1>Fault Inbox</h1>
       <p>{{inbox}}</p>
-      <div id="graphdiv">
+
+    <div id="graphdiv">
 
     </div>
 
+
     <div class="validate">
-      <label for="Sensor">Sensor</label><br />
-      <input type="checkbox" name="sensor" value="wg" checked> Wind Gusts<br>
-      <input type="checkbox" name="sensor" value="wd"> Wind Direction<br>
-      <input type="checkbox" name="sensor" value="ws" > Wind Speed<br>
-      <input type="checkbox" name="sensor" value="te" > Temperature<br>
-      <input type="checkbox" name="sensor" value="ap" > Atmospheric Pressure<br>
-      <input type="checkbox" name="sensor" value="rh" > Relative Humidity<br>
-      <input type="checkbox" name="sensor" value="ra" > Radiation<br>
-      <input type="checkbox" name="sensor" value="vp" > Vapor Pressure<br>
-      <input type="checkbox" name="sensor" value="ec" > Electrical Conductivity<br>
-      <input type="checkbox" name="sensor" value="pr" > Precipitation<br><br />
-      Station:
-      <select id = "StationID">
-        <option value="TA00011">TA00011</option>
-        <option value="TA00012">TA00012</option>
-        <option value="TA00013">TA00013</option>
-      </select>
-      <br />
-      <br />
-      <button id = "validate" onclick = "addnewGraph()">Add Graph</button><br><br>
-      <p>
+      <div class="bootstrap-iso">
+       <div class="container-fluid">
+        <div class="row">
+         <div class="col-md-6 col-sm-6 col-xs-12">
+           <div class="form-group ">
+            <label class="control-label ">
+             Sensors
+            </label>
+            <div class=" ">
+             <div class="checkbox">
+              <label class="checkbox">
+               <input name="sensor" type="checkbox" value="wg"/>
+               Wind Gusts
+              </label>
+             </div>
+             <div class="checkbox">
+              <label class="checkbox">
+               <input name="sensor" type="checkbox" value="wd"/>
+               Wind Direction
+              </label>
+             </div>
+             <div class="checkbox">
+              <label class="checkbox">
+               <input name="sensor" type="checkbox" value="ws"/>
+               Wind Speed
+              </label>
+             </div>
+             <div class="checkbox">
+              <label class="checkbox">
+               <input name="sensor" type="checkbox" value="te"/>
+               Temperature
+              </label>
+             </div>
+             <div class="checkbox">
+              <label class="checkbox">
+               <input name="sensor" type="checkbox" value="ap"/>
+               Atmospheric Pressure
+              </label>
+             </div>
+             <div class="checkbox">
+              <label class="checkbox">
+               <input name="sensor" type="checkbox" value="rh"/>
+               Relative Humidity
+              </label>
+             </div>
+             <div class="checkbox">
+              <label class="checkbox">
+               <input name="sensor" type="checkbox" value="ra"/>
+               Radiation
+              </label>
+             </div>
+             <div class="checkbox">
+              <label class="checkbox">
+               <input name="sensor" type="checkbox" value="vp"/>
+               Vapor Pressure
+              </label>
+             </div>
+             <div class="checkbox">
+              <label class="checkbox">
+               <input name="sensor" type="checkbox" value="ec"/>
+               Electrical Conductivity
+              </label>
+             </div>
+             <div class="checkbox">
+              <label class="checkbox">
+               <input name="sensor" type="checkbox" value="pr"/>
+               Precipitation
+              </label>
+             </div>
+            </div>
+           </div>
+           <div class="form-group ">
+            <label class="control-label " for="select">
+             Station ID:
+            </label>
+            <select class="select form-control" id="StationID" name="select">
+            </select>
+           </div>
+           <div class="form-group ">
+            <label class="control-label " for="date">
+             Start Date
+            </label>
+            <div class="input-group">
+             <div class="input-group-addon">
+              <i class="fa fa-calendar">
+              </i>
+             </div>
+             <input class="form-control" id="start_date" name="date" placeholder="YYYY-MM-DD" type="text" value = "2018-06-07"/>
+            </div>
+           </div>
+           <div class="form-group ">
+            <label class="control-label " for="date1">
+             End Date
+            </label>
+            <div class="input-group">
+             <div class="input-group-addon">
+              <i class="fa fa-calendar">
+              </i>
+             </div>
+             <input class="form-control" id="end_date" name="date" placeholder="YYYY-MM-DD" type="text" value = "2018-08-12"/>
+            </div>
+           </div>
+           <div class="form-group">
+            <div>
+             <button class="btn btn-primary " name="submit" id = "validate" onclick = "addnewGraph()">
+              Add Graph
+             </button>
+             <hr />
+             <label class="control-label ">
+               Synchronize Graphs
+              </label>
+              <div class=" ">
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input class = "sync" name="sync" type="checkbox" value="Synchronize"/>
+                 Synchronize
+                </label>
+               </div>
+              </div>
+              </div>
+              <div class="form-group ">
+              <label class="control-label ">
+               View Annotations
+              </label>
+              <div class=" ">
+               <div class="checkbox">
+                <label class="checkbox">
+                 <input class = "annotations" name="annotations" type="checkbox" value="Annotations" checked/>
+                 Annotations
+                </label>
+               </div>
+              </div>
+            </div>
+           </div>
+         </div>
+        </div>
+       </div>
+      </div>
+
+
+      <!-- <p>
         Synchronize
       </p>
       <div class="material-switch pull-right">
@@ -42,12 +164,12 @@
       <div class="material-switch pull-right">
           <input class = "annotations" id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox" checked/>
           <label for="someSwitchOptionInfo" class="label-info"></label>
-      </div>
-      <br /><hr>
-      <button id="hour">Hour</button>
-      <button id="day">Day</button>
-      <button id="week">Week</button>
-      <button id="month">Month</button>
+      </div> -->
+      <!-- <br /><hr> -->
+      <button id="hour" class="btn btn-secondary" data-toggle="tooltip" title = "Zoom to Hour">Hour</button>
+      <button id="day" class="btn btn-secondary" data-toggle="tooltip" title = "Zoom to Day">Day</button>
+      <button id="week" class="btn btn-secondary" data-toggle="tooltip" title = "Zoom to Week">Week</button>
+      <button id="month" class="btn btn-secondary" data-toggle="tooltip" title = "Zoom to Month">Month</button>
 
     </div>
     </div>
