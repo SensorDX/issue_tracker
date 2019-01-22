@@ -97,12 +97,16 @@ function addnew(sensor){
       newGraph.setAttribute("id", divName);
       newGraph.setAttribute("class", "graph");
       loader.setAttribute("class", "loader");
+      document.getElementById("StationID").disabled = true;
+      document.getElementById("validate").disabled = true;
       container.appendChild(newGraph);
       container.appendChild(loader);
       if(rawMeasurements && faultMeasurements && changedStation == 0){
         processData(rawMeasurements, faultMeasurements, sensor, divName);
         container.removeChild(loader);
         newGraph.appendChild(close);
+        document.getElementById("StationID").disabled = false;
+        document.getElementById("validate").disabled = false;
       }
       else{
         $.when(ajax1(), ajax2()).done(function(a1, a2){
@@ -112,6 +116,8 @@ function addnew(sensor){
             container.removeChild(loader);
             newGraph.appendChild(close);
             changedStation = 0;
+            document.getElementById("StationID").disabled = false;
+            document.getElementById("validate").disabled = false;
         });
       }
     }
