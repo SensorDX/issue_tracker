@@ -21,7 +21,45 @@
 .issue-pending {
 	background-color: #ffbe00 !important; 
 }
-
+md-select .md-select-value {
+	border-bottom-color: white;
+}
+md-select:not([disabled]):focus .md-select-value {
+	border-bottom-color: white !important;
+}
+md-select:not([disabled]):focus .md-select-value {
+	color: white !important;
+}
+md-input-container {
+  margin-bottom: 0px !important;
+  margin-top: 18px !important;
+}
+md-input-container .md-input {
+	border-color: white !important;
+	color: white !important;
+}
+md-input-container.md-default-theme .md-input::-webkit-input-placeholder,
+md-input-container .md-input::-webkit-input-placeholder {
+  color: white !important;
+}
+md-input-container.md-default-theme .md-input:-moz-placeholder,
+md-input-container .md-input:-moz-placeholder {
+  color: white !important;
+}
+md-input-container.md-default-theme .md-input:-ms-input-placeholder,
+md-input-container .md-input:-ms-input-placeholder {
+  color: white !important;
+}
+md-input-container.md-default-theme .md-input::-moz-placeholder,
+md-input-container .md-input::-moz-placeholder {
+  color: white !important;
+}
+.md-datepicker-triangle-button .md-datepicker-expand-triangle {
+  border-top-color: white;
+}
+.note-editor {
+  margin-bottom: 0 !important;
+}
 </style>
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
@@ -115,6 +153,23 @@
 																		<div ng-attr-id="{{'click2edit_' + comment._id}}" style="min-height: 64px;padding-left: 15px;padding-top: 15px;">
 																			<p ng-bind-html="comment.message"></p>
 																		</div>
+                                    <md-toolbar ng-if="editing[comment._id] == true" class="md-theme-light" style="justify-content: center">
+                                      <div class="col-xs-12" style="height: 60px;" layout-gt-sm="row">
+                                        <md-input-container style="font-size: 15px;">
+                                          <label style="color: white">Assignee</label>
+                                          <md-select style="min-width: 200px;" ng-model="issue.assignee" ng-model-options="{trackBy: '$value._id'}" ng-change="selectFilter()" flex-gt-sm>
+                                            <md-option ng-value="none"><em>None</em></md-option>
+                                            <md-option ng-repeat="assignee in assignees | orderBy: 'full_name'" ng-value="assignee">
+                                              {{assignee.full_name}}
+                                            </md-option>
+                                          </md-select>
+                                        </md-input-container>
+                                        <md-input-container>
+                                          <label style="color: white">Due Date</label>
+                                          <md-datepicker ng-model="issue.due_date" md-placeholder="Due Date" style="color: white"></md-datepicker>
+                                        </md-input-container>
+                                      </div>
+                                    </md-toolbar>
 																	</md-card-content>
 																</md-card>
 															</div>
@@ -127,7 +182,24 @@
                     </div>
                     <!-- END Chat Window 5 -->
 										<md-toolbar class="md-theme-light" style="justify-content: center">
-											<md-button ng-click="comment()" style="margin-top: 0" class="md-raised new-issue">Comment</md-button>
+                      <div class="col-xs-12" style="height: 60px;" layout-gt-sm="row">
+                        <md-input-container style="font-size: 15px;">
+                          <label style="color: white">Assignee</label>
+                          <md-select style="min-width: 200px;" ng-model="issue.assignee" ng-model-options="{trackBy: '$value._id'}" ng-change="selectFilter()" flex-gt-sm>
+                            <md-option ng-value="none"><em>None</em></md-option>
+                            <md-option ng-repeat="assignee in assignees | orderBy: 'full_name'" ng-value="assignee">
+                              {{assignee.full_name}}
+                            </md-option>
+                          </md-select>
+                        </md-input-container>
+                        <md-input-container>
+                          <label style="color: white">Due Date</label>
+                          <md-datepicker ng-model="issue.due_date" md-placeholder="Due Date" style="color: white"></md-datepicker>
+                        </md-input-container>
+                        <md-input-container style="flex: 1; margin-top: 10px !important;">
+                          <md-button ng-click="comment()" style="margin-top: 0" class="md-raised new-issue">Comment</md-button>
+                        </md-input-container>
+                      </div>
 										</md-toolbar>
                 </div>
             </div>

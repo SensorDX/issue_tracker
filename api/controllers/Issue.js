@@ -206,9 +206,12 @@ module.exports = function(router) {
   //=====================
   router.post('/api/issues/:id/comments', function(req, res) {
     const {id} = req.params;
-    const {comments, updated_at} = req.body;
+    const {assignee, comments, due_date, updated_at} = req.body;
     const update = {};
-    update.updated_at = updated_at;
+    if (assignee) update.assignee = assignee;
+    if (due_date) update.due_date = due_date;
+    if (updated_at) update.updated_at = updated_at;
+
     if (comments == '' || comments == undefined) {
       res
         .status(200)

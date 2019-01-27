@@ -349,6 +349,7 @@ App.controller('ViewIssueCtrl', [
         EmailService.SendMail(mail).then(function(response) {
           const email = response.data;
           if (email.success) {
+            // Toast.Success(email.message);
           } else {
             Toast.Danger(email.message);
           }
@@ -371,11 +372,21 @@ App.controller('ViewIssueCtrl', [
       const issue = response.data;
       if (issue.success) {
         $scope.issue = issue.data;
+        $scope.issue.due_date = new Date($scope.issue.due_date);
         $scope.issue.ids = [_id];
       } else {
         Toast.Danger(issue.message);
       }
     });
+
+    UserService.GetUsers(['full_name', 'email']).then(function(response) {
+      const assignees = response.data;
+      if (assignees.success) {
+        console.log('assignees', assignees);
+        $scope.assignees = assignees.data;
+      }
+    });
+
     $scope.edit = function(comment) {
       $scope.editing[comment._id] = true;
       $scope.old_message[comment._id] = comment.message;
@@ -400,6 +411,8 @@ App.controller('ViewIssueCtrl', [
           if (updated_comment.success) {
             const issue = {
               ids: [_id],
+              assignee: $scope.issue.assignee,
+              due_date: $scope.issue.due_date,
               updated_at: updated_comment.data.updated_at,
             };
             IssueService.UpdateIssues(issue).then(function(response) {
@@ -407,6 +420,10 @@ App.controller('ViewIssueCtrl', [
             });
             $('#click2edit_' + comment._id).summernote('code', markup);
             Toast.Success(updated_comment.message);
+            const email = $scope.issue.assignee.email;
+            if ($scope.subscribers.indexOf(email) === -1) {
+              $scope.subscribers.push(email);
+            }
             bulkEmail($scope.subscribers);
             $('#click2edit_' + comment._id).summernote('destroy');
           } else {
@@ -428,11 +445,18 @@ App.controller('ViewIssueCtrl', [
           const comment = response.data;
           if (comment.success) {
             $scope.comments.push(comment.data);
+            const assignee = $scope.issue.assignee;
             IssueService.PostIssueComment(_id, {
+              assignee: assignee,
               comments: comment.data._id,
+              due_date: $scope.issue.due_date,
               updated_at: comment.data.updated_at
             }).then(function(response) {
               const issue = response.data;
+              const email = $scope.issue.assignee.email;
+              if ($scope.subscribers.indexOf(email) === -1) {
+                $scope.subscribers.push(email);
+              }
               bulkEmail($scope.subscribers);
               jQuery('#my_summernote').summernote('reset');
             });
