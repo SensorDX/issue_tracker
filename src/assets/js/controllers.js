@@ -8,6 +8,8 @@ function ($scope, Toast, FaultInboxService) {
       if (inbox.success) {
         $scope.inbox = inbox.data;
         Toast.Success('Success retrieving inbox');
+        var temp = document.getElementById("success").style.display = "none";
+        console.log(temp);
         var stations = [
               "TA00006",
               "TA00007",
@@ -285,6 +287,8 @@ function ($scope, Toast, FaultInboxService) {
                $(document).ready(function(){
                  $('[data-toggle="tooltip"]').tooltip();
                });
+
+
 
 
               });

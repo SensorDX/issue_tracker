@@ -4,11 +4,18 @@
       <h1>Fault Inbox</h1>
       <p>{{inbox}}</p>
 
+    <div id ="alertContainer">
+      <div class="alert alert-success alert-dismissible fade in" id = "success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> Retrieved data successfully from the database.
+      </div>
+    </div>
+
     <div id="graphdiv">
 
     </div>
 
-    <div class="validate">
+    <div class = "well" class="validate">
       <div class="bootstrap-iso">
        <div class="container-fluid">
         <div class="row">
@@ -117,6 +124,11 @@
              <button class="btn btn-primary " name="submit" id = "validate" onclick = "addnewGraph()">
               Add Graph
              </button>
+             <br />
+             <br />
+             <button class="btn btn-primary " name="submit" id = "validate" onclick = "MLAnalysis()">
+              Add Graph (RainQC Analysis)
+             </button>
              <hr />
              <label class="control-label ">
                Synchronize Graphs
@@ -150,22 +162,6 @@
       </div>
 
 
-      <!-- <p>
-        Synchronize
-      </p>
-      <div class="material-switch pull-right">
-          <input class = "sync" id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
-          <label for="someSwitchOptionSuccess" class="label-success"></label>
-      </div>
-      <hr />
-      <p>
-        Annotations
-      </p>
-      <div class="material-switch pull-right">
-          <input class = "annotations" id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox" checked/>
-          <label for="someSwitchOptionInfo" class="label-info"></label>
-      </div> -->
-      <!-- <br /><hr> -->
       <button id="hour" class="btn btn-secondary" data-toggle="tooltip" title = "Zoom to Hour">Hour</button>
       <button id="day" class="btn btn-secondary" data-toggle="tooltip" title = "Zoom to Day">Day</button>
       <button id="week" class="btn btn-secondary" data-toggle="tooltip" title = "Zoom to Week">Week</button>

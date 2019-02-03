@@ -6,6 +6,7 @@ var sync;
 var rawMeasurements;
 var faultMeasurements;
 var changedStation = 0;
+var mlGraphList = [];
 
 //Get the raw data
 function ajax1(){
@@ -26,7 +27,122 @@ function ajax2(){
       });
 }
 
+function ajax3(){
+      return $.ajax({
+                  url: "/api/ml",
+                  type: 'GET',
+                  dataType: 'json', // added data type
+      });
+}
+
+function MLAnalysis(){
+  var dateTime = [];
+  var flag = [];
+  var flagStrings = [];
+  var scoreStrings = [];
+  var score = [];
+  var mlName;
+  var mlTitle;
+
+  $.when(ajax3()).done(function(a3){
+    console.log(a3.results[0].series[0].values);
+    for(var i = 0; i < a3.results[0].series[0].values.length; i++){
+      dateTime.push(a3.results[0].series[0].values[i][0]);
+      flagStrings.push(a3.results[0].series[0].values[i][1]);
+      scoreStrings.push(a3.results[0].series[0].values[i][3]);
+      mlName = a3.results[0].series[0].values[i][5];
+      mlTitle = a3.results[0].series[0].values[i][4];
+    }
+    score = scoreStrings.map(Number);
+    flag = flagStrings.map(Number);
+
+    var resultArray = [];
+    for(var i = 0; i < dateTime.length; i++){
+      resultArray.push([ new Date(dateTime[i]), score[i] ]);
+    }
+    console.log(resultArray);
+
+    var mlGraph = document.createElement("div");
+    mlGraph.setAttribute("id", mlName);
+    mlGraph.setAttribute("class", "mlGraphClass");
+    var container = document.getElementById("graphdiv");
+    container.appendChild(mlGraph);
+    var loader = document.createElement("div");
+    var close = document.createElement("button");
+    close.setAttribute("class", "close-thik");
+    close.setAttribute("title", "Remove Graph");
+    loader.setAttribute("class", "loader");
+    container.appendChild(loader);
+    close.addEventListener("click", function(){
+      var graph = document.getElementById(mlName);
+      var graphSet = document.getElementsByClassName("mlGraphClass");
+        for(var i = 0; i < graphSet.length; i++){
+          if(mlName == graphSet[i].id){
+            mlGraphList.splice(i, 1);
+          }
+        }
+        graph.remove();
+    })
+
+    mlGraphList.push(
+      new Dygraph(
+
+        // containing div
+        document.getElementById(mlName),
+
+        // CSV or path to a CSV file.
+        resultArray,
+        {
+          legend: 'always',
+          title: "RainQC Analysis for " + mlName.charAt(0).toUpperCase() + mlName.slice(1) + " (" + mlTitle + ")",
+          showRangeSelector: true,
+          labels: ["Date", "Score"],
+          ylabel: 'Score',
+          xlabel: 'Date',
+          height: 500,
+          width: 700,
+          interactionModel : {
+          'mousedown' : downV3,
+          'mousemove' : moveV3,
+          'mouseup' : upV3,
+          'click' : clickV3,
+          'dblclick' : dblClickV4,
+          'mousewheel' : scrollV3
+          } ,
+            plugins: [
+            new Dygraph.Plugins.Crosshair({
+              direction: "vertical"
+            })
+            ]
+        }
+      )
+    );
+
+    var annotations = [];
+    var value = 0;
+    var test;
+    var img;
+    for(var i = 0; i < flag.length; i++){
+      if(flag[i] == 1){
+        annotations.push({
+          series: "Score",
+          x: Date.parse(dateTime[i]),
+          width: 10,
+          height: 20,
+          text: "Flag = 1"
+        });
+      }
+    }
+    console.log(annotations);
+    mlGraphList[0].setAnnotations(annotations);
+    mlGraph.appendChild(close);
+    container.removeChild(loader);
+
+  });
+}
+
 function addnewGraph(){
+  document.getElementById("success").style.display = "none";
 
   stationID = document.getElementById("StationID");
   selectedStationId = stationID.options[stationID.selectedIndex].text;
@@ -75,6 +191,7 @@ function addnewGraph(){
 function addnew(sensor){
     var found = 0;
     console.log(sensor);
+    console.log(document.getElementById("success"));
     var container = document.getElementById("graphdiv");
     var divName = "div"+sensor;
     if(!document.getElementById(divName)){
@@ -118,6 +235,8 @@ function addnew(sensor){
             changedStation = 0;
             document.getElementById("StationID").disabled = false;
             document.getElementById("validate").disabled = false;
+            document.getElementById("success").style.display = "block";
+
         });
       }
     }
@@ -375,7 +494,7 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
       return next_biggest;
   }
 
-  result = [];
+  var result = [];
   for(var i = 0; i < rawdata.length; i++){
     result.push([ new Date(date[i]), rawdata[i] ]);
   }
@@ -389,6 +508,8 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
   console.log(result);
   console.log(divName);
   console.log(document.getElementById(divName));
+
+
 
 
   graphList.push(

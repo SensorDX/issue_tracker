@@ -51,7 +51,7 @@ app.get('/api/raw_data', function(req, res) {
         var body = Buffer.concat(chunks);
         json = JSON.parse(body);
         res.json(json);
-        //console.log(json);
+        console.log(json);
       });
     });
     //req.end();
@@ -108,9 +108,38 @@ app.get('/api/fault_data', function(req, response) {
     });
 
     req.end();
-
-
 });
+
+app.get('/api/ml', function(req, response) {
+      var options = {
+    "method": "GET",
+    "hostname": "raw.githubusercontent.com",
+    "port": null,
+    "path": "/Sakthisa/Sakthisa.github.io/master/TA00021.json",
+    "headers": {
+      "cache-control": "no-cache",
+      "postman-token": "5e25a60c-b08b-b980-4bac-faf4265d6576"
+    }
+    };
+
+    var req = http.request(options, function (res) {
+    var chunks = [];
+
+    res.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
+
+    res.on("end", function () {
+      var body = Buffer.concat(chunks);
+      json = JSON.parse(body);
+      response.json(json);
+      //console.log(json);
+    });
+    });
+
+    req.end();
+});
+
 
 
 app.listen(port, function() {
