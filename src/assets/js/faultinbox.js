@@ -142,18 +142,62 @@ function MLAnalysis(){
 }
 
 function addnewGraph(){
+
+
+  /*
+    Creating success alerts that displays a brief message about the query information
+  */
+
+  if(document.getElementById("success")){
+    document.getElementById("success").parentNode.removeChild(document.getElementById("success"));
+  }
+
+  var alert = document.createElement("div");
+  alert.setAttribute("class", "alert alert-success alert-dismissible fade in");
+  alert.setAttribute("id", "success");
+
+  var closeButton = document.createElement("a");
+  closeButton.setAttribute("href", "#");
+  closeButton.setAttribute("class", "close");
+  closeButton.setAttribute("data-dismiss", "alert");
+  closeButton.setAttribute("aria-labal", "close");
+  closeButton.innerHTML = "&times;";
+
+  var strongText = document.createElement("strong");
+  strongText.innerHTML = "Success! ";
+
+  var parText = document.createElement("p");
+  parText.innerHTML = "Retrieved data successfully for station " +  document.getElementById("StationID").value + " from " + $('#start_date')[0].value + " to " + $('#end_date')[0].value;
+
+  alert.appendChild(strongText);
+  alert.appendChild(closeButton);
+  alert.appendChild(parText);
+
+  var alertContainer = document.getElementById("alertContainer");
+  alertContainer.appendChild(alert);
+
   document.getElementById("success").style.display = "none";
+
+  /*
+    Get stationID from the form in order to send to the server for query
+  */
 
   stationID = document.getElementById("StationID");
   selectedStationId = stationID.options[stationID.selectedIndex].text;
   console.log(selectedStationId);
+
+  /*
+    Get timeframe from start date to end date from the form for query
+  */
 
   dateID = document.getElementsByClassName("form-control")
   console.log($('#start_date')[0].value);
   console.log($('#end_date')[0].value);
 
 
-  console.log(changedStation);
+  /*
+    Post request to server to change query parameters from the form
+  */
 
   $.ajax({
           url: "/test",
@@ -164,13 +208,18 @@ function addnewGraph(){
             dataInfo : selectedStationId,
             startDateInfo : $('#start_date')[0].value,
             endDateInfo : $('#end_date')[0].value
-          }, // added data type
+          },
   });
 
 
+  /*
+    Get selected sensors from checkbox in the form
+  */
+
   var checkboxes = document.getElementsByName("sensor");
-  console.log(checkboxes);
   var checkboxesChecked = [];
+
+
   console.log(rawMeasurements);
   console.log(faultMeasurements);
 
@@ -181,7 +230,11 @@ function addnewGraph(){
      }
   }
   sessionStorage.setItem('sensor', JSON.stringify(checkboxesChecked));
-  console.log(JSON.parse(sessionStorage.getItem("sensor")));
+
+  /*
+    Send selected sensors to display graphs
+  */
+
   for(var i = 0; i < JSON.parse(sessionStorage.getItem("sensor")).length; i++){
     addnew(JSON.parse(sessionStorage.getItem("sensor"))[i])
   }
@@ -189,6 +242,11 @@ function addnewGraph(){
 }
 
 function addnew(sensor){
+
+  /*
+    Create graphs for each sensor selected in the form
+  */
+
     var found = 0;
     console.log(sensor);
     console.log(document.getElementById("success"));
@@ -218,13 +276,24 @@ function addnew(sensor){
       document.getElementById("validate").disabled = true;
       container.appendChild(newGraph);
       container.appendChild(loader);
+
+      /*
+        If the form didn't change then we use the already stored data to create graphs
+      */
+
       if(rawMeasurements && faultMeasurements && changedStation == 0){
         processData(rawMeasurements, faultMeasurements, sensor, divName);
         container.removeChild(loader);
         newGraph.appendChild(close);
         document.getElementById("StationID").disabled = false;
         document.getElementById("validate").disabled = false;
+        document.getElementById("success").style.display = "block";
       }
+
+      /*
+        Query for data and process data to create a graph
+      */
+
       else{
         $.when(ajax1(), ajax2()).done(function(a1, a2){
             processData(a1[0], a2[0], sensor, divName);
@@ -248,6 +317,11 @@ function processData(data, faultData, sensor, divName){
     var titleName;
     console.log(data);
     console.log(faultData);
+
+    /*
+      Depending on the sensor parse the JSON results for the date and rawdata
+    */
+
     if(data.status == "success"){
       if(sensor == "wg"){
         Object.keys(data.timeseries.windgusts).forEach(function(key){
@@ -344,15 +418,15 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
  var endDate = [];
 
  console.log(sensor);
- //console.log(data.timeseries.windgusts);
+
+ /*
+  Get the quality tests for erroneous and doubtful tests
+ */
 
  for(i = 0; i < data.length; i++){
-   //console.log(data[i].type);
    if(data[i].type == sensor){
-       //console.log(data[i]);
        qualityDate.push(data[i].date);
        if(data[i].quality == 4){
-         //testErr.push(data[i]);
          erroneousDate.push(data[i].date);
          var max = 0;
          var maxKey;
@@ -360,12 +434,9 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
             if (data[i].qc.hasOwnProperty(key) && data[i].qc[key] > max) {
                 max = data[i].qc[key];
                 maxKey = key;
-                // console.log(key + " -> " + data[i].qc[key]);
             }
          }
          erroneousTest.push(maxKey);
-         //console.log(erroneousDate);
-         //erroneousTest.push(Object.keys(data[i].qc).reduce(function(a, b){ return data[i][a] > data[i][b] ? a : b }));
        }
        else if (data[i].quality == 3){
          doubtfulDate.push(data[i].date);
@@ -375,20 +446,20 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
             if (data[i].qc.hasOwnProperty(key) && data[i].qc[key] > max) {
                 max = data[i].qc[key];
                 maxKey = key;
-                // console.log(key + " -> " + data[i].qc[key]);
             }
          }
          console.log(maxKey);
          doubtfulTest.push(maxKey);
-         //doubtfulTest.push(Object.keys(data[i].qc).reduce(function(a, b){ return data[i][a] > data[i][b] ? a : b }));
-         //console.log(doubtfulTest);
        }
    }
  }
 
  console.log(erroneousTest);
 
- //testErr.push(data[5]);
+ /*
+  Adjust timeframe and eliminate extra time information
+ */
+
  var test = 0;
  for(i = 0; i < qualityDate.length; i++){
    qualityDate[i] = qualityDate[i].replace(":00.000Z", "");
@@ -400,9 +471,10 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
    doubtfulDate[i] = doubtfulDate[i].replace(":00.000Z", "");
  }
 
- //console.log(doubtfulDate);
- //console.log(erroneousDate);
- //console.log(date);
+
+/*
+  Get the doubtful time frame for dates
+*/
 
  for(i = 0; i < date.length; i++){
    for(j = 0; j < doubtfulDate.length; j++){
@@ -412,7 +484,6 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
    }
  }
 
-//console.log(doubtfulstartDate);
 
  var sum = doubtfulstartDate[0];
  if(doubtfulstartDate.length != 0){
@@ -435,6 +506,10 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
      }
    }
  }
+
+ /*
+  Get the erroneous time frame for dates
+ */
 
   console.log(date);
   console.log(erroneousDate);
@@ -473,6 +548,10 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
   console.log(findDoubt);
   console.log(endDoubt);
 
+  /*
+   Get the second max value in order to scale graph correctly
+  */
+
   function secondMax(){
       biggest = -Infinity,
       next_biggest = -Infinity;
@@ -494,6 +573,11 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
       return next_biggest;
   }
 
+
+  /*
+    Turn date and rawdata into a 2D array for Dygraphs
+  */
+
   var result = [];
   for(var i = 0; i < rawdata.length; i++){
     result.push([ new Date(date[i]), rawdata[i] ]);
@@ -512,6 +596,10 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
 
 
 
+  /*
+    Create Dygraph for sensors
+  */
+
   graphList.push(
     new Dygraph(
 
@@ -528,7 +616,7 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
         ylabel: 'Value',
         xlabel: 'Date',
         height: 500,
-        width: 700,
+        width: 800,
         interactionModel : {
         'mousedown' : downV3,
         'mousemove' : moveV3,
@@ -569,6 +657,10 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
   );
 
 
+  /*
+    Animate buttons for Day, Week and Month
+  */
+
   var desired_range = null, animate;
       function approach_range() {
         if (!desired_range) return;
@@ -603,6 +695,10 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
 
   console.log(findErr);
   console.log(endDate);
+
+  /*
+   Create annotations for errneous values
+  */
 
   var annotations = [];
   var value = 0;
@@ -645,6 +741,12 @@ function createChart(date, rawdata, data, sensor, divName, titleName){
 
 value = 0;
 
+
+/*
+  Create annotations for doubtful values
+*/
+
+
 for(var i = 0 ; i < findDoubt.length; i++){
   for(var k = findDoubt[i]; k < endDoubt[i]+1; k++){
     if(doubtfulTest[value] == "rs"){
@@ -683,6 +785,10 @@ console.log(count);
 graphList[graphList.length-1].setAnnotations(annotations);
 console.log(graphList);
 
+
+/*
+  Creating a dropdown for erroneous timeframes for zooming
+*/
 
 var container = document.getElementById(divName);
 var dropDownError = document.createElement("select");
@@ -743,6 +849,10 @@ else{
   dropDownError.appendChild(option);
 }
 
+
+/*
+  Creating a dropdown for doubtful timeframes for zooming
+*/
 
 var container = document.getElementById(divName);
 var dropDownDoubt = document.createElement("select");
@@ -806,6 +916,10 @@ else{
 }
 
 
+/*
+  Allow annotations to be toggled on and off
+*/
+
 
 $('.annotations').unbind("change").change(
   function(){
@@ -824,6 +938,10 @@ $('.annotations').unbind("change").change(
       }
   });
 
+
+/*
+  Synchronize graphs so easier viewing for user
+*/
 
 count ++;
 if(count > 1){
