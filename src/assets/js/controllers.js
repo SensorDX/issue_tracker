@@ -7,7 +7,7 @@ function ($scope, Toast, FaultInboxService) {
       const inbox = response.data;
       if (inbox.success) {
         $scope.inbox = inbox.data;
-        Toast.Success('Success retrieving inbox');
+        Toast.Success('Success retrieving fault-inbox visualization');
         var stations = [
               "TA00006",
               "TA00007",
@@ -250,6 +250,10 @@ function ($scope, Toast, FaultInboxService) {
               "TA00471",
               "TA00472"];
 
+
+			/*
+				Setup forms for user input
+			*/
 
               $( document ).ready(function() {
                 sID = document.getElementById("StationID");

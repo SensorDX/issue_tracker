@@ -116,3 +116,13 @@ input[type=submit]:hover {
 .close-thik:after {
   content: '✖'; /* UTF-8 symbol */
 }
+
+#dateDanger, #sensorDanger{
+  font-size: 15px;
+  padding-right: 500px;
+  margin-bottom: 10px;
+}
+
+#SensorCheckbox{
+  padding: 5px;
+}

@@ -39,7 +39,7 @@ app.use(express.static('./'));
 // // viewed at http://localhost:8080
 app.get('/api/raw_data', function(req, res) {
     var req = http.request(options, function (response) {
-      console.log(options);
+      //console.log(options);
       var chunks = [];
       //res.json(null);
 
@@ -65,13 +65,14 @@ app.post('/test', function(req, res){
     "method": "GET",
     "hostname": "tahmoapi.mybluemix.net",
     "port": null,
-    "path": "/v1/timeseries/" + req.body.dataInfo + "/rawMeasurements?startDate=" + req.body.startDateInfo + "&endDate=" + req.body.endDateInfo,
+    "path": "/v1/timeseries/" + req.body.dataInfo  + "/rawMeasurements?startDate=" + req.body.startDateInfo + "&endDate=" + req.body.endDateInfo,
     "headers": {
       "authorization": "Basic NldZSFlUMFhWWTdCWFpIWE43SEJLWUFaODpSazdwWnBkSjBnd3hIVkdyM2twYnBIWDZwOGZrMitwSmhoS0F4Mk5yNzdJ",
       "cache-control": "no-cache",
       "postman-token": "f5be9690-4509-0a30-f656-2d3b984caefa"
     }
   };
+  res.send("sent");
 });
 
 
