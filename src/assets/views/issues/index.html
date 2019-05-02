@@ -192,7 +192,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 										<md-content class="bg-white md-padding">
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, closeIssue) in closeIssues | filter: searchBox | orderBy: '-updated_at'">
+														<tr ng-repeat="(key, closeIssue) in closeIssues | filter: searchBox | orderBy: 'station'">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(closeIssue._id, selected)" ng-click="toggle(closeIssue._id, selected)">
 																</md-checkbox>
