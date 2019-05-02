@@ -534,6 +534,7 @@ App.controller('NewIssueCtrl', [
     Toast,
   ) {
     const {_id, full_name} = $rootScope.globals.currentUser.user;
+    const due_date = new Date(new Date().setDate(new Date().getDate() + 7));
     $scope.issue = {
       title: '',
       description: '',
@@ -550,7 +551,7 @@ App.controller('NewIssueCtrl', [
       station: '',
       deviceId: '',
       siteName: '',
-      due_date: '',
+      due_date: due_date,
     };
     const {from} = $stateParams;
     if (from == 'modal') {
