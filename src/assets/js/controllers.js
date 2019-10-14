@@ -1,6 +1,7 @@
-App.controller('FaultInboxCtrl', ['$scope', 'Toast', 'FaultInboxService',
-function ($scope, Toast, FaultInboxService) {
+App.controller('FaultInboxCtrl', ['$scope', '$location', 'Toast', 'FaultInboxService',
+function ($scope, $location, Toast, FaultInboxService) {
 
+  console.log('location', $location);
   // Note: FaultInboxService is located in 'src/assets/js/app.js'
   // Sample Controller Logic for Fault Inbox
   FaultInboxService.GetInbox().then(function(response) {
