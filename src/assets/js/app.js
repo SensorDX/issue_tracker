@@ -1016,3 +1016,19 @@ App.factory('FaultInboxService', ['$http',
     }
   },
 ]);
+
+App.factory('TestService', ['$http',
+  function($http) {
+    let service = {};
+    service.GetTest = GetTest;
+    return service;
+
+    function GetTest() {
+      // Logic for api/faultinbox is located in api folder
+      // Look for 'FaultInboxCtrl' in 'api.js'
+      // Look for 'fault_inbox.js' inside api/models
+      // Look for 'FaultInbox.js' inside api/controllers
+      return $http.get('api/test');
+    }
+  },
+]);

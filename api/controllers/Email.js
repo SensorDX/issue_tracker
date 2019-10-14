@@ -1,13 +1,14 @@
 //Libraries
-const credentials =require('./config/credentials.js');
+const {vcap} = require('./../utils');
+const emailCredentials = vcap.getServiceCreds('tahmo-email-config');
 const nodemailer = require('nodemailer');
 const mailTransport = nodemailer.createTransport({
- host: credentials.email.host,
- port: credentials.email.port,
+ host: emailCredentials.host,
+ port: emailCredentials.port,
  secure: true,
  auth: {
-  user: credentials.email.user,
-  pass: credentials.email.password,
+  user: emailCredentials.user,
+  pass: emailCredentials.password,
  } 
 });
 
@@ -21,7 +22,7 @@ module.exports = function(router) {
 		 var text = req.body.text;
 
 		 mailTransport.sendMail({
-			from: credentials.email.user,
+			from: emailCredentials.user,
 			to: receiver,
 			subject: subject,
 			html: text

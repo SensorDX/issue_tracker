@@ -179,4 +179,5 @@ module.exports ={
   isoCountries,
   siteCodeObj,
 	tahmo,
+  vcap: require('./vcapServices')
 }
