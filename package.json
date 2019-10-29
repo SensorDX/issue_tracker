@@ -28,7 +28,7 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "fs-path": "0.0.23",
-    "mongoose": "^4.7.6",
+    "mongoose": "^5.7.5",
     "morgan": "^1.7.0",
     "node-fetch": "^1.7.2",
     "nodemailer": "^4.0.1",
