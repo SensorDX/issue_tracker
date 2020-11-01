@@ -1,4 +1,4 @@
-var vcapServices = JSON.parse(process.env.VCAP_SERVICES || {});
+var vcapServices = JSON.parse(process.env.VCAP_SERVICES || '{}');
 var services = vcapServices['user-provided'] || [];
 
 function getServiceCreds(name) {
