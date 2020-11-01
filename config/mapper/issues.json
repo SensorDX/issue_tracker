@@ -1,0 +1,19 @@
+{
+    "issues": {
+        "Array.Object._id": "Object.stations.Array.Object.id",
+        "Array.Object.assignee": "Object.stations.Array.Object.name",
+        "Array.Object.created_at": "None",
+        "Array.Object.description": "None",
+        "Array.Object.due_date": "None",
+        "Array.Object.labels.Array.bug": "None",
+        "Array.Object.labels.Array.help wanted": "None",
+        "Array.Object.labels.Array.question": "None",
+        "Array.Object.labels.Array.sensor failure": "None",
+        "Array.Object.priority": "None",
+        "Array.Object.station": "None",
+        "Array.Object.status": "None",
+        "Array.Object.title": "None",
+        "Array.Object.updated_at": "None"
+    },
+    "url": "http://localhost:3000/v1/stations"
+}
