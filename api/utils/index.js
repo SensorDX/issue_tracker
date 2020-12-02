@@ -51,6 +51,8 @@ function modifyIssuesDate(issues, sites, country) {
 		items = Object.assign(item.toObject(), {
       site: site,
 			due_date_formatted: format_date(item.due_date),
+			date_updated_formatted_day: format_date(item.updated_at),
+
 			date_updated_formatted: date_diff(item.updated_at, new Date()),
 			date_opened_formatted: date_diff(item.created_at, new Date()),
 			labels_class: item.labels.map(function(info, i) {

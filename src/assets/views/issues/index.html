@@ -136,7 +136,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
                                   <a class="issue-title" data-ui-sref="viewissues({id: openIssue._id})"><strong>{{openIssue.site.SiteCode || '__'}}/{{openIssue.site.DeviceId || '__'}}, {{openIssue.site.SiteName || '__'}} {{openIssue.title ? '-' : ''}} {{openIssue.title}}</strong></a>
 																</div>
 																<div style="margin-top: 10px;">#{{openIssue.ticket_id}} - opened {{openIssue.date_opened_formatted}} ago by <strong>{{openIssue.opened_by.full_name}}</strong> assigned to <strong>{{openIssue.assignee.full_name}}</strong>
-																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{openIssue.due_date_formatted}}</span></span>
+																	<span class="due-date"><i class="fa fa-calendar" aria-hidden="true"></i><span class="due-date-label">{{openIssue.date_updated_formatted_day}}</span></span>
 																	<span ng-repeat="(key, value) in openIssue.labels" class="label {{openIssue.labels_class[key]}}">{{value}}</span>
 																</div>
 															</td>
