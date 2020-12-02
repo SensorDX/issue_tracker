@@ -18,13 +18,21 @@ var mailTransport = nodemailer.createTransport({
 // Replace by user's info during configuration
 var db = "mongodb://sensordx:helloworld@ds161049.mlab.com:61049/issue_tracker";
 
-mongoose.connect(db, function(err, response) {
- if (err)
-  console.log('Fail to connect to '+ db);
- else
-  console.log('Successfully connected to '+ db);
-});
+// mongoose.connect(db, function(err, response) {
+//  if (err)
+//   console.log('Fail to connect to '+ db);
+//  else
+//   console.log('Successfully connected to '+ db);
+// });
 
+mongoose.connect(db, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+})
+.then(() => console.log('==Successfully connected to '+ db))
+.catch(err => {
+  console.log('Fail to connect to '+ db);
+});
 /**
  * Initiate Models
  */
