@@ -143,9 +143,12 @@ md-input-container .md-input::-moz-placeholder {
 																	<md-card-content style="padding: 0;">
 																		<div>
 																			<div style="margin-bottom: 0;/* background-color: #5b90d2; */padding-left: 20px;padding: 15px;" class="bg-gray-lighter">
-																				<span style="/* color: white; */font-weight: bold;">{{comment.created_by.full_name}}</span>
-																				<span style="/* color: white; */">commented {{comment.date_opened_formatted}} ago</span>
-																				<span ng-if="editing[comment._id] !== true" ng-click="edit(comment)" style="float: right; cursor: pointer; text-decoration: underline;">Edit <i class="si si-pencil"></i></span>
+                                        <span style="/* color: white; */font-weight: bold;">{{comment.created_by.full_name}} </span>
+                                        <!-- <span style="/* color: white; */font-weight: bold;">{{comment.created_by.full_name}} | {{user.full_name}} | {{user.role}}</span> -->
+
+                                        <span style="/* color: white; */">commented {{comment.date_opened_formatted}} ago</span>
+
+																				<span ng-if="editing[comment._id] !== true && user.full_name == comment.created_by.full_name" ng-click="edit(comment)" style="float: right; cursor: pointer; text-decoration: underline;">Edit <i class="si si-pencil"></i></span>
 																				<span ng-if="editing[comment._id] == true" ng-click="save(comment)" style="float: right; cursor: pointer; text-decoration: underline;">Save</i></span>
 																				<span ng-if="editing[comment._id] == true" ng-click="cancel(comment)" style="margin-right: 10px; float: right; cursor: pointer; text-decoration: underline;">Cancel </i></span>
 																			</div>

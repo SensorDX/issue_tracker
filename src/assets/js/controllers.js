@@ -323,6 +323,8 @@ App.controller('ViewIssueCtrl', [
   ) {
     const role = $rootScope.globals.currentUser.user.role;
     $scope.isAuthorized = UserService.isAuthorized(role);
+    $scope.user = $rootScope.globals.currentUser.user;
+
 
     const _id = $stateParams.id;
     const userId = $rootScope.globals.currentUser.user._id;
