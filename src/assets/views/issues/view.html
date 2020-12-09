@@ -96,7 +96,7 @@ md-input-container .md-input::-moz-placeholder {
 							</div>
 							<div style="float: right;" class="col-md-6 col-xs-12">
 									<md-button data-ui-sref="newissues" class="col-xs-12 col-sm-2 right md-raised md-primary">New Issue</md-button>
-									<md-button ng-if='isAuthorized' aria-label="close issue" ng-click="closeIssue(issue)" class="col-xs-12 col-sm-3 right md-raised md-primary">
+									<md-button ng-if='isAuthorized && user.role == "manager"' aria-label="close issue" ng-click="closeIssue(issue)" class="col-xs-12 col-sm-3 right md-raised md-primary">
 										<span ng-if='issue.status == "open" || issue.status == "pending"'>Close Issue</span>
 										<span ng-if="issue.status == 'close'">Open Issue</span>
 									</md-button>
