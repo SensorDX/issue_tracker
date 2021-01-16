@@ -95,15 +95,15 @@ md-input-container .md-input::-moz-placeholder {
 									<span><strong>{{issue.opened_by.full_name}}</strong></span> 
 							</div>
 							<div style="float: right;" class="col-md-6 col-xs-12">
-									<md-button data-ui-sref="newissues" class="col-xs-12 col-sm-2 right md-raised md-primary">New Issue</md-button>
+									<md-button ng-if='user.role == "manager"' data-ui-sref="newissues" class="col-xs-12 col-sm-2 right md-raised md-primary">New Issue</md-button>
 									<md-button ng-if='isAuthorized && user.role == "manager"' aria-label="close issue" ng-click="closeIssue(issue)" class="col-xs-12 col-sm-3 right md-raised md-primary">
 										<span ng-if='issue.status == "open" || issue.status == "pending"'>Close Issue</span>
 										<span ng-if="issue.status == 'close'">Open Issue</span>
 									</md-button>
-									<md-button ng-if='isAuthorized' aria-label="peding issue" ng-click="setIssueToPending(issue)" class="col-xs-12 col-sm-2 right md-raised md-primary">
+									<md-button ng-if='isAuthorized && user.role == "manager"' aria-label="peding issue" ng-click="setIssueToPending(issue)" class="col-xs-12 col-sm-2 right md-raised md-primary">
                     Pending
 									</md-button>
-									<md-button data-ui-sref="editissues({id: issue._id})" class="col-xs-12 col-sm-2 right md-raised md-primary">Edit</md-button>
+									<md-button  ng-if='user.role == "manager"'data-ui-sref="editissues({id: issue._id})" class="col-xs-12 col-sm-2 right md-raised md-primary">Edit</md-button>
 							</div>
 							<div style="margin: 25px 0" class="col-xs-12">
 							 <md-divider></md-divider>

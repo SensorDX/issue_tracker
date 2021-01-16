@@ -117,7 +117,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 									</md-select>
 								</md-input-container>
 							</div>
-							<md-button data-ui-sref="newissues" style="margin-top: 0" class="md-raised new-issue">New Issue</md-button>
+							<md-button data-ui-sref="newissues" style="margin-top: 0" ng-if='user.role == "manager"' class="md-raised new-issue">New Issue </md-button>
 						</md-toolbar>
 						<div ng-cloak id="popupContainer">
 							<md-content class="bg-white">

@@ -80,6 +80,8 @@ App.controller('IssueCtrl', [
     Toast,
   ) {
     const role = $rootScope.globals.currentUser.user.role;
+    $scope.user = $rootScope.globals.currentUser.user;
+
     $scope.isAuthorized = UserService.isAuthorized(role);
 
     const userId = $rootScope.globals.currentUser.user._id;
