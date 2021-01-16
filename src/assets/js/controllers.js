@@ -342,13 +342,14 @@ App.controller('ViewIssueCtrl', [
     };
     $scope.subscribers = [];
     bulkEmail = function(receivers) {
+      const link = "https://tahmoissuetracker.mybluemix.net/#/issues/view/" + $scope.issue.ids;
       receivers.map(function(receiver) {
         const mail = {
           to: receiver,
           subject: 'New comment on issue #'+$scope.issue.ticket_id,
           text:
           fullName +
-          ' has commented on issue <strong>#'+$scope.issue.ticket_id+': '+$scope.issue.title+'</strong>'
+          ' commented on issue <strong>#'+ '<a href="' +link +'">' + $scope.issue.ticket_id+': '+$scope.issue.title+'</strong>' + '</a>'
         };
         EmailService.SendMail(mail).then(function(response) {
           const email = response.data;
@@ -652,12 +653,13 @@ App.controller('NewIssueCtrl', [
           Toast.Success(new_issue.message);
           IssueService.Subscribe(new_issue.data._id, issue.opened_by._id);
           IssueService.Subscribe(new_issue.data._id, issue.assignee._id);
+          const link = "https://tahmoissuetracker.mybluemix.net/#/issues/view/" + $scope.issue.ids;
           const mail = {
             to: email,
             subject: 'You have been assigned a new ticket.',
             text:
               issue.opened_by.full_name +
-              ' has assigned you a new ticket. <br/> <strong>Due date:</strong> ' +
+              ' has assigned you a' + '<a href="' + link + '" > new ticket.' + ' </a>' <br/> <strong>Due date:</strong> ' +
               issue.due_date,
           };
           EmailService.SendMail(mail).then(function(response) {
