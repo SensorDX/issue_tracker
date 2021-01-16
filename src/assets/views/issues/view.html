@@ -148,7 +148,7 @@ md-input-container .md-input::-moz-placeholder {
 
                                         <span style="/* color: white; */">commented {{comment.date_opened_formatted}} ago</span>
 
-																				<span ng-if="editing[comment._id] !== true && user.full_name == comment.created_by.full_name" ng-click="edit(comment)" style="float: right; cursor: pointer; text-decoration: underline;">Edit <i class="si si-pencil"></i></span>
+																				<span ng-if="editing[comment._id] !== true && ( user.full_name == comment.created_by.full_name || user.role == 'manager' )" ng-click="edit(comment)" style="float: right; cursor: pointer; text-decoration: underline;">Edit <i class="si si-pencil"></i></span>
 																				<span ng-if="editing[comment._id] == true" ng-click="save(comment)" style="float: right; cursor: pointer; text-decoration: underline;">Save</i></span>
 																				<span ng-if="editing[comment._id] == true" ng-click="cancel(comment)" style="margin-right: 10px; float: right; cursor: pointer; text-decoration: underline;">Cancel </i></span>
 																			</div>
