@@ -124,9 +124,15 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 								<md-tabs md-dynamic-height md-border-bottom>
 									<md-tab label="Open ({{tabs.openCount}})" md-on-select="clearSelected()">
 										<md-content class="bg-white md-padding">
+											<div>
+												<md-button ng-click="sortBy('station')" >Station ID</md-button>
+												<md-button ng-click="sortBy('updated_at')">Updated</md-button>
+												<md-button ng-click="sortBy('ticket_id')"> Ticket ID</md-button>
+
+											</div>
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, openIssue) in openIssues | filter: searchBox | orderBy: '-updated_at'">
+														<tr ng-repeat="(key, openIssue) in openIssues | filter: searchBox | orderBy:propertyName:reverse">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(openIssue._id, selected)" ng-click="toggle(openIssue._id, selected)">
 																</md-checkbox>
@@ -164,9 +170,15 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 									</md-tab>
 									<md-tab label="Pending ({{tabs.pendingCount}})" md-on-select="clearSelected()">
 										<md-content class="bg-white md-padding">
+											<div>
+												<md-button ng-click="sortBy('station')" >Station ID</md-button>
+												<md-button ng-click="sortBy('updated_at')">Updated</md-button>
+												<md-button ng-click="sortBy('ticket_id')"> Ticket ID</md-button>
+
+											</div>
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, pendingIssue) in pendingIssues | filter: searchBox | orderBy: '-updated_at'">
+														<tr ng-repeat="(key, pendingIssue) in pendingIssues | filter: searchBox | orderBy:propertyName:reverse">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(pendingIssue._id, selected)" ng-click="toggle(pendingIssue._id, selected)">
 																</md-checkbox>
@@ -191,9 +203,15 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 									</md-tab>
 									<md-tab label="Closed ({{tabs.closeCount}})" md-on-select="clearSelected()">
 										<md-content class="bg-white md-padding">
+											<div>
+												<md-button ng-click="sortBy('station')" >Station ID</md-button>
+												<md-button ng-click="sortBy('updated_at')">Updated</md-button>
+												<md-button ng-click="sortBy('ticket_id')"> Ticket ID</md-button>
+
+											</div>
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, closeIssue) in closeIssues | filter: searchBox | orderBy: 'station'">
+														<tr ng-repeat="(key, closeIssue) in closeIssues | filter: searchBox | orderBy:propertyName:reverse">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(closeIssue._id, selected)" ng-click="toggle(closeIssue._id, selected)">
 																</md-checkbox>
@@ -218,9 +236,15 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 									</md-tab>
 									<md-tab label="All ({{tabs.allCount}})" md-on-select="clearSelected()">
 										<md-content class="bg-white md-padding">
+											<div>
+												<md-button ng-click="sortBy('station')" >Station ID</md-button>
+												<md-button ng-click="sortBy('updated_at')">Updated</md-button>
+												<md-button ng-click="sortBy('ticket_id')"> Ticket ID</md-button>
+
+											</div>
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, allIssue) in allIssues | filter: searchBox | orderBy: '-updated_at'">
+														<tr ng-repeat="(key, allIssue) in allIssues | filter: searchBox | orderBy:propertyName:reverse">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(allIssue._id, selected)" ng-click="toggle(allIssue._id, selected)">
 																</md-checkbox>

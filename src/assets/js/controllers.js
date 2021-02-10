@@ -83,6 +83,12 @@ App.controller('IssueCtrl', [
     $scope.user = $rootScope.globals.currentUser.user;
 
     $scope.isAuthorized = UserService.isAuthorized(role);
+    $scope.propertyName = 'updated_at';
+    $scope.reverse = true;
+    $scope.sortBy = function(propertyName) {
+      $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+      $scope.propertyName = propertyName;
+    };
 
     const userId = $rootScope.globals.currentUser.user._id;
 
@@ -658,9 +664,9 @@ App.controller('NewIssueCtrl', [
             to: email,
             subject: 'You have been assigned a new ticket.',
             text:
-              issue.opened_by.full_name +
-              ' has assigned you a' + '<a href="' + link + '" > new ticket.' + ' </a>' <br/> <strong>Due date:</strong> ' +
-              issue.due_date,
+            issue.opened_by.full_name +
+            ' has assigned you a new ticket. <br/> <strong>Due date:</strong> ' +
+            issue.due_date,
           };
           EmailService.SendMail(mail).then(function(response) {
             const email = response.data;
