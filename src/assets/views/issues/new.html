@@ -139,6 +139,16 @@
 								</md-optgroup>
 						</md-select>
 					</md-input-container>
+					<md-input-container>
+						<label> Subcribers</label>
+						<md-select style="min-width: 200px;" ng-model="issue.subscribers" ng-change="updateSubscribers(issue.subscribers)" flex-gt-sm multiple>
+								<md-optgroup label="Subscribers">
+									<md-option ng-repeat="subscriber in subscribers" ng-value="subscriber">
+										{{subscriber.full_name}}
+									</md-option>
+								</md-optgroup>
+						</md-select>
+					</md-input-container>
 				</div>
 				<div layout-gt-sm="row">
 					<md-input-container>

@@ -572,10 +572,15 @@ App.controller('NewIssueCtrl', [
     $scope.updateLabels = function(label) {
       $scope.issue.labels = label;
     };
+
+    $scope.updateSubscribers = function(subscriber) {
+      $scope.issue.subscribers = subscriber;
+    };
     UserService.GetUsers(['full_name, email']).then(function(response) {
       const assignees = response.data;
       if (assignees.success) {
         $scope.assignees = assignees.data;
+        $scope.subscribers = assignees.data;
       }
     });
     IssueService.GetLabels().then(function(response) {
@@ -659,6 +664,9 @@ App.controller('NewIssueCtrl', [
           Toast.Success(new_issue.message);
           IssueService.Subscribe(new_issue.data._id, issue.opened_by._id);
           IssueService.Subscribe(new_issue.data._id, issue.assignee._id);
+          for (i = 0; i < $scope.issue.subscribers.length; i++) {
+            IssueService.Subscribe(new_issue.data._id, $scope.issue.subscribers[i]['_id']);
+          }
           const link = "https://tahmoissuetracker.mybluemix.net/#/issues/view/" + $scope.issue.ids;
           const mail = {
             to: email,
