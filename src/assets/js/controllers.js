@@ -674,7 +674,7 @@ App.controller('NewIssueCtrl', [
             text:
             issue.opened_by.full_name +
             ' has assigned you a new ticket. <br/> <strong>Due date:</strong> ' +
-            issue.due_date,
+            issue.due_date + " Link:" + link,
           };
           EmailService.SendMail(mail).then(function(response) {
             const email = response.data;
