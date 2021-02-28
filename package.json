@@ -33,6 +33,7 @@
     "md5": "^2.2.1",
     "mongoose": "5.7.4",
     "morgan": "1.9.1",
+    "node-cron": "^2.0.3",
     "node-fetch": "^1.7.2",
     "nodemailer": "^4.0.1",
     "path": "^0.12.7",

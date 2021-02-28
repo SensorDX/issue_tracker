@@ -1,7 +1,11 @@
 //Libraries
 const {vcap} = require('./../utils');
 const emailCredentials = vcap.getServiceCreds('tahmo-email-config');
+const Issue = require('./../models/issues');
+const Users = require('./../models/users');
+
 const nodemailer = require('nodemailer');
+let cron = require('node-cron');
 const mailTransport = nodemailer.createTransport({
  host: emailCredentials.host,
  port: emailCredentials.port,
@@ -10,6 +14,58 @@ const mailTransport = nodemailer.createTransport({
   user: emailCredentials.user,
   pass: emailCredentials.password,
  } 
+});
+
+//10 am on Wednesday
+cron.schedule('00 10 * * 3', () => {
+	Issue.find(({due_date:{$lt:new Date()}, status: "open"}), function(err, issues) {
+		if (err) {
+		  throw err;
+		} else {
+			var issues_arr =Object.keys(issues).map(
+				function(key){
+					return issues[key];
+				}
+			);
+			issues_arr.forEach(function(us){
+				Users.find({_id: us.assignee._id}, function(err, user) {
+					if (err) {
+					  throw err;
+					} else {
+						var user_arr =Object.keys(user).map(
+							function(key){
+								return user[key];
+							}
+						);
+						user_arr.forEach(function(u){
+							var receiver = u.email;
+							var subject = 'Issue ' + us.ticket_id + " Past Due Date";
+							var text =  'Hello ' + u.first_name +  ', Issue#' + us.ticket_id + " is past it's due date. ";
+							text = text + '<a href="https://tahmoissuetracker.mybluemix.net/#/issues/view/' + us._id + '> Link here. </a> ';
+
+							mailTransport.sendMail({
+								from: emailCredentials.user,
+								to: receiver,
+								subject: subject,
+								html: text
+							 }, function(err){
+									if(err) {
+									 console.error( 'Unable to send email: ' + err );
+									 
+									} else {
+									 console.log('Mail sent');
+									}
+							 });
+
+						});
+					  
+					}
+				  });
+			})
+
+		  
+		}
+	  });
 });
 
 module.exports = function(router) {
