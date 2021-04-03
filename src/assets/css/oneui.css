@@ -11580,8 +11580,8 @@ div.tagsinput span.tag a:hover {
 	color: white !important;
 }
 .sensor-failure {
-	background-color: #e12120 !important;
-	border-color: #e12120 !important;
+	background-color: #eab214 !important;
+	border-color: #eab214 !important;
 	color: white !important;
 }
 .question {
@@ -11590,8 +11590,8 @@ div.tagsinput span.tag a:hover {
 	color: white !important;
 }
 .battery-problem {
-	background-color: #eab214 !important;
-	border-color: #eab214 !important;
+	background-color: #e04646 !important;
+	border-color: #e04646 !important;
 	color: white !important;
 }
 .help-wanted {
