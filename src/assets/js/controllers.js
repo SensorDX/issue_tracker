@@ -500,7 +500,7 @@ App.controller('ViewIssueCtrl', [
     };
     $scope.closeIssue = function(issue) {
       issue.status = (issue.status == 'open' || issue.status == 'pending') ? 'close' : 'open';
-      IssueService.UpdateIssues(issue).then(function(response) {
+      IssueService.CloseIssueById(issue).then(function(response){
         const issue = response.data;
         if (issue.success) {
         } else {

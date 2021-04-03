@@ -228,10 +228,17 @@ module.exports = function(router) {
             success: false,
             message: 'Could not add comments for the specified issue.',
           });
-        } else {
+        }else if (issue){
           res.status(200).send({
             success: true,
             message: 'Comment added successfully',
+            data: issue,
+          });
+        } 
+        else {
+          res.status(200).send({
+            success: true,
+            message: 'Could not recieve issue',
             data: issue,
           });
         }
@@ -465,6 +472,35 @@ module.exports = function(router) {
       });
     }
   });
+
+
+  //======================
+  // UPDATE ISSUE STATUS BY ID
+  //======================
+  router.put('/api/issues/:id/status', function(req, res) {
+    const {id} = req.params;
+    const {status} = req.body;
+    let update = {};
+
+
+    if (status) {
+      update.status = status;
+      isUpdated = true;
+    }
+
+    Issue.update({_id: id}, {$set: update}, function(err, issue) {
+      if (err) {
+        res
+          .status(200)
+          .send({success: false, message: 'Error updating issue status.'});
+      } else {
+        res
+          .status(200)
+          .send({success: true, message: 'Issue status updated', data: update});
+      }
+    });
+  });
+
 
   //======================
   // DELETE ISSUE BY ID

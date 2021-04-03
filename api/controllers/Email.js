@@ -7,12 +7,12 @@ const Users = require('./../models/users');
 const nodemailer = require('nodemailer');
 let cron = require('node-cron');
 const mailTransport = nodemailer.createTransport({
- host: emailCredentials.host,
- port: emailCredentials.port,
+ host: process.env.HOST,
+ port: process.env.PORTEMAIL,
  secure: true,
  auth: {
-  user: emailCredentials.user,
-  pass: emailCredentials.password,
+  user: process.env.USER,
+  pass: process.env.PASS,
  } 
 });
 

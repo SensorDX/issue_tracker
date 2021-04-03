@@ -857,7 +857,9 @@ App.factory('IssueService', ['$http', function($http) {
 	service.CreateIssue = CreateIssue;
 	service.PostIssueComment = PostIssueComment;
 	//PUT
-	service.UpdateIssues = UpdateIssues;
+    service.UpdateIssues = UpdateIssues;
+    service.CloseIssueById = CloseIssueById;
+
 	//DELETE
 	service.DeleteIssueById = DeleteIssueById;
 	return service;
@@ -921,6 +923,10 @@ App.factory('IssueService', ['$http', function($http) {
 
 	function UpdateIssues(issues) {
 		return $http.put('api/issues', issues);
+    }
+    
+    function CloseIssueById(issue) {
+        return $http.put('api/issues/' + issue._id + '/status', issue);
 	}
 
 	function DeleteIssueById(id) {
