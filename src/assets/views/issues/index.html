@@ -132,7 +132,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 											</div>
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, openIssue) in openIssues | filter: searchBox | orderBy:propertyName:reverse">
+														<tr ng-repeat="(key, openIssue) in openIssues | filter: searchBox | orderBy:getNumber:reverse">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(openIssue._id, selected)" ng-click="toggle(openIssue._id, selected)">
 																</md-checkbox>
@@ -178,7 +178,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 											</div>
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, pendingIssue) in pendingIssues | filter: searchBox | orderBy:propertyName:reverse">
+														<tr ng-repeat="(key, pendingIssue) in pendingIssues | filter: searchBox | orderBy:getNumber:reverse">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(pendingIssue._id, selected)" ng-click="toggle(pendingIssue._id, selected)">
 																</md-checkbox>
@@ -211,7 +211,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 											</div>
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, closeIssue) in closeIssues | filter: searchBox | orderBy:propertyName:reverse">
+														<tr ng-repeat="(key, closeIssue) in closeIssues | filter: searchBox | orderBy:getNumber:reverse">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(closeIssue._id, selected)" ng-click="toggle(closeIssue._id, selected)">
 																</md-checkbox>
@@ -244,7 +244,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 											</div>
 											<table class="table table-striped">
 													<tbody>
-														<tr ng-repeat="(key, allIssue) in allIssues | filter: searchBox | orderBy:propertyName:reverse">
+														<tr ng-repeat="(key, allIssue) in allIssues | filter: searchBox | orderBy:getNumber:reverse">
 															<td>
 																<md-checkbox aria-label="key" ng-checked="exists(allIssue._id, selected)" ng-click="toggle(allIssue._id, selected)">
 																</md-checkbox>

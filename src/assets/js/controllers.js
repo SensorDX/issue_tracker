@@ -85,10 +85,27 @@ App.controller('IssueCtrl', [
     $scope.isAuthorized = UserService.isAuthorized(role);
     $scope.propertyName = 'updated_at';
     $scope.reverse = true;
+
     $scope.sortBy = function(propertyName) {
       $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
       $scope.propertyName = propertyName;
     };
+
+    $scope.getNumber = function(row){
+      if ($scope.propertyName == 'updated_at'){
+        return row.updated_at; 
+      }
+
+      if ($scope.propertyName == 'ticket_id'){
+        return parseInt(row.ticket_id);
+      }
+
+      if ($scope.propertyName == 'station'){
+        return row.station;
+      }
+
+  };
+  
 
     const userId = $rootScope.globals.currentUser.user._id;
 
