@@ -1,10 +1,11 @@
 //Libraries
 const {vcap} = require('./../utils');
-const emailCredentials = vcap.getServiceCreds('tahmo-email-config');
+// const emailCredentials = vcap.getServiceCreds('tahmo-email-config');
 const Issue = require('./../models/issues');
 const Users = require('./../models/users');
 
 const nodemailer = require('nodemailer');
+const tahmoUser = process.env.USER;
 let cron = require('node-cron');
 const mailTransport = nodemailer.createTransport({
  host: process.env.HOST,
@@ -44,7 +45,7 @@ cron.schedule('00 10 * * 3', () => {
 							text = text + '<a href="https://tahmoissuetracker.mybluemix.net/#/issues/view/' + us._id + '> Link here. </a> ';
 
 							mailTransport.sendMail({
-								from: emailCredentials.user,
+								from: tahmoUser,
 								to: receiver,
 								subject: subject,
 								html: text
@@ -78,7 +79,7 @@ module.exports = function(router) {
 		 var text = req.body.text;
 
 		 mailTransport.sendMail({
-			from: emailCredentials.user,
+			from: tahmoUser,
 			to: receiver,
 			subject: subject,
 			html: text
