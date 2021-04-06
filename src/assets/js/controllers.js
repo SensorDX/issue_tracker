@@ -684,7 +684,7 @@ App.controller('NewIssueCtrl', [
           for (i = 0; i < $scope.issue.subscribers.length; i++) {
             IssueService.Subscribe(new_issue.data._id, $scope.issue.subscribers[i]['_id']);
           }
-          const link = "https://tahmoissuetracker.mybluemix.net/#/issues/view/" + $scope.issue.ids;
+          const link = "https://tahmoissuetracker.mybluemix.net/#/issues/view/" + new_issue.data._id;
           const mail = {
             to: email,
             subject: 'You have been assigned a new ticket.',
