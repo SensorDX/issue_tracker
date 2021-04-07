@@ -78,20 +78,24 @@ module.exports = function(router) {
 		 var subject = req.body.subject;
 		 var text = req.body.text;
 
-		 mailTransport.sendMail({
-			from: tahmoUser,
-			to: receiver,
-			subject: subject,
-			html: text
-		 }, function(err){
-				if(err) {
-				 console.error( 'Unable to send email: ' + err );
-				 res.status(200).send({success: false, message: 'Could not send email.', data: err});
-				} else {
-				 console.log('Mail sent');
-				 res.status(200).send({success: true, message: 'Email sent successfully.'});
-				}
-		 });
+		 if(receiver){
+			mailTransport.sendMail({
+				from: tahmoUser,
+				to: receiver,
+				subject: subject,
+				html: text
+			}, function(err){
+					if(err) {
+					console.error( 'Unable to send email: ' + err );
+					res.status(200).send({success: false, message: 'Could not send email.', data: err});
+					} else {
+					console.log('Mail sent');
+					res.status(200).send({success: true, message: 'Email sent successfully.'});
+					}
+			});
+		 }else{
+			console.error( 'Unable to send email because no recipients defined');
+		 }
 	 });
 
  //=====================
