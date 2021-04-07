@@ -681,8 +681,10 @@ App.controller('NewIssueCtrl', [
           Toast.Success(new_issue.message);
           IssueService.Subscribe(new_issue.data._id, issue.opened_by._id);
           IssueService.Subscribe(new_issue.data._id, issue.assignee._id);
-          for (i = 0; i < $scope.issue.subscribers.length; i++) {
-            IssueService.Subscribe(new_issue.data._id, $scope.issue.subscribers[i]['_id']);
+          if($scope.issue.subscribers){
+            for (i = 0; i < $scope.issue.subscribers.length; i++) {
+              IssueService.Subscribe(new_issue.data._id, $scope.issue.subscribers[i]['_id']);
+            }
           }
           const link = "https://tahmoissuetracker.mybluemix.net/#/issues/view/" + new_issue.data._id;
           const mail = {
