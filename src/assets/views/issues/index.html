@@ -121,8 +121,8 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 						</md-toolbar>
 						<div ng-cloak id="popupContainer">
 							<md-content class="bg-white">
-								<md-tabs md-dynamic-height md-border-bottom>
-									<md-tab label="Open ({{tabs.openCount}})" md-on-select="clearSelected()">
+								<md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+									<md-tab label="Open ({{tabs.openCount}})" md-on-select="clearSelected(); selectFilter()">
 										<md-content class="bg-white md-padding">
 											<div>
 												<md-button ng-click="sortBy('station')" >Station ID</md-button>
@@ -168,7 +168,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 												</table>
 										</md-content>
 									</md-tab>
-									<md-tab label="Pending ({{tabs.pendingCount}})" md-on-select="clearSelected()">
+									<md-tab label="Pending ({{tabs.pendingCount}})" md-on-select="clearSelected(); selectFilter()">
 										<md-content class="bg-white md-padding">
 											<div>
 												<md-button ng-click="sortBy('station')" >Station ID</md-button>
@@ -201,7 +201,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 												</table>
 										</md-content>
 									</md-tab>
-									<md-tab label="Closed ({{tabs.closeCount}})" md-on-select="clearSelected()">
+									<md-tab label="Closed ({{tabs.closeCount}})" md-on-select="clearSelected(); selectFilter()">
 										<md-content class="bg-white md-padding">
 											<div>
 												<md-button ng-click="sortBy('station')" >Station ID</md-button>
@@ -234,7 +234,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 												</table>
 										</md-content>
 									</md-tab>
-									<md-tab label="All ({{tabs.allCount}})" md-on-select="clearSelected()">
+									<md-tab label="All ({{tabs.allCount}})" md-on-select="clearSelected(); selectFilter()">
 										<md-content class="bg-white md-padding">
 											<div>
 												<md-button ng-click="sortBy('station')" >Station ID</md-button>

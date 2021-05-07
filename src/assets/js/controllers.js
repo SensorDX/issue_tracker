@@ -109,6 +109,8 @@ App.controller('IssueCtrl', [
 
     const userId = $rootScope.globals.currentUser.user._id;
 
+    //default tab that is opened is "OPEN", so define as 0
+    $scope.selectedIndex = 0;
     $scope.issue = {
       assignee: null,
       labels: [],
@@ -185,44 +187,50 @@ App.controller('IssueCtrl', [
       const country_code = $scope.filter_country
         ? $scope.filter_country.code
         : '';
-      IssueService.GetIssues('open', assignee_id, country_code).then(function(response) {
-        const issues = response.data;
-        if (issues.success) {
-          $scope.openIssues = issues.data;
-          $scope.tabs.openCount = issues.count;
-        } else {
-          Toast.Danger(issues.message);
-        }
-      });
-      IssueService.GetIssues('pending', assignee_id, country_code).then(function(response) {
-        const issues = response.data;
-        console.log('getting pending issues', issues);
-        if (issues.success) {
-          $scope.pendingIssues = issues.data;
-          $scope.tabs.pendingCount = issues.count;
-        } else {
-          Toast.Danger(issues.message);
-        }
-      });
-      IssueService.GetIssues('close', assignee_id, country_code).then(function(response) {
-        const issues = response.data;
-        if (issues.success) {
-          $scope.closeIssues = issues.data;
-          $scope.tabs.closeCount = issues.count;
-        } else {
-          Toast.Danger(issues.message);
-        }
-      });
-      IssueService.GetIssues('', assignee_id, country_code).then(function(response) {
-        const issues = response.data;
-        console.log('all issues', issues);
-        if (issues.success) {
-          $scope.allIssues = issues.data;
-          $scope.tabs.allCount = issues.count;
-        } else {
-          Toast.Danger(issues.message);
-        }
-      });
+
+      if ($scope.selectedIndex == 0 || $scope.selectedIndex == 1){ //open tab or pending tab
+        IssueService.GetIssues('open', assignee_id, country_code).then(function(response) {
+          const issues = response.data;
+          if (issues.success) {
+            $scope.openIssues = issues.data;
+            $scope.tabs.openCount = issues.count;
+          } else {
+            Toast.Danger(issues.message);
+          }
+        });
+        IssueService.GetIssues('pending', assignee_id, country_code).then(function(response) {
+          const issues = response.data;
+          console.log('getting pending issues', issues);
+          if (issues.success) {
+            $scope.pendingIssues = issues.data;
+            $scope.tabs.pendingCount = issues.count;
+          } else {
+            Toast.Danger(issues.message);
+          }
+        });
+      } else if ($scope.selectedIndex == 2){ //closed tab
+        IssueService.GetIssues('close', assignee_id, country_code).then(function(response) {
+          const issues = response.data;
+          if (issues.success) {
+            $scope.closeIssues = issues.data;
+            $scope.tabs.closeCount = issues.count;
+          } else {
+            Toast.Danger(issues.message);
+          }
+        });
+      }
+      else if($scope.selectedIndex == 3){ //all
+        IssueService.GetIssues('', assignee_id, country_code).then(function(response) {
+          const issues = response.data;
+          console.log('all issues', issues);
+          if (issues.success) {
+            $scope.allIssues = issues.data;
+            $scope.tabs.allCount = issues.count;
+          } else {
+            Toast.Danger(issues.message);
+          }
+        });
+      }
     };
     $scope.updateLabels = function(label) {
       $scope.issue.labels = label;
