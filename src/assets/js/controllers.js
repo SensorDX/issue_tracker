@@ -321,7 +321,6 @@ App.controller('IssueCtrl', [
         $window.location.reload();
       });
     };
-    $scope.selectFilter();
   },
 ]);
 
