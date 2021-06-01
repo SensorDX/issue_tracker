@@ -62,3 +62,18 @@ Here's a walkthrough of our wonderful SensorDX-SMS - more stuff will be added as
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+
+## Deployment
+Instructions for deploying new version
+
+- Log in to IBM cloud and checked that you had access to the CloudFoundry Application.
+- Checked the public URL: Had the nodeJS starter application running.
+- Google “IBM Cloud CLI”: https://cloud.ibm.com/docs/cli?topic=cli-getting-started
+- Follow installation of the CLI.
+- Open the container in IBM Cloud and set all the environment variables.
+- Once the CLI is installed, configure the correct region (Us-South for SensorDX).
+- Set cloudfoundry as the target for ibmcloud cli.
+- Install ibmcloud cf by running “ibmcloud cf install”. (if you arent logged in use ibmcloud login)
+- Verify you can see the apps by running “ibmcloud cf apps”, you should now see the applications you have access to.
+- In your terminal go to the application folder and run “ibmcloud cf push [APPNAME]”. (TahmoIssueTracker)
