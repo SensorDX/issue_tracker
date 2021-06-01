@@ -13,6 +13,7 @@ Standard coding
 
 
 ## Get up and running!
+- make sure to have environment variables set up
 
 ```ruby
 npm install
