@@ -44,19 +44,19 @@ var fault_inbox_conn = {}; // Your Fault Inbox DB connction code goes here;
 function reconnect(conn, dbUrl, opts) {
   var attemptNum = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
-  if (attemptNum > 3) {
-    console.log('Failed to reconnect to ' + dbUrl + ' after 3 attempts');
+  if (attemptNum > 10) {
+    console.log('Failed to reconnect to ' + dbUrl + ' after 10 attempts');
     setTimeout(function () {
       process.exit(1); // return non-zero to restart application
-    }, 120000); // wait for 2 minutes before returning non-zero exit code
+    }, 240000); // wait for 4 minutes before returning non-zero exit code
 
     return;
   }
 
-  console.log('Attempting to reconnect to ' + dbUrl + ', attempt #' + attemptNum);
-  conn.close();
+  console.log('Attempting to reconnect to ' + dbUrl + ', attempt #' + attemptNum); //mongoose.disconnect(); //conn.open() throws an error
+
   setTimeout(function () {
-    conn.open(dbUrl, opts, function (err) {
+    mongoose.createConnection(dbUrl, opts, function (err) {
       if (err) {
         console.log('Reconnect attempt #' + attemptNum + ' to ' + dbUrl + ' failed');
         reconnect(conn, dbUrl, opts, attemptNum + 1);
@@ -64,7 +64,7 @@ function reconnect(conn, dbUrl, opts) {
         console.log('Reconnected to ' + dbUrl + ' successfully');
       }
     });
-  }, 60000); // wait 60 seconds before each reconnection attempt
+  }, 10000); // wait 10 seconds before each reconnection attempt
 }
 
 module.exports = {
